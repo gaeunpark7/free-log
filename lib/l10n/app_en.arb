@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "appName": "Freelog",
+  "home": "Home",
+  "calendar": "Calendar",
+  "calculator": "Calculator",
+  "profile": "Profile",
+  "inProgress": "In Progress",
+  "onHold": "On Hold",
+  "completed": "Completed",
+  "addProject": "Add Project",
+  "deadline": "Deadline",
+  "hourlyRate": "Hourly Rate",
+  "marginRate": "Margin Rate"
+}

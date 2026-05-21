@@ -1,0 +1,15 @@
+{
+  "@@locale": "ko",
+  "appName": "프리로그",
+  "home": "홈",
+  "calendar": "캘린더",
+  "calculator": "계산기",
+  "profile": "내 정보",
+  "inProgress": "진행중",
+  "onHold": "보류",
+  "completed": "완료",
+  "addProject": "새 작업 추가",
+  "deadline": "마감일",
+  "hourlyRate": "시급",
+  "marginRate": "마진율"
+}
