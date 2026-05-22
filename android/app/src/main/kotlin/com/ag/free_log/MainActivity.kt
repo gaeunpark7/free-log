@@ -1,4 +1,4 @@
-package com.example.free_log
+package com.ag.free_log
 
 import io.flutter.embedding.android.FlutterActivity
 
