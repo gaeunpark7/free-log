@@ -10,4 +10,9 @@ class Responsive {
 
   static bool isWeb(BuildContext context) =>
       MediaQuery.of(context).size.width >= 1200;
+
+  static double buttonWidth(BuildContext context) {
+    if (isWeb(context)) return 400;
+    return MediaQuery.of(context).size.width * 0.85;
+  }
 }

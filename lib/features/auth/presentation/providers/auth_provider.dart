@@ -7,11 +7,12 @@ import 'package:free_log/di/injection.dart';
 final authStateProvider = StreamProvider<Session?>((ref) {
   return ref.watch(authRepositoryProvider).authStateChanges;
 });
-
-// 로그인, 로그아웃 상태관리
-final authNotifierProvider = AsyncNotifierProvider<AuthNotifier, void>(
-  AuthNotifier.new,
-);
+//로그인 상태 관리
+final authNotifierProvider = AsyncNotifierProvider<AuthNotifier, void>(() {
+  return AuthNotifier();
+});
+final googleLoadingProvider = StateProvider<bool>((ref) => false);
+final kakaoLoadingProvider = StateProvider<bool>((ref) => false);
 
 class AuthNotifier extends AsyncNotifier<void> {
   @override
@@ -22,6 +23,15 @@ class AuthNotifier extends AsyncNotifier<void> {
     state = await AsyncValue.guard(
       () => ref.read(authRepositoryProvider).signInWithGoogle(),
     );
+    ref.read(googleLoadingProvider.notifier).state = false;
+  }
+
+  Future<void> signInWithKakao() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(
+      () => ref.read(authRepositoryProvider).signInWithKakao(),
+    );
+    ref.read(kakaoLoadingProvider.notifier).state = false;
   }
 
   Future<void> signOut() async {
