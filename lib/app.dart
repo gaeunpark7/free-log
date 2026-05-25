@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/router/app_router.dart';
-import 'package:free_log/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FrelogApp extends ConsumerWidget {
@@ -19,7 +18,7 @@ class FrelogApp extends ConsumerWidget {
       routerConfig: router,
 
       // 테마
-      theme: AppTheme.lightTheme,
+      // theme: AppTheme.lightTheme,
     );
   }
 }
