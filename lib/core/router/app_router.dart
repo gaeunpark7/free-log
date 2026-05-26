@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/router/route_paths.dart';
-import 'package:free_log/features/auth/presentation/providers/auth_provider.dart';
+import 'package:free_log/di/injection.dart';
 import 'package:free_log/features/auth/presentation/screens/home_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';

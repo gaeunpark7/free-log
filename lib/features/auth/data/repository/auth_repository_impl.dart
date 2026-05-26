@@ -73,10 +73,6 @@ class AuthRepositoryImpl implements AuthRepository {
     await _supabase.auth.signOut();
   }
 
-  // 현재 세션
-  @override
-  Session? get currentSession => _supabase.auth.currentSession;
-
   // 인증 상태 스트림
   @override
   Stream<Session?> get authStateChanges {

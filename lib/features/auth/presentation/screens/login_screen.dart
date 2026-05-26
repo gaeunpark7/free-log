@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/di/injection.dart';
 import 'package:free_log/features/auth/presentation/providers/auth_provider.dart';
 import 'package:free_log/features/auth/presentation/widgets/login_button_widget.dart';
 
@@ -8,7 +9,7 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(authStateProvider, (prev, next) {
+    ref.listen(authNotifierProvider, (prev, next) {
       if (prev != next && next is AsyncError) {
         ScaffoldMessenger.of(
           context,
@@ -21,6 +22,7 @@ class LoginScreen extends ConsumerWidget {
     final kakaoLoading = ref.watch(kakaoLoadingProvider);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Center(

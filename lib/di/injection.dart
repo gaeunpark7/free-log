@@ -26,3 +26,9 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
     ref.watch(googleSignInProvider),
   );
 });
+//인증 상태 관리
+final authStateProvider = StreamProvider<Session?>((ref) {
+  return ref.watch(authRepositoryProvider).authStateChanges;
+});
+final googleLoadingProvider = StateProvider<bool>((ref) => false);
+final kakaoLoadingProvider = StateProvider<bool>((ref) => false);

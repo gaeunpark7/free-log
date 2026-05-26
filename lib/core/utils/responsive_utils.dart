@@ -15,4 +15,16 @@ class Responsive {
     if (isWeb(context)) return 400;
     return MediaQuery.of(context).size.width * 0.85;
   }
+
+  static EdgeInsets padding(BuildContext context) {
+    if (isWeb(context)) return const EdgeInsets.all(32);
+    if (isTablet(context)) return const EdgeInsets.all(24);
+    return const EdgeInsets.all(12);
+  }
+
+  static double fontSize(BuildContext context, double base) {
+    if (isWeb(context)) return base * 1.2;
+    if (isTablet(context)) return base;
+    return base * 0.9;
+  }
 }
