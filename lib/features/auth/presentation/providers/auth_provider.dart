@@ -1,6 +1,6 @@
 // features/auth/presentation/providers/auth_provider.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:free_log/di/injection.dart';
+import 'package:free_log/di/auth_provider_setup.dart';
 
 //로그인 상태 관리
 final authNotifierProvider = AsyncNotifierProvider<AuthNotifier, void>(
