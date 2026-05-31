@@ -8,25 +8,35 @@ import 'package:free_log/features/home/domain/repository/project_repository.dart
 final repoProvider = Provider<ProjectRepository>(
   (ref) => ProjectRepositoryImpl(ref.watch(supabaseClientProvider)),
 );
-final projectListProvider = FutureProvider<List<ProjectModel>>((ref) async {
-  final repo = ref.watch(repoProvider);
-  return repo.getProject();
-});
+final projectNotifierProvider =
+    AsyncNotifierProvider<ProjectProvider, List<ProjectModel>>(
+      ProjectProvider.new,
+    );
 
-final projectNotifierProvider = AsyncNotifierProvider<ProjectProvider, void>(
-  ProjectProvider.new,
-);
+class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
+  ProjectRepository get _repo => ref.read(repoProvider);
 
-class ProjectProvider extends AsyncNotifier<void> {
   @override
-  FutureOr<void> build() async {}
+  FutureOr<List<ProjectModel>> build() async {
+    await _repo.checkAndUpdateOverdue();
+    return await _repo.getProject();
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await _repo.checkAndUpdateOverdue();
+      return _repo.getProject();
+    });
+  }
 
   Future<void> createProject(ProjectModel project) async {
     state = const AsyncLoading();
 
     state = await AsyncValue.guard(() async {
-      await ref.read(repoProvider).createProject(project);
-      ref.invalidate(projectListProvider);
+      await _repo.createProject(project);
+      await _repo.checkAndUpdateOverdue();
+      return _repo.getProject();
     });
   }
 }

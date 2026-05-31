@@ -16,6 +16,7 @@ class Responsive {
   static double height(BuildContext context) =>
       MediaQuery.of(context).size.height;
 
+  //텍스트
   static double fontSize(BuildContext context, double base) {
     if (isWeb(context)) return base * 1.2;
     if (isTablet(context)) return base * 1.1;

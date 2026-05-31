@@ -17,6 +17,10 @@ class AppColors {
   static const textSecondary = Color(0xFF6B5C45);
   static const textTertiary = Color(0xFFA89B89);
 
+  //Status badge
+  static const Color inProgress = Color(0xFFDDE4F0);
+  static const Color onHold = Color(0xFFE8DFC8);
+
   // Status
   static const success = Color(0xFF3F5A36);
   static const successBg = Color(0xFFE0EBDC);

@@ -19,7 +19,7 @@ class HomeTitleWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('안녕하세욤'),
+            SizedBox(height: Responsive.sizedBoxHeight(context, AppSpacing.lg)),
             Text(
               '내 작업',
               style: TextStyle(

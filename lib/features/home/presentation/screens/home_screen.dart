@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
-import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/features/home/domain/model/project_status.dart';
+import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_project_dialog.dart';
+import 'package:free_log/features/home/presentation/widgets/home/home_button_widget.dart';
+import 'package:free_log/features/home/presentation/widgets/home/home_container_widget.dart';
+import 'package:free_log/features/home/presentation/widgets/home/home_title_widget.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  ProjectStatus? _selectedStatus;
   Future<void> _openAddProjectDialog() async {
     final message = await showDialog<String>(
       context: context,
@@ -30,78 +35,89 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final asyncProject = ref.watch(projectNotifierProvider);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: Responsive.containerHeight(context, 0.2),
-            color: AppColors.primary,
-            child: Padding(
-              padding: Responsive.screenPadding(context),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '내 작업',
-                    style: TextStyle(
-                      fontSize: AppTextStyles.displaySize,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        '진행중',
-                        style: TextStyle(
-                          fontSize: Responsive.fontSize(
-                            context,
-                            AppTextStyles.titleSize,
-                          ),
-                          color: Colors.white,
-                        ),
+          HomeTitleWidget(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              children: [
+                HomeButtonWidget(
+                  text: '전체',
+                  onPressed: () {
+                    setState(() {
+                      _selectedStatus = null;
+                    });
+                  },
+                ),
+                SizedBox(width: AppSpacing.sm),
+                HomeButtonWidget(
+                  text: '진행중',
+                  onPressed: () {
+                    setState(() {
+                      _selectedStatus = ProjectStatus.inProgress;
+                    });
+                  },
+                ),
+                SizedBox(width: AppSpacing.sm),
+                HomeButtonWidget(
+                  text: '완료',
+                  onPressed: () {
+                    setState(() {
+                      _selectedStatus = ProjectStatus.completed;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: asyncProject.when(
+              data: (value) {
+                final filterProjects = _selectedStatus == null
+                    ? value
+                    : value
+                          .where((project) => project.status == _selectedStatus)
+                          .toList();
+                return ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: filterProjects.length,
+                  itemBuilder: (ctx, index) {
+                    final project = filterProjects[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        top: 0,
+                        bottom: 8,
+                        left: 16,
+                        right: 16,
                       ),
-                      SizedBox(width: 2),
-                      Text(
-                        '5',
-                        style: TextStyle(
-                          fontSize: Responsive.fontSize(
-                            context,
-                            AppTextStyles.titleSize,
-                          ),
-                          color: Colors.white,
-                        ),
+                      child: HomeContainerWidget(
+                        title: project.title,
+                        deadline: project.deadline,
+                        hourlyRate: project.hourlyRate,
+                        status: project.status,
                       ),
-                      SizedBox(width: AppSpacing.sm),
-                      Text('●', style: TextStyle(color: Colors.white)),
-                      SizedBox(width: AppSpacing.sm),
-                      Text(
-                        '완료',
-                        style: TextStyle(
-                          fontSize: Responsive.fontSize(
-                            context,
-                            AppTextStyles.titleSize,
-                          ),
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    );
+                  },
+                );
+              },
+              error: (e, _) => Center(child: Text('에러 발생: $e')),
+              loading: () => Center(
+                child: CircularProgressIndicator(color: AppColors.primary),
               ),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         backgroundColor: AppColors.primary,
         onPressed: _openAddProjectDialog,
-        child: Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

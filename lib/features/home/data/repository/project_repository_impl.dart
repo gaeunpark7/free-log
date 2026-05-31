@@ -42,4 +42,21 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
     return response.map(ProjectModel.fromJson).toList();
   }
+
+  //프로젝트 완료 여부
+  @override
+  Future<void> checkAndUpdateOverdue() async {
+    final now = DateTime.now();
+    final todayMidnight = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).toUtc().toIso8601String(); //오늘 날짜 로컬
+
+    await _supabase
+        .from('project')
+        .update({'status': 'completed'})
+        .eq('status', 'in_progress')
+        .lt('deadline', todayMidnight);
+  }
 }
