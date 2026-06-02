@@ -18,8 +18,8 @@ class Responsive {
 
   //텍스트
   static double fontSize(BuildContext context, double base) {
-    if (isWeb(context)) return base * 1.2;
-    if (isTablet(context)) return base * 1.1;
+    if (isWeb(context)) return base * 1.15;
+    if (isTablet(context)) return base * 1.05;
     return base;
   }
 
@@ -31,7 +31,7 @@ class Responsive {
 
   static double buttonWidth(BuildContext context) {
     if (isWeb(context)) return 400;
-    return MediaQuery.of(context).size.width * 0.85;
+    return (MediaQuery.of(context).size.width * 0.85).clamp(280, 500);
   }
 
   // 카드 패딩

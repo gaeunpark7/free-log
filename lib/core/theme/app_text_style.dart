@@ -24,7 +24,7 @@ class AppTextStyles {
 
   static TextStyle headline(BuildContext context) => TextStyle(
     fontSize: Responsive.fontSize(context, headlineSize),
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w700,
     color: Colors.black87,
   );
 
@@ -40,9 +40,21 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
+  static TextStyle subTitleBold(BuildContext context) => TextStyle(
+    fontSize: Responsive.fontSize(context, subTitleSize),
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+  );
+
   static TextStyle body(BuildContext context) => TextStyle(
     fontSize: Responsive.fontSize(context, bodySize),
     color: AppColors.textPrimary,
+  );
+
+  static TextStyle bodyBold(BuildContext context) => TextStyle(
+    fontSize: Responsive.fontSize(context, bodySize),
+    color: AppColors.textPrimary,
+    fontWeight: FontWeight.w700,
   );
 
   static TextStyle caption(BuildContext context) => TextStyle(

@@ -3,6 +3,7 @@ import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
 import 'package:free_log/features/calculator/presentation/screen/calendar_screen.dart';
+import 'package:free_log/features/home/presentation/screens/home_detail_screen.dart';
 import 'package:free_log/features/home/presentation/screens/home_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';
@@ -56,6 +57,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (_, _) => const ProfileScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        path: RoutePaths.homeDetail,
+        builder: (context, state) {
+          final projectId = state.pathParameters['projectId']!;
+          return HomeDetailScreen(projectId: projectId);
+        },
       ),
     ],
   );

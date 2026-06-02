@@ -8,6 +8,7 @@ import 'package:free_log/features/home/presentation/widgets/add_dialog/add_proje
 import 'package:free_log/features/home/presentation/widgets/home/home_button_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/home/home_container_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/home/home_title_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -95,11 +96,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         left: 16,
                         right: 16,
                       ),
-                      child: HomeContainerWidget(
-                        title: project.title,
-                        deadline: project.deadline,
-                        hourlyRate: project.hourlyRate,
-                        status: project.status,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.push('/detail/${project.id}');
+                        },
+                        child: HomeContainerWidget(
+                          title: project.title,
+                          deadline: project.deadline,
+                          hourlyRate: project.hourlyRate,
+                          status: project.status,
+                        ),
                       ),
                     );
                   },

@@ -5,7 +5,7 @@ class AppColors {
   static const primary = Color(0xFF5A7A9C);
   static const primaryLight = Color(0xFFA8BED4);
   static const primarySoft = Color(0xFFE0EAF4);
-  static const primaryText = Color(0xFF3A5878);
+  static const primaryDark = Color(0xFF3A5878); //카드 강조 텍스트
 
   // Background
   static const background = Color(0xFFFDFBF7);

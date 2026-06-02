@@ -35,7 +35,7 @@ class DeadlineContainerWidget extends StatelessWidget {
               style: TextStyle(
                 color: seletedDeadline == null
                     ? Colors.grey
-                    : AppColors.primaryText,
+                    : AppColors.textPrimary,
                 fontSize: Responsive.fontSize(context, 14),
               ),
             ),
