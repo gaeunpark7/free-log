@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:free_log/di/injection.dart';
+import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/auth/presentation/providers/auth_provider.dart';
 import 'package:free_log/features/auth/presentation/widgets/login_button_widget.dart';
 
