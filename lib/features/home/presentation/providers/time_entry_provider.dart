@@ -18,17 +18,29 @@ class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String
   }
 
   Future<void> addTimeEntry(DateTime workedAt, double hours) async {
-    await _repo.addTimeEntry(arg, workedAt, hours);
-    ref.invalidateSelf();
+    try {
+      await _repo.addTimeEntry(arg, workedAt, hours);
+      ref.invalidateSelf();
+    } catch (e) {
+      throw Exception('추가 실패: $e');
+    }
   }
 
   Future<void> updateTimeEntry(String id, DateTime workedAt, double hours) async {
-    await _repo.updateTimeEntry(id, workedAt, hours);
-    ref.invalidateSelf();
+    try {
+      await _repo.updateTimeEntry(id, workedAt, hours);
+      ref.invalidateSelf();
+    } catch (e) {
+      throw Exception('수정 실패: $e');
+    }
   }
 
   Future<void> deleteTimeEntry(String id) async {
-    await _repo.deleteTimeEntry(id);
-    ref.invalidateSelf();
+    try {
+      await _repo.deleteTimeEntry(id);
+      ref.invalidateSelf();
+    } catch (e) {
+      throw Exception('삭제 실패: $e');
+    }
   }
 }

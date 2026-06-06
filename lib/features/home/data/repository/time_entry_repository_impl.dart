@@ -20,12 +20,12 @@ class TimeEntryRepositoryImpl implements TimeEntryRepository {
 
   @override
   Future<void> updateTimeEntry(String id, DateTime workedAt, double hours) async {
-    await _supabase.from('time_entires').update({'worked_at': workedAt.toUtc().toIso8601String(), 'hours': hours}).eq('id', id);
+    await _supabase.from('time_entries').update({'worked_at': workedAt.toUtc().toIso8601String(), 'hours': hours}).eq('id', id);
   }
 
   @override
   Future<void> deleteTimeEntry(String id) async {
-    await _supabase.from('time_entires').delete().eq('id', id);
+    await _supabase.from('time_entries').delete().eq('id', id);
   }
 
   @override

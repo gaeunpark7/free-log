@@ -22,11 +22,7 @@ class HomeTitleWidget extends StatelessWidget {
             SizedBox(height: Responsive.sizedBoxHeight(context, AppSpacing.lg)),
             Text(
               '내 작업',
-              style: TextStyle(
-                fontSize: AppTextStyles.displaySize,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: AppTextStyles.displaySize, color: Colors.white, fontWeight: FontWeight.bold),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,10 +45,7 @@ class HomeTitleWidget extends StatelessWidget {
   Text _buildSubTitle(BuildContext context, String text) {
     return Text(
       text,
-      style: TextStyle(
-        fontSize: Responsive.fontSize(context, AppTextStyles.titleSize),
-        color: Colors.white,
-      ),
+      style: TextStyle(fontSize: Responsive.fontSize(context, AppTextStyles.titleSize), color: Colors.white),
     );
   }
 }

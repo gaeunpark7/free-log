@@ -4,10 +4,10 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/home/presentation/providers/todos_provider.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/edit_bottom_sheet.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/todos_add_container.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/todos_edit_dialog.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/todos_list_view.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/edit_bottom_sheet.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/todos_add_container.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/todos_edit_dialog.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/todos_list_view.dart';
 
 class DetailTodosWidget extends ConsumerStatefulWidget {
   final String projectId;
