@@ -22,7 +22,7 @@ class AppTextStyles {
 
   static TextStyle title(BuildContext context) => TextStyle(fontSize: Responsive.fontSize(context, titleSize), fontWeight: FontWeight.bold, color: AppColors.textPrimary);
 
-  static TextStyle subTitle(BuildContext context) => TextStyle(fontSize: Responsive.fontSize(context, subTitleSize), fontWeight: FontWeight.w500, color: AppColors.textPrimary);
+  static TextStyle subTitle(BuildContext context) => TextStyle(fontSize: Responsive.fontSize(context, subTitleSize), color: AppColors.textPrimary);
 
   static TextStyle subTitleBold(BuildContext context) => TextStyle(fontSize: Responsive.fontSize(context, subTitleSize), fontWeight: FontWeight.w700, color: AppColors.textPrimary);
 

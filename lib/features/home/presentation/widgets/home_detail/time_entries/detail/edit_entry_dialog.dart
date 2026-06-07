@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/widgets/date_picker_field.dart';
 import 'package:free_log/core/widgets/hour_text_field.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
@@ -74,37 +75,14 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
               // 날짜
               Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
               const SizedBox(height: 6),
-              GestureDetector(
-                onTap: () async {
-                  final picked = await showDatePicker(context: context, initialDate: _selectedDate, firstDate: DateTime(2020), lastDate: DateTime(2100));
-                  if (picked != null) {
-                    setState(() {
-                      _selectedDate = picked;
-                      _isEditing = true; // 날짜 바꿔도 편집 상태
-                    });
-                  }
+              DatePickerField(
+                selectedDate: _selectedDate,
+                onDateChanged: (picked) {
+                  setState(() {
+                    _selectedDate = picked;
+                    _isEditing = true;
+                  });
                 },
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    border: Border.all(color: AppColors.borderDefault),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '${_selectedDate.year}.'
-                        '${_selectedDate.month.toString().padLeft(2, '0')}.'
-                        '${_selectedDate.day.toString().padLeft(2, '0')}',
-                        style: AppTextStyles.bodyBold(context),
-                      ),
-                      Icon(Icons.event, color: AppColors.textTertiary),
-                    ],
-                  ),
-                ),
               ),
               const SizedBox(height: 12),
               // 시간
@@ -121,11 +99,17 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                   width: double.infinity,
                   child: FilledButton(
                     style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10))),
-                    onPressed: () {
+                    onPressed: () async {
                       if (!_formKey.currentState!.validate()) return;
                       final hours = double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
-                      ref.read(timeEntryNotifierProvider(widget.projectId).notifier).updateTimeEntry(widget.entry.id!, _selectedDate, hours);
-                      Navigator.pop(context);
+                      try {
+                        await ref.read(timeEntryNotifierProvider(widget.projectId).notifier).updateTimeEntry(widget.entry.id!, _selectedDate, hours);
+                        if (context.mounted) Navigator.pop(context);
+                      } catch (_) {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('수정에 실패했습니다.'), backgroundColor: AppColors.errorSoft));
+                        }
+                      }
                     },
                     child: Text('저장하기', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),
                   ),
@@ -145,12 +129,11 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                       ),
                       child: IconButton(
                         onPressed: () async {
-                          await showDialog(
+                          final deleted = await showDialog<bool>(
                             context: context,
                             builder: (ctx) => DeleteEntryDialog(entry: widget.entry, projectId: widget.projectId),
                           );
-                          // ref.read(timeEntryNotifierProvider(widget.projectId).notifier).deleteTimeEntry(widget.entry.id!);
-                          Navigator.pop(context);
+                          if (deleted == true && context.mounted) Navigator.pop(context);
                         },
                         icon: Icon(Icons.delete_outline_outlined, color: AppColors.errorSoft),
                       ),

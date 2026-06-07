@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
@@ -7,7 +8,6 @@ import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
-import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/empty_time_entry_container.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/edit_entry_dialog.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/time_entry_list_view.dart';
@@ -52,7 +52,7 @@ class TimeEntryScreen extends ConsumerWidget {
                 border: Border.all(color: AppColors.borderDefault),
               ),
               child: switch (asyncEntries) {
-                AsyncError() => Text('로드 실패', style: AppTextStyles.caption(context)),
+                AsyncError(:final error) => ErrorView(message: error.toString()),
                 AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
                 AsyncData(value: final entries) => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +90,7 @@ class TimeEntryScreen extends ConsumerWidget {
             //시간 listView
             switch (asyncEntries) {
               AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
-              AsyncError(:final error) => Center(child: Text('에러: $error')),
+              AsyncError(:final error) => ErrorView(message: error.toString()),
               AsyncData(value: final entries) =>
                 entries.isEmpty
                     ? EmptyTimeEntryContainer()
@@ -109,7 +109,7 @@ class TimeEntryScreen extends ConsumerWidget {
                           },
                         ),
                       ),
-              AsyncValue<List<TimeEntryModel>>() => throw UnimplementedError(),
+              _ => const SizedBox.shrink(),
             },
           ],
         ),

@@ -59,9 +59,17 @@ class DeleteEntryDialog extends ConsumerWidget {
                   ),
                   SizedBox(width: 10),
                   Expanded(
-                    child: _buildButton(context, AppColors.errorSoft, AppColors.errorSoft, '삭제', Colors.white, () {
-                      ref.read(timeEntryNotifierProvider(projectId).notifier).deleteTimeEntry(entry.id!);
-                      Navigator.pop(context, true);
+                    child: _buildButton(context, AppColors.errorSoft, AppColors.errorSoft, '삭제', Colors.white, () async {
+                      try {
+                        await ref.read(timeEntryNotifierProvider(projectId).notifier).deleteTimeEntry(entry.id!);
+                        if (context.mounted) Navigator.pop(context, true);
+                      } catch (_) {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('삭제에 실패했습니다.'), backgroundColor: AppColors.errorSoft),
+                          );
+                        }
+                      }
                     }),
                   ),
                 ],

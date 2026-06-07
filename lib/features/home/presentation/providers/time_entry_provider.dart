@@ -14,33 +14,30 @@ class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String
 
   @override
   FutureOr<List<TimeEntryModel>> build(String projectId) {
-    return _repo.getTimeEntries(projectId);
+    return [];
   }
 
   Future<void> addTimeEntry(DateTime workedAt, double hours) async {
-    try {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
       await _repo.addTimeEntry(arg, workedAt, hours);
-      ref.invalidateSelf();
-    } catch (e) {
-      throw Exception('추가 실패: $e');
-    }
+      return _repo.getTimeEntries(arg);
+    });
   }
 
   Future<void> updateTimeEntry(String id, DateTime workedAt, double hours) async {
-    try {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
       await _repo.updateTimeEntry(id, workedAt, hours);
-      ref.invalidateSelf();
-    } catch (e) {
-      throw Exception('수정 실패: $e');
-    }
+      return _repo.getTimeEntries(arg);
+    });
   }
 
   Future<void> deleteTimeEntry(String id) async {
-    try {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
       await _repo.deleteTimeEntry(id);
-      ref.invalidateSelf();
-    } catch (e) {
-      throw Exception('삭제 실패: $e');
-    }
+      return _repo.getTimeEntries(arg);
+    });
   }
 }
