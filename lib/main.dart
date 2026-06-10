@@ -10,10 +10,7 @@ void main() async {
 
   await dotenv.load(fileName: ".env");
 
-  await Supabase.initialize(
-    url: dotenv.get('SUPABASE_URL'),
-    anonKey: dotenv.get('SUPABASE_ANON_KEY'),
-  );
+  await Supabase.initialize(url: dotenv.get('SUPABASE_URL'), anonKey: dotenv.get('SUPABASE_ANON_KEY'));
 
   runApp(ProviderScope(child: const MyApp()));
 }
@@ -25,9 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-      ),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary)),
       home: FrelogApp(),
     );
   }

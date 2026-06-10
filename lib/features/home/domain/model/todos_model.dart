@@ -13,6 +13,5 @@ abstract class TodosModel with _$TodosModel {
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _TodosModel;
 
-  factory TodosModel.fromJson(Map<String, dynamic> json) =>
-      _$TodosModelFromJson(json);
+  factory TodosModel.fromJson(Map<String, dynamic> json) => _$TodosModelFromJson(json);
 }

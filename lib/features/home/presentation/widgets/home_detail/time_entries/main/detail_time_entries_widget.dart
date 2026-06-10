@@ -1,0 +1,111 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/theme/app_colors.dart';
+import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/core/widgets/app_filled_button.dart';
+import 'package:free_log/core/widgets/date_picker_field.dart';
+import 'package:free_log/core/widgets/hour_text_field.dart';
+import 'package:free_log/features/home/domain/model/time_entry_model.dart';
+import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
+import 'package:free_log/features/home/presentation/screens/time_entry_screen.dart';
+
+class DetailTimeEntries extends ConsumerStatefulWidget {
+  final String projectId;
+  const DetailTimeEntries({super.key, required this.projectId});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _DetailTimeEntriesState();
+}
+
+class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
+  bool _isAdding = false;
+  DateTime _selectedDate = DateTime.now();
+  final _hoursController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _hoursController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final asyncEntries = ref.watch(timeEntryNotifierProvider(widget.projectId));
+    ref.listen<AsyncValue<List<TimeEntryModel>>>(timeEntryNotifierProvider(widget.projectId), (previous, next) {
+      if (next is AsyncError && previous is! AsyncError) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString()), backgroundColor: AppColors.errorSoft));
+      }
+    });
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.borderDefault),
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: Responsive.cardPadding(context),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => TimeEntryScreen(projectId: widget.projectId)));
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    asyncEntries.whenOrNull(
+                          data: (entries) {
+                            final total = entries.fold<double>(0.0, (sum, e) => sum + e.hours);
+                            return Row(
+                              children: [
+                                Text('작업 시간', style: AppTextStyles.subTitleBold(context)),
+                                SizedBox(width: 10),
+                                Text('${total}h', style: AppTextStyles.subTitle(context).copyWith(color: Colors.grey)),
+                              ],
+                            );
+                          },
+                        ) ??
+                        Text('작업 시간', style: AppTextStyles.subTitleBold(context)),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() => _isAdding = !_isAdding);
+                      },
+                      child: Text('+ 추가', style: AppTextStyles.body(context).copyWith(color: AppColors.primary)),
+                    ),
+                  ],
+                ),
+              ),
+              if (_isAdding) ...[
+                const SizedBox(height: 12),
+                Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                DatePickerField(selectedDate: _selectedDate, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
+                const SizedBox(height: 8),
+                Text('작업 시간', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                HourTextField(controller: _hoursController),
+                const SizedBox(height: 12),
+                AppFilledButton(
+                  onPressed: () async {
+                    if (!_formKey.currentState!.validate()) return;
+                    await ref.read(timeEntryNotifierProvider(widget.projectId).notifier).addTimeEntry(_selectedDate, double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0);
+                    _hoursController.clear();
+                    setState(() {
+                      _isAdding = false;
+                      _selectedDate = DateTime.now();
+                    });
+                  },
+                  text: '추가',
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -4,10 +4,10 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/home/presentation/providers/todos_provider.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/edit_bottom_sheet.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/todos_add_container.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/todos_edit_dialog.dart';
-import 'package:free_log/features/home/presentation/widgets/home_detail/todo/todos_list_view.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/edit_bottom_sheet.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/todos_add_container.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/todos_edit_dialog.dart';
+import 'package:free_log/features/home/presentation/widgets/home_detail/todos/todos_list_view.dart';
 
 class DetailTodosWidget extends ConsumerStatefulWidget {
   final String projectId;
@@ -83,11 +83,11 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
               TodosAddContainer(
                 controller: _contentController,
                 formkey: formkey,
-                onPressed: () {
+                onPressed: () async {
                   if (!formkey.currentState!.validate()) {
                     return;
                   }
-                  ref.read(todoNotifierProvider(widget.projectId).notifier).addTodo(_contentController.text);
+                  await ref.read(todoNotifierProvider(widget.projectId).notifier).addTodo(_contentController.text);
                   _contentController.clear();
                   setState(() {
                     _isAdding = false;
@@ -134,27 +134,27 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                                         ),
                                       );
                                     },
-                                    deleteOnTap: () {
+                                    deleteOnTap: () async {
                                       Navigator.pop(sheetContext);
                                       if (item.id == null) return;
-                                      ref.read(todoNotifierProvider(widget.projectId).notifier).deleteTodo(item.id!);
+                                      await ref.read(todoNotifierProvider(widget.projectId).notifier).deleteTodo(item.id!);
                                     },
                                   ),
                                 ),
                               );
                             },
-                            onChanged: (item, value) {
+                            onChanged: (item, value) async {
                               if (item.id == null) return;
-                              ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
+                              await ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
                             },
                           ),
                           //완료 list
                           TodosListView(
                             items: done,
                             onTap: (_) {},
-                            onChanged: (item, value) {
+                            onChanged: (item, value) async {
                               if (item.id == null) return;
-                              ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
+                              await ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
                             },
                           ),
                         ],

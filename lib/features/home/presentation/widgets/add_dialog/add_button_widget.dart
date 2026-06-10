@@ -14,15 +14,10 @@ class AddButtonWidget extends StatelessWidget {
       child: FilledButton(
         style: FilledButton.styleFrom(
           backgroundColor: AppColors.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(7),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         ),
         onPressed: onPressed,
-        child: Text(
-          '저장',
-          style: TextStyle(fontSize: Responsive.fontSize(context, 16)),
-        ),
+        child: Text('저장', style: TextStyle(fontSize: Responsive.fontSize(context, 16))),
       ),
     );
   }

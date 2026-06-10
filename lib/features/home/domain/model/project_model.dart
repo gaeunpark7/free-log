@@ -17,6 +17,5 @@ abstract class ProjectModel with _$ProjectModel {
     @JsonKey(name: 'margin_rate') @Default(0.3) double marginRate,
   }) = _ProjectModel;
 
-  factory ProjectModel.fromJson(Map<String, dynamic> json) =>
-      _$ProjectModelFromJson(json);
+  factory ProjectModel.fromJson(Map<String, dynamic> json) => _$ProjectModelFromJson(json);
 }

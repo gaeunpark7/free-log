@@ -10,15 +10,9 @@ class DetailTitleWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          '작업 이름',
-          style: AppTextStyles.headline(context).copyWith(color: Colors.white),
-        ),
+        Text('작업 이름', style: AppTextStyles.headline(context).copyWith(color: Colors.white)),
         Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: AppColors.inProgress,
-          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.inProgress),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
             child: Text('진행중', style: AppTextStyles.bodyBold(context)),

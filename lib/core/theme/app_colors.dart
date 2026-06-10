@@ -36,4 +36,5 @@ class AppColors {
   static const borderDefault = Color(0xFFEFE7D8);
   static const borderStrong = Color(0xFFD6CFC0);
   static const borderPrimary = Color(0xFFA8BED4);
+  static const borderError = Color(0xFFECD2C8);
 }
