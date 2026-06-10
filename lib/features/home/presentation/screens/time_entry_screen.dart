@@ -4,8 +4,8 @@ import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/core/utils/time_entry_utils.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
-import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/empty_time_entry_container.dart';
@@ -15,16 +15,6 @@ import 'package:free_log/features/home/presentation/widgets/home_detail/time_ent
 class TimeEntryScreen extends ConsumerWidget {
   final String projectId;
   const TimeEntryScreen({super.key, required this.projectId});
-
-  String _weekdayLabel(DateTime? dt) {
-    if (dt == null) return '';
-    const labels = ['월', '화', '수', '목', '금', '토', '일'];
-    return '${labels[dt.toLocal().weekday - 1]}요일';
-  }
-
-  String _formatHours(double hours) {
-    return hours == hours.truncateToDouble() ? '${hours.toInt()}h' : '${hours}h';
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,12 +63,12 @@ class TimeEntryScreen extends ConsumerWidget {
                       ],
                     ),
                     Text(
-                      _formatHours(entries.fold(0.0, (sum, e) => sum + e.hours)),
+                      formatHours(entries.fold(0.0, (sum, e) => sum + e.hours)),
                       style: AppTextStyles.headline(context).copyWith(color: entries.fold(0.0, (sum, e) => sum + e.hours) == 0.0 ? Colors.grey : AppColors.textPrimary),
                     ),
                   ],
                 ),
-                AsyncValue<List<TimeEntryModel>>() => throw UnimplementedError(),
+                _ => const SizedBox.shrink(),
               },
             ),
             const SizedBox(height: 10),
@@ -104,7 +94,7 @@ class TimeEntryScreen extends ConsumerWidget {
                                 context: context,
                                 builder: (_) => TimeEntryDialog(entry: entry, projectId: projectId),
                               ),
-                              child: TimeEntryListView(entry: entry, weekdayLabel: _weekdayLabel, formatHours: _formatHours),
+                              child: TimeEntryListView(entry: entry, weekdayLabel: formatWeekday, formatHours: formatHours),
                             );
                           },
                         ),

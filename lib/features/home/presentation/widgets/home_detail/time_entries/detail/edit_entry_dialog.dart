@@ -29,7 +29,7 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
     super.initState();
     final hours = widget.entry.hours;
     _hoursController = TextEditingController(text: hours == 0.0 ? '' : '${hours}h');
-    _selectedDate = widget.entry.workedAt!.toLocal();
+    _selectedDate = widget.entry.workedAt ?? DateTime.now().toLocal();
 
     // 텍스트 변경 감지
     _hoursController.addListener(_onChanged);
@@ -103,7 +103,7 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                       if (!_formKey.currentState!.validate()) return;
                       final hours = double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
                       try {
-                        await ref.read(timeEntryNotifierProvider(widget.projectId).notifier).updateTimeEntry(widget.entry.id!, _selectedDate, hours);
+                        await ref.read(timeEntryNotifierProvider(widget.projectId).notifier).updateTimeEntry(widget.entry.id ?? '', _selectedDate, hours);
                         if (context.mounted) Navigator.pop(context);
                       } catch (_) {
                         if (context.mounted) {

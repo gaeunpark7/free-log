@@ -36,13 +36,4 @@ class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryReposit
       await _supabase.from('time_entries').delete().eq('id', id);
     }, errorMessage: '작업 내역을 삭제하지 못했습니다. 다시 시도해주세요.');
   }
-
-  @override
-  Future<double> getTotalHours(String projectId) async {
-    return execute(() async {
-      final response = await _supabase.from('time_entries').select().eq('project_id', projectId) as List<dynamic>?;
-      if (response == null || response.isEmpty) return 0.0;
-      return response.fold<double>(0.0, (double sum, e) => sum + ((e['hours'] ?? 0) as num).toDouble());
-    });
-  }
 }

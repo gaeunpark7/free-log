@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 
 class TimeEntryListView extends StatelessWidget {
-  final entry;
-  final weekdayLabel;
-  final formatHours;
+  final TimeEntryModel entry;
+  final String Function(DateTime?) weekdayLabel;
+  final String Function(double) formatHours;
   const TimeEntryListView({super.key, required this.entry, required this.weekdayLabel, required this.formatHours});
 
   @override

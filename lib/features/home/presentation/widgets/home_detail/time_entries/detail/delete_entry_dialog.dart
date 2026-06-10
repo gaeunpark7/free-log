@@ -4,6 +4,7 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
+import 'package:free_log/core/utils/time_entry_utils.dart';
 
 class DeleteEntryDialog extends ConsumerWidget {
   final TimeEntryModel entry;
@@ -11,23 +12,10 @@ class DeleteEntryDialog extends ConsumerWidget {
 
   const DeleteEntryDialog({super.key, required this.entry, required this.projectId});
 
-  String _weekdayLabel(DateTime? date) {
-    if (date == null) return '';
-    const labels = ['월', '화', '수', '목', '금', '토', '일'];
-    return labels[date.toLocal().weekday - 1];
-  }
-
-  String _formatHours(double hours) {
-    if (hours == hours.truncateToDouble()) {
-      return '${hours.toInt()}시간';
-    }
-    return '$hours시간';
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final date = entry.workedAt?.toLocal();
-    final dateStr = date != null ? '${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')} (${_weekdayLabel(date)}) ${_formatHours(entry.hours)}' : '';
+    final dateStr = date != null ? '${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')} (${formatWeekday(date)}) ${formatHours(entry.hours)}' : '';
 
     return Dialog(
       backgroundColor: Colors.white,
@@ -61,13 +49,11 @@ class DeleteEntryDialog extends ConsumerWidget {
                   Expanded(
                     child: _buildButton(context, AppColors.errorSoft, AppColors.errorSoft, '삭제', Colors.white, () async {
                       try {
-                        await ref.read(timeEntryNotifierProvider(projectId).notifier).deleteTimeEntry(entry.id!);
+                        await ref.read(timeEntryNotifierProvider(projectId).notifier).deleteTimeEntry(entry.id ?? '');
                         if (context.mounted) Navigator.pop(context, true);
                       } catch (_) {
                         if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('삭제에 실패했습니다.'), backgroundColor: AppColors.errorSoft),
-                          );
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('삭제에 실패했습니다.'), backgroundColor: AppColors.errorSoft));
                         }
                       }
                     }),
