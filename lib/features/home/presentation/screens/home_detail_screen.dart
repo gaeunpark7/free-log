@@ -13,7 +13,7 @@ class HomeDetailScreen extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeDetailScreenState();
 }
 
-class _HomeDetailScreenState extends ConsumerState<HomeDetailScreen> with SingleTickerProviderStateMixin {
+class _HomeDetailScreenState extends ConsumerState<HomeDetailScreen> {
   @override
   void initState() {
     super.initState();

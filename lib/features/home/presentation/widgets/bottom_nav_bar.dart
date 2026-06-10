@@ -19,12 +19,18 @@ class BottomNavBar extends StatelessWidget {
     switch (index) {
       case 0:
         context.go(RoutePaths.home);
+        break;
       case 1:
         context.go(RoutePaths.calendar);
+        break;
       case 2:
         context.go(RoutePaths.calculator);
+        break;
       case 3:
         context.go(RoutePaths.profile);
+        break;
+      default:
+        break;
     }
   }
 
@@ -45,7 +51,7 @@ class BottomNavBar extends StatelessWidget {
 
         selectedIndex: _selectedIndex(location),
         onDestinationSelected: (index) => _onTap(index, context),
-        animationDuration: Duration(microseconds: 300),
+        animationDuration: Duration(milliseconds: 300),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined, color: Colors.grey),

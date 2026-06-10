@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class EditBottomSheet extends StatelessWidget {
-  Function editOnTap;
-  Function deleteOnTap;
+  VoidCallback editOnTap;
+  VoidCallback deleteOnTap;
   EditBottomSheet({super.key, required this.editOnTap, required this.deleteOnTap});
 
   @override

@@ -83,11 +83,11 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
               TodosAddContainer(
                 controller: _contentController,
                 formkey: formkey,
-                onPressed: () {
+                onPressed: () async {
                   if (!formkey.currentState!.validate()) {
                     return;
                   }
-                  ref.read(todoNotifierProvider(widget.projectId).notifier).addTodo(_contentController.text);
+                  await ref.read(todoNotifierProvider(widget.projectId).notifier).addTodo(_contentController.text);
                   _contentController.clear();
                   setState(() {
                     _isAdding = false;
@@ -134,27 +134,27 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                                         ),
                                       );
                                     },
-                                    deleteOnTap: () {
+                                    deleteOnTap: () async {
                                       Navigator.pop(sheetContext);
                                       if (item.id == null) return;
-                                      ref.read(todoNotifierProvider(widget.projectId).notifier).deleteTodo(item.id!);
+                                      await ref.read(todoNotifierProvider(widget.projectId).notifier).deleteTodo(item.id!);
                                     },
                                   ),
                                 ),
                               );
                             },
-                            onChanged: (item, value) {
+                            onChanged: (item, value) async {
                               if (item.id == null) return;
-                              ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
+                              await ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
                             },
                           ),
                           //완료 list
                           TodosListView(
                             items: done,
                             onTap: (_) {},
-                            onChanged: (item, value) {
+                            onChanged: (item, value) async {
                               if (item.id == null) return;
-                              ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
+                              await ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
                             },
                           ),
                         ],

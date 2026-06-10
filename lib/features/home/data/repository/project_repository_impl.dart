@@ -10,8 +10,10 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
   @override
   Future<void> createProject(ProjectModel project) async {
-    final userId = _supabase.auth.currentUser!.id;
-    print('userId: $userId');
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) {
+      throw StateError('User must be signed in to create a project.');
+    }
 
     final projectJson = ProjectModel(
       id: Uuid().v4(),
@@ -35,10 +37,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
   @override
   Future<List<ProjectModel>> getProject() async {
-    final response = await _supabase
-        .from('project')
-        .select()
-        .order('created_at', ascending: false);
+    final response = await _supabase.from('project').select().order('created_at', ascending: false);
 
     return response.map(ProjectModel.fromJson).toList();
   }
@@ -47,16 +46,8 @@ class ProjectRepositoryImpl implements ProjectRepository {
   @override
   Future<void> checkAndUpdateOverdue() async {
     final now = DateTime.now();
-    final todayMidnight = DateTime(
-      now.year,
-      now.month,
-      now.day,
-    ).toUtc().toIso8601String(); //오늘 날짜 로컬
+    final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String(); //오늘 날짜 로컬
 
-    await _supabase
-        .from('project')
-        .update({'status': 'completed'})
-        .eq('status', 'in_progress')
-        .lt('deadline', todayMidnight);
+    await _supabase.from('project').update({'status': 'completed'}).eq('status', 'in_progress').lt('deadline', todayMidnight);
   }
 }
