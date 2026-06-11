@@ -20,18 +20,13 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   ProjectStatus? _selectedStatus;
   Future<void> _openAddProjectDialog() async {
-    final message = await showDialog<String>(
-      context: context,
-      builder: (ctx) => const AddProjectDialog(),
-    );
+    final message = await showDialog<String>(context: context, builder: (ctx) => const AddProjectDialog());
 
     if (!mounted || message == null || message.isEmpty) {
       return;
     }
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -79,42 +74,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Expanded(
             child: asyncProject.when(
               data: (value) {
-                final filterProjects = _selectedStatus == null
-                    ? value
-                    : value
-                          .where((project) => project.status == _selectedStatus)
-                          .toList();
+                final filterProjects = _selectedStatus == null ? value : value.where((project) => project.status == _selectedStatus).toList();
                 return ListView.builder(
                   padding: EdgeInsets.zero,
                   itemCount: filterProjects.length,
                   itemBuilder: (ctx, index) {
                     final project = filterProjects[index];
                     return Padding(
-                      padding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 8,
-                        left: 16,
-                        right: 16,
-                      ),
+                      padding: const EdgeInsets.only(top: 0, bottom: 8, left: 16, right: 16),
                       child: GestureDetector(
                         onTap: () {
                           context.push('/detail/${project.id}');
                         },
-                        child: HomeContainerWidget(
-                          title: project.title,
-                          deadline: project.deadline,
-                          hourlyRate: project.hourlyRate,
-                          status: project.status,
-                        ),
+                        child: HomeContainerWidget(title: project.title, deadline: project.deadline, hourlyRate: project.hourlyRate, status: project.status),
                       ),
                     );
                   },
                 );
               },
               error: (e, _) => Center(child: Text('에러 발생: $e')),
-              loading: () => Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
-              ),
+              loading: () => Center(child: CircularProgressIndicator(color: AppColors.primary)),
             ),
           ),
         ],

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/home/data/repository/time_entry_repository_impl.dart';
@@ -14,7 +13,7 @@ class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String
 
   @override
   FutureOr<List<TimeEntryModel>> build(String projectId) {
-    return [];
+    return _repo.getTimeEntries(projectId);
   }
 
   Future<void> addTimeEntry(DateTime workedAt, double hours) async {
