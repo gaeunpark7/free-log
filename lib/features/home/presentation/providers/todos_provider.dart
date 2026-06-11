@@ -20,46 +20,42 @@ class TodosProvider extends FamilyAsyncNotifier<List<TodosModel>, String> {
   }
 
   Future<void> addTodo(String content) async {
-    try {
-      final trimmed = content.trim();
-      if (trimmed.isEmpty) {
-        return;
-      }
-      await _repo.addTodo(arg, trimmed);
-      ref.invalidateSelf();
-    } catch (e) {
-      throw Exception('추가 실패: $e');
+    final trimmed = content.trim();
+    if (trimmed.isEmpty) {
+      return;
     }
+    state = AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await _repo.addTodo(arg, trimmed);
+      return _repo.getTodo(arg);
+    });
   }
 
   Future<void> updateTodo(String id, String content) async {
-    try {
-      final trimmed = content.trim();
-      if (trimmed.isEmpty) {
-        return;
-      }
-      await _repo.updateTodo(id, trimmed);
-      ref.invalidateSelf();
-    } catch (e) {
-      throw Exception('수정 실패: $e');
+    final trimmed = content.trim();
+    if (trimmed.isEmpty) {
+      return;
     }
+    state = AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await _repo.updateTodo(id, trimmed);
+      return _repo.getTodo(arg);
+    });
   }
 
   Future<void> deleteTodo(String id) async {
-    try {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
       await _repo.deleteTodo(id);
-      ref.invalidateSelf();
-    } catch (e) {
-      throw Exception('삭제 실패: $e');
-    }
+      return _repo.getTodo(arg);
+    });
   }
 
   Future<void> completedTodo(String id, bool isDone) async {
-    try {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
       await _repo.completedTodo(id, isDone);
-      ref.invalidateSelf();
-    } catch (e) {
-      throw Exception('완료 상태 변경 실패: $e');
-    }
+      return _repo.getTodo(arg);
+    });
   }
 }

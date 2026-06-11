@@ -48,6 +48,7 @@ class AppTextField extends StatelessWidget {
         suffixIconColor: AppColors.textTertiary,
       ),
       maxLength: maxLenth,
+      maxLines: 1,
     );
   }
 }

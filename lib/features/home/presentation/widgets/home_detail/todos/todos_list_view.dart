@@ -12,7 +12,7 @@ class TodosListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.symmetric(vertical: 12),
       shrinkWrap: true,
       physics: items.length > 4 ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
       itemCount: items.length,
@@ -34,7 +34,9 @@ class TodosListView extends StatelessWidget {
               Expanded(
                 child: Text(
                   todo.content,
-                  style: AppTextStyles.body(context).copyWith(decoration: todo.isDone ? TextDecoration.lineThrough : null, color: todo.isDone ? Colors.grey : AppColors.textPrimary),
+                  style: AppTextStyles.body(
+                    context,
+                  ).copyWith(decoration: todo.isDone ? TextDecoration.lineThrough : null, decorationColor: todo.isDone ? Colors.grey : null, color: todo.isDone ? Colors.grey : AppColors.textPrimary),
                 ),
               ),
             ],

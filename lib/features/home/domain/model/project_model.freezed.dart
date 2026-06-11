@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProjectModel {
 
- String? get id;@JsonKey(name: 'user_id') String? get userId; String get title; ProjectStatus get status; DateTime? get deadline;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'hourly_rate') int get hourlyRate;@JsonKey(name: 'margin_rate') double get marginRate;
+ String? get id;@JsonKey(name: 'user_id') String? get userId; String get title; ProjectStatus get status; DateTime? get deadline;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'hourly_rate') double get hourlyRate;@JsonKey(name: 'margin_rate') double get marginRate;
 /// Create a copy of ProjectModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ProjectModelCopyWith<$Res>  {
   factory $ProjectModelCopyWith(ProjectModel value, $Res Function(ProjectModel) _then) = _$ProjectModelCopyWithImpl;
 @useResult
 $Res call({
- String? id,@JsonKey(name: 'user_id') String? userId, String title, ProjectStatus status, DateTime? deadline,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'hourly_rate') int hourlyRate,@JsonKey(name: 'margin_rate') double marginRate
+ String? id,@JsonKey(name: 'user_id') String? userId, String title, ProjectStatus status, DateTime? deadline,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'hourly_rate') double hourlyRate,@JsonKey(name: 'margin_rate') double marginRate
 });
 
 
@@ -74,7 +74,7 @@ as String,status: null == status ? _self.status : status // ignore: cast_nullabl
 as ProjectStatus,deadline: freezed == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
 as DateTime?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,hourlyRate: null == hourlyRate ? _self.hourlyRate : hourlyRate // ignore: cast_nullable_to_non_nullable
-as int,marginRate: null == marginRate ? _self.marginRate : marginRate // ignore: cast_nullable_to_non_nullable
+as double,marginRate: null == marginRate ? _self.marginRate : marginRate // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -160,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'user_id')  String? userId,  String title,  ProjectStatus status,  DateTime? deadline, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'hourly_rate')  int hourlyRate, @JsonKey(name: 'margin_rate')  double marginRate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'user_id')  String? userId,  String title,  ProjectStatus status,  DateTime? deadline, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'hourly_rate')  double hourlyRate, @JsonKey(name: 'margin_rate')  double marginRate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProjectModel() when $default != null:
 return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate,_that.marginRate);case _:
@@ -181,7 +181,7 @@ return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'user_id')  String? userId,  String title,  ProjectStatus status,  DateTime? deadline, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'hourly_rate')  int hourlyRate, @JsonKey(name: 'margin_rate')  double marginRate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'user_id')  String? userId,  String title,  ProjectStatus status,  DateTime? deadline, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'hourly_rate')  double hourlyRate, @JsonKey(name: 'margin_rate')  double marginRate)  $default,) {final _that = this;
 switch (_that) {
 case _ProjectModel():
 return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate,_that.marginRate);case _:
@@ -201,7 +201,7 @@ return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'user_id')  String? userId,  String title,  ProjectStatus status,  DateTime? deadline, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'hourly_rate')  int hourlyRate, @JsonKey(name: 'margin_rate')  double marginRate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'user_id')  String? userId,  String title,  ProjectStatus status,  DateTime? deadline, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'hourly_rate')  double hourlyRate, @JsonKey(name: 'margin_rate')  double marginRate)?  $default,) {final _that = this;
 switch (_that) {
 case _ProjectModel() when $default != null:
 return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate,_that.marginRate);case _:
@@ -216,7 +216,7 @@ return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_t
 @JsonSerializable()
 
 class _ProjectModel implements ProjectModel {
-  const _ProjectModel({this.id, @JsonKey(name: 'user_id') this.userId, required this.title, this.status = ProjectStatus.inProgress, this.deadline, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'hourly_rate') this.hourlyRate = 0, @JsonKey(name: 'margin_rate') this.marginRate = 0.3});
+  const _ProjectModel({this.id, @JsonKey(name: 'user_id') this.userId, required this.title, this.status = ProjectStatus.inProgress, this.deadline, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'hourly_rate') this.hourlyRate = 0.0, @JsonKey(name: 'margin_rate') this.marginRate = 0.3});
   factory _ProjectModel.fromJson(Map<String, dynamic> json) => _$ProjectModelFromJson(json);
 
 @override final  String? id;
@@ -225,7 +225,7 @@ class _ProjectModel implements ProjectModel {
 @override@JsonKey() final  ProjectStatus status;
 @override final  DateTime? deadline;
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
-@override@JsonKey(name: 'hourly_rate') final  int hourlyRate;
+@override@JsonKey(name: 'hourly_rate') final  double hourlyRate;
 @override@JsonKey(name: 'margin_rate') final  double marginRate;
 
 /// Create a copy of ProjectModel
@@ -261,7 +261,7 @@ abstract mixin class _$ProjectModelCopyWith<$Res> implements $ProjectModelCopyWi
   factory _$ProjectModelCopyWith(_ProjectModel value, $Res Function(_ProjectModel) _then) = __$ProjectModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? id,@JsonKey(name: 'user_id') String? userId, String title, ProjectStatus status, DateTime? deadline,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'hourly_rate') int hourlyRate,@JsonKey(name: 'margin_rate') double marginRate
+ String? id,@JsonKey(name: 'user_id') String? userId, String title, ProjectStatus status, DateTime? deadline,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'hourly_rate') double hourlyRate,@JsonKey(name: 'margin_rate') double marginRate
 });
 
 
@@ -287,7 +287,7 @@ as String,status: null == status ? _self.status : status // ignore: cast_nullabl
 as ProjectStatus,deadline: freezed == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
 as DateTime?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,hourlyRate: null == hourlyRate ? _self.hourlyRate : hourlyRate // ignore: cast_nullable_to_non_nullable
-as int,marginRate: null == marginRate ? _self.marginRate : marginRate // ignore: cast_nullable_to_non_nullable
+as double,marginRate: null == marginRate ? _self.marginRate : marginRate // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }

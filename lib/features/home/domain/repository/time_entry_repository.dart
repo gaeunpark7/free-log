@@ -5,5 +5,4 @@ abstract interface class TimeEntryRepository {
   Future<void> addTimeEntry(String projectId, DateTime workedAt, double hours);
   Future<void> updateTimeEntry(String id, DateTime workedAt, double hours);
   Future<void> deleteTimeEntry(String id);
-  Future<double> getTotalHours(String projectId);
 }

@@ -8,15 +8,9 @@ import 'package:free_log/features/home/domain/model/project_status.dart';
 class HomeContainerWidget extends StatelessWidget {
   final String title;
   final DateTime? deadline;
-  final int hourlyRate;
+  final double hourlyRate;
   final ProjectStatus status;
-  const HomeContainerWidget({
-    super.key,
-    required this.title,
-    required this.deadline,
-    required this.hourlyRate,
-    required this.status,
-  });
+  const HomeContainerWidget({super.key, required this.title, required this.deadline, required this.hourlyRate, required this.status});
 
   String get _statusLabel {
     switch (status) {
@@ -52,12 +46,7 @@ class HomeContainerWidget extends StatelessWidget {
             SizedBox(height: AppSpacing.sm),
             Row(
               children: [
-                Text(
-                  deadline != null
-                      ? '마감 ${deadline!.month.toString()}/${deadline!.day.toString().padLeft(2, '0')}'
-                      : '마감일 없음',
-                  style: TextStyle(color: AppColors.textSecondary),
-                ),
+                Text(deadline != null ? '마감 ${deadline!.month.toString()}/${deadline!.day.toString().padLeft(2, '0')}' : '마감일 없음', style: TextStyle(color: AppColors.textSecondary)),
                 const SizedBox(width: 4),
                 Text('●', style: TextStyle(color: AppColors.textSecondary)),
                 const SizedBox(width: 4),

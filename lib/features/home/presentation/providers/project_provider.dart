@@ -5,13 +5,8 @@ import 'package:free_log/features/home/data/repository/project_repository_impl.d
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/repository/project_repository.dart';
 
-final repoProvider = Provider<ProjectRepository>(
-  (ref) => ProjectRepositoryImpl(ref.watch(supabaseClientProvider)),
-);
-final projectNotifierProvider =
-    AsyncNotifierProvider<ProjectProvider, List<ProjectModel>>(
-      ProjectProvider.new,
-    );
+final repoProvider = Provider<ProjectRepository>((ref) => ProjectRepositoryImpl(ref.watch(supabaseClientProvider)));
+final projectNotifierProvider = AsyncNotifierProvider<ProjectProvider, List<ProjectModel>>(ProjectProvider.new);
 
 class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
   ProjectRepository get _repo => ref.read(repoProvider);
