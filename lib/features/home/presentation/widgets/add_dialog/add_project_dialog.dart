@@ -53,7 +53,7 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
     final title = _titleController.text.trim();
     final hourlyRateText = _hourlyRateController.text.trim();
     final hourlyRateValue = hourlyRateText.replaceAll(',', '');
-    final hourlyRate = double.tryParse(hourlyRateValue);
+    final hourlyRate = int.tryParse(hourlyRateValue);
 
     setState(() {
       _titleError = title.isEmpty ? '작업명을 입력해주세요' : null;

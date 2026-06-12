@@ -5,7 +5,9 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 
 class HomeTitleWidget extends StatelessWidget {
-  const HomeTitleWidget({super.key});
+  final int inProgressCount;
+  final int completedCount;
+  const HomeTitleWidget({super.key, required this.inProgressCount, required this.completedCount});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +29,16 @@ class HomeTitleWidget extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _buildSubTitle(context, '진행중'),
+                _buildSubTitle(context, '진행중 $inProgressCount'),
                 SizedBox(width: 2),
-                _buildSubTitle(context, '5'),
+                // _buildSubTitle(context, inProgressCount.toString()),
                 SizedBox(width: AppSpacing.sm),
-                _buildSubTitle(context, '●'),
+                Text(
+                  '●',
+                  style: TextStyle(fontSize: Responsive.fontSize(context, AppTextStyles.bodySize), color: Colors.white),
+                ),
                 SizedBox(width: AppSpacing.sm),
-                _buildSubTitle(context, '완료'),
+                _buildSubTitle(context, '완료 $completedCount'),
               ],
             ),
           ],

@@ -13,7 +13,7 @@ abstract class ProjectModel with _$ProjectModel {
     @Default(ProjectStatus.inProgress) ProjectStatus status,
     DateTime? deadline,
     @JsonKey(name: 'created_at') DateTime? createdAt,
-    @JsonKey(name: 'hourly_rate') @Default(0.0) double hourlyRate,
+    @JsonKey(name: 'hourly_rate') @Default(0) int hourlyRate,
     @JsonKey(name: 'margin_rate') @Default(0.3) double marginRate,
   }) = _ProjectModel;
 

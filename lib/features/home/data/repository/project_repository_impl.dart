@@ -42,6 +42,9 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
   @override
   Future<void> checkAndUpdateOverdue() async {
-    // TODO: 기한 초과 처리 로직 구현 필요
+    final now = DateTime.now();
+    final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String();
+
+    await _supabase.from('project').update({'status': 'completed'}).eq('status', 'in_progress').lt('deadline', todayMidnight);
   }
 }

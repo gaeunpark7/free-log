@@ -30,7 +30,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
 
     state = await AsyncValue.guard(() async {
       await _repo.createProject(project);
-      await _repo.checkAndUpdateOverdue();
+      // await _repo.checkAndUpdateOverdue();
       return _repo.getProject();
     });
   }
