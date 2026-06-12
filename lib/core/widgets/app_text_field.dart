@@ -6,9 +6,9 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String valieText;
   final String hintText;
-  final Icon icon;
+  final Icon? icon;
   final int maxLenth;
-  const AppTextField({super.key, required this.controller, required this.valieText, required this.hintText, required this.icon, required this.maxLenth});
+  const AppTextField({super.key, required this.controller, required this.valieText, required this.hintText, this.icon, required this.maxLenth});
 
   @override
   Widget build(BuildContext context) {

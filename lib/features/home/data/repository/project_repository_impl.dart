@@ -47,4 +47,26 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
     await _supabase.from('project').update({'status': 'completed'}).eq('status', 'in_progress').lt('deadline', todayMidnight);
   }
+
+  @override
+  Future<void> updateProject(ProjectModel project) async {
+    final userId = _supabase.auth.currentUser!.id;
+    await _supabase.from('project').update({
+      'title': project.title,
+      'hourly_rate': project.hourlyRate,
+      'margin_rate': project.marginRate,
+      'deadline': project.deadline?.toIso8601String(),
+      'status': project.status.value,
+    }).eq('id', project.id!).eq('user_id', userId);
+  }
+
+  @override
+  Future<void> deleteProject(String projectId) async {
+    await _supabase.from('project').delete().eq('id', projectId);
+  }
+
+  @override
+  Future<void> completeProject(String projectId) async {
+    await _supabase.from('project').update({'status': 'completed'}).eq('id', projectId);
+  }
 }

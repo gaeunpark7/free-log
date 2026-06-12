@@ -27,10 +27,32 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
 
   Future<void> createProject(ProjectModel project) async {
     state = const AsyncLoading();
-
     state = await AsyncValue.guard(() async {
       await _repo.createProject(project);
-      // await _repo.checkAndUpdateOverdue();
+      return _repo.getProject();
+    });
+  }
+
+  Future<void> updateProject(ProjectModel project) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await _repo.updateProject(project);
+      return _repo.getProject();
+    });
+  }
+
+  Future<void> completeProject(String projectId) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await _repo.completeProject(projectId);
+      return _repo.getProject();
+    });
+  }
+
+  Future<void> deleteProject(String projectId) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await _repo.deleteProject(projectId);
       return _repo.getProject();
     });
   }

@@ -90,7 +90,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       padding: const EdgeInsets.only(top: 0, bottom: 8, left: 16, right: 16),
                       child: GestureDetector(
                         onTap: () {
-                          context.push('/detail/${project.id}');
+                          context.push('/detail/${project.id}', extra: project);
                         },
                         child: HomeContainerWidget(projectId: project.id!, title: project.title, deadline: project.deadline, hourlyRate: project.hourlyRate, status: project.status),
                       ),

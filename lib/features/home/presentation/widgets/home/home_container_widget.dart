@@ -7,8 +7,12 @@ import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/d_day_info.dart';
 import 'package:free_log/core/widgets/d_day_badge.dart';
 import 'package:free_log/core/widgets/status_badge.dart';
+import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/model/project_status.dart';
+import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
+import 'package:free_log/features/home/presentation/widgets/home/delete_project_dialog.dart';
+import 'package:free_log/features/home/presentation/widgets/home/edit_project_dialog.dart';
 
 class HomeContainerWidget extends ConsumerWidget {
   final String projectId;
@@ -49,11 +53,19 @@ class HomeContainerWidget extends ConsumerWidget {
                   position: PopupMenuPosition.under,
                   onSelected: (value) {
                     if (value == 'edit') {
-                      // 수정 로직
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => EditProjectDialog(
+                          project: ProjectModel(id: projectId, title: title, deadline: deadline, hourlyRate: hourlyRate, status: status),
+                        ),
+                      );
                     } else if (value == 'complete') {
-                      // 완료 로직
+                      ref.read(projectNotifierProvider.notifier).completeProject(projectId);
                     } else if (value == 'delete') {
-                      // 삭제 로직
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => DeleteProjectDialog(projectId: projectId),
+                      );
                     }
                   },
                   itemBuilder: (context) => [

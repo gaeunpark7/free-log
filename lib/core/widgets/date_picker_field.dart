@@ -5,19 +5,15 @@ import 'package:free_log/core/theme/app_text_style.dart';
 class DatePickerField extends StatelessWidget {
   final DateTime selectedDate;
   final ValueChanged<DateTime> onDateChanged;
+  final IconData? icon;
 
-  const DatePickerField({super.key, required this.selectedDate, required this.onDateChanged});
+  const DatePickerField({super.key, required this.selectedDate, required this.onDateChanged, this.icon});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final picked = await showDatePicker(
-          context: context,
-          initialDate: selectedDate,
-          firstDate: DateTime(2020),
-          lastDate: DateTime(2100),
-        );
+        final picked = await showDatePicker(context: context, initialDate: selectedDate, firstDate: DateTime(2020), lastDate: DateTime(2100));
         if (picked != null) onDateChanged(picked);
       },
       child: Container(
@@ -37,7 +33,7 @@ class DatePickerField extends StatelessWidget {
               '${selectedDate.day.toString().padLeft(2, '0')}',
               style: AppTextStyles.bodyBold(context),
             ),
-            Icon(Icons.event, color: AppColors.textTertiary),
+            Icon(icon, color: AppColors.textTertiary),
           ],
         ),
       ),

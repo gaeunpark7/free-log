@@ -12,12 +12,8 @@ class DeadlineContainerWidget extends StatelessWidget {
       height: 52,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: seletedDeadline == null ? AppColors.background : Colors.white,
-        border: Border.all(
-          color: seletedDeadline == null
-              ? AppColors.borderDefault
-              : AppColors.primary,
-        ),
+        color: AppColors.background,
+        border: Border.all(color: AppColors.borderDefault),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Padding(
@@ -32,12 +28,7 @@ class DeadlineContainerWidget extends StatelessWidget {
                   : '${seletedDeadline!.year}-'
                         '${seletedDeadline!.month.toString().padLeft(2, '0')}-'
                         '${seletedDeadline!.day.toString().padLeft(2, '0')}',
-              style: TextStyle(
-                color: seletedDeadline == null
-                    ? Colors.grey
-                    : AppColors.textPrimary,
-                fontSize: Responsive.fontSize(context, 14),
-              ),
+              style: TextStyle(color: seletedDeadline == null ? Colors.grey : AppColors.textPrimary, fontSize: Responsive.fontSize(context, 14)),
             ),
           ],
         ),
