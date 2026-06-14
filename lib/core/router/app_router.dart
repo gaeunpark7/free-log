@@ -3,6 +3,7 @@ import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
 import 'package:free_log/features/calculator/presentation/screen/calendar_screen.dart';
+import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/screens/home_detail_screen.dart';
 import 'package:free_log/features/home/presentation/screens/home_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/login_screen.dart';
@@ -36,33 +37,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(
-        path: RoutePaths.login,
-        builder: (context, state) => const LoginScreen(),
-      ),
+      GoRoute(path: RoutePaths.login, builder: (context, state) => const LoginScreen()),
       ShellRoute(
         builder: (context, state, child) => BottomNavBar(child: child),
         routes: [
           GoRoute(path: RoutePaths.home, builder: (_, _) => const HomeScreen()),
-          GoRoute(
-            path: RoutePaths.calendar,
-            builder: (_, _) => const CalendarScreen(),
-          ),
-          GoRoute(
-            path: RoutePaths.calculator,
-            builder: (_, _) => const CalculatorScreen(),
-          ),
-          GoRoute(
-            path: RoutePaths.profile,
-            builder: (_, _) => const ProfileScreen(),
-          ),
+          GoRoute(path: RoutePaths.calendar, builder: (_, _) => const CalendarScreen()),
+          GoRoute(path: RoutePaths.calculator, builder: (_, _) => const CalculatorScreen()),
+          GoRoute(path: RoutePaths.profile, builder: (_, _) => const ProfileScreen()),
         ],
       ),
       GoRoute(
         path: RoutePaths.homeDetail,
         builder: (context, state) {
           final projectId = state.pathParameters['projectId']!;
-          return HomeDetailScreen(projectId: projectId);
+          final project = state.extra as ProjectModel;
+          return HomeDetailScreen(projectId: projectId, project: project);
         },
       ),
     ],

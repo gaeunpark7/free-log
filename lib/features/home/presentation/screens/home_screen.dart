@@ -37,13 +37,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       backgroundColor: AppColors.background,
       body: Column(
         children: [
-          HomeTitleWidget(),
+          HomeTitleWidget(
+            inProgressCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.inProgress).length) ?? 0,
+            completedCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.completed).length) ?? 0,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
                 HomeButtonWidget(
                   text: '전체',
+                  isSelected: _selectedStatus == null,
                   onPressed: () {
                     setState(() {
                       _selectedStatus = null;
@@ -53,6 +57,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 SizedBox(width: AppSpacing.sm),
                 HomeButtonWidget(
                   text: '진행중',
+                  isSelected: _selectedStatus == ProjectStatus.inProgress,
                   onPressed: () {
                     setState(() {
                       _selectedStatus = ProjectStatus.inProgress;
@@ -62,6 +67,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 SizedBox(width: AppSpacing.sm),
                 HomeButtonWidget(
                   text: '완료',
+                  isSelected: _selectedStatus == ProjectStatus.completed,
                   onPressed: () {
                     setState(() {
                       _selectedStatus = ProjectStatus.completed;
@@ -84,9 +90,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       padding: const EdgeInsets.only(top: 0, bottom: 8, left: 16, right: 16),
                       child: GestureDetector(
                         onTap: () {
-                          context.push('/detail/${project.id}');
+                          context.push('/detail/${project.id}', extra: project);
                         },
-                        child: HomeContainerWidget(title: project.title, deadline: project.deadline, hourlyRate: project.hourlyRate, status: project.status),
+                        child: HomeContainerWidget(projectId: project.id!, title: project.title, deadline: project.deadline, hourlyRate: project.hourlyRate, status: project.status),
                       ),
                     );
                   },

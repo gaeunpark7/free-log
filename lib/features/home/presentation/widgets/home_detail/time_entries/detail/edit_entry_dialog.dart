@@ -76,6 +76,7 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
               Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               DatePickerField(
+                icon: Icons.event,
                 selectedDate: _selectedDate,
                 onDateChanged: (picked) {
                   setState(() {

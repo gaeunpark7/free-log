@@ -20,7 +20,7 @@ _ProjectModel _$ProjectModelFromJson(Map<String, dynamic> json) =>
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
-      hourlyRate: (json['hourly_rate'] as num?)?.toDouble() ?? 0.0,
+      hourlyRate: (json['hourly_rate'] as num?)?.toInt() ?? 0,
       marginRate: (json['margin_rate'] as num?)?.toDouble() ?? 0.3,
     );
 

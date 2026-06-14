@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/core/utils/d_day_info.dart';
+import 'package:free_log/core/widgets/d_day_badge.dart';
+import 'package:free_log/core/widgets/status_badge.dart';
+import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/model/project_status.dart';
+import 'package:free_log/features/home/presentation/providers/project_provider.dart';
+import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
+import 'package:free_log/features/home/presentation/widgets/home/delete_project_dialog.dart';
+import 'package:free_log/features/home/presentation/widgets/home/edit_project_dialog.dart';
 
-class HomeContainerWidget extends StatelessWidget {
+class HomeContainerWidget extends ConsumerWidget {
+  final String projectId;
   final String title;
   final DateTime? deadline;
-  final double hourlyRate;
+  final int hourlyRate;
   final ProjectStatus status;
-  const HomeContainerWidget({super.key, required this.title, required this.deadline, required this.hourlyRate, required this.status});
-
-  String get _statusLabel {
-    switch (status) {
-      case ProjectStatus.inProgress:
-        return '진행중';
-      case ProjectStatus.onHold:
-        return '보류';
-      case ProjectStatus.completed:
-        return '완료';
-    }
-  }
+  const HomeContainerWidget({super.key, required this.projectId, required this.title, required this.deadline, required this.hourlyRate, required this.status});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncEntries = ref.watch(timeEntryNotifierProvider(projectId));
+    final totalHours = asyncEntries.whenOrNull(data: (entries) => entries.fold(0.0, (sum, e) => sum + e.hours));
+    final ddayInfo = deadline != null ? DDayInfo.from(deadline!) : null;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -40,23 +43,83 @@ class HomeContainerWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(title, style: AppTextStyles.title(context)),
-                const Icon(Icons.arrow_forward_ios, size: 12),
+                PopupMenuButton<String>(
+                  padding: EdgeInsets.zero,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(color: AppColors.borderDefault),
+                  ),
+                  position: PopupMenuPosition.under,
+                  onSelected: (value) {
+                    if (value == 'edit') {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => EditProjectDialog(
+                          project: ProjectModel(id: projectId, title: title, deadline: deadline, hourlyRate: hourlyRate, status: status),
+                        ),
+                      );
+                    } else if (value == 'complete') {
+                      ref.read(projectNotifierProvider.notifier).completeProject(projectId);
+                    } else if (value == 'delete') {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => DeleteProjectDialog(projectId: projectId),
+                      );
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(
+                      value: 'edit',
+                      child: Text(
+                        '작업 수정',
+                        style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const PopupMenuItem(
+                      value: 'complete',
+                      child: Text(
+                        '완료로 변경',
+                        style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const PopupMenuDivider(color: AppColors.borderDefault),
+                    const PopupMenuItem(
+                      value: 'delete',
+                      child: Text(
+                        '삭제',
+                        style: TextStyle(color: AppColors.errorSoft, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                  child: const Icon(Icons.more_vert_outlined, size: 18, color: Colors.grey),
+                ),
               ],
             ),
-            SizedBox(height: AppSpacing.sm),
+            SizedBox(height: AppSpacing.lg),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(deadline != null ? '마감 ${deadline!.month.toString()}/${deadline!.day.toString().padLeft(2, '0')}' : '마감일 없음', style: TextStyle(color: AppColors.textSecondary)),
-                const SizedBox(width: 4),
-                Text('●', style: TextStyle(color: AppColors.textSecondary)),
-                const SizedBox(width: 4),
-                const Icon(Icons.access_time, size: 12, color: Colors.grey),
-                const SizedBox(width: 2),
-                Text('20h', style: TextStyle(color: AppColors.textSecondary)),
+                Row(
+                  children: [
+                    const Icon(Icons.event, size: 13, color: Colors.grey),
+                    SizedBox(width: 2),
+                    Text(deadline != null ? '${deadline!.month.toString()}/${deadline!.day.toString().padLeft(2, '0')}' : '마감일 없음', style: TextStyle(color: AppColors.textSecondary)),
+                    const SizedBox(width: AppSpacing.sm),
+                    const Icon(Icons.access_time, size: 13, color: Colors.grey),
+                    SizedBox(width: 2),
+                    Text(totalHours != null ? '${totalHours % 1 == 0 ? totalHours.toInt() : totalHours.toStringAsFixed(1)}h' : '-', style: TextStyle(color: AppColors.textSecondary)),
+                    // SizedBox(width: AppSpacing.sm),
+                  ],
+                ),
+                Row(
+                  children: [
+                    StatusBadge(status: status),
+                    if (status != ProjectStatus.completed && ddayInfo != null) ...[SizedBox(width: AppSpacing.sm), DDayBadge(info: ddayInfo)],
+                  ],
+                ),
               ],
             ),
-            SizedBox(height: AppSpacing.sm),
-            Text(_statusLabel, style: TextStyle(color: AppColors.primary)),
           ],
         ),
       ),
