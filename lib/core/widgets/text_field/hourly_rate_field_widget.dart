@@ -7,9 +7,10 @@ import 'package:free_log/core/theme/app_colors.dart';
 class HourlyRateField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final String errorText;
   final int maxDigits;
   final Icon? icon;
-  HourlyRateField({super.key, required this.controller, this.hintText = '시급을 입력하세요', this.maxDigits = 7, this.icon});
+  HourlyRateField({super.key, required this.controller, required this.hintText, required this.errorText, required this.maxDigits, this.icon});
 
   late final TextInputFormatter _currencyFormatter = _CurrencyFormatter(maxDigits: maxDigits);
 
@@ -23,7 +24,7 @@ class HourlyRateField extends StatelessWidget {
           style: AppTextStyles.bodyBold(context),
           controller: controller,
           validator: (value) {
-            if (value == null || value.isEmpty) return '시급을 입력하세요.';
+            if (value == null || value.isEmpty) return errorText;
             return null;
           },
           keyboardType: TextInputType.number,

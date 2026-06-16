@@ -14,8 +14,9 @@ class ErrorView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: 5),
           const Icon(Icons.error_outline, size: 48, color: AppColors.errorSoft),
-          const SizedBox(height: 12),
+          const SizedBox(height: 5),
           Text(message, style: AppTextStyles.badgeBold(context).copyWith(color: AppColors.textPrimary)),
           if (onRetry != null) ...[const SizedBox(height: 16), ElevatedButton(onPressed: onRetry, child: const Text('다시 시도'))],
         ],

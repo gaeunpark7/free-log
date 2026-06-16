@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/widgets/app_filled_button.dart';
-import 'package:free_log/core/widgets/app_text_field.dart';
-import 'package:free_log/core/widgets/date_picker_field.dart';
+import 'package:free_log/core/widgets/text_field/app_text_field.dart';
+import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
-import 'package:free_log/core/widgets/hourly_rate_field_widget.dart';
+import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 
 class EditProjectDialog extends ConsumerStatefulWidget {
@@ -87,7 +87,7 @@ class _EditProjectDialogState extends ConsumerState<EditProjectDialog> {
               //시급
               Text('시급', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
               const SizedBox(height: 6),
-              HourlyRateField(controller: _hourlyRateController),
+              HourlyRateField(controller: _hourlyRateController, hintText: '시급을 입력하세요', errorText: '시급을 입력하세요', maxDigits: 7),
               const SizedBox(height: 12),
 
               //마감일
