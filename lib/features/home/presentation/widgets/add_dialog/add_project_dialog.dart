@@ -8,7 +8,7 @@ import 'package:free_log/features/home/presentation/providers/project_provider.d
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_button_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_text_field_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/deadline_container_widget.dart';
-import 'package:free_log/core/widgets/hourly_rate_field_widget.dart';
+import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_title_widget.dart';
 
 class AddProjectDialog extends ConsumerStatefulWidget {
@@ -99,7 +99,7 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
               _buildSizedBox(context),
               _buildText('시급'),
               const SizedBox(height: 2),
-              HourlyRateField(controller: _hourlyRateController, icon: Icon(Icons.paid)),
+              HourlyRateField(controller: _hourlyRateController, icon: Icon(Icons.paid), hintText: '시급을 입력하세요', errorText: '시급을 입력하세요', maxDigits: 7),
               _buildSizedBox(context),
               _buildText('마감일'),
               const SizedBox(height: 2),
