@@ -84,7 +84,7 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
               if (_isAdding) ...[
                 const SizedBox(height: 12),
                 Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
-                DatePickerField(selectedDate: _selectedDate, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
+                DatePickerField(icon: Icons.today, selectedDate: _selectedDate, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
                 const SizedBox(height: 8),
                 Text('작업 시간', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
                 HourTextField(controller: _hoursController),

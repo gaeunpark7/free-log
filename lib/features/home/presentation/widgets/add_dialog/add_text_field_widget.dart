@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 
 class AddTextField extends StatefulWidget {
-  const AddTextField({
-    super.key,
-    required this.controller,
-    this.errorText,
-    required this.hintText,
-    required this.maxLength,
-  });
+  const AddTextField({super.key, required this.controller, this.errorText, required this.hintText, required this.maxLength});
 
   final TextEditingController controller;
   final String hintText;
@@ -49,14 +43,12 @@ class _AddTextFieldState extends State<AddTextField> {
       children: [
         TextField(
           controller: widget.controller,
+
           focusNode: _focusNode,
           style: const TextStyle(color: AppColors.primary),
           cursorColor: AppColors.primary,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 14,
-            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: AppColors.primary),
@@ -67,9 +59,7 @@ class _AddTextFieldState extends State<AddTextField> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: isFocused ? AppColors.primary : AppColors.borderDefault,
-              ),
+              borderSide: BorderSide(color: isFocused ? AppColors.primary : AppColors.borderDefault),
             ),
             filled: true,
             fillColor: isFocused ? Colors.white : AppColors.background,
@@ -78,22 +68,10 @@ class _AddTextFieldState extends State<AddTextField> {
             counterText: '',
           ),
           maxLength: widget.maxLength,
-          buildCounter:
-              (
-                context, {
-                required currentLength,
-                required isFocused,
-                required maxLength,
-              }) => null,
+          buildCounter: (context, {required currentLength, required isFocused, required maxLength}) => null,
           maxLines: 1,
         ),
-        if (widget.errorText != null) ...[
-          const SizedBox(height: 4),
-          Text(
-            widget.errorText!,
-            style: const TextStyle(color: AppColors.error, fontSize: 12),
-          ),
-        ],
+        if (widget.errorText != null) ...[const SizedBox(height: 4), Text(widget.errorText!, style: const TextStyle(color: AppColors.error, fontSize: 12))],
       ],
     );
   }
