@@ -21,6 +21,9 @@ class TimeEntryScreen extends ConsumerWidget {
     final asyncEntries = ref.watch(timeEntryNotifierProvider(projectId));
     final projectName = ref.watch(projectNotifierProvider).valueOrNull?.firstWhere((p) => p.id == projectId, orElse: () => const ProjectModel(title: '')).title ?? '';
 
+    ref.listen(projectNotifierProvider, (prve, next) {
+      next.whenOrNull(error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString()))));
+    });
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(

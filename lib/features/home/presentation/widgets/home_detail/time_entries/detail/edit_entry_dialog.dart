@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/widgets/date_picker_field.dart';
-import 'package:free_log/core/widgets/hour_text_field.dart';
+import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
+import 'package:free_log/core/widgets/text_field/hour_text_field.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/delete_entry_dialog.dart';
@@ -103,14 +103,8 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                     onPressed: () async {
                       if (!_formKey.currentState!.validate()) return;
                       final hours = double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
-                      try {
-                        await ref.read(timeEntryNotifierProvider(widget.projectId).notifier).updateTimeEntry(widget.entry.id ?? '', _selectedDate, hours);
-                        if (context.mounted) Navigator.pop(context);
-                      } catch (_) {
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('수정에 실패했습니다.'), backgroundColor: AppColors.errorSoft));
-                        }
-                      }
+                      ref.read(timeEntryNotifierProvider(widget.projectId).notifier).updateTimeEntry(widget.entry.id ?? '', _selectedDate, hours);
+                      if (context.mounted) Navigator.pop(context);
                     },
                     child: Text('저장하기', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),
                   ),

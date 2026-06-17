@@ -112,7 +112,7 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                   constraints: const BoxConstraints(maxHeight: 230),
                   child: IncomeListView(income: value),
                 ),
-                error: (error, _) => ErrorView(message: '$error'),
+                error: (error, _) => ErrorView(message: error.toString()),
               ),
             ],
           ),

@@ -41,8 +41,6 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
 
     await ref.read(expenseNotifierProvider(widget.projectId).notifier).addExpense(_titleController.text.trim(), double.tryParse(_amountController.text.replaceAll(',', '')) ?? 0, _selectedDate);
 
-    // if (ref.read(expenseNotifierProvider(widget.projectId)) is AsyncError) return;
-
     _titleController.clear();
     _amountController.clear();
     setState(() {
@@ -116,7 +114,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                   constraints: const BoxConstraints(maxHeight: 230),
                   child: ExpenseListView(expense: value),
                 ),
-                error: (error, _) => ErrorView(message: '$error'),
+                error: (error, _) => ErrorView(message: error.toString()),
               ),
             ],
           ),

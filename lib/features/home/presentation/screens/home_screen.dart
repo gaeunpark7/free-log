@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
 import 'package:free_log/features/home/domain/model/project_status.dart';
@@ -32,6 +33,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final asyncProject = ref.watch(projectNotifierProvider);
+    ref.listen(projectNotifierProvider, (prev, next) {
+      if (next is AsyncError && prev is! AsyncError) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString())));
+      }
+    });
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -98,7 +104,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   },
                 );
               },
-              error: (e, _) => Center(child: Text('에러 발생: $e')),
+              error: (e, _) => ErrorView(message: e.toString()),
               loading: () => Center(child: CircularProgressIndicator(color: AppColors.primary)),
             ),
           ),

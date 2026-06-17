@@ -21,13 +21,6 @@ class _EditTodoDialogState extends ConsumerState<EditTodoDialog> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(todoNotifierProvider(widget.projectId), (prev, next) {
-      next.whenOrNull(
-        error: (e, _) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: AppColors.errorSoft));
-        },
-      );
-    });
     return Dialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

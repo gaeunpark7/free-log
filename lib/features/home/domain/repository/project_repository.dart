@@ -5,6 +5,6 @@ abstract interface class ProjectRepository {
   Future<List<ProjectModel>> getProject();
   Future<void> updateProject(ProjectModel project);
   Future<void> deleteProject(String projectId);
-  Future<void> checkAndUpdateOverdue();
+  Future<void> autoCompleteProjects();
   Future<void> completeProject(String projectId);
 }
