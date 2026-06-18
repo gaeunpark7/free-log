@@ -43,7 +43,6 @@ class _AddTextFieldState extends State<AddTextField> {
       children: [
         TextField(
           controller: widget.controller,
-
           focusNode: _focusNode,
           style: const TextStyle(color: AppColors.primary),
           cursorColor: AppColors.primary,

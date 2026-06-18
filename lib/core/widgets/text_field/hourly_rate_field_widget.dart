@@ -21,7 +21,7 @@ class HourlyRateField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
-          style: AppTextStyles.bodyBold(context),
+          style: AppTextStyles.body(context),
           controller: controller,
           validator: (value) {
             if (value == null || value.isEmpty) return errorText;

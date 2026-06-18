@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
+import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/core/widgets/app_content_layout_widget.dart';
 import 'package:free_log/features/home/domain/model/project_status.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_project_dialog.dart';
@@ -40,75 +42,77 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     });
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Column(
-        children: [
-          HomeTitleWidget(
-            inProgressCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.inProgress).length) ?? 0,
-            completedCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.completed).length) ?? 0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                HomeButtonWidget(
-                  text: '전체',
-                  isSelected: _selectedStatus == null,
-                  onPressed: () {
-                    setState(() {
-                      _selectedStatus = null;
-                    });
-                  },
-                ),
-                SizedBox(width: AppSpacing.sm),
-                HomeButtonWidget(
-                  text: '진행중',
-                  isSelected: _selectedStatus == ProjectStatus.inProgress,
-                  onPressed: () {
-                    setState(() {
-                      _selectedStatus = ProjectStatus.inProgress;
-                    });
-                  },
-                ),
-                SizedBox(width: AppSpacing.sm),
-                HomeButtonWidget(
-                  text: '완료',
-                  isSelected: _selectedStatus == ProjectStatus.completed,
-                  onPressed: () {
-                    setState(() {
-                      _selectedStatus = ProjectStatus.completed;
-                    });
-                  },
-                ),
-              ],
+      backgroundColor: Colors.white,
+      body: AppContentlayout(
+        child: Column(
+          children: [
+            HomeTitleWidget(
+              inProgressCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.inProgress).length) ?? 0,
+              completedCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.completed).length) ?? 0,
             ),
-          ),
-          Expanded(
-            child: asyncProject.when(
-              data: (value) {
-                final filterProjects = _selectedStatus == null ? value : value.where((project) => project.status == _selectedStatus).toList();
-                return ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: filterProjects.length,
-                  itemBuilder: (ctx, index) {
-                    final project = filterProjects[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 0, bottom: 8, left: 16, right: 16),
-                      child: GestureDetector(
-                        onTap: () {
-                          context.push('/detail/${project.id}', extra: project);
-                        },
-                        child: HomeContainerWidget(projectId: project.id!, title: project.title, deadline: project.deadline, hourlyRate: project.hourlyRate, status: project.status),
-                      ),
-                    );
-                  },
-                );
-              },
-              error: (e, _) => ErrorView(message: e.toString()),
-              loading: () => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Responsive.horizontalPadding(context), vertical: AppSpacing.sm),
+              child: Row(
+                children: [
+                  HomeButtonWidget(
+                    text: '전체',
+                    isSelected: _selectedStatus == null,
+                    onPressed: () {
+                      setState(() {
+                        _selectedStatus = null;
+                      });
+                    },
+                  ),
+                  SizedBox(width: AppSpacing.sm),
+                  HomeButtonWidget(
+                    text: '진행중',
+                    isSelected: _selectedStatus == ProjectStatus.inProgress,
+                    onPressed: () {
+                      setState(() {
+                        _selectedStatus = ProjectStatus.inProgress;
+                      });
+                    },
+                  ),
+                  SizedBox(width: AppSpacing.sm),
+                  HomeButtonWidget(
+                    text: '완료',
+                    isSelected: _selectedStatus == ProjectStatus.completed,
+                    onPressed: () {
+                      setState(() {
+                        _selectedStatus = ProjectStatus.completed;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: asyncProject.when(
+                data: (value) {
+                  final filterProjects = _selectedStatus == null ? value : value.where((project) => project.status == _selectedStatus).toList();
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: filterProjects.length,
+                    itemBuilder: (ctx, index) {
+                      final project = filterProjects[index];
+                      return Padding(
+                        padding: EdgeInsets.only(left: Responsive.horizontalPadding(context), right: Responsive.horizontalPadding(context), bottom: 8),
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push('/detail/${project.id}', extra: project);
+                          },
+                          child: HomeContainerWidget(project: project, status: project.status),
+                        ),
+                      );
+                    },
+                  );
+                },
+                error: (e, _) => ErrorView(message: e.toString()),
+                loading: () => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),

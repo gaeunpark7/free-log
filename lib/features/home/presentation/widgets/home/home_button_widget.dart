@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
+import 'package:free_log/core/utils/responsive_utils.dart';
 
 class HomeButtonWidget extends StatelessWidget {
   final String text;
@@ -9,20 +10,25 @@ class HomeButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isWeb = Responsive.isWeb(context);
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: isSelected ? AppColors.primary : Colors.white,
         elevation: 0,
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: isWeb ? 20 : 14, vertical: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(color: isSelected ? AppColors.primary : AppColors.borderDefault),
         ),
       ),
       onPressed: onPressed,
-      child: Text(text, style: TextStyle(color: isSelected ? Colors.white : AppColors.textSecondary)),
+      child: Text(
+        text,
+
+        style: TextStyle(fontSize: isWeb ? 15 : 13, color: isSelected ? Colors.white : AppColors.textSecondary),
+      ),
     );
   }
 }

@@ -13,7 +13,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: AppTextStyles.bodyBold(context),
+      style: AppTextStyles.body(context),
       controller: controller,
       validator: (value) {
         if (value == null || value.isEmpty) return valieText;

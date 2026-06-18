@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
-import 'package:free_log/core/widgets/app_filled_button.dart';
+import 'package:free_log/core/widgets/button/app_filled_button.dart';
 import 'package:free_log/core/widgets/text_field/app_text_field.dart';
 import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
@@ -52,37 +52,40 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(16)),
       backgroundColor: Colors.white,
       child: SingleChildScrollView(
-        child: Padding(
-          padding: Responsive.cardPadding(context),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AddTitle(),
-                _buildText('작업명'),
-                const SizedBox(height: 2),
-                AppTextField(controller: _titleController, valieText: '작업명을 입력하세요.', hintText: '작업명을 입력하세요.', maxLenth: 12, icon: Icon(Icons.edit_note, size: 23)),
-                _buildSizedBox(context),
-                _buildText('시급'),
-                const SizedBox(height: 2),
-                HourlyRateField(controller: _hourlyRateController, icon: Icon(Icons.attach_money, size: 23), hintText: '시급을 입력하세요', errorText: '시급을 입력하세요', maxDigits: 7),
-                _buildSizedBox(context),
-                _buildText('마감일'),
-                const SizedBox(height: 2),
-                DatePickerField(
-                  icon: Icons.today,
-                  selectedDate: _selectedDeadline,
-                  onDateChanged: (picked) => setState(() {
-                    _selectedDeadline = picked;
-                    _deadlineError = null;
-                  }),
-                ),
-                if (_deadlineError != null) ...[const SizedBox(height: 4), Text(_deadlineError!, style: const TextStyle(color: AppColors.error, fontSize: 12))],
-                _buildSizedBox(context),
-                AppFilledButton(onPressed: _save, text: '저장'),
-              ],
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 480),
+          child: Padding(
+            padding: Responsive.cardPadding(context),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AddTitle(),
+                  _buildText('작업명'),
+                  const SizedBox(height: 2),
+                  AppTextField(controller: _titleController, valieText: '작업명을 입력하세요.', hintText: '작업명을 입력하세요.', maxLenth: 12, icon: Icon(Icons.edit_note, size: 23)),
+                  _buildSizedBox(context),
+                  _buildText('시급'),
+                  const SizedBox(height: 2),
+                  HourlyRateField(controller: _hourlyRateController, icon: Icon(Icons.attach_money, size: 23), hintText: '시급을 입력하세요', errorText: '시급을 입력하세요', maxDigits: 7),
+                  _buildSizedBox(context),
+                  _buildText('마감일'),
+                  const SizedBox(height: 2),
+                  DatePickerField(
+                    icon: Icons.today,
+                    selectedDate: _selectedDeadline,
+                    onDateChanged: (picked) => setState(() {
+                      _selectedDeadline = picked;
+                      _deadlineError = null;
+                    }),
+                  ),
+                  if (_deadlineError != null) ...[const SizedBox(height: 4), Text(_deadlineError!, style: const TextStyle(color: AppColors.error, fontSize: 12))],
+                  _buildSizedBox(context),
+                  AppFilledButton(onPressed: _save, text: '저장'),
+                ],
+              ),
             ),
           ),
         ),

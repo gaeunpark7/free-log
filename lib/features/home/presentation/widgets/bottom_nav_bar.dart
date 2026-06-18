@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/core/theme/app_colors.dart';
+import 'package:free_log/core/widgets/app_content_layout_widget.dart';
 import 'package:go_router/go_router.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -38,7 +39,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final location = GoRouterState.of(context).matchedLocation;
     return Scaffold(
-      body: child,
+      body: AppContentlayout(child: child),
       bottomNavigationBar: NavigationBar(
         indicatorColor: Colors.transparent,
         backgroundColor: Colors.white,
@@ -48,10 +49,9 @@ class BottomNavBar extends StatelessWidget {
           }
           return const TextStyle(color: Colors.grey);
         }),
-
         selectedIndex: _selectedIndex(location),
         onDestinationSelected: (index) => _onTap(index, context),
-        animationDuration: Duration(milliseconds: 300),
+        animationDuration: const Duration(milliseconds: 300),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined, color: Colors.grey),

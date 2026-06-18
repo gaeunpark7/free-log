@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/widgets/app_filled_button.dart';
+import 'package:free_log/core/widgets/button/app_filled_button.dart';
 import 'package:free_log/features/home/presentation/providers/todos_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,9 +15,10 @@ class DeleteTodoDialog extends ConsumerWidget {
     return Dialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SizedBox(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 480),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

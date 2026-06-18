@@ -8,26 +8,21 @@ import 'package:free_log/features/home/presentation/providers/expense_provider.d
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:intl/intl.dart';
 
-class CalculateAmount extends ConsumerStatefulWidget {
+class CalculateAmount extends ConsumerWidget {
   final ProjectModel project;
+
   const CalculateAmount({super.key, required this.project});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CalculateAmountState();
-}
-
-class _CalculateAmountState extends ConsumerState<CalculateAmount> {
-  @override
-  Widget build(BuildContext context) {
-    final asyncTimeEntries = ref.watch(timeEntryNotifierProvider(widget.project.id ?? ''));
-    final asyncExpense = ref.watch(expenseNotifierProvider(widget.project.id ?? ''));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncTimeEntries = ref.watch(timeEntryNotifierProvider(project.id!));
+    final asyncExpense = ref.watch(expenseNotifierProvider(project.id!));
 
     final totalHours = asyncTimeEntries.maybeWhen(data: (entries) => entries.fold<double>(0, (sum, e) => sum + e.hours), orElse: () => 0.0);
     final totalExpense = asyncExpense.maybeWhen(data: (expense) => expense.fold<double>(0, (sum, e) => sum + e.amount), orElse: () => 0.0);
-
-    final laborCost = widget.project.hourlyRate * totalHours;
+    final laborCost = project.hourlyRate * totalHours;
     final totalCost = laborCost + totalExpense;
-    final marginRate = widget.project.marginRate;
+    final marginRate = project.marginRate;
     final sellingPrice = totalCost * (1 + marginRate);
 
     return Container(

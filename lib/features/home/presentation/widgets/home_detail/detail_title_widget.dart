@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/widgets/status_badge.dart';
+import 'package:free_log/core/widgets/badge/status_badge.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 
 class DetailTitleWidget extends StatelessWidget {
