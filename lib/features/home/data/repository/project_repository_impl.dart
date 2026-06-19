@@ -1,47 +1,47 @@
+import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/repository/project_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-class ProjectRepositoryImpl implements ProjectRepository {
+class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository {
   final SupabaseClient _supabase;
 
   ProjectRepositoryImpl(this._supabase);
 
   @override
   Future<void> createProject(ProjectModel project) async {
-    final userId = _supabase.auth.currentUser!.id;
-    print('userId: $userId');
+    return execute(() async {
+      final user = _supabase.auth.currentUser;
+      if (user == null) {
+        throw Exception('로그인이 필요합니다.');
+      }
+      final userId = user.id;
 
-    final projectJson = ProjectModel(
-      id: Uuid().v4(),
-      userId: userId,
-      title: project.title,
-      status: project.status,
-      deadline: project.deadline,
-      createdAt: DateTime.now(),
-      hourlyRate: project.hourlyRate,
-      marginRate: project.marginRate,
-    ).toJson();
-
-    try {
-      final response = await _supabase.from('project').insert(projectJson);
-      print('Insert 성공: Response: $response');
-    } catch (e) {
-      print('Insert 실패: $e');
-      rethrow;
-    }
+      final projectJson = ProjectModel(
+        id: Uuid().v4(),
+        userId: userId,
+        title: project.title,
+        status: project.status,
+        deadline: project.deadline,
+        createdAt: DateTime.now(),
+        hourlyRate: project.hourlyRate,
+        marginRate: project.marginRate,
+      ).toJson();
+      return _supabase.from('project').insert(projectJson);
+    }, errorMessage: '추가에 실패하였습니다. 다시 시도해주세요.');
   }
 
   @override
   Future<List<ProjectModel>> getProject() async {
-    final response = await _supabase.from('project').select().order('created_at', ascending: false);
-
-    return response.map(ProjectModel.fromJson).toList();
+    return execute(() async {
+      final response = await _supabase.from('project').select().order('created_at', ascending: false);
+      return response.map(ProjectModel.fromJson).toList();
+    }, errorMessage: '프로젝트를 불러오지 못했습니다.');
   }
 
   @override
-  Future<void> checkAndUpdateOverdue() async {
+  Future<void> autoCompleteProjects() async {
     final now = DateTime.now();
     final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String();
 
@@ -50,23 +50,27 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
   @override
   Future<void> updateProject(ProjectModel project) async {
-    final userId = _supabase.auth.currentUser!.id;
-    await _supabase.from('project').update({
-      'title': project.title,
-      'hourly_rate': project.hourlyRate,
-      'margin_rate': project.marginRate,
-      'deadline': project.deadline?.toIso8601String(),
-      'status': project.status.value,
-    }).eq('id', project.id!).eq('user_id', userId);
+    return execute(() async {
+      final userId = _supabase.auth.currentUser!.id;
+      return _supabase
+          .from('project')
+          .update({'title': project.title, 'hourly_rate': project.hourlyRate, 'margin_rate': project.marginRate, 'deadline': project.deadline?.toIso8601String(), 'status': project.status.value})
+          .eq('id', project.id!)
+          .eq('user_id', userId);
+    }, errorMessage: '수정에 실패하였습니다. 다시 시도해주세요.');
   }
 
   @override
   Future<void> deleteProject(String projectId) async {
-    await _supabase.from('project').delete().eq('id', projectId);
+    return execute(() async {
+      return _supabase.from('project').delete().eq('id', projectId);
+    }, errorMessage: '삭제에 실패하였습니다. 다시 시도해주세요.');
   }
 
   @override
   Future<void> completeProject(String projectId) async {
-    await _supabase.from('project').update({'status': 'completed'}).eq('id', projectId);
+    return execute(() async {
+      return _supabase.from('project').update({'status': 'completed'}).eq('id', projectId);
+    }, errorMessage: '에러가 발생하였습니다. 다시 시도해주세요.');
   }
 }

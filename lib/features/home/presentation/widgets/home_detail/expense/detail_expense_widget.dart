@@ -4,7 +4,7 @@ import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
-import 'package:free_log/core/widgets/app_filled_button.dart';
+import 'package:free_log/core/widgets/button/app_filled_button.dart';
 import 'package:free_log/core/widgets/text_field/app_text_field.dart';
 import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
@@ -40,8 +40,6 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
     if (_amountController.text.trim().isEmpty) return;
 
     await ref.read(expenseNotifierProvider(widget.projectId).notifier).addExpense(_titleController.text.trim(), double.tryParse(_amountController.text.replaceAll(',', '')) ?? 0, _selectedDate);
-
-    // if (ref.read(expenseNotifierProvider(widget.projectId)) is AsyncError) return;
 
     _titleController.clear();
     _amountController.clear();
@@ -116,7 +114,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                   constraints: const BoxConstraints(maxHeight: 230),
                   child: ExpenseListView(expense: value),
                 ),
-                error: (error, _) => ErrorView(message: '$error'),
+                error: (error, _) => ErrorView(message: error.toString()),
               ),
             ],
           ),

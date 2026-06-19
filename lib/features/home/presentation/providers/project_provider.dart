@@ -13,14 +13,14 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
 
   @override
   FutureOr<List<ProjectModel>> build() async {
-    await _repo.checkAndUpdateOverdue();
+    await _repo.autoCompleteProjects();
     return await _repo.getProject();
   }
 
   Future<void> refresh() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await _repo.checkAndUpdateOverdue();
+      await _repo.autoCompleteProjects();
       return _repo.getProject();
     });
   }

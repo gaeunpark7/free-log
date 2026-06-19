@@ -3,7 +3,7 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 
 class DatePickerField extends StatelessWidget {
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
   final ValueChanged<DateTime> onDateChanged;
   final IconData? icon;
 
@@ -11,9 +11,10 @@ class DatePickerField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasDate = selectedDate != null;
     return GestureDetector(
       onTap: () async {
-        final picked = await showDatePicker(context: context, initialDate: selectedDate, firstDate: DateTime(2020), lastDate: DateTime(2100));
+        final picked = await showDatePicker(context: context, initialDate: selectedDate ?? DateTime.now(), firstDate: DateTime(2020), lastDate: DateTime(2100));
         if (picked != null) onDateChanged(picked);
       },
       child: Container(
@@ -28,10 +29,8 @@ class DatePickerField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${selectedDate.year}.'
-              '${selectedDate.month.toString().padLeft(2, '0')}.'
-              '${selectedDate.day.toString().padLeft(2, '0')}',
-              style: AppTextStyles.bodyBold(context),
+              hasDate ? '${selectedDate!.year}.${selectedDate!.month.toString().padLeft(2, '0')}.${selectedDate!.day.toString().padLeft(2, '0')}' : '연도-월-일',
+              style: AppTextStyles.body(context).copyWith(color: hasDate ? null : AppColors.textTertiary),
             ),
             Icon(icon, color: AppColors.textTertiary),
           ],

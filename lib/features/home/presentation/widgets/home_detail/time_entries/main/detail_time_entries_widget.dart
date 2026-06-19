@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
-import 'package:free_log/core/widgets/app_filled_button.dart';
-import 'package:free_log/core/widgets/date_picker_field.dart';
-import 'package:free_log/core/widgets/hour_text_field.dart';
+import 'package:free_log/core/widgets/button/app_filled_button.dart';
+import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
+import 'package:free_log/core/widgets/text_field/hour_text_field.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/features/home/presentation/screens/time_entry_screen.dart';
@@ -35,7 +35,7 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
     final asyncEntries = ref.watch(timeEntryNotifierProvider(widget.projectId));
     ref.listen<AsyncValue<List<TimeEntryModel>>>(timeEntryNotifierProvider(widget.projectId), (previous, next) {
       if (next is AsyncError && previous is! AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString()), backgroundColor: AppColors.errorSoft));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString())));
       }
     });
 
@@ -84,7 +84,7 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
               if (_isAdding) ...[
                 const SizedBox(height: 12),
                 Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
-                DatePickerField(selectedDate: _selectedDate, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
+                DatePickerField(icon: Icons.today, selectedDate: _selectedDate, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
                 const SizedBox(height: 8),
                 Text('작업 시간', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
                 HourTextField(controller: _hoursController),

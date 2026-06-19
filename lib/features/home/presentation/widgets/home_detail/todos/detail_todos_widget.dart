@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
-import 'package:free_log/core/widgets/app_filled_button.dart';
+import 'package:free_log/core/widgets/button/app_filled_button.dart';
 import 'package:free_log/core/widgets/text_field/app_text_field.dart';
 import 'package:free_log/features/home/presentation/providers/todos_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/todos/edit_todo_dialog.dart';
@@ -35,7 +36,7 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
     ref.listen(todoNotifierProvider(widget.projectId), (prev, next) {
       next.whenOrNull(
         error: (e, _) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: AppColors.errorSoft));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
         },
       );
     });
@@ -110,7 +111,7 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
               //TodoList
               asyncTodos.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (e, _) => Text('에러:$e'),
+                error: (e, _) => ErrorView(message: e.toString()),
                 data: (todos) {
                   final notDone = todos.where((e) => !e.isDone).toList();
                   final done = todos.where((e) => e.isDone).toList();
