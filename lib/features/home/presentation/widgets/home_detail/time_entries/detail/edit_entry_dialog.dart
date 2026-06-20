@@ -91,7 +91,7 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                 // 시간
                 Text('작업 시간', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
                 const SizedBox(height: 6),
-                HourTextField(controller: _hoursController),
+                HourTextField(controller: _hoursController, hintText: '시간을 입력하세요'),
                 const SizedBox(height: 12),
 
                 // 버튼
