@@ -1,34 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/widgets/hour_input_formatter.dart';
 
-class HourTextField extends StatelessWidget {
+class MarginRateField extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
-  final Icon? icon;
-  // final List<TextInputFormatter>? inputFormatters;
-  const HourTextField({super.key, required this.controller, required this.hintText, this.icon});
+  const MarginRateField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       style: AppTextStyles.body(context),
       controller: controller,
-      inputFormatters: [HourInputFormatter()],
       keyboardType: TextInputType.number,
+      cursorColor: AppColors.primary,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(3),
+      ],
       validator: (value) {
-        if (value == null || value.isEmpty) return '시간을 입력하세요.';
-        final digits = value.replaceAll('h', '');
-        final hours = double.tryParse(digits);
-        if (hours == null || hours <= 0) return '0보다 큰 시간을 입력하세요.';
+        if (value == null || value.isEmpty) return '마진율을 입력하세요.';
         return null;
       },
       decoration: InputDecoration(
-        counterText: '',
-        hintText: hintText,
-        hintStyle: TextStyle(color: AppColors.textTertiary),
-        suffixStyle: TextStyle(color: AppColors.textTertiary),
         isDense: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         border: OutlineInputBorder(
@@ -41,7 +35,7 @@ class HourTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -49,9 +43,12 @@ class HourTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: AppColors.background,
-        suffixIcon: icon,
+        hintText: '0',
+        hintStyle: TextStyle(color: AppColors.textTertiary),
+        suffixText: '%',
+        suffixStyle: TextStyle(color: AppColors.textTertiary),
       ),
-      maxLength: 5,
+      maxLines: 1,
     );
   }
 }
