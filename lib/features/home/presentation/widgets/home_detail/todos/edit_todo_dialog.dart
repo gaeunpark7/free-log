@@ -18,6 +18,13 @@ class EditTodoDialog extends ConsumerStatefulWidget {
 
 class _EditTodoDialogState extends ConsumerState<EditTodoDialog> {
   final _formKey = GlobalKey<FormState>();
+  late final String _originalText;
+
+  @override
+  void initState() {
+    super.initState();
+    _originalText = widget.controller.text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +89,10 @@ class _EditTodoDialogState extends ConsumerState<EditTodoDialog> {
                         child: FilledButton(
                           style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
                           onPressed: () async {
+                            if (widget.controller.text.trim() == _originalText.trim()) {
+                              if (context.mounted) Navigator.pop(context);
+                              return;
+                            }
                             if (!_formKey.currentState!.validate()) return;
                             await ref.read(todoNotifierProvider(widget.projectId).notifier).updateTodo(widget.todoId, widget.controller.text);
                             if (ref.read(todoNotifierProvider(widget.projectId)).hasError) return;

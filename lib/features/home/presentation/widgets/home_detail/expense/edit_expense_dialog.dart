@@ -114,10 +114,21 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                         child: FilledButton(
                           style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
                           onPressed: () async {
+                            final amount = double.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+                            final noChange =
+                                _titleController.text.trim() == widget.expense.description &&
+                                amount == widget.expense.amount &&
+                                _selectedDate.year == widget.expense.spentAt.year &&
+                                _selectedDate.month == widget.expense.spentAt.month &&
+                                _selectedDate.day == widget.expense.spentAt.day;
+                            if (noChange) {
+                              if (context.mounted) Navigator.pop(context);
+                              return;
+                            }
                             if (!_formKey.currentState!.validate()) return;
                             await ref
                                 .read(expenseNotifierProvider(widget.expense.projectId ?? '').notifier)
-                                .updateExpense(widget.expense.id ?? '', _titleController.text.trim(), double.tryParse(_amountController.text.replaceAll(',', '')) ?? 0, _selectedDate);
+                                .updateExpense(widget.expense.id ?? '', _titleController.text.trim(), amount, _selectedDate);
                             if (context.mounted) Navigator.pop(context);
                           },
                           child: Text('수정', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),

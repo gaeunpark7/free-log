@@ -28,7 +28,7 @@ class TitleWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('가격 계산기', style: AppTextStyles.headline(context).copyWith(color: Colors.white)),
-                  Text('즉석 금액 산출', style: AppTextStyles.subTitleBold(context).copyWith(color: Colors.white)),
+                  Text('즉석 금액 산출', style: AppTextStyles.subTitle(context).copyWith(color: Colors.white)),
                 ],
               ),
             ],

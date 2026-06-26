@@ -108,10 +108,12 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
               if (!_isAdding) ...[SizedBox(height: 2), Divider(thickness: 0.5, color: AppColors.textTertiary)],
               asyncIncome.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
-                data: (value) => ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 230),
-                  child: IncomeListView(income: value),
-                ),
+                data: (value) => value.isEmpty
+                    ? SizedBox()
+                    : ConstrainedBox(
+                        constraints: const BoxConstraints(maxHeight: 230),
+                        child: IncomeListView(income: value),
+                      ),
                 error: (error, _) => ErrorView(message: error.toString()),
               ),
             ],

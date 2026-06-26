@@ -110,10 +110,12 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
               if (!_isAdding) ...[SizedBox(height: 2), Divider(thickness: 0.5, color: AppColors.textTertiary)],
               asyncExpense.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
-                data: (value) => ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 230),
-                  child: ExpenseListView(expense: value),
-                ),
+                data: (value) => value.isEmpty
+                    ? SizedBox()
+                    : ConstrainedBox(
+                        constraints: const BoxConstraints(maxHeight: 230),
+                        child: ExpenseListView(expense: value),
+                      ),
                 error: (error, _) => ErrorView(message: error.toString()),
               ),
             ],
