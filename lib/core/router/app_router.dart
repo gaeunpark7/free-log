@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
-import 'package:free_log/features/calculator/presentation/screen/calendar_screen.dart';
+import 'package:free_log/features/calendar/presentation/screens/calendar_screen.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/screens/home_detail_screen.dart';
 import 'package:free_log/features/home/presentation/screens/home_screen.dart';
