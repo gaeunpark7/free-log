@@ -11,33 +11,30 @@ part of 'calendar_data_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$CalendarDataModel {
 
- double get hours; int get income; int get expense;
+ double get hours; int get income; int get expense; List<TimeEntryDetail> get timeEntries; List<IncomeDetail> get incomes; List<ExpenseDetail> get expenses;
 /// Create a copy of CalendarDataModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $CalendarDataModelCopyWith<CalendarDataModel> get copyWith => _$CalendarDataModelCopyWithImpl<CalendarDataModel>(this as CalendarDataModel, _$identity);
 
-  /// Serializes this CalendarDataModel to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CalendarDataModel&&(identical(other.hours, hours) || other.hours == hours)&&(identical(other.income, income) || other.income == income)&&(identical(other.expense, expense) || other.expense == expense));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CalendarDataModel&&(identical(other.hours, hours) || other.hours == hours)&&(identical(other.income, income) || other.income == income)&&(identical(other.expense, expense) || other.expense == expense)&&const DeepCollectionEquality().equals(other.timeEntries, timeEntries)&&const DeepCollectionEquality().equals(other.incomes, incomes)&&const DeepCollectionEquality().equals(other.expenses, expenses));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
-int get hashCode => Object.hash(runtimeType,hours,income,expense);
+int get hashCode => Object.hash(runtimeType,hours,income,expense,const DeepCollectionEquality().hash(timeEntries),const DeepCollectionEquality().hash(incomes),const DeepCollectionEquality().hash(expenses));
 
 @override
 String toString() {
-  return 'CalendarDataModel(hours: $hours, income: $income, expense: $expense)';
+  return 'CalendarDataModel(hours: $hours, income: $income, expense: $expense, timeEntries: $timeEntries, incomes: $incomes, expenses: $expenses)';
 }
 
 
@@ -48,7 +45,7 @@ abstract mixin class $CalendarDataModelCopyWith<$Res>  {
   factory $CalendarDataModelCopyWith(CalendarDataModel value, $Res Function(CalendarDataModel) _then) = _$CalendarDataModelCopyWithImpl;
 @useResult
 $Res call({
- double hours, int income, int expense
+ double hours, int income, int expense, List<TimeEntryDetail> timeEntries, List<IncomeDetail> incomes, List<ExpenseDetail> expenses
 });
 
 
@@ -65,12 +62,15 @@ class _$CalendarDataModelCopyWithImpl<$Res>
 
 /// Create a copy of CalendarDataModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? hours = null,Object? income = null,Object? expense = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? hours = null,Object? income = null,Object? expense = null,Object? timeEntries = null,Object? incomes = null,Object? expenses = null,}) {
   return _then(_self.copyWith(
 hours: null == hours ? _self.hours : hours // ignore: cast_nullable_to_non_nullable
 as double,income: null == income ? _self.income : income // ignore: cast_nullable_to_non_nullable
 as int,expense: null == expense ? _self.expense : expense // ignore: cast_nullable_to_non_nullable
-as int,
+as int,timeEntries: null == timeEntries ? _self.timeEntries : timeEntries // ignore: cast_nullable_to_non_nullable
+as List<TimeEntryDetail>,incomes: null == incomes ? _self.incomes : incomes // ignore: cast_nullable_to_non_nullable
+as List<IncomeDetail>,expenses: null == expenses ? _self.expenses : expenses // ignore: cast_nullable_to_non_nullable
+as List<ExpenseDetail>,
   ));
 }
 
@@ -155,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double hours,  int income,  int expense)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double hours,  int income,  int expense,  List<TimeEntryDetail> timeEntries,  List<IncomeDetail> incomes,  List<ExpenseDetail> expenses)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CalendarDataModel() when $default != null:
-return $default(_that.hours,_that.income,_that.expense);case _:
+return $default(_that.hours,_that.income,_that.expense,_that.timeEntries,_that.incomes,_that.expenses);case _:
   return orElse();
 
 }
@@ -176,10 +176,10 @@ return $default(_that.hours,_that.income,_that.expense);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double hours,  int income,  int expense)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double hours,  int income,  int expense,  List<TimeEntryDetail> timeEntries,  List<IncomeDetail> incomes,  List<ExpenseDetail> expenses)  $default,) {final _that = this;
 switch (_that) {
 case _CalendarDataModel():
-return $default(_that.hours,_that.income,_that.expense);case _:
+return $default(_that.hours,_that.income,_that.expense,_that.timeEntries,_that.incomes,_that.expenses);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +196,10 @@ return $default(_that.hours,_that.income,_that.expense);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double hours,  int income,  int expense)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double hours,  int income,  int expense,  List<TimeEntryDetail> timeEntries,  List<IncomeDetail> incomes,  List<ExpenseDetail> expenses)?  $default,) {final _that = this;
 switch (_that) {
 case _CalendarDataModel() when $default != null:
-return $default(_that.hours,_that.income,_that.expense);case _:
+return $default(_that.hours,_that.income,_that.expense,_that.timeEntries,_that.incomes,_that.expenses);case _:
   return null;
 
 }
@@ -208,15 +208,36 @@ return $default(_that.hours,_that.income,_that.expense);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _CalendarDataModel implements CalendarDataModel {
-  const _CalendarDataModel({this.hours = 0.0, this.income = 0, this.expense = 0});
-  factory _CalendarDataModel.fromJson(Map<String, dynamic> json) => _$CalendarDataModelFromJson(json);
+  const _CalendarDataModel({this.hours = 0.0, this.income = 0, this.expense = 0, final  List<TimeEntryDetail> timeEntries = const [], final  List<IncomeDetail> incomes = const [], final  List<ExpenseDetail> expenses = const []}): _timeEntries = timeEntries,_incomes = incomes,_expenses = expenses;
+  
 
 @override@JsonKey() final  double hours;
 @override@JsonKey() final  int income;
 @override@JsonKey() final  int expense;
+ final  List<TimeEntryDetail> _timeEntries;
+@override@JsonKey() List<TimeEntryDetail> get timeEntries {
+  if (_timeEntries is EqualUnmodifiableListView) return _timeEntries;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_timeEntries);
+}
+
+ final  List<IncomeDetail> _incomes;
+@override@JsonKey() List<IncomeDetail> get incomes {
+  if (_incomes is EqualUnmodifiableListView) return _incomes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_incomes);
+}
+
+ final  List<ExpenseDetail> _expenses;
+@override@JsonKey() List<ExpenseDetail> get expenses {
+  if (_expenses is EqualUnmodifiableListView) return _expenses;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_expenses);
+}
+
 
 /// Create a copy of CalendarDataModel
 /// with the given fields replaced by the non-null parameter values.
@@ -224,23 +245,20 @@ class _CalendarDataModel implements CalendarDataModel {
 @pragma('vm:prefer-inline')
 _$CalendarDataModelCopyWith<_CalendarDataModel> get copyWith => __$CalendarDataModelCopyWithImpl<_CalendarDataModel>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$CalendarDataModelToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CalendarDataModel&&(identical(other.hours, hours) || other.hours == hours)&&(identical(other.income, income) || other.income == income)&&(identical(other.expense, expense) || other.expense == expense));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CalendarDataModel&&(identical(other.hours, hours) || other.hours == hours)&&(identical(other.income, income) || other.income == income)&&(identical(other.expense, expense) || other.expense == expense)&&const DeepCollectionEquality().equals(other._timeEntries, _timeEntries)&&const DeepCollectionEquality().equals(other._incomes, _incomes)&&const DeepCollectionEquality().equals(other._expenses, _expenses));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
-int get hashCode => Object.hash(runtimeType,hours,income,expense);
+int get hashCode => Object.hash(runtimeType,hours,income,expense,const DeepCollectionEquality().hash(_timeEntries),const DeepCollectionEquality().hash(_incomes),const DeepCollectionEquality().hash(_expenses));
 
 @override
 String toString() {
-  return 'CalendarDataModel(hours: $hours, income: $income, expense: $expense)';
+  return 'CalendarDataModel(hours: $hours, income: $income, expense: $expense, timeEntries: $timeEntries, incomes: $incomes, expenses: $expenses)';
 }
 
 
@@ -251,7 +269,7 @@ abstract mixin class _$CalendarDataModelCopyWith<$Res> implements $CalendarDataM
   factory _$CalendarDataModelCopyWith(_CalendarDataModel value, $Res Function(_CalendarDataModel) _then) = __$CalendarDataModelCopyWithImpl;
 @override @useResult
 $Res call({
- double hours, int income, int expense
+ double hours, int income, int expense, List<TimeEntryDetail> timeEntries, List<IncomeDetail> incomes, List<ExpenseDetail> expenses
 });
 
 
@@ -268,12 +286,15 @@ class __$CalendarDataModelCopyWithImpl<$Res>
 
 /// Create a copy of CalendarDataModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? hours = null,Object? income = null,Object? expense = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? hours = null,Object? income = null,Object? expense = null,Object? timeEntries = null,Object? incomes = null,Object? expenses = null,}) {
   return _then(_CalendarDataModel(
 hours: null == hours ? _self.hours : hours // ignore: cast_nullable_to_non_nullable
 as double,income: null == income ? _self.income : income // ignore: cast_nullable_to_non_nullable
 as int,expense: null == expense ? _self.expense : expense // ignore: cast_nullable_to_non_nullable
-as int,
+as int,timeEntries: null == timeEntries ? _self._timeEntries : timeEntries // ignore: cast_nullable_to_non_nullable
+as List<TimeEntryDetail>,incomes: null == incomes ? _self._incomes : incomes // ignore: cast_nullable_to_non_nullable
+as List<IncomeDetail>,expenses: null == expenses ? _self._expenses : expenses // ignore: cast_nullable_to_non_nullable
+as List<ExpenseDetail>,
   ));
 }
 
