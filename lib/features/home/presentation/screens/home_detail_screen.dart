@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
-import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/widgets/app_content_layout_widget.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
@@ -45,7 +44,10 @@ class _HomeDetailScreenState extends ConsumerState<HomeDetailScreen> {
                   padding: Responsive.screenPadding(context),
                   child: Column(
                     children: [
-                      DefaultTabController(length: 2, child: DetailTodosWidget(projectId: widget.projectId)),
+                      DefaultTabController(
+                        length: 2,
+                        child: DetailTodosWidget(projectId: widget.projectId),
+                      ),
                       const SizedBox(height: 12),
                       DetailTimeEntries(projectId: widget.projectId),
                       const SizedBox(height: 12),

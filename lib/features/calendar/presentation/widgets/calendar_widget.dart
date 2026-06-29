@@ -4,17 +4,30 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatefulWidget {
-  DateTime focusedDay;
-  DateTime selectedDay;
-  CalendarWidget({super.key, required this.focusedDay, required this.selectedDay});
+  final DateTime focusedDay;
+  final DateTime selectedDay;
+  final void Function(DateTime) onPageChanged;
+  final void Function(DateTime)? onDaySelected;
+  const CalendarWidget({
+    super.key,
+    required this.focusedDay,
+    required this.selectedDay,
+    required this.onPageChanged,
+    this.onDaySelected,
+  });
 
   @override
   State<CalendarWidget> createState() => _CalendarWidgetState();
 }
 
 class _CalendarWidgetState extends State<CalendarWidget> {
-  // DateTime _focusedDay = DateTime.now();
-  // DateTime? _selectedDay;
+  late DateTime _selectedDay;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = widget.selectedDay;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +35,22 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       decoration: BoxDecoration(color: AppColors.background),
       child: TableCalendar(
         headerVisible: false,
-        rowHeight: 100, //셀 크기 키우기
+        rowHeight: 100,
         firstDay: DateTime(2026),
         lastDay: DateTime(2045),
         focusedDay: widget.focusedDay,
-        selectedDayPredicate: (day) {
-          return isSameDay(widget.selectedDay, day);
-        },
+        selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
         daysOfWeekHeight: 40,
-        // locale: 'ko_KR',
 
         //월 이동
         onPageChanged: (focusedDay) {
-          setState(() {
-            widget.focusedDay = focusedDay;
-          });
+          widget.onPageChanged(focusedDay);
         },
 
         //날짜 선택
         onDaySelected: (selectedDay, focusedDay) {
-          setState(() {
-            widget.focusedDay = focusedDay;
-            widget.selectedDay = selectedDay;
-          });
+          setState(() => _selectedDay = selectedDay);
+          widget.onDaySelected?.call(selectedDay);
         },
 
         //header style
@@ -59,10 +65,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         calendarStyle: CalendarStyle(
           // cellMargin: const EdgeInsets.symmetric(vertical: 2, horizontal: 1),
           //오늘 날짜
-          todayDecoration: BoxDecoration(color: AppColors.primary.withOpacity(0.2), shape: BoxShape.circle),
+          todayDecoration: BoxDecoration(
+            color: AppColors.primary.withOpacity(0.2),
+            shape: BoxShape.circle,
+          ),
           todayTextStyle: AppTextStyles.bodyBold(context).copyWith(color: AppColors.primaryDark),
           //선택 된 날짜
-          selectedDecoration: BoxDecoration(color: AppColors.primary, shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(8)),
+          selectedDecoration: BoxDecoration(
+            color: AppColors.primary,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(8),
+          ),
           selectedTextStyle: AppTextStyles.body(context).copyWith(color: Colors.white),
           //주말 색상
           weekendTextStyle: AppTextStyles.body(context).copyWith(color: AppColors.errorSoft),
@@ -81,7 +94,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   Widget _buildDayCell(DateTime day, bool isSelected) {
     return SizedBox(
-      height: 110,
+      // height: 110,
       width: 110,
       child: Container(
         margin: const EdgeInsets.all(2),
@@ -99,7 +112,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           children: [
             const SizedBox(height: 4),
             // 날짜 숫자
-            Text('${day.day}', style: AppTextStyles.captionBold(context).copyWith(color: isSelected ? AppColors.textPrimary : AppColors.textSecondary)),
+            Text(
+              '${day.day}',
+              style: AppTextStyles.captionBold(
+                context,
+              ).copyWith(color: isSelected ? AppColors.textPrimary : AppColors.textSecondary),
+            ),
           ],
         ),
       ),

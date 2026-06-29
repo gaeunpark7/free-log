@@ -4,7 +4,15 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 
 class SummaryCardWidget extends StatelessWidget {
-  const SummaryCardWidget({super.key});
+  final double totalHours;
+  final int totalIncome;
+  final int totalExpense;
+  const SummaryCardWidget({
+    super.key,
+    required this.totalHours,
+    required this.totalIncome,
+    required this.totalExpense,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +26,11 @@ class SummaryCardWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildSummaryItem(context, '19.5h', '작업시간', AppColors.primaryDark),
+          _buildSummaryItem(context, '${totalHours}h', '작업시간', AppColors.primaryDark),
           _buildDivider(),
-          _buildSummaryItem(context, '+200k', '받은 수익', AppColors.success),
+          _buildSummaryItem(context, '+$totalIncome', '받은 수익', AppColors.success),
           _buildDivider(),
-          _buildSummaryItem(context, '-200k', '재료비', AppColors.error),
+          _buildSummaryItem(context, '-$totalExpense', '재료비', AppColors.error),
         ],
       ),
     );

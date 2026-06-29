@@ -8,7 +8,7 @@ abstract class ExpenseModel with _$ExpenseModel {
   const factory ExpenseModel({
     String? id,
     @JsonKey(name: 'project_id') String? projectId,
-    required double amount,
+    required int amount,
     required String description,
     @JsonKey(name: 'spent_at') required DateTime spentAt,
     @JsonKey(name: 'created_at') DateTime? createdAt,

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExpenseModel {
 
- String? get id;@JsonKey(name: 'project_id') String? get projectId; double get amount; String get description;@JsonKey(name: 'spent_at') DateTime get spentAt;@JsonKey(name: 'created_at') DateTime? get createdAt;
+ String? get id;@JsonKey(name: 'project_id') String? get projectId; int get amount; String get description;@JsonKey(name: 'spent_at') DateTime get spentAt;@JsonKey(name: 'created_at') DateTime? get createdAt;
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ExpenseModelCopyWith<$Res>  {
   factory $ExpenseModelCopyWith(ExpenseModel value, $Res Function(ExpenseModel) _then) = _$ExpenseModelCopyWithImpl;
 @useResult
 $Res call({
- String? id,@JsonKey(name: 'project_id') String? projectId, double amount, String description,@JsonKey(name: 'spent_at') DateTime spentAt,@JsonKey(name: 'created_at') DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId, int amount, String description,@JsonKey(name: 'spent_at') DateTime spentAt,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -70,7 +70,7 @@ class _$ExpenseModelCopyWithImpl<$Res>
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,spentAt: null == spentAt ? _self.spentAt : spentAt // ignore: cast_nullable_to_non_nullable
 as DateTime,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
@@ -158,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  double amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  int amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExpenseModel() when $default != null:
 return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.spentAt,_that.createdAt);case _:
@@ -179,7 +179,7 @@ return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.sp
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  double amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  int amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _ExpenseModel():
 return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.spentAt,_that.createdAt);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.sp
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  double amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  int amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _ExpenseModel() when $default != null:
 return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.spentAt,_that.createdAt);case _:
@@ -219,7 +219,7 @@ class _ExpenseModel implements ExpenseModel {
 
 @override final  String? id;
 @override@JsonKey(name: 'project_id') final  String? projectId;
-@override final  double amount;
+@override final  int amount;
 @override final  String description;
 @override@JsonKey(name: 'spent_at') final  DateTime spentAt;
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
@@ -257,7 +257,7 @@ abstract mixin class _$ExpenseModelCopyWith<$Res> implements $ExpenseModelCopyWi
   factory _$ExpenseModelCopyWith(_ExpenseModel value, $Res Function(_ExpenseModel) _then) = __$ExpenseModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? id,@JsonKey(name: 'project_id') String? projectId, double amount, String description,@JsonKey(name: 'spent_at') DateTime spentAt,@JsonKey(name: 'created_at') DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId, int amount, String description,@JsonKey(name: 'spent_at') DateTime spentAt,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -279,7 +279,7 @@ class __$ExpenseModelCopyWithImpl<$Res>
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,spentAt: null == spentAt ? _self.spentAt : spentAt // ignore: cast_nullable_to_non_nullable
 as DateTime,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
