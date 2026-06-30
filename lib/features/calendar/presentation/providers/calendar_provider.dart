@@ -7,6 +7,7 @@ import 'package:free_log/features/calendar/domain/model/calendar_detail_model.da
 import 'package:free_log/features/calendar/domain/repository/calendar_repository.dart';
 import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
+import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 
@@ -34,12 +35,7 @@ class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
   }
 
   Future<Map<DateTime, CalendarDataModel>> _loadMonth(int year, int month) async {
-    final (timeEntries, incomes, expenses, projects) = await (
-      _repo.getMonthlyTimeEntries(year, month),
-      _repo.getMonthlyIncomes(year, month),
-      _repo.getMonthlyExpenses(year, month),
-      ref.read(projectNotifierProvider.future),
-    ).wait;
+    final (timeEntries, incomes, expenses, projects) = await _fetchAll(year, month);
 
     final projectMap = <String, String>{
       for (final p in projects)
@@ -47,6 +43,22 @@ class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
     };
 
     return _groupByDate(timeEntries, incomes, expenses, projectMap);
+  }
+
+  Future<(List<TimeEntryModel>, List<IncomeModel>, List<ExpenseModel>, List<ProjectModel>)>
+  _fetchAll(int year, int month) async {
+    try {
+      return await (
+        _repo.getMonthlyTimeEntries(year, month),
+        _repo.getMonthlyIncomes(year, month),
+        _repo.getMonthlyExpenses(year, month),
+        ref.read(projectNotifierProvider.future),
+      ).wait;
+    } on ParallelWaitError catch (e) {
+      final errors = e.errors as dynamic;
+      final firstError = errors.$1 ?? errors.$2 ?? errors.$3 ?? errors.$4;
+      throw firstError as Object;
+    }
   }
 
   Map<DateTime, CalendarDataModel> _groupByDate(

@@ -1,3 +1,4 @@
+import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/features/calendar/domain/repository/calendar_repository.dart';
 import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
@@ -5,54 +6,61 @@ import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class CalendarRepositoryImpl implements CalendarRepository {
+class CalendarRepositoryImpl extends BaseRepository implements CalendarRepository {
   final SupabaseClient _supabase;
 
   CalendarRepositoryImpl(this._supabase);
 
   @override
   Future<List<ProjectModel>> getProjects() async {
-    final response = await _supabase.from('project').select('id, title');
-
-    return response.map((e) => ProjectModel.fromJson(e)).toList();
+    return execute(() async {
+      final response = await _supabase.from('project').select('id, title');
+      return response.map((e) => ProjectModel.fromJson(e)).toList();
+    }, errorMessage: '프로젝트 목록을 불러오지 못했습니다.');
   }
 
   @override
   Future<List<TimeEntryModel>> getMonthlyTimeEntries(int year, int month) async {
-    final start = DateTime(year, month, 1).toUtc().toIso8601String();
-    final end = DateTime(year, month + 1, 1).toUtc().toIso8601String();
+    return execute(() async {
+      final start = DateTime(year, month, 1).toUtc().toIso8601String();
+      final end = DateTime(year, month + 1, 1).toUtc().toIso8601String();
 
-    final response = await _supabase
-        .from('time_entries')
-        .select()
-        .gte('worked_at', start)
-        .lt('worked_at', end);
-    return response.map(TimeEntryModel.fromJson).toList();
+      final response = await _supabase
+          .from('time_entries')
+          .select()
+          .gte('worked_at', start)
+          .lt('worked_at', end);
+      return response.map(TimeEntryModel.fromJson).toList();
+    }, errorMessage: '작업시간을 불러오지 못했습니다.');
   }
 
   @override
   Future<List<IncomeModel>> getMonthlyIncomes(int year, int month) async {
-    final start = DateTime(year, month, 1).toUtc().toIso8601String();
-    final end = DateTime(year, month + 1, 1).toUtc().toIso8601String();
-    final response = await _supabase
-        .from('income_entries')
-        .select()
-        .gte('received_at', start)
-        .lt('received_at', end);
+    return execute(() async {
+      final start = DateTime(year, month, 1).toUtc().toIso8601String();
+      final end = DateTime(year, month + 1, 1).toUtc().toIso8601String();
+      final response = await _supabase
+          .from('income_entries')
+          .select()
+          .gte('received_at', start)
+          .lt('received_at', end);
 
-    return response.map(IncomeModel.fromJson).toList();
+      return response.map(IncomeModel.fromJson).toList();
+    }, errorMessage: '수입을 불러오지 못했습니다.');
   }
 
   @override
   Future<List<ExpenseModel>> getMonthlyExpenses(int year, int month) async {
-    final start = DateTime(year, month, 1).toUtc().toIso8601String();
-    final end = DateTime(year, month + 1, 1).toUtc().toIso8601String();
+    return execute(() async {
+      final start = DateTime(year, month, 1).toUtc().toIso8601String();
+      final end = DateTime(year, month + 1, 1).toUtc().toIso8601String();
 
-    final response = await _supabase
-        .from('expense_entries')
-        .select()
-        .gte('spent_at', start)
-        .lt('spent_at', end);
-    return response.map(ExpenseModel.fromJson).toList();
+      final response = await _supabase
+          .from('expense_entries')
+          .select()
+          .gte('spent_at', start)
+          .lt('spent_at', end);
+      return response.map(ExpenseModel.fromJson).toList();
+    }, errorMessage: '지출을 불러오지 못했습니다.');
   }
 }
