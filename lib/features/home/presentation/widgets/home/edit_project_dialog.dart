@@ -39,10 +39,14 @@ class _EditProjectDialogState extends ConsumerState<EditProjectDialog> {
   }
 
   Future<void> _save() async {
-    if (!_formKey.currentState!.validate()) return;
+    final hourlyRate = int.tryParse(_hourlyRateController.text.replaceAll(',', '')) ?? 0;
+    final noChange = _titleController.text.trim() == widget.project.title && hourlyRate == widget.project.hourlyRate && _selectedDeadline == widget.project.deadline;
+    if (noChange) {
+      if (mounted) Navigator.pop(context);
+      return;
+    }
 
-    final hourlyRate = int.tryParse(_hourlyRateController.text.replaceAll(',', ''));
-    if (hourlyRate == null) return;
+    if (!_formKey.currentState!.validate()) return;
 
     final updated = widget.project.copyWith(title: _titleController.text.trim(), hourlyRate: hourlyRate, deadline: _selectedDeadline);
 

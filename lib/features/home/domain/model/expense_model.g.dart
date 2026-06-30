@@ -10,7 +10,7 @@ _ExpenseModel _$ExpenseModelFromJson(Map<String, dynamic> json) =>
     _ExpenseModel(
       id: json['id'] as String?,
       projectId: json['project_id'] as String?,
-      amount: (json['amount'] as num).toDouble(),
+      amount: (json['amount'] as num).toInt(),
       description: json['description'] as String,
       spentAt: DateTime.parse(json['spent_at'] as String),
       createdAt: json['created_at'] == null

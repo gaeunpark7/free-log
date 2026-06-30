@@ -60,7 +60,10 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                     Container(
                       width: 45,
                       height: 45,
-                      decoration: BoxDecoration(color: const Color.fromARGB(255, 230, 237, 248), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 230, 237, 248),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Icon(Icons.edit_document, color: AppColors.primary),
                     ),
                     SizedBox(width: 10),
@@ -68,19 +71,44 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                   ],
                 ),
                 SizedBox(height: 12),
-                Text('항목', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  '항목',
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                AppTextField(controller: _titleController, valieText: '항목을 입력하세요.', hintText: '항목명', maxLenth: 15, icon: Icon(Icons.edit_note, size: 23)),
+                AppTextField(
+                  controller: _titleController,
+                  valieText: '항목을 입력하세요.',
+                  hintText: '항목명',
+                  maxLenth: 15,
+                  icon: Icon(Icons.edit_note, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //금액
-                Text('금액', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  '금액',
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                HourlyRateField(controller: _amountController, hintText: '금액', errorText: '금액을 입력하세요', maxDigits: 8, icon: Icon(Icons.attach_money_outlined, size: 23)),
+                HourlyRateField(
+                  controller: _amountController,
+                  hintText: '금액',
+                  errorText: '금액을 입력하세요',
+                  maxDigits: 8,
+                  icon: Icon(Icons.attach_money_outlined, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //날짜
-                Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  '날짜',
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                DatePickerField(selectedDate: _selectedDate, icon: Icons.event, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
+                DatePickerField(
+                  selectedDate: _selectedDate,
+                  icon: Icons.event,
+                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -98,7 +126,13 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                             context: context,
                             builder: (ctx) => DeleteDialog(
                               onDelete: () async {
-                                await ref.read(expenseNotifierProvider(widget.expense.projectId ?? '').notifier).deleteExpense(widget.expense.id ?? '');
+                                await ref
+                                    .read(
+                                      expenseNotifierProvider(
+                                        widget.expense.projectId ?? '',
+                                      ).notifier,
+                                    )
+                                    .deleteExpense(widget.expense.id ?? '');
                                 if (context.mounted) Navigator.pop(context);
                               },
                             ),
@@ -112,15 +146,39 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                       child: SizedBox(
                         height: 48,
                         child: FilledButton(
-                          style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                          style: FilledButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
                           onPressed: () async {
+                            final amount =
+                                int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+                            final noChange =
+                                _titleController.text.trim() == widget.expense.description &&
+                                amount == widget.expense.amount &&
+                                _selectedDate.year == widget.expense.spentAt.year &&
+                                _selectedDate.month == widget.expense.spentAt.month &&
+                                _selectedDate.day == widget.expense.spentAt.day;
+                            if (noChange) {
+                              if (context.mounted) Navigator.pop(context);
+                              return;
+                            }
                             if (!_formKey.currentState!.validate()) return;
                             await ref
-                                .read(expenseNotifierProvider(widget.expense.projectId ?? '').notifier)
-                                .updateExpense(widget.expense.id ?? '', _titleController.text.trim(), double.tryParse(_amountController.text.replaceAll(',', '')) ?? 0, _selectedDate);
+                                .read(
+                                  expenseNotifierProvider(widget.expense.projectId ?? '').notifier,
+                                )
+                                .updateExpense(
+                                  widget.expense.id ?? '',
+                                  _titleController.text.trim(),
+                                  amount,
+                                  _selectedDate,
+                                );
                             if (context.mounted) Navigator.pop(context);
                           },
-                          child: Text('수정', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),
+                          child: Text(
+                            '수정',
+                            style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),

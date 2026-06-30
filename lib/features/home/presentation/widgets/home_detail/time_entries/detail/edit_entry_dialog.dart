@@ -22,7 +22,6 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
   late TextEditingController _hoursController;
   final _formKey = GlobalKey<FormState>();
   late DateTime _selectedDate;
-  bool _isEditing = false; // 편집 여부
 
   @override
   void initState() {
@@ -30,13 +29,15 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
     final hours = widget.entry.hours;
     _hoursController = TextEditingController(text: hours == 0.0 ? '' : '${hours}h');
     _selectedDate = widget.entry.workedAt ?? DateTime.now().toLocal();
-
-    // 텍스트 변경 감지
-    _hoursController.addListener(_onChanged);
+    _hoursController.addListener(() => setState(() {}));
   }
 
-  void _onChanged() {
-    setState(() => _isEditing = true);
+  // 원본 값과 현재 값을 비교해 실제 변경이 있을 때만 true
+  bool get _hasChanges {
+    final currentHours = double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
+    final original = widget.entry.workedAt ?? DateTime.now().toLocal();
+    final dateChanged = _selectedDate.year != original.year || _selectedDate.month != original.month || _selectedDate.day != original.day;
+    return currentHours != widget.entry.hours || dateChanged;
   }
 
   @override
@@ -83,7 +84,6 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                   onDateChanged: (picked) {
                     setState(() {
                       _selectedDate = picked;
-                      _isEditing = true;
                     });
                   },
                 ),
@@ -95,7 +95,7 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                 const SizedBox(height: 12),
 
                 // 버튼
-                if (_isEditing)
+                if (_hasChanges)
                   // 편집 중 >  저장하기
                   SizedBox(
                     height: 48,

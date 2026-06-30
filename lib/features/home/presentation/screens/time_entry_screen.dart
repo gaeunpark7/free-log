@@ -26,85 +26,88 @@ class TimeEntryScreen extends ConsumerWidget {
       next.whenOrNull(error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString()))));
     });
     return Scaffold(
-      backgroundColor: AppColors.background,
-
-      body: AppContentlayout(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBar(
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white,
-              title: Text('작업 시간', style: AppTextStyles.headline(context).copyWith(color: Colors.white)),
-            ),
-            // 총 작업시간 카드
-            Padding(
-              padding: Responsive.screenPadding(context),
-              child: Column(
-                children: [
-                  Container(
-                    padding: Responsive.cardPadding(context),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppColors.borderDefault),
-                    ),
-                    child: switch (asyncEntries) {
-                      AsyncError(:final error) => ErrorView(message: error.toString()),
-                      AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
-                      AsyncData(value: final entries) => Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: AppColors.primary,
+      body: SafeArea(
+        child: AppContentlayout(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppBar(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                title: Text('작업 시간', style: AppTextStyles.headline(context).copyWith(color: Colors.white)),
+              ),
+              // 총 작업시간 카드
+              Expanded(
+                child: Padding(
+                  padding: Responsive.screenPadding(context),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: Responsive.cardPadding(context),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.borderDefault),
+                        ),
+                        child: switch (asyncEntries) {
+                          AsyncError(:final error) => ErrorView(message: error.toString()),
+                          AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                          AsyncData(value: final entries) => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('총 작업 시간', style: AppTextStyles.bodyBold(context)),
-                              Row(children: [Text('$projectName ⦁ ${entries.length}건', style: AppTextStyles.caption(context))]),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('총 작업 시간', style: AppTextStyles.bodyBold(context)),
+                                  Row(children: [Text('$projectName ⦁ ${entries.length}건', style: AppTextStyles.caption(context))]),
+                                ],
+                              ),
+                              Text(
+                                formatHours(entries.fold(0.0, (sum, e) => sum + e.hours)),
+                                style: AppTextStyles.headline(context).copyWith(color: entries.fold(0.0, (sum, e) => sum + e.hours) == 0.0 ? Colors.grey : AppColors.textPrimary),
+                              ),
                             ],
                           ),
-                          Text(
-                            formatHours(entries.fold(0.0, (sum, e) => sum + e.hours)),
-                            style: AppTextStyles.headline(context).copyWith(color: entries.fold(0.0, (sum, e) => sum + e.hours) == 0.0 ? Colors.grey : AppColors.textPrimary),
-                          ),
-                        ],
+                          _ => const SizedBox.shrink(),
+                        },
                       ),
-                      _ => const SizedBox.shrink(),
-                    },
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('기록내역', style: AppTextStyles.subTitleBold(context))],
+                      ),
+                      const SizedBox(height: 8),
+                      //시간 listView
+                      switch (asyncEntries) {
+                        AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                        AsyncError(:final error) => ErrorView(message: error.toString()),
+                        AsyncData(value: final entries) =>
+                          entries.isEmpty
+                              ? EmptyTimeEntryContainer()
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: entries.length,
+                                    itemBuilder: (ctx, index) {
+                                      final entry = entries[index];
+                                      return GestureDetector(
+                                        onTap: () => showDialog(
+                                          context: context,
+                                          builder: (_) => TimeEntryDialog(entry: entry, projectId: projectId),
+                                        ),
+                                        child: TimeEntryListView(entry: entry, weekdayLabel: formatWeekday, formatHours: formatHours),
+                                      );
+                                    },
+                                  ),
+                                ),
+                        _ => const SizedBox.shrink(),
+                      },
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('기록내역', style: AppTextStyles.subTitleBold(context))],
-                  ),
-                  const SizedBox(height: 8),
-                  //시간 listView
-                  switch (asyncEntries) {
-                    AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
-                    AsyncError(:final error) => ErrorView(message: error.toString()),
-                    AsyncData(value: final entries) =>
-                      entries.isEmpty
-                          ? EmptyTimeEntryContainer()
-                          : Expanded(
-                              child: ListView.builder(
-                                itemCount: entries.length,
-                                itemBuilder: (ctx, index) {
-                                  final entry = entries[index];
-                                  return GestureDetector(
-                                    onTap: () => showDialog(
-                                      context: context,
-                                      builder: (_) => TimeEntryDialog(entry: entry, projectId: projectId),
-                                    ),
-                                    child: TimeEntryListView(entry: entry, weekdayLabel: formatWeekday, formatHours: formatHours),
-                                  );
-                                },
-                              ),
-                            ),
-                    _ => const SizedBox.shrink(),
-                  },
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -42,10 +42,12 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
 
   @override
   Future<void> autoCompleteProjects() async {
-    final now = DateTime.now();
-    final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String();
+    return execute(() async {
+      final now = DateTime.now();
+      final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String();
 
-    await _supabase.from('project').update({'status': 'completed'}).eq('status', 'in_progress').lt('deadline', todayMidnight);
+      await _supabase.from('project').update({'status': 'completed'}).eq('status', 'in_progress').lt('deadline', todayMidnight);
+    }, errorMessage: '프로젝트 상태를 갱신하지 못했습니다.');
   }
 
   @override

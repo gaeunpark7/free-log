@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:free_log/core/error/app_exception.dart';
+import 'package:http/http.dart' show ClientException;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class BaseRepository {
@@ -8,6 +9,9 @@ abstract class BaseRepository {
     try {
       return await action();
     } on SocketException catch (_) {
+      debugPrint('네트워크 연결 실패');
+      throw AppException('인터넷 연결을 확인해주세요.');
+    } on ClientException catch (_) {
       debugPrint('네트워크 연결 실패');
       throw AppException('인터넷 연결을 확인해주세요.');
     } on PostgrestException catch (e) {

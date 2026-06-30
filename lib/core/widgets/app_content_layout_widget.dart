@@ -3,8 +3,9 @@ import 'package:free_log/core/theme/app_colors.dart';
 
 class AppContentlayout extends StatelessWidget {
   final Widget child;
+  final PreferredSizeWidget? appBar;
 
-  const AppContentlayout({super.key, required this.child});
+  const AppContentlayout({super.key, required this.child, this.appBar});
 
   @override
   Widget build(BuildContext context) {
