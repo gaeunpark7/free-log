@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/time_entry_utils.dart';
+import 'package:free_log/features/calendar/domain/model/calendar_data_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatefulWidget {
   final DateTime focusedDay;
   final DateTime selectedDay;
+  final Map<DateTime, CalendarDataModel> calendarData;
   final void Function(DateTime) onPageChanged;
   final void Function(DateTime)? onDaySelected;
   const CalendarWidget({
@@ -14,6 +17,7 @@ class CalendarWidget extends StatefulWidget {
     required this.selectedDay,
     required this.onPageChanged,
     this.onDaySelected,
+    required this.calendarData,
   });
 
   @override
@@ -83,44 +87,70 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         ),
 
         calendarBuilders: CalendarBuilders(
-          defaultBuilder: (context, day, focusedDay) => _buildDayCell(day, false),
-          todayBuilder: (context, day, focusedDay) => _buildDayCell(day, false),
-          selectedBuilder: (context, day, focusedDay) => _buildDayCell(day, true),
+          defaultBuilder: (context, day, focusedDay) => _buildDayCell(day, false, false),
+          todayBuilder: (context, day, focusedDay) => _buildDayCell(day, false, true),
+          selectedBuilder: (context, day, focusedDay) => _buildDayCell(day, true, false),
           // outsideBuilder: (context, day, focusedDay) => const SizedBox(),
         ),
       ),
     );
   }
 
-  Widget _buildDayCell(DateTime day, bool isSelected) {
+  Widget _buildDayCell(DateTime day, bool isSelected, bool isToday) {
+    final dateOnly = DateTime(day.year, day.month, day.day);
+    final data = widget.calendarData[dateOnly];
+
     return SizedBox(
       // height: 110,
       width: 110,
       child: Container(
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.primarySoft
-              // : isToday
-              // ? AppColors.primary.withOpacity(0.1)
-              : Colors.transparent,
+          color: isSelected ? AppColors.primarySoft : Colors.white,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: isSelected ? AppColors.primary : AppColors.borderDefault),
+          border: Border.all(
+            color: isSelected
+                ? AppColors.primary
+                : isToday
+                ? AppColors.primaryDark
+                : AppColors.borderDefault,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 4),
+            // const SizedBox(height: 2),
             // 날짜 숫자
             Text(
               '${day.day}',
-              style: AppTextStyles.captionBold(
-                context,
-              ).copyWith(color: isSelected ? AppColors.textPrimary : AppColors.textSecondary),
+              style: AppTextStyles.captionBold(context).copyWith(
+                color: isSelected || isToday ? AppColors.textPrimary : AppColors.textSecondary,
+              ),
             ),
+            SizedBox(height: 4),
+            if (data != null) ...[
+              if (data.hours > 0)
+                Text('+${formatHours(data.hours)}', style: AppTextStyles.calendarBody(context)),
+              if (data.income > 0)
+                Text(
+                  '+${_formatShort(data.income)}',
+                  style: AppTextStyles.calendarBody(context).copyWith(color: AppColors.success),
+                ),
+              if (data.expense > 0)
+                Text(
+                  '-${_formatShort(data.expense)}',
+                  style: AppTextStyles.calendarBody(context).copyWith(color: AppColors.error),
+                ),
+            ],
           ],
         ),
       ),
     );
   }
+}
+
+String _formatShort(int amount) {
+  if (amount >= 1000000) return '${(amount / 1000000).toStringAsFixed(1)}m';
+  if (amount >= 1000) return '${(amount / 1000).toStringAsFixed(0)}k';
+  return '$amount';
 }

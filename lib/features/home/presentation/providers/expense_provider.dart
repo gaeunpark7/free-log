@@ -16,7 +16,7 @@ class ExpenseProvider extends FamilyAsyncNotifier<List<ExpenseModel>, String> {
     return _repo.getExpense(arg);
   }
 
-  Future<void> addExpense(String description, double amount, DateTime spentAt) async {
+  Future<void> addExpense(String description, int amount, DateTime spentAt) async {
     state = AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.addExpense(arg, description, amount, spentAt);
@@ -24,7 +24,7 @@ class ExpenseProvider extends FamilyAsyncNotifier<List<ExpenseModel>, String> {
     });
   }
 
-  Future<void> updateExpense(String id, String description, double amount, DateTime spentAt) async {
+  Future<void> updateExpense(String id, String description, int amount, DateTime spentAt) async {
     state = AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateExpense(id, description, amount, spentAt);

@@ -4,10 +4,10 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_data_model.dart';
 import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
-import 'package:free_log/features/calendar/presentation/widgets/calendar_detail_widget.dart';
-import 'package:free_log/features/calendar/presentation/widgets/calendar_widget.dart';
-import 'package:free_log/features/calendar/presentation/widgets/legend_widget.dart';
-import 'package:free_log/features/calendar/presentation/widgets/summary_card_widget.dart';
+import 'package:free_log/features/calendar/presentation/widgets/detail/calendar_detail_widget.dart';
+import 'package:free_log/features/calendar/presentation/widgets/calendar/calendar_widget.dart';
+import 'package:free_log/features/calendar/presentation/widgets/calendar/legend_widget.dart';
+import 'package:free_log/features/calendar/presentation/widgets/calendar/summary_card_widget.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
   const CalendarScreen({super.key});
@@ -40,9 +40,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   void _showDayDetail(DateTime day) {
     final data = ref.read(calendarNotifierProvider).valueOrNull ?? {};
     showModalBottomSheet(
-      // backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       context: context,
-      builder: (_) => CalendarDetailWidget(day: day, calendarData: data),
+      builder: (_) => CalendarDetailWidget(day: day),
     );
   }
 
@@ -73,6 +73,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 selectedDay: _selectedDay ?? DateTime.now(),
                 onPageChanged: _changeMonth,
                 onDaySelected: _showDayDetail,
+                calendarData: asyncCalendar.valueOrNull ?? {},
               ),
               SizedBox(height: 8),
               LegendWidget(),

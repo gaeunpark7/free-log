@@ -9,7 +9,13 @@ class LegendWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [_buildRow(context, AppColors.primaryDark, '작업'), SizedBox(width: 10), _buildRow(context, AppColors.success, '입금'), SizedBox(width: 10), _buildRow(context, AppColors.error, '재료비')],
+      children: [
+        _buildRow(context, AppColors.primaryDark, '작업'),
+        SizedBox(width: 10),
+        _buildRow(context, AppColors.success, '입금'),
+        SizedBox(width: 10),
+        _buildRow(context, AppColors.error, '재료비'),
+      ],
     );
   }
 

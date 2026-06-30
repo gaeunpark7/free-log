@@ -39,7 +39,10 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
     if (_titleController.text.trim().isEmpty) return;
     if (_amountController.text.trim().isEmpty) return;
 
-    await ref.read(expenseNotifierProvider(widget.projectId).notifier).addExpense(_titleController.text.trim(), double.tryParse(_amountController.text.replaceAll(',', '')) ?? 0, _selectedDate);
+    final amount = int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+    await ref
+        .read(expenseNotifierProvider(widget.projectId).notifier)
+        .addExpense(_titleController.text.trim(), amount, _selectedDate);
 
     _titleController.clear();
     _amountController.clear();
@@ -80,25 +83,53 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                     onTap: () {
                       setState(() => _isAdding = !_isAdding);
                     },
-                    child: Text('+ 추가', style: AppTextStyles.body(context).copyWith(color: AppColors.primary)),
+                    child: Text(
+                      '+ 추가',
+                      style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
+                    ),
                   ),
                 ],
               ),
               if (_isAdding) ...[
                 const SizedBox(height: 12),
-                Text('항목', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  '항목',
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                AppTextField(controller: _titleController, valieText: '항목을 입력하세요.', hintText: '항목명', maxLenth: 15, icon: Icon(Icons.edit_note, size: 23)),
+                AppTextField(
+                  controller: _titleController,
+                  valieText: '항목을 입력하세요.',
+                  hintText: '항목명',
+                  maxLenth: 15,
+                  icon: Icon(Icons.edit_note, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //금액
-                Text('금액', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  '금액',
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                HourlyRateField(controller: _amountController, hintText: '금액', errorText: '금액을 입력하세요', maxDigits: 8, icon: Icon(Icons.attach_money_outlined, size: 23)),
+                HourlyRateField(
+                  controller: _amountController,
+                  hintText: '금액',
+                  errorText: '금액을 입력하세요',
+                  maxDigits: 8,
+                  icon: Icon(Icons.attach_money_outlined, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //날짜
-                Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  '날짜',
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                DatePickerField(selectedDate: _selectedDate, icon: Icons.event, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
+                DatePickerField(
+                  selectedDate: _selectedDate,
+                  icon: Icons.event,
+                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                ),
                 const SizedBox(height: 12),
                 AppFilledButton(
                   onPressed: () {
@@ -107,7 +138,10 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                   text: '추가',
                 ),
               ],
-              if (!_isAdding) ...[SizedBox(height: 2), Divider(thickness: 0.5, color: AppColors.textTertiary)],
+              if (!_isAdding) ...[
+                SizedBox(height: 2),
+                Divider(thickness: 0.5, color: AppColors.textTertiary),
+              ],
               asyncExpense.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
                 data: (value) => value.isEmpty

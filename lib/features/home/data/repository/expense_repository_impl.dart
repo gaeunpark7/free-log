@@ -17,14 +17,14 @@ class ExpenseRepositoryImpl extends BaseRepository implements ExpenseRepository 
   }
 
   @override
-  Future<void> addExpense(String projectId, String description, double amount, DateTime spentAt) async {
+  Future<void> addExpense(String projectId, String description, int amount, DateTime spentAt) async {
     return execute(() async {
       await _supabase.from('expense_entries').insert({'project_id': projectId, 'description': description, 'amount': amount, 'spent_at': spentAt.toUtc().toIso8601String()});
     }, errorMessage: '지출을 추가하지 못했습니다. 다시 시도해주세요.');
   }
 
   @override
-  Future<void> updateExpense(String id, String description, double amount, DateTime spentAt) async {
+  Future<void> updateExpense(String id, String description, int amount, DateTime spentAt) async {
     return execute(() async {
       await _supabase.from('expense_entries').update({'description': description, 'amount': amount, 'spent_at': spentAt.toUtc().toIso8601String()}).eq('id', id);
     }, errorMessage: '수정에 실패하였습니다. 다시 시도해주세요.');
