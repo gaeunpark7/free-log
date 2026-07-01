@@ -9,7 +9,9 @@ final todoRepoProvider = Provider<TodosRepository>((ref) {
   return TodosRepositoryImpl(ref.watch(supabaseClientProvider));
 });
 
-final todoNotifierProvider = AsyncNotifierProviderFamily<TodosProvider, List<TodosModel>, String>(TodosProvider.new);
+final todoNotifierProvider = AsyncNotifierProviderFamily<TodosProvider, List<TodosModel>, String>(
+  TodosProvider.new,
+);
 
 class TodosProvider extends FamilyAsyncNotifier<List<TodosModel>, String> {
   TodosRepository get _repo => ref.read(todoRepoProvider);

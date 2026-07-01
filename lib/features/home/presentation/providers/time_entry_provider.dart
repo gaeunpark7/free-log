@@ -1,12 +1,18 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
+import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/home/data/repository/time_entry_repository_impl.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/domain/repository/time_entry_repository.dart';
 
-final timeEntryRepoProvider = Provider<TimeEntryRepository>((ref) => TimeEntryRepositoryImpl(ref.watch(supabaseClientProvider)));
-final timeEntryNotifierProvider = AsyncNotifierProviderFamily<TimeEntryProvider, List<TimeEntryModel>, String>(TimeEntryProvider.new);
+final timeEntryRepoProvider = Provider<TimeEntryRepository>(
+  (ref) => TimeEntryRepositoryImpl(ref.watch(supabaseClientProvider)),
+);
+final timeEntryNotifierProvider =
+    AsyncNotifierProviderFamily<TimeEntryProvider, List<TimeEntryModel>, String>(
+      TimeEntryProvider.new,
+    );
 
 class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String> {
   TimeEntryRepository get _repo => ref.read(timeEntryRepoProvider);
@@ -20,6 +26,7 @@ class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.addTimeEntry(arg, workedAt, hours);
+      ref.invalidate(calendarNotifierProvider);
       return _repo.getTimeEntries(arg);
     });
   }
@@ -28,6 +35,7 @@ class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateTimeEntry(id, workedAt, hours);
+      ref.invalidate(calendarNotifierProvider);
       return _repo.getTimeEntries(arg);
     });
   }

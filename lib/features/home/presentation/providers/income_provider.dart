@@ -1,12 +1,16 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
+import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/home/data/repository/income_repository_impl.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
 import 'package:free_log/features/home/domain/repository/income_repository.dart';
 
-final incomeRepoProvider = Provider<IncomeRepository>((ref) => IncomeRepositoryImpl(ref.watch(supabaseClientProvider)));
-final incomeNotifierProvider = AsyncNotifierProviderFamily<IncomeProvider, List<IncomeModel>, String>(IncomeProvider.new);
+final incomeRepoProvider = Provider<IncomeRepository>(
+  (ref) => IncomeRepositoryImpl(ref.watch(supabaseClientProvider)),
+);
+final incomeNotifierProvider =
+    AsyncNotifierProviderFamily<IncomeProvider, List<IncomeModel>, String>(IncomeProvider.new);
 
 class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
   IncomeRepository get _repo => ref.read(incomeRepoProvider);
@@ -20,6 +24,7 @@ class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.addIncome(arg, description, amount, receivedAt);
+      ref.invalidate(calendarNotifierProvider);
       return await _repo.getIncome(arg);
     });
   }
@@ -28,6 +33,7 @@ class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateIncome(id, description, amount, receivedAt);
+      ref.invalidate(calendarNotifierProvider);
       return await _repo.getIncome(arg);
     });
 
@@ -38,6 +44,7 @@ class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.deleteIncome(id);
+      ref.invalidate(calendarNotifierProvider);
       return await _repo.getIncome(arg);
     });
   }
