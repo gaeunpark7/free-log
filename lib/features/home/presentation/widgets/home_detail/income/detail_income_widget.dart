@@ -10,6 +10,7 @@ import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/presentation/providers/income_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/income/income_list_view.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class DetailIncomeWidget extends ConsumerStatefulWidget {
   final String projectId;
@@ -38,7 +39,13 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
 
     if (_titleController.text.trim().isEmpty) return;
     if (_amountController.text.trim().isEmpty) return;
-    await ref.read(incomeNotifierProvider(widget.projectId).notifier).addIncome(_titleController.text.trim(), int.parse(_amountController.text.replaceAll(',', '')), _selectedDate);
+    await ref
+        .read(incomeNotifierProvider(widget.projectId).notifier)
+        .addIncome(
+          _titleController.text.trim(),
+          int.parse(_amountController.text.replaceAll(',', '')),
+          _selectedDate,
+        );
 
     _titleController.clear();
     _amountController.clear();
@@ -72,40 +79,74 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('받은 금액', style: AppTextStyles.subTitleBold(context)),
+                  Text(
+                    AppLocalizations.of(context)!.paymentReceived,
+                    style: AppTextStyles.subTitleBold(context),
+                  ),
                   // SizedBox(height: 10),
                   GestureDetector(
                     onTap: () {
                       setState(() => _isAdding = !_isAdding);
                     },
-                    child: Text('+ 추가', style: AppTextStyles.body(context).copyWith(color: AppColors.primary)),
+                    child: Text(
+                      AppLocalizations.of(context)!.addTodo,
+                      style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
+                    ),
                   ),
                 ],
               ),
               if (_isAdding) ...[
                 const SizedBox(height: 12),
-                Text('항목', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.item,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                AppTextField(controller: _titleController, valieText: '항목을 입력하세요.', hintText: '항목명', maxLenth: 15, icon: Icon(Icons.edit_note, size: 23)),
+                AppTextField(
+                  controller: _titleController,
+                  valieText: AppLocalizations.of(context)!.valieItem,
+                  hintText: AppLocalizations.of(context)!.itemHint,
+                  maxLenth: 15,
+                  icon: Icon(Icons.edit_note, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //금액
-                Text('금액', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.amount,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                HourlyRateField(controller: _amountController, hintText: '금액', errorText: '금액을 입력하세요', maxDigits: 8, icon: Icon(Icons.attach_money_outlined, size: 23)),
+                HourlyRateField(
+                  controller: _amountController,
+                  hintText: AppLocalizations.of(context)!.amountHint,
+                  errorText: AppLocalizations.of(context)!.valieAmount,
+                  maxDigits: 8,
+                  icon: Icon(Icons.attach_money_outlined, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //날짜
-                Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.date,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                DatePickerField(selectedDate: _selectedDate, icon: Icons.event, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
+                DatePickerField(
+                  selectedDate: _selectedDate,
+                  icon: Icons.event,
+                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                ),
                 const SizedBox(height: 12),
                 AppFilledButton(
                   onPressed: () {
                     _add();
                   },
-                  text: '추가',
+                  text: AppLocalizations.of(context)!.add,
                 ),
               ],
-              if (!_isAdding) ...[SizedBox(height: 2), Divider(thickness: 0.5, color: AppColors.textTertiary)],
+              if (!_isAdding) ...[
+                SizedBox(height: 2),
+                Divider(thickness: 0.5, color: AppColors.textTertiary),
+              ],
               asyncIncome.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
                 data: (value) => value.isEmpty

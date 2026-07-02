@@ -5,6 +5,7 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/core/utils/time_entry_utils.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class DeleteEntryDialog extends ConsumerWidget {
   final TimeEntryModel entry;
@@ -15,7 +16,9 @@ class DeleteEntryDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final date = entry.workedAt?.toLocal();
-    final dateStr = date != null ? '${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')} (${formatWeekday(date)}) ${formatHours(entry.hours)}' : '';
+    final dateStr = date != null
+        ? '${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')} (${formatWeekday(date, Localizations.localeOf(context).languageCode)}) ${formatHours(entry.hours)}'
+        : '';
 
     return Dialog(
       backgroundColor: Colors.white,
@@ -34,27 +37,51 @@ class DeleteEntryDialog extends ConsumerWidget {
                   child: Icon(Icons.delete, color: AppColors.errorSoft, size: 28),
                 ),
                 SizedBox(height: 5),
-                Text('기록을 삭제할까요?', style: AppTextStyles.title(context)),
+                Text(
+                  AppLocalizations.of(context)!.deleteRecordTitle,
+                  style: AppTextStyles.title(context),
+                ),
                 SizedBox(height: 5),
                 Text(dateStr, style: AppTextStyles.badgeBold(context).copyWith(fontSize: 14)),
-                Text('기록이 영구적으로 삭제됩니다.', style: AppTextStyles.badge(context).copyWith(color: AppColors.textSecondary, fontSize: 14)),
+                Text(
+                  AppLocalizations.of(context)!.deleteRecordMessage,
+                  style: AppTextStyles.badge(
+                    context,
+                  ).copyWith(color: AppColors.textSecondary, fontSize: 14),
+                ),
                 SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: _buildButton(context, AppColors.background, AppColors.borderDefault, '취소', AppColors.textSecondary, () {
-                        Navigator.pop(context);
-                      }),
+                      child: _buildButton(
+                        context,
+                        AppColors.background,
+                        AppColors.borderDefault,
+                        AppLocalizations.of(context)!.cancel,
+                        AppColors.textSecondary,
+                        () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
                     SizedBox(width: 10),
                     Expanded(
-                      child: _buildButton(context, AppColors.errorSoft, AppColors.errorSoft, '삭제', Colors.white, () async {
-                        await ref.read(timeEntryNotifierProvider(projectId).notifier).deleteTimeEntry(entry.id ?? '');
-                        if (context.mounted) {
-                          Navigator.pop(context, true);
-                        }
-                      }),
+                      child: _buildButton(
+                        context,
+                        AppColors.errorSoft,
+                        AppColors.errorSoft,
+                        AppLocalizations.of(context)!.delete,
+                        Colors.white,
+                        () async {
+                          await ref
+                              .read(timeEntryNotifierProvider(projectId).notifier)
+                              .deleteTimeEntry(entry.id ?? '');
+                          if (context.mounted) {
+                            Navigator.pop(context, true);
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -66,7 +93,14 @@ class DeleteEntryDialog extends ConsumerWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context, Color backColor, Color borderColor, String text, Color textColor, VoidCallback? onPressed) {
+  Widget _buildButton(
+    BuildContext context,
+    Color backColor,
+    Color borderColor,
+    String text,
+    Color textColor,
+    VoidCallback? onPressed,
+  ) {
     return SizedBox(
       height: 48,
       child: FilledButton(

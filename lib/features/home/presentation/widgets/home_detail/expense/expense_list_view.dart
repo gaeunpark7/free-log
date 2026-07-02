@@ -15,7 +15,9 @@ class ExpenseListView extends StatelessWidget {
     return ListView.builder(
       // padding: EdgeInsets.symmetric(horizontal: 12),
       shrinkWrap: true,
-      physics: expense.length > 4 ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
+      physics: expense.length > 4
+          ? const AlwaysScrollableScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
       itemCount: expense.length,
       itemBuilder: (ctx, index) {
         return GestureDetector(
@@ -45,7 +47,10 @@ class ExpenseListView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text('-₩${NumberFormat('#,##0').format(expense[index].amount)}', style: AppTextStyles.subTitleBold(context)),
+                    Text(
+                      '-${NumberFormat('#,##0').format(expense[index].amount)}',
+                      style: AppTextStyles.subTitleBold(context),
+                    ),
                   ],
                 ),
               ),

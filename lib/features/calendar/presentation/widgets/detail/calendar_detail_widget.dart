@@ -82,7 +82,7 @@ class CalendarDetailWidget extends ConsumerWidget {
       child: Row(
         children: [
           Text(
-            '${day.month}월 ${day.day}일 (${_weekdayLabel(day.weekday)})',
+            '${day.month}월 ${day.day}일 (${_weekdayLabel(day.weekday, Localizations.localeOf(context).languageCode)})',
             style: AppTextStyles.title(context).copyWith(color: AppColors.textPrimary),
           ),
           const SizedBox(width: 8),
@@ -187,7 +187,12 @@ class CalendarDetailWidget extends ConsumerWidget {
       hours % 1 == 0 ? hours.toInt().toString() : hours.toStringAsFixed(1);
 }
 
-String _weekdayLabel(int weekday) {
-  const labels = ['월', '화', '수', '목', '금', '토', '일'];
-  return labels[weekday - 1];
+String _weekdayLabel(int weekday, String locale) {
+  final idx = weekday - 1;
+  if (locale == 'ko') {
+    const labels = ['월', '화', '수', '목', '금', '토', '일'];
+    return labels[idx];
+  }
+  const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  return labels[idx];
 }

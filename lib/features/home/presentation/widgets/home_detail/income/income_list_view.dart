@@ -14,7 +14,9 @@ class IncomeListView extends StatelessWidget {
     return ListView.builder(
       // padding: EdgeInsets.symmetric(horizontal: 12),
       shrinkWrap: true,
-      physics: income.length > 4 ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
+      physics: income.length > 4
+          ? const AlwaysScrollableScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
       itemCount: income.length,
       itemBuilder: (ctx, index) {
         return GestureDetector(
@@ -45,7 +47,10 @@ class IncomeListView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text('+₩${NumberFormat('#,##0').format(income[index].amount)}', style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.success)),
+                    Text(
+                      '+${NumberFormat('#,##0').format(income[index].amount)}',
+                      style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.success),
+                    ),
                   ],
                 ),
               ),

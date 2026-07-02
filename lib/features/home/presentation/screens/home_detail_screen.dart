@@ -29,7 +29,7 @@ class _HomeDetailScreenState extends ConsumerState<HomeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: AppContentlayout(
           child: Column(

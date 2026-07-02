@@ -1,15 +1,113 @@
 {
   "@@locale": "ko",
   "appName": "프리로그",
+
   "home": "홈",
   "calendar": "캘린더",
   "calculator": "계산기",
   "profile": "내 정보",
+
+  "myProject": "내 작업",
+  "projectStatus": "진행중 {inProgress}  ⦁  완료 {completed}",
+  "@projectStatus": {
+    "placeholders": {
+      "inProgress": { "type": "int" },
+      "completed": { "type": "int" }
+    }
+  },
+
+  "all": "전체",
   "inProgress": "진행중",
   "onHold": "보류",
   "completed": "완료",
-  "addProject": "새 작업 추가",
-  "deadline": "마감일",
+
+  "addProject": "작업 추가",
+  "addProjectSubtitle": "새로운 프리랜서 작업을 등록합니다",
+  "projectName": "작업명",
+  "projectNameHint": "작업명을 입력하세요",
+  "projectNameError": "작업명을 입력하세요",
+
   "hourlyRate": "시급",
-  "marginRate": "마진율"
+  "hourlyRateHint": "시급을 입력하세요",
+  "hourlyRateError":"시급을 입력하세요",
+
+  "deadline": "마감일",
+  "deadlineHint": "연도-월-일",
+  "deadlineError":"마감일을 입력하세요",
+  "save": "저장",
+  "cancel": "취소",
+  "delete": "삭제",
+  "projectAdded": "프로젝트 추가 완료",
+
+  "editProject": "작업 수정",
+  "markAsCompleted": "완료로 변경", 
+  "deleteProject": "삭제",  
+
+  "deleteConfirm": "작업을 삭제할까요?",
+  "deleteWarning": "작업이 영구적으로 삭제됩니다.",
+  "noTimeEntries":"아직 기록된 작업이 없어요.",
+
+  "deleteRecordTitle": "기록을 삭제할까요?",
+  "deleteRecordMessage": "기록이 영구적으로 삭제됩니다.",
+
+
+  "todoTab": "할 일 ({count})",
+  "@todoTab": {
+  "placeholders": {
+    "count": { "type": "int" }
+  }
+  },
+  "doneTab": "완료 ({count})",
+  "@doneTab": {
+  "placeholders": {
+    "count": { "type": "int" }
+  }
+},
+  "todos": "할 일",
+  "done": "완료",
+  "addTodo": "+ 추가",
+  "todosHint": "할 일 입력",
+  "editTodo":"할 일 수정",
+  "valieTodo":"내용을 입력하세요",
+
+  "date": "날짜",
+  "add": "추가",
+  "update": "수정",
+  "ok":"확인",
+
+  "editExpense": "지출 수정",
+  "editIncome": "수입 수정",
+
+  "costDetails": "원가 내역",
+  "paymentReceived": "받은 금액",
+  "item": "항목",
+  "itemHint":"항목명",
+  "valieItem": "항목을 입력하세요",
+
+  "amount": "금액",
+  "amountHint":"금액",
+  "valieAmount":"금액을 입력하세요",
+
+  "timeEntries": "작업 시간",
+  "timeEntry": "작업 시간",
+  "timeEntryTitle":"작업 시간",
+  "totalTimeEntries": "총 작업 시간",
+  "hours":"시간",
+  "records":"기록내역",
+  "editTimeEntry": "작업 시간 기록",
+
+  "expense": "지출",
+  "income": "수익",
+  "calculation": "금액 산출",
+
+  "hourlyRateXHours": "시급 X 시간",
+  "margin": "마진 ({rate}%)",
+  "@margin": {
+  "placeholders": {
+    "rate": { "type": "int" }
+  }
+},
+  "marginRate": "마진율",
+  "sellingPrice": "판매가"
+
 }

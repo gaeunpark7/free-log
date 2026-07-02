@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class HomeTitleWidget extends StatelessWidget {
   final int inProgressCount;
@@ -22,13 +23,20 @@ class HomeTitleWidget extends StatelessWidget {
           SizedBox(height: 10),
           // SizedBox(height: Responsive.sizedBoxHeight(context, AppSpacing.lg)),
           Text(
-            '내 작업',
-            style: TextStyle(fontSize: AppTextStyles.headlineSize, color: Colors.white, fontWeight: FontWeight.bold),
+            AppLocalizations.of(context)!.myProject,
+            style: TextStyle(
+              fontSize: AppTextStyles.headlineSize,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _buildSubTitle(context, '진행중 $inProgressCount  ⦁  완료 $completedCount'),
+              _buildSubTitle(
+                context,
+                AppLocalizations.of(context)!.projectStatus(inProgressCount, completedCount),
+              ),
               SizedBox(width: 2),
               // _buildSubTitle(context, inProgressCount.toString()),
               // SizedBox(width: AppSpacing.sm),
@@ -48,7 +56,9 @@ class HomeTitleWidget extends StatelessWidget {
   Text _buildSubTitle(BuildContext context, String text) {
     return Text(
       text,
-      style: AppTextStyles.subTitle(context).copyWith(color: Colors.white, fontWeight: FontWeight.w500),
+      style: AppTextStyles.subTitle(
+        context,
+      ).copyWith(color: Colors.white, fontWeight: FontWeight.w500),
     );
   }
 }
