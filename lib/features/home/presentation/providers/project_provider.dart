@@ -1,12 +1,17 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
+import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/home/data/repository/project_repository_impl.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/repository/project_repository.dart';
 
-final repoProvider = Provider<ProjectRepository>((ref) => ProjectRepositoryImpl(ref.watch(supabaseClientProvider)));
-final projectNotifierProvider = AsyncNotifierProvider<ProjectProvider, List<ProjectModel>>(ProjectProvider.new);
+final repoProvider = Provider<ProjectRepository>(
+  (ref) => ProjectRepositoryImpl(ref.watch(supabaseClientProvider)),
+);
+final projectNotifierProvider = AsyncNotifierProvider<ProjectProvider, List<ProjectModel>>(
+  ProjectProvider.new,
+);
 
 class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
   ProjectRepository get _repo => ref.read(repoProvider);
@@ -29,6 +34,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.createProject(project);
+      ref.invalidate(calendarNotifierProvider);
       return _repo.getProject();
     });
   }
@@ -37,6 +43,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateProject(project);
+      ref.invalidate(calendarNotifierProvider);
       return _repo.getProject();
     });
   }
@@ -53,6 +60,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.deleteProject(projectId);
+      ref.invalidate(calendarNotifierProvider);
       return _repo.getProject();
     });
   }
