@@ -89,7 +89,7 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
                           },
                         ) ??
                         Text(
-                          AppLocalizations.of(context)!.timeEntries,
+                          AppLocalizations.of(context)!.timeEntryTitle,
                           style: AppTextStyles.subTitleBold(context),
                         ),
                     GestureDetector(
@@ -117,7 +117,7 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  AppLocalizations.of(context)!.timeEntries,
+                  AppLocalizations.of(context)!.hours,
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 HourTextField(controller: _hoursController, hintText: 'ex: 10.5 (10시간 30분)'),
