@@ -9,7 +9,7 @@ import 'package:free_log/features/home/presentation/screens/home_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:free_log/features/home/presentation/widgets/bottom_nav_bar.dart';
-import 'package:free_log/features/user_profile/presentation/screens/profile_screen.dart';
+import 'package:free_log/features/profile/presentation/screens/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {

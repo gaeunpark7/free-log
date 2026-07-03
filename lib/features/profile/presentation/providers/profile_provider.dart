@@ -18,12 +18,12 @@ class ProfileNotifier extends AsyncNotifier<UserModel?> {
     return _repo.getProfile();
   }
 
-  Future<void> updateProfile(
+  Future<void> updateProfile({
     String? nickname,
     int? hourlyRate,
     double? marginRate,
     bool? notifyDeadline,
-  ) async {
+  }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateProfile(
