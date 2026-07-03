@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/router/profile_routes.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
@@ -44,7 +45,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(path: RoutePaths.home, builder: (_, _) => const HomeScreen()),
           GoRoute(path: RoutePaths.calendar, builder: (_, _) => const CalendarScreen()),
           GoRoute(path: RoutePaths.calculator, builder: (_, _) => const CalculatorScreen()),
-          GoRoute(path: RoutePaths.profile, builder: (_, _) => const ProfileScreen()),
+          buildProfileRoutes(),
         ],
       ),
       GoRoute(

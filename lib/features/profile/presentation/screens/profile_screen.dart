@@ -8,6 +8,8 @@ import 'package:free_log/features/profile/presentation/widgets/profile_card.dart
 import 'package:free_log/features/profile/presentation/widgets/settings_card.dart';
 import 'package:free_log/features/profile/presentation/widgets/stats_card.dart';
 import 'package:free_log/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:free_log/core/router/route_paths.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -37,7 +39,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             icon: Icon(Icons.more_vert, color: Colors.white),
             onSelected: (value) {
-              if (value == 'logout') {}
+              if (value == 'privacy') {
+                context.push('${RoutePaths.profile}/${RoutePaths.privacy}');
+              } else if (value == 'logout') {}
             },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(

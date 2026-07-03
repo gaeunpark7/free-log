@@ -263,6 +263,148 @@ class AppLocalizationsEn extends AppLocalizations {
   String get privacyPolicy => 'Privacy Policy';
 
   @override
+  String get privacyPolicyCollectingInfo => '1. Personal Information Collected';
+
+  @override
+  String get privacyPolicyLoginInfo => '① Login and user information';
+
+  @override
+  String get privacyPolicySocialLoginInfo => '- Social login information';
+
+  @override
+  String get privacyPolicyGoogleLoginInfo =>
+      '   - Google Login: email, nickname, account ID';
+
+  @override
+  String get privacyPolicyKakaoLoginInfo =>
+      '   - Kakao Login: email, nickname, account ID';
+
+  @override
+  String get privacyPolicyNicknameInfo =>
+      '- User nickname (set on first launch)';
+
+  @override
+  String get privacyPolicyServiceUsageInfo => '② Service User information';
+
+  @override
+  String get privacyPolicyProjectInfo => '- Project information';
+
+  @override
+  String get privacyPolicyTodoTimeInfo => '- To-do items and work time records';
+
+  @override
+  String get privacyPolicyIncomeExpenseInfo => '- Income and expense records';
+
+  @override
+  String get privacyPolicyCalendarStatsInfo => '- Calendar and statistics data';
+
+  @override
+  String get privacyPolicyDefaultSettingsInfo =>
+      '- Default hourly rate and margin rate settings';
+
+  @override
+  String get privacyPolicyAdInfo => '③ Advertising-related information';
+
+  @override
+  String get privacyPolicyAdInfoDetail =>
+      '- May be collected automatically by the advertising platform';
+
+  @override
+  String get privacyPolicyPurposeTitle =>
+      '2. Purpose of Collection and Use of Personal Information';
+
+  @override
+  String get privacyPolicyPurposeIntro =>
+      'The collected personal information is used for the following purposes.';
+
+  @override
+  String get privacyPolicyPurposeIdentity =>
+      '- User identification and login functionality';
+
+  @override
+  String get privacyPolicyPurposeManagement =>
+      '- Providing project, work time, income, and expense management services';
+
+  @override
+  String get privacyPolicyPurposeSync =>
+      '- Data storage and synchronization across devices';
+
+  @override
+  String get privacyPolicyPurposeAds => '- Ad delivery and service improvement';
+
+  @override
+  String get privacyPolicyStorageTitle =>
+      '3. Storage and Handling of Personal Information';
+
+  @override
+  String get privacyPolicyStorageSupabase =>
+      '- This service uses Supabase to store and manage personal information.';
+
+  @override
+  String get privacyPolicyStoragePurpose =>
+      '- Personal information is processed only for the purpose of providing the service and is not used for any other purpose.';
+
+  @override
+  String get privacyPolicyRetentionTitle =>
+      '4. Personal Information Retention Period';
+
+  @override
+  String get privacyPolicyRetentionDelete =>
+      '- If a user requests account deletion, personal information will be deleted immediately except for information that must be retained under applicable laws.';
+
+  @override
+  String get privacyPolicyRetentionLegal =>
+      '- However, if retention is required by law, the information will be safely stored for the required period.';
+
+  @override
+  String get privacyPolicyThirdPartyTitle =>
+      '5. Provision of Personal Information to Third Parties';
+
+  @override
+  String get privacyPolicyThirdPartyNoShare =>
+      '- This app does not provide personal information to third parties except where required by law.';
+
+  @override
+  String get privacyPolicyThirdPartyAdmob =>
+      '- Google AdMob SDK may be used to deliver advertisements, and certain information, such as advertising identifiers (AD ID), may be processed automatically.';
+
+  @override
+  String get privacyPolicyEntrustTitle =>
+      '6. Entrustment of Personal Information Processing';
+
+  @override
+  String get privacyPolicyEntrustIntro =>
+      'The following external services may be used to provide the service.';
+
+  @override
+  String get privacyPolicyEntrustSupabase =>
+      '- Supabase (data storage and backend services)';
+
+  @override
+  String get privacyPolicyEntrustGoogleKakao =>
+      '- Google / Kakao (social login)';
+
+  @override
+  String get privacyPolicyEntrustAdmob => '- Google AdMob (ad delivery)';
+
+  @override
+  String get privacyPolicyRightsTitle => '7. User Rights';
+
+  @override
+  String get privacyPolicyRightsDesc =>
+      'Users may request access, correction, or deletion of their personal information (account deletion) at any time.';
+
+  @override
+  String get privacyPolicyInquiryTitle => '8. Privacy Inquiry';
+
+  @override
+  String get privacyPolicyInquiryDesc =>
+      'For any privacy-related inquiries, please contact us below.';
+
+  @override
+  String get privacyPolicyEmailLabel => '- Email:';
+
+  @override
   String get reportBug => 'Report a Bug';
 
   @override

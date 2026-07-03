@@ -590,6 +590,240 @@ abstract class AppLocalizations {
   /// **'개인정보 처리방침'**
   String get privacyPolicy;
 
+  /// No description provided for @privacyPolicyCollectingInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'1. 수집하는 개인정보'**
+  String get privacyPolicyCollectingInfo;
+
+  /// No description provided for @privacyPolicyLoginInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'① 로그인 및 사용자 정보'**
+  String get privacyPolicyLoginInfo;
+
+  /// No description provided for @privacyPolicySocialLoginInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 소셜 로그인 정보'**
+  String get privacyPolicySocialLoginInfo;
+
+  /// No description provided for @privacyPolicyGoogleLoginInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'   - Google 로그인: 이메일, 닉네임, 계정 고유 ID'**
+  String get privacyPolicyGoogleLoginInfo;
+
+  /// No description provided for @privacyPolicyKakaoLoginInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'   - Kakao 로그인: 이메일, 닉네임, 계정 고유 ID'**
+  String get privacyPolicyKakaoLoginInfo;
+
+  /// No description provided for @privacyPolicyNicknameInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 사용자 닉네임 (앱 최초 실행 시 설정)'**
+  String get privacyPolicyNicknameInfo;
+
+  /// No description provided for @privacyPolicyServiceUsageInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'② 서비스 이용 정보'**
+  String get privacyPolicyServiceUsageInfo;
+
+  /// No description provided for @privacyPolicyProjectInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 프로젝트 정보'**
+  String get privacyPolicyProjectInfo;
+
+  /// No description provided for @privacyPolicyTodoTimeInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 할 일 및 작업 시간 기록'**
+  String get privacyPolicyTodoTimeInfo;
+
+  /// No description provided for @privacyPolicyIncomeExpenseInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 수입 및 지출 내역'**
+  String get privacyPolicyIncomeExpenseInfo;
+
+  /// No description provided for @privacyPolicyCalendarStatsInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 캘린더 및 통계 데이터'**
+  String get privacyPolicyCalendarStatsInfo;
+
+  /// No description provided for @privacyPolicyDefaultSettingsInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 기본 시급 및 기본 마진율 설정'**
+  String get privacyPolicyDefaultSettingsInfo;
+
+  /// No description provided for @privacyPolicyAdInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'③ 광고 관련 정보'**
+  String get privacyPolicyAdInfo;
+
+  /// No description provided for @privacyPolicyAdInfoDetail.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 광고 플랫폼에서 자동 수집될 수 있음'**
+  String get privacyPolicyAdInfoDetail;
+
+  /// No description provided for @privacyPolicyPurposeTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'2. 개인정보의 수집 및 이용 목적'**
+  String get privacyPolicyPurposeTitle;
+
+  /// No description provided for @privacyPolicyPurposeIntro.
+  ///
+  /// In ko, this message translates to:
+  /// **'수집한 개인정보는 다음 목적을 위해 사용됩니다.'**
+  String get privacyPolicyPurposeIntro;
+
+  /// No description provided for @privacyPolicyPurposeIdentity.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 사용자 식별 및 로그인 기능 제공'**
+  String get privacyPolicyPurposeIdentity;
+
+  /// No description provided for @privacyPolicyPurposeManagement.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 프로젝트, 작업 시간, 수입, 지출 관리 서비스 제공'**
+  String get privacyPolicyPurposeManagement;
+
+  /// No description provided for @privacyPolicyPurposeSync.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 데이터 저장 및 기기 간 동기화'**
+  String get privacyPolicyPurposeSync;
+
+  /// No description provided for @privacyPolicyPurposeAds.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 광고 노출 및 서비스 개선'**
+  String get privacyPolicyPurposeAds;
+
+  /// No description provided for @privacyPolicyStorageTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'3. 개인정보의 보관 처리'**
+  String get privacyPolicyStorageTitle;
+
+  /// No description provided for @privacyPolicyStorageSupabase.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 본 서비스는 Supabase를 이용하여 개인정보를 저장 및 관리합니다.'**
+  String get privacyPolicyStorageSupabase;
+
+  /// No description provided for @privacyPolicyStoragePurpose.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 개인정보는 서비스 제공 목적 범위 내에서만 처리되며, 목적 외 사용은 하지 않습니다.'**
+  String get privacyPolicyStoragePurpose;
+
+  /// No description provided for @privacyPolicyRetentionTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'4. 개인정보 보관 기간'**
+  String get privacyPolicyRetentionTitle;
+
+  /// No description provided for @privacyPolicyRetentionDelete.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 이용자가 회원 탈퇴를 요청할 경우, 관련 법령에 따라 보관이 필요한 정보를 제외하고 개인정보는 즉시 삭제됩니다.'**
+  String get privacyPolicyRetentionDelete;
+
+  /// No description provided for @privacyPolicyRetentionLegal.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 단, 관계 법령에 따라 일정 기간 보관이 필요한 경우 해당 기간 동안 안전하게 보관됩니다.'**
+  String get privacyPolicyRetentionLegal;
+
+  /// No description provided for @privacyPolicyThirdPartyTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'5. 개인정보 제3자 제공'**
+  String get privacyPolicyThirdPartyTitle;
+
+  /// No description provided for @privacyPolicyThirdPartyNoShare.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 본 앱은 법령에 의한 경우를 제외하고 개인정보를 제3자에게 제공하지 않습니다.'**
+  String get privacyPolicyThirdPartyNoShare;
+
+  /// No description provided for @privacyPolicyThirdPartyAdmob.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 광고 제공을 위해 Google AdMob SDK가 이용될 수 있으며, 이 과정에서 광고 식별자(AD ID) 등 일부 정보가 자동으로 처리될 수 있습니다.'**
+  String get privacyPolicyThirdPartyAdmob;
+
+  /// No description provided for @privacyPolicyEntrustTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'6. 개인정보 처리 위탁'**
+  String get privacyPolicyEntrustTitle;
+
+  /// No description provided for @privacyPolicyEntrustIntro.
+  ///
+  /// In ko, this message translates to:
+  /// **'서비스 제공을 위해 아래와 같은 외부 서비스를 이용할 수 있습니다.'**
+  String get privacyPolicyEntrustIntro;
+
+  /// No description provided for @privacyPolicyEntrustSupabase.
+  ///
+  /// In ko, this message translates to:
+  /// **'- Supabase (데이터 저장 및 백엔드 서비스)'**
+  String get privacyPolicyEntrustSupabase;
+
+  /// No description provided for @privacyPolicyEntrustGoogleKakao.
+  ///
+  /// In ko, this message translates to:
+  /// **'- Google / Kakao (소셜 로그인)'**
+  String get privacyPolicyEntrustGoogleKakao;
+
+  /// No description provided for @privacyPolicyEntrustAdmob.
+  ///
+  /// In ko, this message translates to:
+  /// **'- Google AdMob (광고 제공)'**
+  String get privacyPolicyEntrustAdmob;
+
+  /// No description provided for @privacyPolicyRightsTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'7. 이용자의 권리'**
+  String get privacyPolicyRightsTitle;
+
+  /// No description provided for @privacyPolicyRightsDesc.
+  ///
+  /// In ko, this message translates to:
+  /// **'이용자는 언제든지 본인의 개인정보 조회, 수정, 삭제(회원 탈퇴)를 요청할 수 있습니다.'**
+  String get privacyPolicyRightsDesc;
+
+  /// No description provided for @privacyPolicyInquiryTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'8. 개인정보 보호 문의'**
+  String get privacyPolicyInquiryTitle;
+
+  /// No description provided for @privacyPolicyInquiryDesc.
+  ///
+  /// In ko, this message translates to:
+  /// **'개인정보와 관련한 문의사항은 아래 로 문의해 주세요.'**
+  String get privacyPolicyInquiryDesc;
+
+  /// No description provided for @privacyPolicyEmailLabel.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 이메일:'**
+  String get privacyPolicyEmailLabel;
+
   /// No description provided for @reportBug.
   ///
   /// In ko, this message translates to:
