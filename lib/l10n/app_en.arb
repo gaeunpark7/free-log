@@ -90,5 +90,20 @@
   "materialCost": "Material Cost",
   "margin": "Margin ({rate}%)",
   "marginRate": "Margin Rate",
-  "sellingPrice": "Selling Price"
+  "sellingPrice": "Selling Price",
+
+  "settings": "Settings",
+  "defaultHourlyRate": "Default Hourly Rate",
+  "defaultMargin": "Default Margin",
+  "deadlineReminders":"Deadline Reminders",
+  "thisMonth": "This Month",
+  "allTime": "All Time",
+  "activeProjects":"Active Projects",
+  "totalHours":"Total Hours",
+  "revenue": "Revenue",
+  "expenses": "Expenses",
+  "netProfit":"Net Profit",
+  "privacyPolicy":"Privacy Policy",
+  "reportBug": "Report a Bug",
+  "signOut": "Sign Out"
 }

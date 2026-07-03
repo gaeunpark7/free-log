@@ -106,8 +106,23 @@
   "placeholders": {
     "rate": { "type": "int" }
   }
-},
-  "marginRate": "마진율",
-  "sellingPrice": "판매가"
+  },
 
+  "marginRate": "마진율",
+  "sellingPrice": "판매가",
+
+  "settings": "기본 설정",
+  "defaultHourlyRate": "기본 시급",
+  "defaultMargin": "기본 마진율",
+  "deadlineReminders":"마감일 알림",
+  "thisMonth": "이번달",
+  "allTime": "전체",
+  "activeProjects":"진행중 작업",
+  "totalHours":"총 작업 시간",
+  "revenue": "받은 수익",
+  "expenses": "지출",
+  "netProfit":"순수익",
+  "privacyPolicy":"개인정보 처리방침",
+  "reportBug": "오류 문의",
+  "signOut": "로그아웃"
 }

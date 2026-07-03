@@ -225,4 +225,46 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get sellingPrice => '판매가';
+
+  @override
+  String get settings => '기본 설정';
+
+  @override
+  String get defaultHourlyRate => '기본 시급';
+
+  @override
+  String get defaultMargin => '기본 마진율';
+
+  @override
+  String get deadlineReminders => '마감일 알림';
+
+  @override
+  String get thisMonth => '이번달';
+
+  @override
+  String get allTime => '전체';
+
+  @override
+  String get activeProjects => '진행중 작업';
+
+  @override
+  String get totalHours => '총 작업 시간';
+
+  @override
+  String get revenue => '받은 수익';
+
+  @override
+  String get expenses => '지출';
+
+  @override
+  String get netProfit => '순수익';
+
+  @override
+  String get privacyPolicy => '개인정보 처리방침';
+
+  @override
+  String get reportBug => '오류 문의';
+
+  @override
+  String get signOut => '로그아웃';
 }

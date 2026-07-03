@@ -517,6 +517,90 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'판매가'**
   String get sellingPrice;
+
+  /// No description provided for @settings.
+  ///
+  /// In ko, this message translates to:
+  /// **'기본 설정'**
+  String get settings;
+
+  /// No description provided for @defaultHourlyRate.
+  ///
+  /// In ko, this message translates to:
+  /// **'기본 시급'**
+  String get defaultHourlyRate;
+
+  /// No description provided for @defaultMargin.
+  ///
+  /// In ko, this message translates to:
+  /// **'기본 마진율'**
+  String get defaultMargin;
+
+  /// No description provided for @deadlineReminders.
+  ///
+  /// In ko, this message translates to:
+  /// **'마감일 알림'**
+  String get deadlineReminders;
+
+  /// No description provided for @thisMonth.
+  ///
+  /// In ko, this message translates to:
+  /// **'이번달'**
+  String get thisMonth;
+
+  /// No description provided for @allTime.
+  ///
+  /// In ko, this message translates to:
+  /// **'전체'**
+  String get allTime;
+
+  /// No description provided for @activeProjects.
+  ///
+  /// In ko, this message translates to:
+  /// **'진행중 작업'**
+  String get activeProjects;
+
+  /// No description provided for @totalHours.
+  ///
+  /// In ko, this message translates to:
+  /// **'총 작업 시간'**
+  String get totalHours;
+
+  /// No description provided for @revenue.
+  ///
+  /// In ko, this message translates to:
+  /// **'받은 수익'**
+  String get revenue;
+
+  /// No description provided for @expenses.
+  ///
+  /// In ko, this message translates to:
+  /// **'지출'**
+  String get expenses;
+
+  /// No description provided for @netProfit.
+  ///
+  /// In ko, this message translates to:
+  /// **'순수익'**
+  String get netProfit;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In ko, this message translates to:
+  /// **'개인정보 처리방침'**
+  String get privacyPolicy;
+
+  /// No description provided for @reportBug.
+  ///
+  /// In ko, this message translates to:
+  /// **'오류 문의'**
+  String get reportBug;
+
+  /// No description provided for @signOut.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그아웃'**
+  String get signOut;
 }
 
 class _AppLocalizationsDelegate

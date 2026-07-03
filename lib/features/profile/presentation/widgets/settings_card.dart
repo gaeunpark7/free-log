@@ -3,6 +3,7 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/profile/domain/model/user_model.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class SettingsCard extends StatefulWidget {
@@ -33,7 +34,10 @@ class _SettingsCardState extends State<SettingsCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('기본 설정', style: AppTextStyles.subTitleBold(context)),
+                Text(
+                  AppLocalizations.of(context)!.settings,
+                  style: AppTextStyles.subTitleBold(context),
+                ),
                 CircleAvatar(
                   radius: 20,
                   backgroundColor: AppColors.background,
@@ -45,13 +49,13 @@ class _SettingsCardState extends State<SettingsCard> {
             SizedBox(height: 8),
             _buildSettingRow(
               context,
-              "기본 시급",
+              AppLocalizations.of(context)!.defaultHourlyRate,
               NumberFormat('#,###').format(widget.user?.hourlyRate ?? 0),
             ),
             SizedBox(height: 12),
             _buildSettingRow(
               context,
-              "기본 마진율",
+              AppLocalizations.of(context)!.defaultMargin,
               '${((widget.user?.marginRate ?? 0.3) * 100).toInt()}%',
             ),
             _buildDeadLine(context),
@@ -65,7 +69,7 @@ class _SettingsCardState extends State<SettingsCard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('마감일 알림', style: AppTextStyles.body(context)),
+        Text(AppLocalizations.of(context)!.deadlineReminders, style: AppTextStyles.body(context)),
         Transform.scale(
           scaleY: 0.9,
           child: Switch(

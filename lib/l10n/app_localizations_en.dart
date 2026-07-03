@@ -225,4 +225,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sellingPrice => 'Selling Price';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get defaultHourlyRate => 'Default Hourly Rate';
+
+  @override
+  String get defaultMargin => 'Default Margin';
+
+  @override
+  String get deadlineReminders => 'Deadline Reminders';
+
+  @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String get allTime => 'All Time';
+
+  @override
+  String get activeProjects => 'Active Projects';
+
+  @override
+  String get totalHours => 'Total Hours';
+
+  @override
+  String get revenue => 'Revenue';
+
+  @override
+  String get expenses => 'Expenses';
+
+  @override
+  String get netProfit => 'Net Profit';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get reportBug => 'Report a Bug';
+
+  @override
+  String get signOut => 'Sign Out';
 }

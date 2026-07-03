@@ -7,6 +7,7 @@ import 'package:free_log/features/profile/presentation/providers/profile_provide
 import 'package:free_log/features/profile/presentation/widgets/profile_card.dart';
 import 'package:free_log/features/profile/presentation/widgets/settings_card.dart';
 import 'package:free_log/features/profile/presentation/widgets/stats_card.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -25,7 +26,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         title: Text(
-          '내 정보',
+          AppLocalizations.of(context)!.profile,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         //팝업 메뉴 버튼
@@ -41,16 +42,26 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
                 value: 'privacy',
-                child: _buildPopupItem('개인정보 처리방침', Icons.privacy_tip_outlined),
+                child: _buildPopupItem(
+                  AppLocalizations.of(context)!.privacyPolicy,
+                  Icons.privacy_tip_outlined,
+                ),
               ),
               PopupMenuItem<String>(
                 value: 'feedback',
-                child: _buildPopupItem('오류 문의', Icons.feedback_outlined),
+                child: _buildPopupItem(
+                  AppLocalizations.of(context)!.reportBug,
+                  Icons.feedback_outlined,
+                ),
               ),
               PopupMenuDivider(color: AppColors.borderDefault),
               PopupMenuItem<String>(
                 value: 'logout',
-                child: _buildPopupItem('로그아웃', Icons.logout, color: AppColors.errorSoft),
+                child: _buildPopupItem(
+                  AppLocalizations.of(context)!.signOut,
+                  Icons.logout,
+                  color: AppColors.errorSoft,
+                ),
               ),
             ],
           ),

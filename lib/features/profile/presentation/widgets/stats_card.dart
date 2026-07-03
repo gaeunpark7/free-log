@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/time_entry_utils.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class StatsCard extends ConsumerStatefulWidget {
@@ -44,9 +46,21 @@ class _StatsCardState extends ConsumerState<StatsCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: _buildTabButton(context, "이번달", isMonthly)),
+                    Expanded(
+                      child: _buildTabButton(
+                        context,
+                        AppLocalizations.of(context)!.thisMonth,
+                        isMonthly,
+                      ),
+                    ),
                     SizedBox(width: 8),
-                    Expanded(child: _buildTabButton(context, "전체", !isMonthly)),
+                    Expanded(
+                      child: _buildTabButton(
+                        context,
+                        AppLocalizations.of(context)!.allTime,
+                        !isMonthly,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -57,27 +71,35 @@ class _StatsCardState extends ConsumerState<StatsCard> {
               AsyncError(:final error) => Text(error.toString()),
               AsyncData(:final value) => Column(
                 children: [
-                  _buildStatRow(context, "진행중 작업", "$inProgressCount건"),
-                  Divider(color: AppColors.borderDefault),
-                  _buildStatRow(context, "총 작업 시간", "${value.totalHours}시간"),
+                  _buildStatRow(
+                    context,
+                    AppLocalizations.of(context)!.activeProjects,
+                    "$inProgressCount",
+                  ),
                   Divider(color: AppColors.borderDefault),
                   _buildStatRow(
                     context,
-                    "받은 수익",
+                    AppLocalizations.of(context)!.totalHours,
+                    formatHours(value.totalHours),
+                  ),
+                  Divider(color: AppColors.borderDefault),
+                  _buildStatRow(
+                    context,
+                    AppLocalizations.of(context)!.revenue,
                     '+${NumberFormat('#,###').format(value.totalIncome)}',
                     color: AppColors.success,
                   ),
                   Divider(color: AppColors.borderDefault),
                   _buildStatRow(
                     context,
-                    "지출",
+                    AppLocalizations.of(context)!.expenses,
                     '-${NumberFormat('#,###').format(value.totalExpense)}',
                     color: AppColors.errorSoft,
                   ),
                   Divider(color: AppColors.borderDefault),
                   _buildStatRow(
                     context,
-                    "순수익",
+                    AppLocalizations.of(context)!.netProfit,
                     NumberFormat('#,###').format(value.netIncome),
                     color: AppColors.success,
                   ),
@@ -98,7 +120,9 @@ class _StatsCardState extends ConsumerState<StatsCard> {
       children: [
         Text(
           label,
-          style: label == "순수익" ? AppTextStyles.bodyBold(context) : AppTextStyles.body(context),
+          style: label == AppLocalizations.of(context)!.netProfit
+              ? AppTextStyles.bodyBold(context)
+              : AppTextStyles.body(context),
         ),
         Text(
           value,
@@ -112,7 +136,7 @@ class _StatsCardState extends ConsumerState<StatsCard> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          isMonthly = label == '이번달';
+          isMonthly = label == AppLocalizations.of(context)!.thisMonth;
         });
       },
       child: Container(
