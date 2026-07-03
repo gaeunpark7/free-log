@@ -601,6 +601,24 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'로그아웃'**
   String get signOut;
+
+  /// No description provided for @editSettings.
+  ///
+  /// In ko, this message translates to:
+  /// **'기본 설정 수정'**
+  String get editSettings;
+
+  /// No description provided for @marginRateHint.
+  ///
+  /// In ko, this message translates to:
+  /// **'마진율을 입력하세요'**
+  String get marginRateHint;
+
+  /// No description provided for @marginRateError.
+  ///
+  /// In ko, this message translates to:
+  /// **'마진율을 입력하세요'**
+  String get marginRateError;
 }
 
 class _AppLocalizationsDelegate

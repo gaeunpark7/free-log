@@ -233,7 +233,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get defaultHourlyRate => 'Default Hourly Rate';
 
   @override
-  String get defaultMargin => 'Default Margin';
+  String get defaultMargin => 'Default Margin Rate';
 
   @override
   String get deadlineReminders => 'Deadline Reminders';
@@ -267,4 +267,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signOut => 'Sign Out';
+
+  @override
+  String get editSettings => 'Edit Settings';
+
+  @override
+  String get marginRateHint => 'Enter Margin Rate';
+
+  @override
+  String get marginRateError => 'Please enter a margin rate';
 }

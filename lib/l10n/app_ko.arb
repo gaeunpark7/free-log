@@ -124,5 +124,9 @@
   "netProfit":"순수익",
   "privacyPolicy":"개인정보 처리방침",
   "reportBug": "오류 문의",
-  "signOut": "로그아웃"
+  "signOut": "로그아웃",
+
+  "editSettings" : "기본 설정 수정",
+  "marginRateHint":"마진율을 입력하세요",
+  "marginRateError":"마진율을 입력하세요"
 }

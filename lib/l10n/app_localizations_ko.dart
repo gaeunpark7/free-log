@@ -267,4 +267,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get signOut => '로그아웃';
+
+  @override
+  String get editSettings => '기본 설정 수정';
+
+  @override
+  String get marginRateHint => '마진율을 입력하세요';
+
+  @override
+  String get marginRateError => '마진율을 입력하세요';
 }

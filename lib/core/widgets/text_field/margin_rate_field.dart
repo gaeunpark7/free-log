@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class MarginRateField extends StatelessWidget {
   final TextEditingController controller;
@@ -19,7 +20,7 @@ class MarginRateField extends StatelessWidget {
         LengthLimitingTextInputFormatter(3),
       ],
       validator: (value) {
-        if (value == null || value.isEmpty) return '마진율을 입력하세요.';
+        if (value == null || value.isEmpty) return AppLocalizations.of(context)!.marginRateError;
         return null;
       },
       decoration: InputDecoration(

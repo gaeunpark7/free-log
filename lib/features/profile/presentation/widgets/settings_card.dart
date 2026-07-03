@@ -3,6 +3,7 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/profile/domain/model/user_model.dart';
+import 'package:free_log/features/profile/presentation/widgets/settings_dialog.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -38,10 +39,18 @@ class _SettingsCardState extends State<SettingsCard> {
                   AppLocalizations.of(context)!.settings,
                   style: AppTextStyles.subTitleBold(context),
                 ),
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: AppColors.background,
-                  child: Icon(Icons.settings_outlined, color: AppColors.textTertiary),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => SettingsDialog(user: widget.user!),
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: AppColors.background,
+                    child: Icon(Icons.settings_outlined, color: AppColors.textTertiary),
+                  ),
                 ),
               ],
             ),

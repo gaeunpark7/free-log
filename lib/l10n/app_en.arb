@@ -94,7 +94,7 @@
 
   "settings": "Settings",
   "defaultHourlyRate": "Default Hourly Rate",
-  "defaultMargin": "Default Margin",
+  "defaultMargin": "Default Margin Rate",
   "deadlineReminders":"Deadline Reminders",
   "thisMonth": "This Month",
   "allTime": "All Time",
@@ -105,5 +105,9 @@
   "netProfit":"Net Profit",
   "privacyPolicy":"Privacy Policy",
   "reportBug": "Report a Bug",
-  "signOut": "Sign Out"
+  "signOut": "Sign Out",
+
+  "editSettings" : "Edit Settings",
+  "marginRateHint":"Enter Margin Rate",
+  "marginRateError":"Please enter a margin rate"
 }
