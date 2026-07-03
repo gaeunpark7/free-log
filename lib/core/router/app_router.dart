@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/router/profile_routes.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
@@ -9,7 +10,7 @@ import 'package:free_log/features/home/presentation/screens/home_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:free_log/features/home/presentation/widgets/bottom_nav_bar.dart';
-import 'package:free_log/features/user_profile/presentation/screens/profile_screen.dart';
+import 'package:free_log/features/profile/presentation/screens/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -44,7 +45,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(path: RoutePaths.home, builder: (_, _) => const HomeScreen()),
           GoRoute(path: RoutePaths.calendar, builder: (_, _) => const CalendarScreen()),
           GoRoute(path: RoutePaths.calculator, builder: (_, _) => const CalculatorScreen()),
-          GoRoute(path: RoutePaths.profile, builder: (_, _) => const ProfileScreen()),
+          buildProfileRoutes(),
         ],
       ),
       GoRoute(

@@ -225,4 +225,198 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get sellingPrice => '판매가';
+
+  @override
+  String get settings => '기본 설정';
+
+  @override
+  String get defaultHourlyRate => '기본 시급';
+
+  @override
+  String get defaultMargin => '기본 마진율';
+
+  @override
+  String get deadlineReminders => '마감일 알림';
+
+  @override
+  String get thisMonth => '이번달';
+
+  @override
+  String get allTime => '전체';
+
+  @override
+  String get activeProjects => '진행중 작업';
+
+  @override
+  String get totalHours => '총 작업 시간';
+
+  @override
+  String get revenue => '받은 수익';
+
+  @override
+  String get expenses => '지출';
+
+  @override
+  String get netProfit => '순수익';
+
+  @override
+  String get privacyPolicy => '개인정보 처리방침';
+
+  @override
+  String get privacyPolicyCollectingInfo => '1. 수집하는 개인정보';
+
+  @override
+  String get privacyPolicyLoginInfo => '① 로그인 및 사용자 정보';
+
+  @override
+  String get privacyPolicySocialLoginInfo => '- 소셜 로그인 정보';
+
+  @override
+  String get privacyPolicyGoogleLoginInfo =>
+      '   - Google 로그인: 이메일, 닉네임, 계정 고유 ID';
+
+  @override
+  String get privacyPolicyKakaoLoginInfo =>
+      '   - Kakao 로그인: 이메일, 닉네임, 계정 고유 ID';
+
+  @override
+  String get privacyPolicyNicknameInfo => '- 사용자 닉네임 (앱 최초 실행 시 설정)';
+
+  @override
+  String get privacyPolicyServiceUsageInfo => '② 서비스 이용 정보';
+
+  @override
+  String get privacyPolicyProjectInfo => '- 프로젝트 정보';
+
+  @override
+  String get privacyPolicyTodoTimeInfo => '- 할 일 및 작업 시간 기록';
+
+  @override
+  String get privacyPolicyIncomeExpenseInfo => '- 수입 및 지출 내역';
+
+  @override
+  String get privacyPolicyCalendarStatsInfo => '- 캘린더 및 통계 데이터';
+
+  @override
+  String get privacyPolicyDefaultSettingsInfo => '- 기본 시급 및 기본 마진율 설정';
+
+  @override
+  String get privacyPolicyAdInfo => '③ 광고 관련 정보';
+
+  @override
+  String get privacyPolicyAdInfoDetail => '- 광고 플랫폼에서 자동 수집될 수 있음';
+
+  @override
+  String get privacyPolicyPurposeTitle => '2. 개인정보의 수집 및 이용 목적';
+
+  @override
+  String get privacyPolicyPurposeIntro => '수집한 개인정보는 다음 목적을 위해 사용됩니다.';
+
+  @override
+  String get privacyPolicyPurposeIdentity => '- 사용자 식별 및 로그인 기능 제공';
+
+  @override
+  String get privacyPolicyPurposeManagement =>
+      '- 프로젝트, 작업 시간, 수입, 지출 관리 서비스 제공';
+
+  @override
+  String get privacyPolicyPurposeSync => '- 데이터 저장 및 기기 간 동기화';
+
+  @override
+  String get privacyPolicyPurposeAds => '- 광고 노출 및 서비스 개선';
+
+  @override
+  String get privacyPolicyStorageTitle => '3. 개인정보의 보관 처리';
+
+  @override
+  String get privacyPolicyStorageSupabase =>
+      '- 본 서비스는 Supabase를 이용하여 개인정보를 저장 및 관리합니다.';
+
+  @override
+  String get privacyPolicyStoragePurpose =>
+      '- 개인정보는 서비스 제공 목적 범위 내에서만 처리되며, 목적 외 사용은 하지 않습니다.';
+
+  @override
+  String get privacyPolicyRetentionTitle => '4. 개인정보 보관 기간';
+
+  @override
+  String get privacyPolicyRetentionDelete =>
+      '- 이용자가 회원 탈퇴를 요청할 경우, 관련 법령에 따라 보관이 필요한 정보를 제외하고 개인정보는 즉시 삭제됩니다.';
+
+  @override
+  String get privacyPolicyRetentionLegal =>
+      '- 단, 관계 법령에 따라 일정 기간 보관이 필요한 경우 해당 기간 동안 안전하게 보관됩니다.';
+
+  @override
+  String get privacyPolicyThirdPartyTitle => '5. 개인정보 제3자 제공';
+
+  @override
+  String get privacyPolicyThirdPartyNoShare =>
+      '- 본 앱은 법령에 의한 경우를 제외하고 개인정보를 제3자에게 제공하지 않습니다.';
+
+  @override
+  String get privacyPolicyThirdPartyAdmob =>
+      '- 광고 제공을 위해 Google AdMob SDK가 이용될 수 있으며, 이 과정에서 광고 식별자(AD ID) 등 일부 정보가 자동으로 처리될 수 있습니다.';
+
+  @override
+  String get privacyPolicyEntrustTitle => '6. 개인정보 처리 위탁';
+
+  @override
+  String get privacyPolicyEntrustIntro =>
+      '서비스 제공을 위해 아래와 같은 외부 서비스를 이용할 수 있습니다.';
+
+  @override
+  String get privacyPolicyEntrustSupabase => '- Supabase (데이터 저장 및 백엔드 서비스)';
+
+  @override
+  String get privacyPolicyEntrustGoogleKakao => '- Google / Kakao (소셜 로그인)';
+
+  @override
+  String get privacyPolicyEntrustAdmob => '- Google AdMob (광고 제공)';
+
+  @override
+  String get privacyPolicyRightsTitle => '7. 이용자의 권리';
+
+  @override
+  String get privacyPolicyRightsDesc =>
+      '이용자는 언제든지 본인의 개인정보 조회, 수정, 삭제(회원 탈퇴)를 요청할 수 있습니다.';
+
+  @override
+  String get privacyPolicyInquiryTitle => '8. 개인정보 보호 문의';
+
+  @override
+  String get privacyPolicyInquiryDesc => '개인정보와 관련한 문의사항은 아래 로 문의해 주세요.';
+
+  @override
+  String get privacyPolicyEmailLabel => '- 이메일:';
+
+  @override
+  String get reportBug => '오류 문의';
+
+  @override
+  String get signOut => '로그아웃';
+
+  @override
+  String get editSettings => '기본 설정 수정';
+
+  @override
+  String get marginRateHint => '마진율을 입력하세요';
+
+  @override
+  String get marginRateError => '마진율을 입력하세요';
+
+  @override
+  String get nickName => '이름';
+
+  @override
+  String get editNickname => '닉네임 변경';
+
+  @override
+  String get nicknameHint => '새로운 닉네임을 입력하세요';
+
+  @override
+  String get nicknameError => '닉네임을 입력하세요';
+
+  @override
+  String get email => '이메일';
 }

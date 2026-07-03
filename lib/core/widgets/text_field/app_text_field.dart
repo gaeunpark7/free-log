@@ -8,17 +8,32 @@ class AppTextField extends StatelessWidget {
   final String hintText;
   final Icon? icon;
   final int maxLenth;
-  const AppTextField({super.key, required this.controller, required this.valieText, required this.hintText, this.icon, required this.maxLenth});
+  final bool? read;
+  final bool validate;
+  const AppTextField({
+    super.key,
+    required this.controller,
+    required this.valieText,
+    required this.hintText,
+    this.icon,
+    required this.maxLenth,
+    this.read,
+    this.validate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: AppTextStyles.body(context),
+      style: read == true
+          ? AppTextStyles.bodyBold(context).copyWith(color: AppColors.textTertiary)
+          : AppTextStyles.body(context),
       controller: controller,
-      validator: (value) {
-        if (value == null || value.isEmpty) return valieText;
-        return null;
-      },
+      validator: validate
+          ? (value) {
+              if (value == null || value.isEmpty) return valieText;
+              return null;
+            }
+          : null,
       decoration: InputDecoration(
         counterText: '',
         hintText: hintText,
@@ -36,19 +51,23 @@ class AppTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: BorderSide(
+            color: read == true ? Colors.transparent : AppColors.primary,
+            width: 1.5,
+          ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: AppColors.errorSoft, width: 1.5),
         ),
         filled: true,
-        fillColor: AppColors.background,
+        fillColor: read == true ? AppColors.surfaceTint : AppColors.background,
         suffixIcon: icon,
         suffixIconColor: AppColors.textTertiary,
       ),
       maxLength: maxLenth,
       maxLines: 1,
+      readOnly: read ?? false,
     );
   }
 }
