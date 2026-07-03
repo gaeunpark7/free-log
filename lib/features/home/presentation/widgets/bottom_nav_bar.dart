@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/widgets/app_content_layout_widget.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -52,26 +53,26 @@ class BottomNavBar extends StatelessWidget {
         selectedIndex: _selectedIndex(location),
         onDestinationSelected: (index) => _onTap(index, context),
         animationDuration: const Duration(milliseconds: 300),
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined, color: Colors.grey),
+            icon: const Icon(Icons.home_outlined, color: Colors.grey),
             selectedIcon: Icon(Icons.home, color: AppColors.primary),
-            label: '홈',
+            label: AppLocalizations.of(context)!.home,
           ),
           NavigationDestination(
             icon: Icon(Icons.calendar_today_outlined, color: Colors.grey),
             selectedIcon: Icon(Icons.calendar_today, color: AppColors.primary),
-            label: '캘린더',
+            label: AppLocalizations.of(context)!.calendar,
           ),
           NavigationDestination(
             icon: Icon(Icons.calculate_outlined, color: Colors.grey),
             selectedIcon: Icon(Icons.calculate, color: AppColors.primary),
-            label: '계산기',
+            label: AppLocalizations.of(context)!.calculator,
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline, color: Colors.grey),
             selectedIcon: Icon(Icons.person, color: AppColors.primary),
-            label: '내 정보',
+            label: AppLocalizations.of(context)!.profile,
           ),
         ],
       ),

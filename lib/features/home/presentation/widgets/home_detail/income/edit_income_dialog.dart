@@ -9,6 +9,7 @@ import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
 import 'package:free_log/features/home/presentation/providers/income_provider.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class EditIncomeDialog extends ConsumerStatefulWidget {
   final IncomeModel income;
@@ -52,27 +53,58 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                     Container(
                       width: 45,
                       height: 45,
-                      decoration: BoxDecoration(color: const Color.fromARGB(255, 230, 237, 248), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 230, 237, 248),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Icon(Icons.edit_document, color: AppColors.primary),
                     ),
                     SizedBox(width: 10),
-                    Text('수입 수정', style: AppTextStyles.title(context)),
+                    Text(
+                      AppLocalizations.of(context)!.editIncome,
+                      style: AppTextStyles.title(context),
+                    ),
                   ],
                 ),
                 SizedBox(height: 12),
-                Text('항목', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.item,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                AppTextField(controller: _titleController, valieText: '항목을 입력하세요.', hintText: '항목명', maxLenth: 15, icon: Icon(Icons.edit_note, size: 23)),
+                AppTextField(
+                  controller: _titleController,
+                  valieText: AppLocalizations.of(context)!.valieItem,
+                  hintText: AppLocalizations.of(context)!.itemHint,
+                  maxLenth: 15,
+                  icon: Icon(Icons.edit_note, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //금액
-                Text('금액', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.amount,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                HourlyRateField(controller: _amountController, hintText: '금액', errorText: '금액을 입력하세요', maxDigits: 8, icon: Icon(Icons.attach_money_outlined, size: 23)),
+                HourlyRateField(
+                  controller: _amountController,
+                  hintText: AppLocalizations.of(context)!.amountHint,
+                  errorText: AppLocalizations.of(context)!.valieAmount,
+                  maxDigits: 8,
+                  icon: Icon(Icons.attach_money_outlined, size: 23),
+                ),
                 const SizedBox(height: 8),
                 //날짜
-                Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.date,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 4),
-                DatePickerField(selectedDate: _selectedDate, icon: Icons.event, onDateChanged: (picked) => setState(() => _selectedDate = picked)),
+                DatePickerField(
+                  selectedDate: _selectedDate,
+                  icon: Icons.event,
+                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -90,7 +122,13 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                             context: context,
                             builder: (ctx) => DeleteDialog(
                               onDelete: () async {
-                                await ref.read(incomeNotifierProvider(widget.income.projectId ?? '').notifier).deleteExpense(widget.income.id ?? '');
+                                await ref
+                                    .read(
+                                      incomeNotifierProvider(
+                                        widget.income.projectId ?? '',
+                                      ).notifier,
+                                    )
+                                    .deleteExpense(widget.income.id ?? '');
                                 if (context.mounted) Navigator.pop(context);
                               },
                             ),
@@ -104,9 +142,12 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                       child: SizedBox(
                         height: 48,
                         child: FilledButton(
-                          style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                          style: FilledButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
                           onPressed: () async {
-                            final amount = int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+                            final amount =
+                                int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
 
                             if (!_formKey.currentState!.validate()) return;
                             final noChange =
@@ -120,10 +161,22 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                               if (context.mounted) Navigator.pop(context);
                               return;
                             }
-                            await ref.read(incomeNotifierProvider(widget.income.projectId ?? '').notifier).updateIncome(widget.income.id ?? '', _titleController.text.trim(), amount, _selectedDate);
+                            await ref
+                                .read(
+                                  incomeNotifierProvider(widget.income.projectId ?? '').notifier,
+                                )
+                                .updateIncome(
+                                  widget.income.id ?? '',
+                                  _titleController.text.trim(),
+                                  amount,
+                                  _selectedDate,
+                                );
                             if (context.mounted) Navigator.pop(context);
                           },
-                          child: Text('수정', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),
+                          child: Text(
+                            AppLocalizations.of(context)!.update,
+                            style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),

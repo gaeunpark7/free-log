@@ -7,6 +7,7 @@ import 'package:free_log/core/widgets/text_field/hour_text_field.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/delete_entry_dialog.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class TimeEntryDialog extends ConsumerStatefulWidget {
   final TimeEntryModel entry; // 수정할 항목
@@ -36,7 +37,10 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
   bool get _hasChanges {
     final currentHours = double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
     final original = widget.entry.workedAt ?? DateTime.now().toLocal();
-    final dateChanged = _selectedDate.year != original.year || _selectedDate.month != original.month || _selectedDate.day != original.day;
+    final dateChanged =
+        _selectedDate.year != original.year ||
+        _selectedDate.month != original.month ||
+        _selectedDate.day != original.day;
     return currentHours != widget.entry.hours || dateChanged;
   }
 
@@ -66,17 +70,26 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                     Container(
                       width: 45,
                       height: 45,
-                      decoration: BoxDecoration(color: const Color.fromARGB(255, 230, 237, 248), borderRadius: BorderRadius.circular(12)),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 230, 237, 248),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: Icon(Icons.schedule, color: AppColors.primary),
                     ),
                     SizedBox(width: 10),
-                    Text('작업 시간 기록', style: AppTextStyles.title(context)),
+                    Text(
+                      AppLocalizations.of(context)!.editTimeEntry,
+                      style: AppTextStyles.title(context),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
 
                 // 날짜
-                Text('날짜', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.date,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 6),
                 DatePickerField(
                   icon: Icons.event,
@@ -89,7 +102,10 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                 ),
                 const SizedBox(height: 12),
                 // 시간
-                Text('작업 시간', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
+                Text(
+                  AppLocalizations.of(context)!.hours,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(height: 6),
                 HourTextField(controller: _hoursController, hintText: '시간을 입력하세요'),
                 const SizedBox(height: 12),
@@ -101,14 +117,24 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                     height: 48,
                     width: double.infinity,
                     child: FilledButton(
-                      style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10))),
+                      style: FilledButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(10),
+                        ),
+                      ),
                       onPressed: () async {
                         if (!_formKey.currentState!.validate()) return;
-                        final hours = double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
-                        ref.read(timeEntryNotifierProvider(widget.projectId).notifier).updateTimeEntry(widget.entry.id ?? '', _selectedDate, hours);
+                        final hours =
+                            double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
+                        ref
+                            .read(timeEntryNotifierProvider(widget.projectId).notifier)
+                            .updateTimeEntry(widget.entry.id ?? '', _selectedDate, hours);
                         if (context.mounted) Navigator.pop(context);
                       },
-                      child: Text('저장하기', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),
+                      child: Text(
+                        AppLocalizations.of(context)!.save,
+                        style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                      ),
                     ),
                   )
                 else
@@ -128,7 +154,10 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                           onPressed: () async {
                             final deleted = await showDialog<bool>(
                               context: context,
-                              builder: (ctx) => DeleteEntryDialog(entry: widget.entry, projectId: widget.projectId),
+                              builder: (ctx) => DeleteEntryDialog(
+                                entry: widget.entry,
+                                projectId: widget.projectId,
+                              ),
                             );
                             if (deleted == true && context.mounted) Navigator.pop(context);
                           },
@@ -141,9 +170,14 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                         child: SizedBox(
                           height: 48,
                           child: FilledButton(
-                            style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                            style: FilledButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
                             onPressed: () => Navigator.pop(context),
-                            child: Text('확인', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),
+                            child: Text(
+                              AppLocalizations.of(context)!.ok,
+                              style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),

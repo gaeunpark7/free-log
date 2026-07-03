@@ -10,6 +10,7 @@ import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/presentation/providers/expense_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/expense/expense_list_view.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class DetailExpenseWidget extends ConsumerStatefulWidget {
   final String projectId;
@@ -77,14 +78,17 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('원가 내역', style: AppTextStyles.subTitleBold(context)),
+                  Text(
+                    AppLocalizations.of(context)!.costDetails,
+                    style: AppTextStyles.subTitleBold(context),
+                  ),
                   // SizedBox(height: 10),
                   GestureDetector(
                     onTap: () {
                       setState(() => _isAdding = !_isAdding);
                     },
                     child: Text(
-                      '+ 추가',
+                      AppLocalizations.of(context)!.addTodo,
                       style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
                     ),
                   ),
@@ -93,35 +97,36 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
               if (_isAdding) ...[
                 const SizedBox(height: 12),
                 Text(
-                  '항목',
+                  AppLocalizations.of(context)!.item,
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 AppTextField(
                   controller: _titleController,
-                  valieText: '항목을 입력하세요.',
-                  hintText: '항목명',
+                  valieText: AppLocalizations.of(context)!.valieItem,
+
+                  hintText: AppLocalizations.of(context)!.itemHint,
                   maxLenth: 15,
                   icon: Icon(Icons.edit_note, size: 23),
                 ),
                 const SizedBox(height: 8),
                 //금액
                 Text(
-                  '금액',
+                  AppLocalizations.of(context)!.amount,
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 HourlyRateField(
                   controller: _amountController,
-                  hintText: '금액',
-                  errorText: '금액을 입력하세요',
+                  hintText: AppLocalizations.of(context)!.amountHint,
+                  errorText: AppLocalizations.of(context)!.valieAmount,
                   maxDigits: 8,
                   icon: Icon(Icons.attach_money_outlined, size: 23),
                 ),
                 const SizedBox(height: 8),
                 //날짜
                 Text(
-                  '날짜',
+                  AppLocalizations.of(context)!.date,
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
@@ -135,7 +140,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                   onPressed: () {
                     _add();
                   },
-                  text: '추가',
+                  text: AppLocalizations.of(context)!.add,
                 ),
               ],
               if (!_isAdding) ...[

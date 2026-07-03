@@ -12,6 +12,7 @@ import 'package:free_log/features/home/presentation/providers/time_entry_provide
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/empty_time_entry_container.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/edit_entry_dialog.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/time_entry_list_view.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class TimeEntryScreen extends ConsumerWidget {
   final String projectId;
@@ -20,13 +21,22 @@ class TimeEntryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncEntries = ref.watch(timeEntryNotifierProvider(projectId));
-    final projectName = ref.watch(projectNotifierProvider).valueOrNull?.firstWhere((p) => p.id == projectId, orElse: () => const ProjectModel(title: '')).title ?? '';
+    final projectName =
+        ref
+            .watch(projectNotifierProvider)
+            .valueOrNull
+            ?.firstWhere((p) => p.id == projectId, orElse: () => const ProjectModel(title: ''))
+            .title ??
+        '';
 
     ref.listen(projectNotifierProvider, (prve, next) {
-      next.whenOrNull(error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString()))));
+      next.whenOrNull(
+        error: (error, _) =>
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString()))),
+      );
     });
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: AppContentlayout(
           child: Column(
@@ -35,7 +45,10 @@ class TimeEntryScreen extends ConsumerWidget {
               AppBar(
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
-                title: Text('작업 시간', style: AppTextStyles.headline(context).copyWith(color: Colors.white)),
+                title: Text(
+                  AppLocalizations.of(context)!.timeEntryTitle,
+                  style: AppTextStyles.headline(context).copyWith(color: Colors.white),
+                ),
               ),
               // 총 작업시간 카드
               Expanded(
@@ -52,20 +65,36 @@ class TimeEntryScreen extends ConsumerWidget {
                         ),
                         child: switch (asyncEntries) {
                           AsyncError(:final error) => ErrorView(message: error.toString()),
-                          AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                          AsyncLoading() => Center(
+                            child: CircularProgressIndicator(color: AppColors.primary),
+                          ),
                           AsyncData(value: final entries) => Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('총 작업 시간', style: AppTextStyles.bodyBold(context)),
-                                  Row(children: [Text('$projectName ⦁ ${entries.length}건', style: AppTextStyles.caption(context))]),
+                                  Text(
+                                    AppLocalizations.of(context)!.totalTimeEntries,
+                                    style: AppTextStyles.bodyBold(context),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '$projectName ⦁ ${entries.length}',
+                                        style: AppTextStyles.caption(context),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                               Text(
                                 formatHours(entries.fold(0.0, (sum, e) => sum + e.hours)),
-                                style: AppTextStyles.headline(context).copyWith(color: entries.fold(0.0, (sum, e) => sum + e.hours) == 0.0 ? Colors.grey : AppColors.textPrimary),
+                                style: AppTextStyles.headline(context).copyWith(
+                                  color: entries.fold(0.0, (sum, e) => sum + e.hours) == 0.0
+                                      ? Colors.grey
+                                      : AppColors.textPrimary,
+                                ),
                               ),
                             ],
                           ),
@@ -75,12 +104,19 @@ class TimeEntryScreen extends ConsumerWidget {
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('기록내역', style: AppTextStyles.subTitleBold(context))],
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.records,
+                            style: AppTextStyles.subTitleBold(context),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 8),
                       //시간 listView
                       switch (asyncEntries) {
-                        AsyncLoading() => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                        AsyncLoading() => Center(
+                          child: CircularProgressIndicator(color: AppColors.primary),
+                        ),
                         AsyncError(:final error) => ErrorView(message: error.toString()),
                         AsyncData(value: final entries) =>
                           entries.isEmpty
@@ -93,9 +129,14 @@ class TimeEntryScreen extends ConsumerWidget {
                                       return GestureDetector(
                                         onTap: () => showDialog(
                                           context: context,
-                                          builder: (_) => TimeEntryDialog(entry: entry, projectId: projectId),
+                                          builder: (_) =>
+                                              TimeEntryDialog(entry: entry, projectId: projectId),
                                         ),
-                                        child: TimeEntryListView(entry: entry, weekdayLabel: formatWeekday, formatHours: formatHours),
+                                        child: TimeEntryListView(
+                                          entry: entry,
+                                          weekdayLabel: (dt) => formatWeekday(dt, Localizations.localeOf(context).languageCode),
+                                          formatHours: formatHours,
+                                        ),
                                       );
                                     },
                                   ),

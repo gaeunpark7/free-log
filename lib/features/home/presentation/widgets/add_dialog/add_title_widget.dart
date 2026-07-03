@@ -3,6 +3,7 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class AddTitle extends StatelessWidget {
   const AddTitle({super.key});
@@ -14,7 +15,7 @@ class AddTitle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '작업 추가',
+          AppLocalizations.of(context)!.addProject,
           style: TextStyle(
             fontSize: Responsive.fontSize(context, AppTextStyles.titleSize),
             fontWeight: FontWeight.bold,
@@ -22,7 +23,7 @@ class AddTitle extends StatelessWidget {
           ),
         ),
         Text(
-          '새로운 프리랜서 작업을 등록합니다',
+          AppLocalizations.of(context)!.addProjectSubtitle,
           style: TextStyle(
             fontSize: Responsive.fontSize(context, AppTextStyles.captionSize),
             color: AppColors.textSecondary,

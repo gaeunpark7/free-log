@@ -9,6 +9,7 @@ import 'package:free_log/core/widgets/text_field/app_text_field.dart';
 import 'package:free_log/features/home/presentation/providers/todos_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/todos/edit_todo_dialog.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/todos/todos_list_view.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class DetailTodosWidget extends ConsumerStatefulWidget {
   final String projectId;
@@ -57,8 +58,14 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   asyncTodos.when(
-                    loading: () => Text('할 일', style: AppTextStyles.subTitleBold(context)),
-                    error: (_, _) => Text('할 일', style: AppTextStyles.subTitleBold(context)),
+                    loading: () => Text(
+                      AppLocalizations.of(context)!.todos,
+                      style: AppTextStyles.subTitleBold(context),
+                    ),
+                    error: (_, _) => Text(
+                      AppLocalizations.of(context)!.todos,
+                      style: AppTextStyles.subTitleBold(context),
+                    ),
                     data: (todos) {
                       final done = todos.where((e) => e.isDone).length;
                       final notDone = todos.where((e) => !e.isDone).length;
@@ -74,8 +81,8 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                         labelStyle: AppTextStyles.subTitleBold(context),
                         unselectedLabelStyle: AppTextStyles.subTitle(context),
                         tabs: [
-                          Tab(text: '할 일 ($notDone)'),
-                          Tab(text: '완료 ($done)'),
+                          Tab(text: AppLocalizations.of(context)!.todoTab(notDone)),
+                          Tab(text: AppLocalizations.of(context)!.doneTab(done)),
                         ],
                       );
                     },
@@ -83,7 +90,10 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
 
                   GestureDetector(
                     onTap: () => setState(() => _isAdding = !_isAdding),
-                    child: Text('+ 추가', style: AppTextStyles.body(context).copyWith(color: AppColors.primary)),
+                    child: Text(
+                      AppLocalizations.of(context)!.addTodo,
+                      style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
+                    ),
                   ),
                 ],
               ),
@@ -91,21 +101,29 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
               //추가
               if (_isAdding) ...[
                 const SizedBox(height: 12),
-                AppTextField(controller: _contentController, valieText: '내용을 입력하세요.', hintText: '할 일 입력', icon: Icon(Icons.edit_note, size: 23), maxLenth: 15),
+                AppTextField(
+                  controller: _contentController,
+                  valieText: AppLocalizations.of(context)!.valieTodo,
+                  hintText: AppLocalizations.of(context)!.todosHint,
+                  icon: Icon(Icons.edit_note, size: 23),
+                  maxLenth: 15,
+                ),
                 const SizedBox(height: 12),
                 AppFilledButton(
                   onPressed: () async {
                     if (!formkey.currentState!.validate()) {
                       return;
                     }
-                    await ref.read(todoNotifierProvider(widget.projectId).notifier).addTodo(_contentController.text);
+                    await ref
+                        .read(todoNotifierProvider(widget.projectId).notifier)
+                        .addTodo(_contentController.text);
                     if (ref.read(todoNotifierProvider(widget.projectId)).hasError) return;
                     _contentController.clear();
                     setState(() {
                       _isAdding = false;
                     });
                   },
-                  text: '추가',
+                  text: AppLocalizations.of(context)!.add,
                 ),
               ],
               //TodoList
@@ -132,12 +150,18 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                                 final controller = TextEditingController(text: item.content);
                                 showDialog(
                                   context: context,
-                                  builder: (_) => EditTodoDialog(controller: controller, projectId: widget.projectId, todoId: item.id!),
+                                  builder: (_) => EditTodoDialog(
+                                    controller: controller,
+                                    projectId: widget.projectId,
+                                    todoId: item.id!,
+                                  ),
                                 );
                               },
                               onChanged: (item, value) async {
                                 if (item.id == null) return;
-                                await ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
+                                await ref
+                                    .read(todoNotifierProvider(widget.projectId).notifier)
+                                    .completedTodo(item.id!, value ?? false);
                               },
                             ),
                             //완료 list
@@ -146,7 +170,9 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                               onTap: (_) {},
                               onChanged: (item, value) async {
                                 if (item.id == null) return;
-                                await ref.read(todoNotifierProvider(widget.projectId).notifier).completedTodo(item.id!, value ?? false);
+                                await ref
+                                    .read(todoNotifierProvider(widget.projectId).notifier)
+                                    .completedTodo(item.id!, value ?? false);
                               },
                             ),
                           ],

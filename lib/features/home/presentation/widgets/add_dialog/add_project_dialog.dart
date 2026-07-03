@@ -10,6 +10,7 @@ import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_title_widget.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class AddProjectDialog extends ConsumerStatefulWidget {
   const AddProjectDialog({super.key});
@@ -34,16 +35,24 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
 
   Future<void> _save() async {
     final isFormValid = _formKey.currentState!.validate();
-    setState(() => _deadlineError = _selectedDeadline == null ? '연도-월-일' : null);
+    setState(
+      () => _deadlineError = _selectedDeadline == null
+          ? AppLocalizations.of(context)!.deadlineError
+          : null,
+    );
 
     if (!isFormValid || _deadlineError != null) return;
 
     final hourlyRate = int.parse(_hourlyRateController.text.replaceAll(',', ''));
-    final project = ProjectModel(title: _titleController.text.trim(), hourlyRate: hourlyRate, deadline: _selectedDeadline);
+    final project = ProjectModel(
+      title: _titleController.text.trim(),
+      hourlyRate: hourlyRate,
+      deadline: _selectedDeadline,
+    );
 
     await ref.read(projectNotifierProvider.notifier).createProject(project);
     if (!mounted) return;
-    Navigator.of(context).pop('프로젝트 추가 완료');
+    Navigator.of(context).pop(AppLocalizations.of(context)!.projectAdded);
   }
 
   @override
@@ -63,15 +72,27 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AddTitle(),
-                  _buildText('작업명'),
+                  _buildText(AppLocalizations.of(context)!.projectName),
                   const SizedBox(height: 2),
-                  AppTextField(controller: _titleController, valieText: '작업명을 입력하세요.', hintText: '작업명을 입력하세요.', maxLenth: 12, icon: Icon(Icons.edit_note, size: 23)),
+                  AppTextField(
+                    controller: _titleController,
+                    valieText: AppLocalizations.of(context)!.projectNameError,
+                    hintText: AppLocalizations.of(context)!.projectNameHint,
+                    maxLenth: 12,
+                    icon: Icon(Icons.edit_note, size: 23),
+                  ),
                   _buildSizedBox(context),
-                  _buildText('시급'),
+                  _buildText(AppLocalizations.of(context)!.hourlyRate),
                   const SizedBox(height: 2),
-                  HourlyRateField(controller: _hourlyRateController, icon: Icon(Icons.attach_money, size: 23), hintText: '시급을 입력하세요', errorText: '시급을 입력하세요', maxDigits: 7),
+                  HourlyRateField(
+                    controller: _hourlyRateController,
+                    icon: Icon(Icons.attach_money, size: 23),
+                    hintText: AppLocalizations.of(context)!.hourlyRateHint,
+                    errorText: AppLocalizations.of(context)!.hourlyRateError,
+                    maxDigits: 7,
+                  ),
                   _buildSizedBox(context),
-                  _buildText('마감일'),
+                  _buildText(AppLocalizations.of(context)!.deadline),
                   const SizedBox(height: 2),
                   DatePickerField(
                     icon: Icons.today,
@@ -81,9 +102,15 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                       _deadlineError = null;
                     }),
                   ),
-                  if (_deadlineError != null) ...[const SizedBox(height: 4), Text(_deadlineError!, style: const TextStyle(color: AppColors.error, fontSize: 12))],
+                  if (_deadlineError != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      _deadlineError!,
+                      style: const TextStyle(color: AppColors.error, fontSize: 12),
+                    ),
+                  ],
                   _buildSizedBox(context),
-                  AppFilledButton(onPressed: _save, text: '저장'),
+                  AppFilledButton(onPressed: _save, text: AppLocalizations.of(context)!.save),
                 ],
               ),
             ),

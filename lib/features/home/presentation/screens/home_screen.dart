@@ -11,6 +11,7 @@ import 'package:free_log/features/home/presentation/widgets/add_dialog/add_proje
 import 'package:free_log/features/home/presentation/widgets/home/home_button_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/home/home_container_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/home/home_title_widget.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -23,7 +24,10 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   ProjectStatus? _selectedStatus;
   Future<void> _openAddProjectDialog() async {
-    final message = await showDialog<String>(context: context, builder: (ctx) => const AddProjectDialog());
+    final message = await showDialog<String>(
+      context: context,
+      builder: (ctx) => const AddProjectDialog(),
+    );
 
     if (!mounted || message == null || message.isEmpty) {
       return;
@@ -47,15 +51,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Column(
           children: [
             HomeTitleWidget(
-              inProgressCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.inProgress).length) ?? 0,
-              completedCount: asyncProject.whenOrNull(data: (projects) => projects.where((p) => p.status == ProjectStatus.completed).length) ?? 0,
+              inProgressCount:
+                  asyncProject.whenOrNull(
+                    data: (projects) =>
+                        projects.where((p) => p.status == ProjectStatus.inProgress).length,
+                  ) ??
+                  0,
+              completedCount:
+                  asyncProject.whenOrNull(
+                    data: (projects) =>
+                        projects.where((p) => p.status == ProjectStatus.completed).length,
+                  ) ??
+                  0,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: Responsive.horizontalPadding(context), vertical: AppSpacing.sm),
+              padding: EdgeInsets.symmetric(
+                horizontal: Responsive.horizontalPadding(context),
+                vertical: AppSpacing.sm,
+              ),
               child: Row(
                 children: [
                   HomeButtonWidget(
-                    text: '전체',
+                    text: AppLocalizations.of(context)!.all,
                     isSelected: _selectedStatus == null,
                     onPressed: () {
                       setState(() {
@@ -65,7 +82,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                   SizedBox(width: AppSpacing.sm),
                   HomeButtonWidget(
-                    text: '진행중',
+                    text: AppLocalizations.of(context)!.inProgress,
                     isSelected: _selectedStatus == ProjectStatus.inProgress,
                     onPressed: () {
                       setState(() {
@@ -75,7 +92,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                   SizedBox(width: AppSpacing.sm),
                   HomeButtonWidget(
-                    text: '완료',
+                    text: AppLocalizations.of(context)!.completed,
                     isSelected: _selectedStatus == ProjectStatus.completed,
                     onPressed: () {
                       setState(() {
@@ -89,14 +106,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Expanded(
               child: asyncProject.when(
                 data: (value) {
-                  final filterProjects = _selectedStatus == null ? value : value.where((project) => project.status == _selectedStatus).toList();
+                  final filterProjects = _selectedStatus == null
+                      ? value
+                      : value.where((project) => project.status == _selectedStatus).toList();
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     itemCount: filterProjects.length,
                     itemBuilder: (ctx, index) {
                       final project = filterProjects[index];
                       return Padding(
-                        padding: EdgeInsets.only(left: Responsive.horizontalPadding(context), right: Responsive.horizontalPadding(context), bottom: 8),
+                        padding: EdgeInsets.only(
+                          left: Responsive.horizontalPadding(context),
+                          right: Responsive.horizontalPadding(context),
+                          bottom: 8,
+                        ),
                         child: GestureDetector(
                           onTap: () {
                             context.push('/detail/${project.id}', extra: project);

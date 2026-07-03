@@ -9,6 +9,7 @@ import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/presentation/providers/expense_provider.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class EditExpenseDialog extends ConsumerStatefulWidget {
   final ExpenseModel expense;
@@ -67,40 +68,43 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                       child: Icon(Icons.edit_document, color: AppColors.primary),
                     ),
                     SizedBox(width: 10),
-                    Text('지출 수정', style: AppTextStyles.title(context)),
+                    Text(
+                      AppLocalizations.of(context)!.editExpense,
+                      style: AppTextStyles.title(context),
+                    ),
                   ],
                 ),
                 SizedBox(height: 12),
                 Text(
-                  '항목',
+                  AppLocalizations.of(context)!.item,
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 AppTextField(
                   controller: _titleController,
-                  valieText: '항목을 입력하세요.',
-                  hintText: '항목명',
+                  valieText: AppLocalizations.of(context)!.valieItem,
+                  hintText: AppLocalizations.of(context)!.itemHint,
                   maxLenth: 15,
                   icon: Icon(Icons.edit_note, size: 23),
                 ),
                 const SizedBox(height: 8),
                 //금액
                 Text(
-                  '금액',
+                  AppLocalizations.of(context)!.amount,
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 HourlyRateField(
                   controller: _amountController,
-                  hintText: '금액',
-                  errorText: '금액을 입력하세요',
+                  hintText: AppLocalizations.of(context)!.amountHint,
+                  errorText: AppLocalizations.of(context)!.valieAmount,
                   maxDigits: 8,
                   icon: Icon(Icons.attach_money_outlined, size: 23),
                 ),
                 const SizedBox(height: 8),
                 //날짜
                 Text(
-                  '날짜',
+                  AppLocalizations.of(context)!.date,
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
@@ -176,7 +180,7 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                             if (context.mounted) Navigator.pop(context);
                           },
                           child: Text(
-                            '수정',
+                            AppLocalizations.of(context)!.update,
                             style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
                           ),
                         ),

@@ -1,15 +1,94 @@
 {
   "@@locale": "en",
   "appName": "Freelog",
+
   "home": "Home",
   "calendar": "Calendar",
   "calculator": "Calculator",
   "profile": "Profile",
+
+  "myProject": "My Projects",
+  "projectStatus": "In Progress {inProgress}  ⦁  Done {completed}",
+
+  "all": "All",
   "inProgress": "In Progress",
   "onHold": "On Hold",
   "completed": "Completed",
+
   "addProject": "Add Project",
-  "deadline": "Deadline",
+  "addProjectSubtitle": "Register a new freelance project",
+  "projectName": "Project Name",
+  "projectNameHint": "Enter project name",
+  "projectNameError": "Please enter a project name",
+
   "hourlyRate": "Hourly Rate",
-  "marginRate": "Margin Rate"
+  "hourlyRateHint": "Enter hourly rate",
+  "hourlyRateError":"Please enter an hourly rate",
+
+  "deadline": "Deadline",
+  "deadlineHint": "YYYY-MM-DD",
+  "deadlineError":"    Please select a deadline",
+
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "projectAdded": "Project Added",
+
+  "editProject": "Edit Project",
+  "markAsCompleted": "Mark as Completed", 
+  "deleteProject": "Delete",
+  "deleteConfirm": "Delete this project?",
+  "deleteWarning": "This cannot be undone.",
+
+  "deleteRecordTitle": "Delete this record?",
+  "deleteRecordMessage": "This record will be permanently deleted.",
+  "noTimeEntries":"No time entries yet",
+
+
+  "todoTab": "Todo ({count})",
+  "doneTab": "Done ({count})",
+
+  "todos": "To Do",
+  "done": "Done",
+  "addTodo": "+ Add",
+  "todosHint": "Enter task name",
+  "editTodo":"Edit task",
+  "valieTodo":"Please enter a task name.",
+
+
+  "date": "Date",
+  "add": "Add",
+  "update": "Update",
+  "ok":"OK",
+  
+  "editExpense": "Edit Expense",
+  "editIncome": "Edit Income",
+
+  "costDetails": "Cost Details",
+  "paymentReceived": "Payment Received",
+  "item": "Item",
+  "itemHint":"Enter item name",
+  "valieItem": "Please enter an item name.",
+
+  "amount": "Amount",
+  "amountHint":"Enter amount",
+  "valieAmount":"Please enter an amount.",
+
+  "timeEntries": "Time Entries",
+  "timeEntry": "Time Entry",
+  "timeEntryTitle":"Work Hours",
+  "totalTimeEntries": "Total Work Hours",
+  "hours":"Hours",
+  "records":"Records",
+  "editTimeEntry": "Edit Time Entry",
+
+  "expense": "Expenses",
+  "income": "Income",
+  "calculation": "Price Calculation",
+
+  "hourlyRateXHours": "Rate × Hours",
+  "materialCost": "Material Cost",
+  "margin": "Margin ({rate}%)",
+  "marginRate": "Margin Rate",
+  "sellingPrice": "Selling Price"
 }

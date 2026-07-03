@@ -38,7 +38,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   void _showDayDetail(DateTime day) {
-    final data = ref.read(calendarNotifierProvider).valueOrNull ?? {};
+    // final data = ref.read(calendarNotifierProvider).valueOrNull ?? {};
     showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,

@@ -9,14 +9,33 @@ class AppFilledButton extends StatelessWidget {
   final Color? borderColor;
   final Color? textColor;
 
-  const AppFilledButton({super.key, required this.onPressed, required this.text, this.color, this.borderColor, this.textColor});
+  const AppFilledButton({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    this.color,
+    this.borderColor,
+    this.textColor,
+  });
 
-  const AppFilledButton.add({Key? key, required VoidCallback onPressed}) : this(key: key, onPressed: onPressed, text: '추가', color: AppColors.primary, textColor: Colors.white);
+  const AppFilledButton.cancel({Key? key, required String text, required VoidCallback onPressed})
+    : this(
+        key: key,
+        onPressed: onPressed,
+        text: text,
+        color: AppColors.background,
+        borderColor: AppColors.borderDefault,
+        textColor: AppColors.textSecondary,
+      );
 
-  const AppFilledButton.cancel({Key? key, required VoidCallback onPressed})
-    : this(key: key, onPressed: onPressed, text: '취소', color: AppColors.background, borderColor: AppColors.borderDefault, textColor: AppColors.textSecondary);
-
-  const AppFilledButton.delete({Key? key, required VoidCallback onPressed}) : this(key: key, onPressed: onPressed, text: '삭제', color: AppColors.errorSoft, textColor: Colors.white);
+  const AppFilledButton.delete({Key? key, required String text, required VoidCallback onPressed})
+    : this(
+        key: key,
+        onPressed: onPressed,
+        text: text,
+        color: AppColors.errorSoft,
+        textColor: Colors.white,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +49,10 @@ class AppFilledButton extends StatelessWidget {
           side: BorderSide(color: borderColor ?? Colors.transparent),
         ),
         onPressed: onPressed,
-        child: Text(text, style: AppTextStyles.bodyBold(context).copyWith(color: textColor ?? Colors.white)),
+        child: Text(
+          text,
+          style: AppTextStyles.bodyBold(context).copyWith(color: textColor ?? Colors.white),
+        ),
       ),
     );
   }

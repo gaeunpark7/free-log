@@ -5,13 +5,19 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/widgets/text_field/app_text_field.dart';
 import 'package:free_log/features/home/presentation/providers/todos_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/todos/delete_todo_dialog.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class EditTodoDialog extends ConsumerStatefulWidget {
   final TextEditingController controller;
   final String projectId;
   final String todoId;
 
-  const EditTodoDialog({super.key, required this.controller, required this.projectId, required this.todoId});
+  const EditTodoDialog({
+    super.key,
+    required this.controller,
+    required this.projectId,
+    required this.todoId,
+  });
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _EditTodoDialogState();
 }
@@ -46,17 +52,29 @@ class _EditTodoDialogState extends ConsumerState<EditTodoDialog> {
                     Container(
                       width: 45,
                       height: 45,
-                      decoration: BoxDecoration(color: const Color.fromARGB(255, 230, 237, 248), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 230, 237, 248),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Icon(Icons.edit_document, color: AppColors.primary),
                     ),
                     SizedBox(width: 10),
-                    Text('할 일 수정', style: AppTextStyles.title(context)),
+                    Text(
+                      AppLocalizations.of(context)!.editTodo,
+                      style: AppTextStyles.title(context),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),
                 // Text('내용', style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary)),
                 // const SizedBox(height: 6),
-                AppTextField(controller: widget.controller, valieText: '할 일을 입력하세요.', hintText: '할 일 입력', icon: Icon(Icons.edit_note, size: 23), maxLenth: 15),
+                AppTextField(
+                  controller: widget.controller,
+                  valieText: AppLocalizations.of(context)!.valieTodo,
+                  hintText: AppLocalizations.of(context)!.todosHint,
+                  icon: Icon(Icons.edit_note, size: 23),
+                  maxLenth: 15,
+                ),
                 const SizedBox(height: 12),
 
                 Row(
@@ -74,7 +92,10 @@ class _EditTodoDialogState extends ConsumerState<EditTodoDialog> {
                         onPressed: () async {
                           final deleted = await showDialog<bool>(
                             context: context,
-                            builder: (ctx) => DeleteTodoDialog(todoId: widget.todoId, projectId: widget.projectId),
+                            builder: (ctx) => DeleteTodoDialog(
+                              todoId: widget.todoId,
+                              projectId: widget.projectId,
+                            ),
                           );
                           if (deleted == true && context.mounted) Navigator.pop(context);
                         },
@@ -87,18 +108,25 @@ class _EditTodoDialogState extends ConsumerState<EditTodoDialog> {
                       child: SizedBox(
                         height: 48,
                         child: FilledButton(
-                          style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                          style: FilledButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
                           onPressed: () async {
                             if (widget.controller.text.trim() == _originalText.trim()) {
                               if (context.mounted) Navigator.pop(context);
                               return;
                             }
                             if (!_formKey.currentState!.validate()) return;
-                            await ref.read(todoNotifierProvider(widget.projectId).notifier).updateTodo(widget.todoId, widget.controller.text);
+                            await ref
+                                .read(todoNotifierProvider(widget.projectId).notifier)
+                                .updateTodo(widget.todoId, widget.controller.text);
                             if (ref.read(todoNotifierProvider(widget.projectId)).hasError) return;
                             if (context.mounted) Navigator.pop(context);
                           },
-                          child: Text('수정', style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white)),
+                          child: Text(
+                            AppLocalizations.of(context)!.update,
+                            style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
