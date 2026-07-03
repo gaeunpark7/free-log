@@ -100,7 +100,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Row _buildPopupItem(final title, final IconData icon, {final Color? color}) {
+  Row _buildPopupItem(final String title, final IconData icon, {final Color? color}) {
     return Row(
       children: [
         Icon(icon, color: color ?? AppColors.textPrimary, size: 18),

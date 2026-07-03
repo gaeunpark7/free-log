@@ -619,6 +619,36 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'마진율을 입력하세요'**
   String get marginRateError;
+
+  /// No description provided for @nickName.
+  ///
+  /// In ko, this message translates to:
+  /// **'이름'**
+  String get nickName;
+
+  /// No description provided for @editNickname.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임 변경'**
+  String get editNickname;
+
+  /// No description provided for @nicknameHint.
+  ///
+  /// In ko, this message translates to:
+  /// **'새로운 닉네임을 입력하세요'**
+  String get nicknameHint;
+
+  /// No description provided for @nicknameError.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임을 입력하세요'**
+  String get nicknameError;
+
+  /// No description provided for @email.
+  ///
+  /// In ko, this message translates to:
+  /// **'이메일'**
+  String get email;
 }
 
 class _AppLocalizationsDelegate

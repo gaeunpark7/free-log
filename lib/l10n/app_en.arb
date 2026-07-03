@@ -109,5 +109,12 @@
 
   "editSettings" : "Edit Settings",
   "marginRateHint":"Enter Margin Rate",
-  "marginRateError":"Please enter a margin rate"
+  "marginRateError":"Please enter a margin rate",
+
+  "nickName":"Nickname",
+  "editNickname":"Edit Nickname",
+  "nicknameHint":"Enter Nickname",
+  "nicknameError":"Please enter a nickname",
+  "email":"Email"
+
 }

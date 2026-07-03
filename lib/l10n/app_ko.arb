@@ -128,5 +128,12 @@
 
   "editSettings" : "기본 설정 수정",
   "marginRateHint":"마진율을 입력하세요",
-  "marginRateError":"마진율을 입력하세요"
+  "marginRateError":"마진율을 입력하세요",
+
+  "nickName":"이름",
+  "editNickname":"닉네임 변경",
+  "nicknameHint":"새로운 닉네임을 입력하세요",
+  "nicknameError":"닉네임을 입력하세요",
+  "email":"이메일"
+
 }

@@ -3,6 +3,7 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/profile/domain/model/user_model.dart';
+import 'package:free_log/features/profile/presentation/widgets/profile_edit_dialog.dart';
 
 class ProfileCard extends StatelessWidget {
   final UserModel? user;
@@ -24,7 +25,7 @@ class ProfileCard extends StatelessWidget {
             Row(
               children: [_buildProfileCircle(), const SizedBox(width: 16), _buildUserInfo(context)],
             ),
-            _buildEditButton(),
+            _buildEditButton(context),
           ],
         ),
       ),
@@ -41,11 +42,19 @@ class ProfileCard extends StatelessWidget {
     );
   }
 
-  CircleAvatar _buildEditButton() {
-    return CircleAvatar(
-      radius: 20,
-      backgroundColor: AppColors.background,
-      child: Icon(Icons.edit_outlined, color: AppColors.textTertiary),
+  Widget _buildEditButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (ctx) => ProfileEditDialog(user: user!),
+        );
+      },
+      child: CircleAvatar(
+        radius: 20,
+        backgroundColor: AppColors.background,
+        child: Icon(Icons.edit_outlined, color: AppColors.textTertiary),
+      ),
     );
   }
 

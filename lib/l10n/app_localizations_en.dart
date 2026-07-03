@@ -276,4 +276,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get marginRateError => 'Please enter a margin rate';
+
+  @override
+  String get nickName => 'Nickname';
+
+  @override
+  String get editNickname => 'Edit Nickname';
+
+  @override
+  String get nicknameHint => 'Enter Nickname';
+
+  @override
+  String get nicknameError => 'Please enter a nickname';
+
+  @override
+  String get email => 'Email';
 }

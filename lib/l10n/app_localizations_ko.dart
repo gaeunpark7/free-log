@@ -276,4 +276,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get marginRateError => '마진율을 입력하세요';
+
+  @override
+  String get nickName => '이름';
+
+  @override
+  String get editNickname => '닉네임 변경';
+
+  @override
+  String get nicknameHint => '새로운 닉네임을 입력하세요';
+
+  @override
+  String get nicknameError => '닉네임을 입력하세요';
+
+  @override
+  String get email => '이메일';
 }
