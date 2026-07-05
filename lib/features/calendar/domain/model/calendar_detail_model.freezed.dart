@@ -210,7 +210,7 @@ return $default(_that.timeEntries,_that.incomes,_that.expenses);case _:
 
 
 class _CalendarDetailModel implements CalendarDetailModel {
-   _CalendarDetailModel({final  List<TimeEntryDetail> timeEntries = const [], final  List<IncomeDetail> incomes = const [], final  List<ExpenseDetail> expenses = const []}): _timeEntries = timeEntries,_incomes = incomes,_expenses = expenses;
+  const _CalendarDetailModel({final  List<TimeEntryDetail> timeEntries = const [], final  List<IncomeDetail> incomes = const [], final  List<ExpenseDetail> expenses = const []}): _timeEntries = timeEntries,_incomes = incomes,_expenses = expenses;
   
 
  final  List<TimeEntryDetail> _timeEntries;
@@ -301,7 +301,7 @@ as List<ExpenseDetail>,
 /// @nodoc
 mixin _$TimeEntryDetail {
 
- String get projectName; double get hours;
+ String get projectName; int get totalMinutes;
 /// Create a copy of TimeEntryDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -312,16 +312,16 @@ $TimeEntryDetailCopyWith<TimeEntryDetail> get copyWith => _$TimeEntryDetailCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeEntryDetail&&(identical(other.projectName, projectName) || other.projectName == projectName)&&(identical(other.hours, hours) || other.hours == hours));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeEntryDetail&&(identical(other.projectName, projectName) || other.projectName == projectName)&&(identical(other.totalMinutes, totalMinutes) || other.totalMinutes == totalMinutes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,projectName,hours);
+int get hashCode => Object.hash(runtimeType,projectName,totalMinutes);
 
 @override
 String toString() {
-  return 'TimeEntryDetail(projectName: $projectName, hours: $hours)';
+  return 'TimeEntryDetail(projectName: $projectName, totalMinutes: $totalMinutes)';
 }
 
 
@@ -332,7 +332,7 @@ abstract mixin class $TimeEntryDetailCopyWith<$Res>  {
   factory $TimeEntryDetailCopyWith(TimeEntryDetail value, $Res Function(TimeEntryDetail) _then) = _$TimeEntryDetailCopyWithImpl;
 @useResult
 $Res call({
- String projectName, double hours
+ String projectName, int totalMinutes
 });
 
 
@@ -349,11 +349,11 @@ class _$TimeEntryDetailCopyWithImpl<$Res>
 
 /// Create a copy of TimeEntryDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? projectName = null,Object? hours = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? projectName = null,Object? totalMinutes = null,}) {
   return _then(_self.copyWith(
 projectName: null == projectName ? _self.projectName : projectName // ignore: cast_nullable_to_non_nullable
-as String,hours: null == hours ? _self.hours : hours // ignore: cast_nullable_to_non_nullable
-as double,
+as String,totalMinutes: null == totalMinutes ? _self.totalMinutes : totalMinutes // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -438,10 +438,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String projectName,  double hours)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String projectName,  int totalMinutes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TimeEntryDetail() when $default != null:
-return $default(_that.projectName,_that.hours);case _:
+return $default(_that.projectName,_that.totalMinutes);case _:
   return orElse();
 
 }
@@ -459,10 +459,10 @@ return $default(_that.projectName,_that.hours);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String projectName,  double hours)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String projectName,  int totalMinutes)  $default,) {final _that = this;
 switch (_that) {
 case _TimeEntryDetail():
-return $default(_that.projectName,_that.hours);case _:
+return $default(_that.projectName,_that.totalMinutes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -479,10 +479,10 @@ return $default(_that.projectName,_that.hours);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String projectName,  double hours)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String projectName,  int totalMinutes)?  $default,) {final _that = this;
 switch (_that) {
 case _TimeEntryDetail() when $default != null:
-return $default(_that.projectName,_that.hours);case _:
+return $default(_that.projectName,_that.totalMinutes);case _:
   return null;
 
 }
@@ -494,11 +494,11 @@ return $default(_that.projectName,_that.hours);case _:
 
 
 class _TimeEntryDetail implements TimeEntryDetail {
-  const _TimeEntryDetail({required this.projectName, required this.hours});
+  const _TimeEntryDetail({required this.projectName, required this.totalMinutes});
   
 
 @override final  String projectName;
-@override final  double hours;
+@override final  int totalMinutes;
 
 /// Create a copy of TimeEntryDetail
 /// with the given fields replaced by the non-null parameter values.
@@ -510,16 +510,16 @@ _$TimeEntryDetailCopyWith<_TimeEntryDetail> get copyWith => __$TimeEntryDetailCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeEntryDetail&&(identical(other.projectName, projectName) || other.projectName == projectName)&&(identical(other.hours, hours) || other.hours == hours));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeEntryDetail&&(identical(other.projectName, projectName) || other.projectName == projectName)&&(identical(other.totalMinutes, totalMinutes) || other.totalMinutes == totalMinutes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,projectName,hours);
+int get hashCode => Object.hash(runtimeType,projectName,totalMinutes);
 
 @override
 String toString() {
-  return 'TimeEntryDetail(projectName: $projectName, hours: $hours)';
+  return 'TimeEntryDetail(projectName: $projectName, totalMinutes: $totalMinutes)';
 }
 
 
@@ -530,7 +530,7 @@ abstract mixin class _$TimeEntryDetailCopyWith<$Res> implements $TimeEntryDetail
   factory _$TimeEntryDetailCopyWith(_TimeEntryDetail value, $Res Function(_TimeEntryDetail) _then) = __$TimeEntryDetailCopyWithImpl;
 @override @useResult
 $Res call({
- String projectName, double hours
+ String projectName, int totalMinutes
 });
 
 
@@ -547,11 +547,11 @@ class __$TimeEntryDetailCopyWithImpl<$Res>
 
 /// Create a copy of TimeEntryDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? projectName = null,Object? hours = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? projectName = null,Object? totalMinutes = null,}) {
   return _then(_TimeEntryDetail(
 projectName: null == projectName ? _self.projectName : projectName // ignore: cast_nullable_to_non_nullable
-as String,hours: null == hours ? _self.hours : hours // ignore: cast_nullable_to_non_nullable
-as double,
+as String,totalMinutes: null == totalMinutes ? _self.totalMinutes : totalMinutes // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

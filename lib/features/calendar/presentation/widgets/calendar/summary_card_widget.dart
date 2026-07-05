@@ -3,9 +3,10 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/time_entry_utils.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 
 class SummaryCardWidget extends StatelessWidget {
-  final double totalHours;
+  final int totalHours;
   final int totalIncome;
   final int totalExpense;
   const SummaryCardWidget({
@@ -27,7 +28,7 @@ class SummaryCardWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildSummaryItem(context, formatHours(totalHours), '작업시간', AppColors.primaryDark),
+          _buildSummaryItem(context, TimeUtils.format(totalHours), '작업시간', AppColors.primaryDark),
           _buildDivider(),
           _buildSummaryItem(context, '+${_formatShort(totalIncome)}', '받은 수익', AppColors.success),
           _buildDivider(),

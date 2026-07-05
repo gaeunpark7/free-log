@@ -13,7 +13,7 @@ _TimeEntryModel _$TimeEntryModelFromJson(Map<String, dynamic> json) =>
       workedAt: json['worked_at'] == null
           ? null
           : DateTime.parse(json['worked_at'] as String),
-      hours: (json['hours'] as num).toDouble(),
+      minutes: (json['minutes'] as num).toInt(),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -24,6 +24,6 @@ Map<String, dynamic> _$TimeEntryModelToJson(_TimeEntryModel instance) =>
       'id': instance.id,
       'project_id': instance.projectId,
       'worked_at': instance.workedAt?.toIso8601String(),
-      'hours': instance.hours,
+      'minutes': instance.minutes,
       'created_at': instance.createdAt?.toIso8601String(),
     };

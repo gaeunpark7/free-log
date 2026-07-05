@@ -87,9 +87,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   Widget _buildSummaryCard(AsyncValue<Map<DateTime, CalendarDataModel>> asyncCalendar) {
     return switch (asyncCalendar) {
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
-      AsyncError() => const SummaryCardWidget(totalHours: 0.0, totalIncome: 0, totalExpense: 0),
+      AsyncError() => const SummaryCardWidget(totalHours: 0, totalIncome: 0, totalExpense: 0),
       AsyncData(:final value) => SummaryCardWidget(
-        totalHours: value.totalHours,
+        totalHours: value.totalMinutes,
         totalIncome: value.totalIncome,
         totalExpense: value.totalExpense,
       ),

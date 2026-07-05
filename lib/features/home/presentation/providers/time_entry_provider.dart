@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/home/data/repository/time_entry_repository_impl.dart';
@@ -22,19 +23,23 @@ class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String
     return _repo.getTimeEntries(projectId);
   }
 
-  Future<void> addTimeEntry(DateTime workedAt, double hours) async {
+  Future<void> addTimeEntry(DateTime workedAt, int hours, int minutes) async {
+    final totalMinutes = TimeUtils.toTotalMinutes(hours, minutes);
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await _repo.addTimeEntry(arg, workedAt, hours);
+      await _repo.addTimeEntry(arg, workedAt, totalMinutes);
       ref.invalidate(calendarNotifierProvider);
       return _repo.getTimeEntries(arg);
     });
   }
 
-  Future<void> updateTimeEntry(String id, DateTime workedAt, double hours) async {
+  Future<void> updateTimeEntry(String id, DateTime workedAt, int hours, int minutes) async {
+    final totalMinutes = TimeUtils.toTotalMinutes(hours, minutes);
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await _repo.updateTimeEntry(id, workedAt, hours);
+      await _repo.updateTimeEntry(id, workedAt, totalMinutes);
       ref.invalidate(calendarNotifierProvider);
       return _repo.getTimeEntries(arg);
     });

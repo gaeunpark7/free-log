@@ -7,7 +7,7 @@ abstract class ProfileStatsModel with _$ProfileStatsModel {
 
   const factory ProfileStatsModel({
     @Default(0) int inProgressCount,
-    @Default(0.0) double totalHours,
+    @Default(0) int totalMinutes,
     @Default(0) int totalIncome,
     @Default(0) int totalExpense,
   }) = _ProfileStatsModel;

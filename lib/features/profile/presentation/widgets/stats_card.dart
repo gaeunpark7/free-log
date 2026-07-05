@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/utils/time_entry_utils.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -80,7 +80,7 @@ class _StatsCardState extends ConsumerState<StatsCard> {
                   _buildStatRow(
                     context,
                     AppLocalizations.of(context)!.totalHours,
-                    formatHours(value.totalHours),
+                    TimeUtils.format(value.totalMinutes),
                   ),
                   Divider(color: AppColors.borderDefault),
                   _buildStatRow(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/utils/time_entry_utils.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_data_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -129,8 +129,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             ),
             SizedBox(height: 4),
             if (data != null) ...[
-              if (data.hours > 0)
-                Text('+${formatHours(data.hours)}', style: AppTextStyles.calendarBody(context)),
+              if (data.minutes > 0)
+                Text(
+                  '+${TimeUtils.format(data.minutes)}',
+                  style: AppTextStyles.calendarBody(context),
+                ),
               if (data.income > 0)
                 Text(
                   '+${_formatShort(data.income)}',

@@ -3,7 +3,7 @@ part 'calendar_detail_model.freezed.dart';
 
 @freezed
 abstract class CalendarDetailModel with _$CalendarDetailModel {
-  factory CalendarDetailModel({
+  const factory CalendarDetailModel({
     @Default([]) List<TimeEntryDetail> timeEntries,
     // 수익 상세
     @Default([]) List<IncomeDetail> incomes,
@@ -15,7 +15,7 @@ abstract class CalendarDetailModel with _$CalendarDetailModel {
 // 작업시간
 @freezed
 abstract class TimeEntryDetail with _$TimeEntryDetail {
-  const factory TimeEntryDetail({required String projectName, required double hours}) =
+  const factory TimeEntryDetail({required String projectName, required int totalMinutes}) =
       _TimeEntryDetail;
 }
 

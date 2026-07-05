@@ -5,6 +5,7 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/time_entry_utils.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/core/widgets/app_content_layout_widget.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
@@ -68,35 +69,40 @@ class TimeEntryScreen extends ConsumerWidget {
                           AsyncLoading() => Center(
                             child: CircularProgressIndicator(color: AppColors.primary),
                           ),
-                          AsyncData(value: final entries) => Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          AsyncData(value: final entries) => Builder(
+                            builder: (context) {
+                              final totalMinutes = entries.fold(0, (sum, e) => sum + e.minutes);
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.totalTimeEntries,
-                                    style: AppTextStyles.bodyBold(context),
-                                  ),
-                                  Row(
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '$projectName ⦁ ${entries.length}',
-                                        style: AppTextStyles.caption(context),
+                                        AppLocalizations.of(context)!.totalTimeEntries,
+                                        style: AppTextStyles.bodyBold(context),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '$projectName ⦁ ${entries.length}',
+                                            style: AppTextStyles.caption(context),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  Text(
+                                    TimeUtils.format(totalMinutes),
+                                    style: AppTextStyles.headline(context).copyWith(
+                                      color: totalMinutes == 0
+                                          ? Colors.grey
+                                          : AppColors.textPrimary,
+                                    ),
+                                  ),
                                 ],
-                              ),
-                              Text(
-                                formatHours(entries.fold(0.0, (sum, e) => sum + e.hours)),
-                                style: AppTextStyles.headline(context).copyWith(
-                                  color: entries.fold(0.0, (sum, e) => sum + e.hours) == 0.0
-                                      ? Colors.grey
-                                      : AppColors.textPrimary,
-                                ),
-                              ),
-                            ],
+                              );
+                            },
                           ),
                           _ => const SizedBox.shrink(),
                         },
@@ -134,7 +140,10 @@ class TimeEntryScreen extends ConsumerWidget {
                                         ),
                                         child: TimeEntryListView(
                                           entry: entry,
-                                          weekdayLabel: (dt) => formatWeekday(dt, Localizations.localeOf(context).languageCode),
+                                          weekdayLabel: (dt) => formatWeekday(
+                                            dt,
+                                            Localizations.localeOf(context).languageCode,
+                                          ),
                                           formatHours: formatHours,
                                         ),
                                       );

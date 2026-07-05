@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_detail_model.dart';
 import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/calendar/presentation/widgets/detail/entry_row.dart';
@@ -95,7 +96,7 @@ class CalendarDetailWidget extends ConsumerWidget {
 
   //작업 섹션
   Widget _buildWorkSection(BuildContext context, List<TimeEntryDetail> entries) {
-    final totalHours = entries.fold(0.0, (sum, e) => sum + e.hours);
+    final totalMiniutes = entries.fold(0, (sum, e) => sum + e.totalMinutes);
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 8),
       child: Column(
@@ -104,7 +105,7 @@ class CalendarDetailWidget extends ConsumerWidget {
           SectionHeader(
             icon: Icons.access_time,
             label: '작업',
-            rightText: '${_formatHours(totalHours)}h',
+            rightText: TimeUtils.format(totalMiniutes),
             color: AppColors.textPrimary,
           ),
           const SizedBox(height: 8),
@@ -176,23 +177,20 @@ class CalendarDetailWidget extends ConsumerWidget {
       children: [
         Text(entry.projectName, style: AppTextStyles.bodyBold(context)),
         Spacer(),
-        Text('${_formatHours(entry.hours)}h', style: AppTextStyles.subTitleBold(context)),
+        Text(TimeUtils.format(entry.totalMinutes), style: AppTextStyles.subTitleBold(context)),
       ],
     );
   }
 
   String _formatAmount(int amount) => NumberFormat('#,###').format(amount);
 
-  String _formatHours(double hours) =>
-      hours % 1 == 0 ? hours.toInt().toString() : hours.toStringAsFixed(1);
-}
-
-String _weekdayLabel(int weekday, String locale) {
-  final idx = weekday - 1;
-  if (locale == 'ko') {
-    const labels = ['월', '화', '수', '목', '금', '토', '일'];
+  String _weekdayLabel(int weekday, String locale) {
+    final idx = weekday - 1;
+    if (locale == 'ko') {
+      const labels = ['월', '화', '수', '목', '금', '토', '일'];
+      return labels[idx];
+    }
+    const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return labels[idx];
   }
-  const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  return labels[idx];
 }

@@ -34,7 +34,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             TitleWidget(),
             Padding(
               padding: Responsive.screenPadding(context),
-              child: CardWidget(hourlyRateController: _hourlyRateController, hourController: _hourController, expenseController: _expenseController, marginRateController: _marginRateController),
+              child: CardWidget(
+                hourlyRateController: _hourlyRateController,
+                hourController: _hourController,
+                expenseController: _expenseController,
+                marginRateController: _marginRateController,
+              ),
             ),
           ],
         ),
