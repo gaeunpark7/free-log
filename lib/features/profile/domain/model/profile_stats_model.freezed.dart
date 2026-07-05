@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileStatsModel {
 
- int get inProgressCount; double get totalHours; int get totalIncome; int get totalExpense;
+ int get inProgressCount; int get totalMinutes; int get totalIncome; int get totalExpense;
 /// Create a copy of ProfileStatsModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ProfileStatsModelCopyWith<ProfileStatsModel> get copyWith => _$ProfileStatsMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileStatsModel&&(identical(other.inProgressCount, inProgressCount) || other.inProgressCount == inProgressCount)&&(identical(other.totalHours, totalHours) || other.totalHours == totalHours)&&(identical(other.totalIncome, totalIncome) || other.totalIncome == totalIncome)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileStatsModel&&(identical(other.inProgressCount, inProgressCount) || other.inProgressCount == inProgressCount)&&(identical(other.totalMinutes, totalMinutes) || other.totalMinutes == totalMinutes)&&(identical(other.totalIncome, totalIncome) || other.totalIncome == totalIncome)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,inProgressCount,totalHours,totalIncome,totalExpense);
+int get hashCode => Object.hash(runtimeType,inProgressCount,totalMinutes,totalIncome,totalExpense);
 
 @override
 String toString() {
-  return 'ProfileStatsModel(inProgressCount: $inProgressCount, totalHours: $totalHours, totalIncome: $totalIncome, totalExpense: $totalExpense)';
+  return 'ProfileStatsModel(inProgressCount: $inProgressCount, totalMinutes: $totalMinutes, totalIncome: $totalIncome, totalExpense: $totalExpense)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ProfileStatsModelCopyWith<$Res>  {
   factory $ProfileStatsModelCopyWith(ProfileStatsModel value, $Res Function(ProfileStatsModel) _then) = _$ProfileStatsModelCopyWithImpl;
 @useResult
 $Res call({
- int inProgressCount, double totalHours, int totalIncome, int totalExpense
+ int inProgressCount, int totalMinutes, int totalIncome, int totalExpense
 });
 
 
@@ -62,11 +62,11 @@ class _$ProfileStatsModelCopyWithImpl<$Res>
 
 /// Create a copy of ProfileStatsModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? inProgressCount = null,Object? totalHours = null,Object? totalIncome = null,Object? totalExpense = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? inProgressCount = null,Object? totalMinutes = null,Object? totalIncome = null,Object? totalExpense = null,}) {
   return _then(_self.copyWith(
 inProgressCount: null == inProgressCount ? _self.inProgressCount : inProgressCount // ignore: cast_nullable_to_non_nullable
-as int,totalHours: null == totalHours ? _self.totalHours : totalHours // ignore: cast_nullable_to_non_nullable
-as double,totalIncome: null == totalIncome ? _self.totalIncome : totalIncome // ignore: cast_nullable_to_non_nullable
+as int,totalMinutes: null == totalMinutes ? _self.totalMinutes : totalMinutes // ignore: cast_nullable_to_non_nullable
+as int,totalIncome: null == totalIncome ? _self.totalIncome : totalIncome // ignore: cast_nullable_to_non_nullable
 as int,totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -153,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int inProgressCount,  double totalHours,  int totalIncome,  int totalExpense)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int inProgressCount,  int totalMinutes,  int totalIncome,  int totalExpense)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileStatsModel() when $default != null:
-return $default(_that.inProgressCount,_that.totalHours,_that.totalIncome,_that.totalExpense);case _:
+return $default(_that.inProgressCount,_that.totalMinutes,_that.totalIncome,_that.totalExpense);case _:
   return orElse();
 
 }
@@ -174,10 +174,10 @@ return $default(_that.inProgressCount,_that.totalHours,_that.totalIncome,_that.t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int inProgressCount,  double totalHours,  int totalIncome,  int totalExpense)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int inProgressCount,  int totalMinutes,  int totalIncome,  int totalExpense)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileStatsModel():
-return $default(_that.inProgressCount,_that.totalHours,_that.totalIncome,_that.totalExpense);case _:
+return $default(_that.inProgressCount,_that.totalMinutes,_that.totalIncome,_that.totalExpense);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +194,10 @@ return $default(_that.inProgressCount,_that.totalHours,_that.totalIncome,_that.t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int inProgressCount,  double totalHours,  int totalIncome,  int totalExpense)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int inProgressCount,  int totalMinutes,  int totalIncome,  int totalExpense)?  $default,) {final _that = this;
 switch (_that) {
 case _ProfileStatsModel() when $default != null:
-return $default(_that.inProgressCount,_that.totalHours,_that.totalIncome,_that.totalExpense);case _:
+return $default(_that.inProgressCount,_that.totalMinutes,_that.totalIncome,_that.totalExpense);case _:
   return null;
 
 }
@@ -209,11 +209,11 @@ return $default(_that.inProgressCount,_that.totalHours,_that.totalIncome,_that.t
 
 
 class _ProfileStatsModel extends ProfileStatsModel {
-  const _ProfileStatsModel({this.inProgressCount = 0, this.totalHours = 0.0, this.totalIncome = 0, this.totalExpense = 0}): super._();
+  const _ProfileStatsModel({this.inProgressCount = 0, this.totalMinutes = 0, this.totalIncome = 0, this.totalExpense = 0}): super._();
   
 
 @override@JsonKey() final  int inProgressCount;
-@override@JsonKey() final  double totalHours;
+@override@JsonKey() final  int totalMinutes;
 @override@JsonKey() final  int totalIncome;
 @override@JsonKey() final  int totalExpense;
 
@@ -227,16 +227,16 @@ _$ProfileStatsModelCopyWith<_ProfileStatsModel> get copyWith => __$ProfileStatsM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileStatsModel&&(identical(other.inProgressCount, inProgressCount) || other.inProgressCount == inProgressCount)&&(identical(other.totalHours, totalHours) || other.totalHours == totalHours)&&(identical(other.totalIncome, totalIncome) || other.totalIncome == totalIncome)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileStatsModel&&(identical(other.inProgressCount, inProgressCount) || other.inProgressCount == inProgressCount)&&(identical(other.totalMinutes, totalMinutes) || other.totalMinutes == totalMinutes)&&(identical(other.totalIncome, totalIncome) || other.totalIncome == totalIncome)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,inProgressCount,totalHours,totalIncome,totalExpense);
+int get hashCode => Object.hash(runtimeType,inProgressCount,totalMinutes,totalIncome,totalExpense);
 
 @override
 String toString() {
-  return 'ProfileStatsModel(inProgressCount: $inProgressCount, totalHours: $totalHours, totalIncome: $totalIncome, totalExpense: $totalExpense)';
+  return 'ProfileStatsModel(inProgressCount: $inProgressCount, totalMinutes: $totalMinutes, totalIncome: $totalIncome, totalExpense: $totalExpense)';
 }
 
 
@@ -247,7 +247,7 @@ abstract mixin class _$ProfileStatsModelCopyWith<$Res> implements $ProfileStatsM
   factory _$ProfileStatsModelCopyWith(_ProfileStatsModel value, $Res Function(_ProfileStatsModel) _then) = __$ProfileStatsModelCopyWithImpl;
 @override @useResult
 $Res call({
- int inProgressCount, double totalHours, int totalIncome, int totalExpense
+ int inProgressCount, int totalMinutes, int totalIncome, int totalExpense
 });
 
 
@@ -264,11 +264,11 @@ class __$ProfileStatsModelCopyWithImpl<$Res>
 
 /// Create a copy of ProfileStatsModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? inProgressCount = null,Object? totalHours = null,Object? totalIncome = null,Object? totalExpense = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? inProgressCount = null,Object? totalMinutes = null,Object? totalIncome = null,Object? totalExpense = null,}) {
   return _then(_ProfileStatsModel(
 inProgressCount: null == inProgressCount ? _self.inProgressCount : inProgressCount // ignore: cast_nullable_to_non_nullable
-as int,totalHours: null == totalHours ? _self.totalHours : totalHours // ignore: cast_nullable_to_non_nullable
-as double,totalIncome: null == totalIncome ? _self.totalIncome : totalIncome // ignore: cast_nullable_to_non_nullable
+as int,totalMinutes: null == totalMinutes ? _self.totalMinutes : totalMinutes // ignore: cast_nullable_to_non_nullable
+as int,totalIncome: null == totalIncome ? _self.totalIncome : totalIncome // ignore: cast_nullable_to_non_nullable
 as int,totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as int,
   ));

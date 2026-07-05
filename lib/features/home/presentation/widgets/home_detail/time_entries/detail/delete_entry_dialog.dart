@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/core/utils/time_entry_utils.dart';
@@ -17,7 +18,7 @@ class DeleteEntryDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final date = entry.workedAt?.toLocal();
     final dateStr = date != null
-        ? '${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')} (${formatWeekday(date, Localizations.localeOf(context).languageCode)}) ${formatHours(entry.hours)}'
+        ? '${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')} (${formatWeekday(date, Localizations.localeOf(context).languageCode)}) ${TimeUtils.format(entry.minutes)}'
         : '';
 
     return Dialog(

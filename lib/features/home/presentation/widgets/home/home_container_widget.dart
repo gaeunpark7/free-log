@@ -5,6 +5,7 @@ import 'package:free_log/core/theme/app_spacing.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/d_day_info.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/core/widgets/badge/d_day_badge.dart';
 import 'package:free_log/core/widgets/badge/status_badge.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
@@ -24,7 +25,7 @@ class HomeContainerWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncEntries = ref.watch(timeEntryNotifierProvider(project.id!));
     final totalHours = asyncEntries.whenOrNull(
-      data: (entries) => entries.fold(0.0, (sum, e) => sum + e.hours),
+      data: (entries) => entries.fold(0, (sum, e) => sum + e.minutes),
     );
     final ddayInfo = project.deadline != null ? DDayInfo.from(project.deadline!) : null;
 
@@ -120,9 +121,7 @@ class HomeContainerWidget extends ConsumerWidget {
                     const Icon(Icons.access_time, size: 13, color: Colors.grey),
                     SizedBox(width: 2),
                     Text(
-                      totalHours != null
-                          ? '${totalHours % 1 == 0 ? totalHours.toInt() : totalHours.toStringAsFixed(1)}h'
-                          : '-',
+                      TimeUtils.format(totalHours ?? 0),
                       style: TextStyle(color: AppColors.textSecondary),
                     ),
                     // SizedBox(width: AppSpacing.sm),

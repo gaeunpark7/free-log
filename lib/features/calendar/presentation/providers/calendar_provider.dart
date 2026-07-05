@@ -79,13 +79,19 @@ class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
       // 같은 프로젝트는 합산
       final entries = existing.timeEntries.toList();
       final idx = entries.indexWhere((e) => e.projectName == projectName);
+
       if (idx >= 0) {
-        entries[idx] = entries[idx].copyWith(hours: entries[idx].hours + entry.hours);
+        entries[idx] = entries[idx].copyWith(
+          totalMinutes: entries[idx].totalMinutes + entry.minutes,
+        );
       } else {
-        entries.add(TimeEntryDetail(projectName: projectName, hours: entry.hours));
+        entries.add(TimeEntryDetail(projectName: projectName, totalMinutes: entry.minutes));
       }
 
-      result[key] = existing.copyWith(hours: existing.hours + entry.hours, timeEntries: entries);
+      result[key] = existing.copyWith(
+        minutes: existing.minutes + entry.minutes,
+        timeEntries: entries,
+      );
     }
 
     for (final income in incomes) {

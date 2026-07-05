@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TimeEntryModel {
 
- String? get id;@JsonKey(name: 'project_id') String? get projectId;@JsonKey(name: 'worked_at') DateTime? get workedAt; double get hours;@JsonKey(name: 'created_at') DateTime? get createdAt;
+ String? get id;@JsonKey(name: 'project_id') String? get projectId;@JsonKey(name: 'worked_at') DateTime? get workedAt; int get minutes;@JsonKey(name: 'created_at') DateTime? get createdAt;
 /// Create a copy of TimeEntryModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TimeEntryModelCopyWith<TimeEntryModel> get copyWith => _$TimeEntryModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeEntryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.hours, hours) || other.hours == hours)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeEntryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.minutes, minutes) || other.minutes == minutes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,projectId,workedAt,hours,createdAt);
+int get hashCode => Object.hash(runtimeType,id,projectId,workedAt,minutes,createdAt);
 
 @override
 String toString() {
-  return 'TimeEntryModel(id: $id, projectId: $projectId, workedAt: $workedAt, hours: $hours, createdAt: $createdAt)';
+  return 'TimeEntryModel(id: $id, projectId: $projectId, workedAt: $workedAt, minutes: $minutes, createdAt: $createdAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TimeEntryModelCopyWith<$Res>  {
   factory $TimeEntryModelCopyWith(TimeEntryModel value, $Res Function(TimeEntryModel) _then) = _$TimeEntryModelCopyWithImpl;
 @useResult
 $Res call({
- String? id,@JsonKey(name: 'project_id') String? projectId,@JsonKey(name: 'worked_at') DateTime? workedAt, double hours,@JsonKey(name: 'created_at') DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId,@JsonKey(name: 'worked_at') DateTime? workedAt, int minutes,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -65,13 +65,13 @@ class _$TimeEntryModelCopyWithImpl<$Res>
 
 /// Create a copy of TimeEntryModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? projectId = freezed,Object? workedAt = freezed,Object? hours = null,Object? createdAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? projectId = freezed,Object? workedAt = freezed,Object? minutes = null,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,workedAt: freezed == workedAt ? _self.workedAt : workedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,hours: null == hours ? _self.hours : hours // ignore: cast_nullable_to_non_nullable
-as double,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,minutes: null == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
+as int,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
@@ -157,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  double hours, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  int minutes, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TimeEntryModel() when $default != null:
-return $default(_that.id,_that.projectId,_that.workedAt,_that.hours,_that.createdAt);case _:
+return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.createdAt);case _:
   return orElse();
 
 }
@@ -178,10 +178,10 @@ return $default(_that.id,_that.projectId,_that.workedAt,_that.hours,_that.create
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  double hours, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  int minutes, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _TimeEntryModel():
-return $default(_that.id,_that.projectId,_that.workedAt,_that.hours,_that.createdAt);case _:
+return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +198,10 @@ return $default(_that.id,_that.projectId,_that.workedAt,_that.hours,_that.create
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  double hours, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  int minutes, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TimeEntryModel() when $default != null:
-return $default(_that.id,_that.projectId,_that.workedAt,_that.hours,_that.createdAt);case _:
+return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.createdAt);case _:
   return null;
 
 }
@@ -213,13 +213,13 @@ return $default(_that.id,_that.projectId,_that.workedAt,_that.hours,_that.create
 @JsonSerializable()
 
 class _TimeEntryModel implements TimeEntryModel {
-  const _TimeEntryModel({this.id, @JsonKey(name: 'project_id') this.projectId, @JsonKey(name: 'worked_at') this.workedAt, required this.hours, @JsonKey(name: 'created_at') this.createdAt});
+  const _TimeEntryModel({this.id, @JsonKey(name: 'project_id') this.projectId, @JsonKey(name: 'worked_at') this.workedAt, required this.minutes, @JsonKey(name: 'created_at') this.createdAt});
   factory _TimeEntryModel.fromJson(Map<String, dynamic> json) => _$TimeEntryModelFromJson(json);
 
 @override final  String? id;
 @override@JsonKey(name: 'project_id') final  String? projectId;
 @override@JsonKey(name: 'worked_at') final  DateTime? workedAt;
-@override final  double hours;
+@override final  int minutes;
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 
 /// Create a copy of TimeEntryModel
@@ -235,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeEntryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.hours, hours) || other.hours == hours)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeEntryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.minutes, minutes) || other.minutes == minutes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,projectId,workedAt,hours,createdAt);
+int get hashCode => Object.hash(runtimeType,id,projectId,workedAt,minutes,createdAt);
 
 @override
 String toString() {
-  return 'TimeEntryModel(id: $id, projectId: $projectId, workedAt: $workedAt, hours: $hours, createdAt: $createdAt)';
+  return 'TimeEntryModel(id: $id, projectId: $projectId, workedAt: $workedAt, minutes: $minutes, createdAt: $createdAt)';
 }
 
 
@@ -255,7 +255,7 @@ abstract mixin class _$TimeEntryModelCopyWith<$Res> implements $TimeEntryModelCo
   factory _$TimeEntryModelCopyWith(_TimeEntryModel value, $Res Function(_TimeEntryModel) _then) = __$TimeEntryModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? id,@JsonKey(name: 'project_id') String? projectId,@JsonKey(name: 'worked_at') DateTime? workedAt, double hours,@JsonKey(name: 'created_at') DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId,@JsonKey(name: 'worked_at') DateTime? workedAt, int minutes,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -272,13 +272,13 @@ class __$TimeEntryModelCopyWithImpl<$Res>
 
 /// Create a copy of TimeEntryModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? projectId = freezed,Object? workedAt = freezed,Object? hours = null,Object? createdAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? projectId = freezed,Object? workedAt = freezed,Object? minutes = null,Object? createdAt = freezed,}) {
   return _then(_TimeEntryModel(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,workedAt: freezed == workedAt ? _self.workedAt : workedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,hours: null == hours ? _self.hours : hours // ignore: cast_nullable_to_non_nullable
-as double,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,minutes: null == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
+as int,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }

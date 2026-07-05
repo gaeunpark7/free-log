@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
 import 'package:free_log/core/widgets/text_field/hour_text_field.dart';
+import 'package:free_log/core/widgets/text_field/time_input_widget.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/delete_entry_dialog.dart';
@@ -21,27 +23,37 @@ class TimeEntryDialog extends ConsumerStatefulWidget {
 
 class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
   late TextEditingController _hoursController;
+  late TextEditingController _minutesController;
+
   final _formKey = GlobalKey<FormState>();
   late DateTime _selectedDate;
 
   @override
   void initState() {
     super.initState();
-    final hours = widget.entry.hours;
-    _hoursController = TextEditingController(text: hours == 0.0 ? '' : '${hours}h');
+    final totalMinutes = widget.entry.minutes;
+
+    _hoursController = TextEditingController(text: TimeUtils.toHours(totalMinutes).toString());
+    _minutesController = TextEditingController(text: TimeUtils.toMinutes(totalMinutes).toString());
+
     _selectedDate = widget.entry.workedAt ?? DateTime.now().toLocal();
     _hoursController.addListener(() => setState(() {}));
+    _minutesController.addListener(() => setState(() {}));
   }
 
   // 원본 값과 현재 값을 비교해 실제 변경이 있을 때만 true
   bool get _hasChanges {
-    final currentHours = double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
+    final currentHours = int.tryParse(_hoursController.text) ?? 0;
+    final currentminutes = int.tryParse(_minutesController.text) ?? 0;
+
     final original = widget.entry.workedAt ?? DateTime.now().toLocal();
     final dateChanged =
         _selectedDate.year != original.year ||
         _selectedDate.month != original.month ||
         _selectedDate.day != original.day;
-    return currentHours != widget.entry.hours || dateChanged;
+    return currentHours != TimeUtils.toHours(widget.entry.minutes) ||
+        currentminutes != TimeUtils.toMinutes(widget.entry.minutes) ||
+        dateChanged;
   }
 
   @override
@@ -107,7 +119,10 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                   style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 6),
-                HourTextField(controller: _hoursController, hintText: '시간을 입력하세요'),
+                TimeInputWidget(
+                  hoursController: _hoursController,
+                  minutesController: _minutesController,
+                ),
                 const SizedBox(height: 12),
 
                 // 버튼
@@ -124,11 +139,15 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                       ),
                       onPressed: () async {
                         if (!_formKey.currentState!.validate()) return;
-                        final hours =
-                            double.tryParse(_hoursController.text.replaceAll('h', '')) ?? 0;
+                        final hours = int.tryParse(_hoursController.text) ?? 0;
+                        final minutes = int.tryParse(_minutesController.text) ?? 0;
+                        final totalMinutes = TimeUtils.toTotalMinutes(hours, minutes);
+
+                        if (totalMinutes == 0) return;
+
                         ref
                             .read(timeEntryNotifierProvider(widget.projectId).notifier)
-                            .updateTimeEntry(widget.entry.id ?? '', _selectedDate, hours);
+                            .updateTimeEntry(widget.entry.id ?? '', _selectedDate, hours, minutes);
                         if (context.mounted) Navigator.pop(context);
                       },
                       child: Text(

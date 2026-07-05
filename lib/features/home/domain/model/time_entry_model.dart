@@ -8,7 +8,7 @@ abstract class TimeEntryModel with _$TimeEntryModel {
     String? id,
     @JsonKey(name: 'project_id') String? projectId,
     @JsonKey(name: 'worked_at') DateTime? workedAt,
-    required double hours,
+    required int minutes,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _TimeEntryModel;
 

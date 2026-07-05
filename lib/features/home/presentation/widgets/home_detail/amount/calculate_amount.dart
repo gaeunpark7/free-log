@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/expense_provider.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
@@ -19,14 +20,16 @@ class CalculateAmount extends ConsumerWidget {
     final asyncTimeEntries = ref.watch(timeEntryNotifierProvider(project.id!));
     final asyncExpense = ref.watch(expenseNotifierProvider(project.id!));
 
-    final totalHours = asyncTimeEntries.maybeWhen(
-      data: (entries) => entries.fold<double>(0, (sum, e) => sum + e.hours),
-      orElse: () => 0.0,
+    final totalMinutes = asyncTimeEntries.maybeWhen(
+      data: (entries) => entries.fold<int>(0, (sum, e) => sum + e.minutes),
+      orElse: () => 0,
     );
     final totalExpense = asyncExpense.maybeWhen(
       data: (expense) => expense.fold<double>(0, (sum, e) => sum + e.amount),
       orElse: () => 0.0,
     );
+    final totalHours = TimeUtils.toDecimalHours(totalMinutes); //분 > 소수점
+
     final laborCost = project.hourlyRate * totalHours;
     final totalCost = laborCost + totalExpense;
     final marginRate = project.marginRate;
