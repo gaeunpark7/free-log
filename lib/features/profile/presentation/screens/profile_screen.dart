@@ -4,6 +4,7 @@ import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
+import 'package:free_log/features/auth/presentation/providers/auth_provider.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
 import 'package:free_log/features/profile/presentation/widgets/profile_card.dart';
 import 'package:free_log/features/profile/presentation/widgets/settings_card.dart';
@@ -40,25 +41,21 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             icon: Icon(Icons.more_vert, color: Colors.white),
             onSelected: (value) {
-              if (value == 'privacy') {
-                context.push('${RoutePaths.profile}/${RoutePaths.privacy}');
-              } else if (value == 'logout') {}
+              if (value == 'settings') {
+                context.push('${RoutePaths.profile}/${RoutePaths.profileDetail}');
+              } else if (value == 'logout') {
+                ref.read(authNotifierProvider.notifier).signOut();
+              }
             },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
-                value: 'privacy',
+                value: 'settings',
                 child: _buildPopupItem(
-                  AppLocalizations.of(context)!.privacyPolicy,
-                  Icons.privacy_tip_outlined,
+                  AppLocalizations.of(context)!.settings,
+                  Icons.settings_outlined,
                 ),
               ),
-              PopupMenuItem<String>(
-                value: 'feedback',
-                child: _buildPopupItem(
-                  AppLocalizations.of(context)!.reportBug,
-                  Icons.feedback_outlined,
-                ),
-              ),
+
               PopupMenuDivider(color: AppColors.borderDefault),
               PopupMenuItem<String>(
                 value: 'logout',

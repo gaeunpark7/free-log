@@ -463,4 +463,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickEstimate => 'Quick Estimate';
+
+  @override
+  String get app => 'App';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get settingsData => 'How we collect and use your data';
+
+  @override
+  String get settingsBug => 'Report bugs or contact support';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get settingsDelete => 'Permanently delete all data';
 }

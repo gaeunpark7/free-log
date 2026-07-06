@@ -9,5 +9,6 @@ class RoutePaths {
   static const calculator = '/calculator';
 
   static const profile = '/profile';
+  static const profileDetail = 'detail';
   static const privacy = 'privacy';
 }

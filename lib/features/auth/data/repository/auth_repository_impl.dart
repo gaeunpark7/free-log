@@ -15,10 +15,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signInWithGoogle() async {
     try {
       if (kIsWeb) {
-        await _supabase.auth.signInWithOAuth(
-          OAuthProvider.google,
-          redirectTo: Uri.base.origin,
-        );
+        await _supabase.auth.signInWithOAuth(OAuthProvider.google, redirectTo: Uri.base.origin);
       } else {
         final googleUser = await _googleSignIn.signIn();
         if (googleUser == null) throw Exception('로그인 취소');
@@ -29,9 +26,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
         if (idToken == null) throw Exception('ID 토큰 없음');
         if (accessToken == null) {
-          throw Exception(
-            'Access 토큰 없음 (플랫폼별 Google OAuth 설정/Client ID 설정을 확인하세요)',
-          );
+          throw Exception('Access 토큰 없음 (플랫폼별 Google OAuth 설정/Client ID 설정을 확인하세요)');
         }
 
         await _supabase.auth.signInWithIdToken(

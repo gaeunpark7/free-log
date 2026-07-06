@@ -186,7 +186,14 @@
   "noRecord":"기록이 없어요.",
 
   "priceCalculator":"가격 계산기",
-  "quickEstimate":"즉석 금액 산출"
+  "quickEstimate":"즉석 금액 산출",
 
+  "app": "앱 정보",
+  "account": "계정 관리",
+  "settings": "설정",
+  "settingsData": "데이터 수집 및 이용 안내",
+  "settingsBug": "버그 신고 및 문의",
+  "deleteAccount": "회원탈퇴",
+  "settingsDelete": "모든 데이터 영구 삭제"
 
 }

@@ -230,7 +230,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get sellingPrice => '판매가';
 
   @override
-  String get settings => '기본 설정';
+  String get settings => '설정';
 
   @override
   String get defaultHourlyRate => '기본 시급';
@@ -449,4 +449,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get quickEstimate => '즉석 금액 산출';
+
+  @override
+  String get app => '앱 정보';
+
+  @override
+  String get account => '계정 관리';
+
+  @override
+  String get settingsData => '데이터 수집 및 이용 안내';
+
+  @override
+  String get settingsBug => '버그 신고 및 문의';
+
+  @override
+  String get deleteAccount => '회원탈퇴';
+
+  @override
+  String get settingsDelete => '모든 데이터 영구 삭제';
 }

@@ -169,6 +169,15 @@
   "noRecord":"No records found.",
 
   "priceCalculator":"Price Calculator",
-  "quickEstimate":"Quick Estimate"
+  "quickEstimate":"Quick Estimate",
+
+    "app": "App",
+  "account": "Account",
+  "settings": "Settings",
+  "settingsData": "How we collect and use your data",
+  "settingsBug": "Report bugs or contact support",
+  "deleteAccount": "Delete Account",
+  "settingsDelete": "Permanently delete all data"
+
 
 }

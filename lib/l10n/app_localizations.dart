@@ -527,7 +527,7 @@ abstract class AppLocalizations {
   /// No description provided for @settings.
   ///
   /// In ko, this message translates to:
-  /// **'기본 설정'**
+  /// **'설정'**
   String get settings;
 
   /// No description provided for @defaultHourlyRate.
@@ -943,6 +943,42 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'즉석 금액 산출'**
   String get quickEstimate;
+
+  /// No description provided for @app.
+  ///
+  /// In ko, this message translates to:
+  /// **'앱 정보'**
+  String get app;
+
+  /// No description provided for @account.
+  ///
+  /// In ko, this message translates to:
+  /// **'계정 관리'**
+  String get account;
+
+  /// No description provided for @settingsData.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터 수집 및 이용 안내'**
+  String get settingsData;
+
+  /// No description provided for @settingsBug.
+  ///
+  /// In ko, this message translates to:
+  /// **'버그 신고 및 문의'**
+  String get settingsBug;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In ko, this message translates to:
+  /// **'회원탈퇴'**
+  String get deleteAccount;
+
+  /// No description provided for @settingsDelete.
+  ///
+  /// In ko, this message translates to:
+  /// **'모든 데이터 영구 삭제'**
+  String get settingsDelete;
 }
 
 class _AppLocalizationsDelegate

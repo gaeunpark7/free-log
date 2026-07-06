@@ -29,11 +29,9 @@ class LoginScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.book, size: 64, color: Colors.blueGrey),
-              Text(
-                'Free Log',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
+              Image.asset('assets/icon/freelog_icon.png', width: 100, height: 100),
+              // Icon(Icons.book, size: 64, color: Colors.blueGrey),
+              Text('Free Log', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               SizedBox(height: 16),
 
               LoginButtonWidget(
@@ -41,8 +39,7 @@ class LoginScreen extends ConsumerWidget {
                 icon: Icons.login,
                 text: 'Sign in with Kakao',
                 isLoading: kakaoLoading,
-                onPressed: () =>
-                    ref.read(authNotifierProvider.notifier).signInWithKakao(),
+                onPressed: () => ref.read(authNotifierProvider.notifier).signInWithKakao(),
               ),
               SizedBox(height: 16),
               LoginButtonWidget(
@@ -50,8 +47,7 @@ class LoginScreen extends ConsumerWidget {
                 icon: Icons.login,
                 text: 'Sign in with Google',
                 isLoading: googleLoading,
-                onPressed: () =>
-                    ref.read(authNotifierProvider.notifier).signInWithGoogle(),
+                onPressed: () => ref.read(authNotifierProvider.notifier).signInWithGoogle(),
               ),
             ],
           ),
