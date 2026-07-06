@@ -1,3 +1,4 @@
+// ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'time_entry_model.freezed.dart';
 part 'time_entry_model.g.dart';

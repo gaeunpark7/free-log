@@ -95,6 +95,7 @@
   "hours":"시간",
   "records":"기록내역",
   "editTimeEntry": "작업 시간 기록",
+  "enterHoursOrMinutes":"시간 또는 분을 입력해주세요",
 
   "expense": "지출",
   "income": "수익",
@@ -173,6 +174,19 @@
   "editNickname":"닉네임 변경",
   "nicknameHint":"새로운 닉네임을 입력하세요",
   "nicknameError":"닉네임을 입력하세요",
-  "email":"이메일"
+  "email":"이메일",
+
+  "userFailled": "유저 정보를 불러오지 못했습니다.",
+  "fetchFailed":" 데이터를 불러오지 못했습니다.",
+  "saveFailed": "요청에 실패하였습니다. 다시 시도해주세요",
+  "checkInternet":"인터넷 연결을 확인해주세요.",
+  "unknownError":"알 수 없는 에러가 발생하였습니다.",
+
+  "today": "오늘",
+  "noRecord":"기록이 없어요.",
+
+  "priceCalculator":"가격 계산기",
+  "quickEstimate":"즉석 금액 산출"
+
 
 }

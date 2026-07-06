@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
-import 'package:free_log/core/utils/time_entry_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class SummaryCardWidget extends StatelessWidget {
   final int totalHours;
@@ -28,11 +28,26 @@ class SummaryCardWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildSummaryItem(context, TimeUtils.format(totalHours), '작업시간', AppColors.primaryDark),
+          _buildSummaryItem(
+            context,
+            TimeUtils.format(totalHours),
+            AppLocalizations.of(context)!.timeEntryTitle,
+            AppColors.primaryDark,
+          ),
           _buildDivider(),
-          _buildSummaryItem(context, '+${_formatShort(totalIncome)}', '받은 수익', AppColors.success),
+          _buildSummaryItem(
+            context,
+            '+${_formatShort(totalIncome)}',
+            AppLocalizations.of(context)!.revenue,
+            AppColors.success,
+          ),
           _buildDivider(),
-          _buildSummaryItem(context, '-${_formatShort(totalExpense)}', '지출', AppColors.error),
+          _buildSummaryItem(
+            context,
+            '-${_formatShort(totalExpense)}',
+            AppLocalizations.of(context)!.expenses,
+            AppColors.error,
+          ),
         ],
       ),
     );

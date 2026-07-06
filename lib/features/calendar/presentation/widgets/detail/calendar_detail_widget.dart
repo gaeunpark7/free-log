@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/date_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_detail_model.dart';
 import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/calendar/presentation/widgets/detail/entry_row.dart';
 import 'package:free_log/features/calendar/presentation/widgets/detail/section_header.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -40,7 +42,10 @@ class CalendarDetailWidget extends ConsumerWidget {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Text('기록이 없어요', style: AppTextStyles.caption(context)),
+                  child: Text(
+                    AppLocalizations.of(context)!.noRecord,
+                    style: AppTextStyles.caption(context),
+                  ),
                 ),
               )
             else ...[
@@ -83,12 +88,15 @@ class CalendarDetailWidget extends ConsumerWidget {
       child: Row(
         children: [
           Text(
-            '${day.month}월 ${day.day}일 (${_weekdayLabel(day.weekday, Localizations.localeOf(context).languageCode)})',
+            FrelogDateUtils.formatMonthDay(context, day),
             style: AppTextStyles.title(context).copyWith(color: AppColors.textPrimary),
           ),
           const SizedBox(width: 8),
           if (isSameDay(day, DateTime.now()))
-            Text('오늘', style: AppTextStyles.caption(context).copyWith(color: AppColors.primary)),
+            Text(
+              AppLocalizations.of(context)!.today,
+              style: AppTextStyles.caption(context).copyWith(color: AppColors.primary),
+            ),
         ],
       ),
     );
@@ -104,7 +112,7 @@ class CalendarDetailWidget extends ConsumerWidget {
         children: [
           SectionHeader(
             icon: Icons.access_time,
-            label: '작업',
+            label: AppLocalizations.of(context)!.timeEntryTitle,
             rightText: TimeUtils.format(totalMiniutes),
             color: AppColors.textPrimary,
           ),
@@ -125,7 +133,7 @@ class CalendarDetailWidget extends ConsumerWidget {
         children: [
           SectionHeader(
             icon: Icons.savings_outlined,
-            label: '수익',
+            label: AppLocalizations.of(context)!.paymentReceived,
             rightText: '+₩${_formatAmount(total)}',
             color: AppColors.success,
           ),
@@ -153,7 +161,7 @@ class CalendarDetailWidget extends ConsumerWidget {
         children: [
           SectionHeader(
             icon: Icons.payment,
-            label: '지출',
+            label: AppLocalizations.of(context)!.costDetails,
             rightText: '-₩${_formatAmount(total)}',
             color: AppColors.error,
           ),
@@ -184,13 +192,13 @@ class CalendarDetailWidget extends ConsumerWidget {
 
   String _formatAmount(int amount) => NumberFormat('#,###').format(amount);
 
-  String _weekdayLabel(int weekday, String locale) {
-    final idx = weekday - 1;
-    if (locale == 'ko') {
-      const labels = ['월', '화', '수', '목', '금', '토', '일'];
-      return labels[idx];
-    }
-    const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return labels[idx];
-  }
+  // String _weekdayLabel(int weekday, String locale) {
+  //   final idx = weekday - 1;
+  //   if (locale == 'ko') {
+  //     const labels = ['월', '화', '수', '목', '금', '토', '일'];
+  //     return labels[idx];
+  //   }
+  //   const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  //   return labels[idx];
+  // }
 }

@@ -1,4 +1,5 @@
 import 'package:free_log/core/error/base_repository.dart';
+import 'package:free_log/core/error/error_code.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/domain/repository/time_entry_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,7 +18,7 @@ class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryReposit
           .eq('project_id', projectId)
           .order('worked_at', ascending: false);
       return response.map(TimeEntryModel.fromJson).toList();
-    }, errorMessage: '시간 내역을 불러오지 못했습니다.');
+    }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
@@ -55,7 +56,7 @@ class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryReposit
           'minutes': totalMinutes,
         });
       }
-    }, errorMessage: '시간을 추가하지 못했습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
@@ -65,13 +66,13 @@ class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryReposit
           .from('time_entries')
           .update({'worked_at': workedAt.toUtc().toIso8601String(), 'minutes': totalMinutes})
           .eq('id', id);
-    }, errorMessage: '시간을 수정하지 못했습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
   Future<void> deleteTimeEntry(String id) async {
     return execute(() async {
       await _supabase.from('time_entries').delete().eq('id', id);
-    }, errorMessage: '시간을 삭제하지 못했습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 }

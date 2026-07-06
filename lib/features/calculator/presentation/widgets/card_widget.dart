@@ -4,6 +4,7 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/widgets/text_field/hour_text_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/core/widgets/text_field/margin_rate_field.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class CardWidget extends StatelessWidget {
@@ -42,33 +43,37 @@ class CardWidget extends StatelessWidget {
               children: [
                 _rowWidget(
                   context,
-                  '시급',
+                  AppLocalizations.of(context)!.hourlyRate,
                   HourlyRateField(
                     controller: hourlyRateController,
                     hintText: '0',
-                    errorText: '시급을 입력하세요.',
+                    errorText: AppLocalizations.of(context)!.hourlyRateError,
                     maxDigits: 8,
                   ),
                 ),
                 Divider(color: AppColors.borderDefault),
                 _rowWidget(
                   context,
-                  '작업시간',
+                  AppLocalizations.of(context)!.timeEntryTitle,
                   HourTextField(controller: hourController, hintText: '0'),
                 ),
                 Divider(color: AppColors.borderDefault),
                 _rowWidget(
                   context,
-                  '재료비',
+                  AppLocalizations.of(context)!.expenses,
                   HourlyRateField(
                     controller: expenseController,
                     hintText: '0',
-                    errorText: '재료비를 입력하세요.',
+                    errorText: AppLocalizations.of(context)!.valieAmount,
                     maxDigits: 8,
                   ),
                 ),
                 Divider(color: AppColors.borderDefault),
-                _rowWidget(context, '마진율', MarginRateField(controller: marginRateController)),
+                _rowWidget(
+                  context,
+                  AppLocalizations.of(context)!.marginRate,
+                  MarginRateField(controller: marginRateController),
+                ),
               ],
             ),
           ),
@@ -99,20 +104,28 @@ class CardWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(26),
                   child: Column(
                     children: [
-                      _bottomRowWidget(context, '시급 X 시간', '₩${fmt.format(laborCost.floor())}'),
-                      const SizedBox(height: 6),
-                      _bottomRowWidget(context, '재료비', '₩${fmt.format(_expense.floor())}'),
+                      _bottomRowWidget(
+                        context,
+                        AppLocalizations.of(context)!.hourlyRateXHours,
+                        '₩${fmt.format(laborCost.floor())}',
+                      ),
                       const SizedBox(height: 6),
                       _bottomRowWidget(
                         context,
-                        '마진 (${marginRateController.text.isEmpty ? '0' : marginRateController.text}%)',
+                        AppLocalizations.of(context)!.expenses,
+                        '₩${fmt.format(_expense.floor())}',
+                      ),
+                      const SizedBox(height: 6),
+                      _bottomRowWidget(
+                        context,
+                        '${AppLocalizations.of(context)!.marginRate} (${int.tryParse(marginRateController.text) ?? 0})%',
                         '+₩${fmt.format(margin.floor())}',
                       ),
                       const SizedBox(height: 6),
                       const Divider(thickness: 0.5, color: Colors.white),
                       _bottomRowWidget(
                         context,
-                        '최종 견적가',
+                        AppLocalizations.of(context)!.sellingPrice,
                         '₩${fmt.format(sellingPrice.floor())}',
                         isBold: true,
                       ),

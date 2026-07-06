@@ -1,4 +1,5 @@
 import 'package:free_log/core/error/base_repository.dart';
+import 'package:free_log/core/error/error_code.dart';
 import 'package:free_log/features/calendar/domain/repository/calendar_repository.dart';
 import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
@@ -16,7 +17,7 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
     return execute(() async {
       final response = await _supabase.from('project').select('id, title');
       return response.map((e) => ProjectModel.fromJson(e)).toList();
-    }, errorMessage: '프로젝트 목록을 불러오지 못했습니다.');
+    }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
@@ -31,7 +32,7 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
           .gte('worked_at', start)
           .lt('worked_at', end);
       return response.map(TimeEntryModel.fromJson).toList();
-    }, errorMessage: '작업시간을 불러오지 못했습니다.');
+    }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
@@ -46,7 +47,7 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
           .lt('received_at', end);
 
       return response.map(IncomeModel.fromJson).toList();
-    }, errorMessage: '수입을 불러오지 못했습니다.');
+    }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
@@ -61,6 +62,6 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
           .gte('spent_at', start)
           .lt('spent_at', end);
       return response.map(ExpenseModel.fromJson).toList();
-    }, errorMessage: '지출을 불러오지 못했습니다.');
+    }, errorCode: ErrorCode.fetchFailed);
   }
 }

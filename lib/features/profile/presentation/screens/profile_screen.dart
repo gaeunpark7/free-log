@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
@@ -78,14 +79,18 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             children: [
               switch (asyncProfile) {
                 AsyncLoading() => Center(child: CircularProgressIndicator()),
-                AsyncError(:final error) => ErrorView(message: error.toString()),
+                AsyncError(:final error) => ErrorView(
+                  message: ErrorHandler.getMessage(context, error),
+                ),
                 AsyncData(:final value) => ProfileCard(user: value),
                 _ => SizedBox.shrink(),
               },
               SizedBox(height: 12),
               switch (asyncProfile) {
                 AsyncLoading() => Center(child: CircularProgressIndicator()),
-                AsyncError(:final error) => ErrorView(message: error.toString()),
+                AsyncError(:final error) => ErrorView(
+                  message: ErrorHandler.getMessage(context, error),
+                ),
                 AsyncData(:final value) => SettingsCard(
                   user: value,
                   onChanged: (value) {

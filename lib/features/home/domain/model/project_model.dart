@@ -1,3 +1,4 @@
+// ignore_for_file: invalid_annotation_target
 import 'package:free_log/features/home/domain/model/project_status.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

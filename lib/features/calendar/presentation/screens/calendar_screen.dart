@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/theme/app_colors.dart';
+import 'package:free_log/core/utils/date_utils.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_data_model.dart';
 import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
@@ -52,7 +54,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     ref.listen(calendarNotifierProvider, (prev, next) {
       if (next is AsyncError && prev is! AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString())));
+        ErrorHandler.showSnackBar(context, next.error);
       }
     });
     return Scaffold(
@@ -98,25 +100,29 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   Widget _buildAppBar() {
-    return Padding(
-      padding: Responsive.screenPadding(context),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            onPressed: _prevMonth,
-            icon: Icon(Icons.chevron_left, color: Colors.white),
+    return Builder(
+      builder: (context) {
+        return Padding(
+          padding: Responsive.screenPadding(context),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: _prevMonth,
+                icon: Icon(Icons.chevron_left, color: Colors.white),
+              ),
+              Text(
+                FrelogDateUtils.formatYearMonth(context, _focusedDay),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              IconButton(
+                onPressed: _nextMonth,
+                icon: Icon(Icons.chevron_right, color: Colors.white),
+              ),
+            ],
           ),
-          Text(
-            '${_focusedDay.year}년 ${_focusedDay.month}월',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          IconButton(
-            onPressed: _nextMonth,
-            icon: Icon(Icons.chevron_right, color: Colors.white),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
