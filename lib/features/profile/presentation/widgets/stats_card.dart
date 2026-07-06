@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
+import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
@@ -68,7 +70,9 @@ class _StatsCardState extends ConsumerState<StatsCard> {
             SizedBox(height: 12),
             switch (asyncStats) {
               AsyncLoading() => Center(child: CircularProgressIndicator()),
-              AsyncError(:final error) => Text(error.toString()),
+              AsyncError(:final error) => ErrorView(
+                message: ErrorHandler.getMessage(context, error),
+              ),
               AsyncData(:final value) => Column(
                 children: [
                   _buildStatRow(

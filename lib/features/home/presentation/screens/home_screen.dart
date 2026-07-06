@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final asyncProject = ref.watch(projectNotifierProvider);
     ref.listen(projectNotifierProvider, (prev, next) {
       if (next is AsyncError && prev is! AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString())));
+        ErrorHandler.showSnackBar(context, next.error);
       }
     });
 
@@ -130,7 +131,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     },
                   );
                 },
-                error: (e, _) => ErrorView(message: e.toString()),
+                error: (e, _) => ErrorView(message: ErrorHandler.getMessage(context, e)),
                 loading: () => Center(child: CircularProgressIndicator(color: AppColors.primary)),
               ),
             ),

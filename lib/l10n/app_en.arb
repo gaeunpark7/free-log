@@ -81,6 +81,8 @@
   "hours":"Hours",
   "records":"Records",
   "editTimeEntry": "Edit Time Entry",
+  "enterHoursOrMinutes":"Please enter hours or minutes.",
+
 
   "expense": "Expenses",
   "income": "Income",
@@ -155,6 +157,18 @@
   "editNickname":"Edit Nickname",
   "nicknameHint":"Enter Nickname",
   "nicknameError":"Please enter a nickname",
-  "email":"Email"
+  "email":"Email",
+
+  "failUser": "Failed to load user information.",
+  "fetchFailed":"ailed to load data",
+  "saveFailed": "Request failed. Please try again",
+  "checkInternet":"Please check your internet connection.",
+  "unknownError":"An unknown error occurred.",
+
+  "today": "Today",
+  "noRecord":"No records found.",
+
+  "priceCalculator":"Price Calculator",
+  "quickEstimate":"Quick Estimate"
 
 }

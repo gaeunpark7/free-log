@@ -476,6 +476,12 @@ abstract class AppLocalizations {
   /// **'작업 시간 기록'**
   String get editTimeEntry;
 
+  /// No description provided for @enterHoursOrMinutes.
+  ///
+  /// In ko, this message translates to:
+  /// **'시간 또는 분을 입력해주세요'**
+  String get enterHoursOrMinutes;
+
   /// No description provided for @expense.
   ///
   /// In ko, this message translates to:
@@ -883,6 +889,60 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'이메일'**
   String get email;
+
+  /// No description provided for @userFailled.
+  ///
+  /// In ko, this message translates to:
+  /// **'유저 정보를 불러오지 못했습니다.'**
+  String get userFailled;
+
+  /// No description provided for @fetchFailed.
+  ///
+  /// In ko, this message translates to:
+  /// **' 데이터를 불러오지 못했습니다.'**
+  String get fetchFailed;
+
+  /// No description provided for @saveFailed.
+  ///
+  /// In ko, this message translates to:
+  /// **'요청에 실패하였습니다. 다시 시도해주세요'**
+  String get saveFailed;
+
+  /// No description provided for @checkInternet.
+  ///
+  /// In ko, this message translates to:
+  /// **'인터넷 연결을 확인해주세요.'**
+  String get checkInternet;
+
+  /// No description provided for @unknownError.
+  ///
+  /// In ko, this message translates to:
+  /// **'알 수 없는 에러가 발생하였습니다.'**
+  String get unknownError;
+
+  /// No description provided for @today.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘'**
+  String get today;
+
+  /// No description provided for @noRecord.
+  ///
+  /// In ko, this message translates to:
+  /// **'기록이 없어요.'**
+  String get noRecord;
+
+  /// No description provided for @priceCalculator.
+  ///
+  /// In ko, this message translates to:
+  /// **'가격 계산기'**
+  String get priceCalculator;
+
+  /// No description provided for @quickEstimate.
+  ///
+  /// In ko, this message translates to:
+  /// **'즉석 금액 산출'**
+  String get quickEstimate;
 }
 
 class _AppLocalizationsDelegate

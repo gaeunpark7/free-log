@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
@@ -37,7 +38,7 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
     ref.listen(todoNotifierProvider(widget.projectId), (prev, next) {
       next.whenOrNull(
         error: (e, _) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+          ErrorHandler.showSnackBar(context, next.error);
         },
       );
     });
@@ -129,7 +130,7 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
               //TodoList
               asyncTodos.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (e, _) => ErrorView(message: e.toString()),
+                error: (e, _) => ErrorView(message: ErrorHandler.getMessage(context, e)),
                 data: (todos) {
                   final notDone = todos.where((e) => !e.isDone).toList();
                   final done = todos.where((e) => e.isDone).toList();

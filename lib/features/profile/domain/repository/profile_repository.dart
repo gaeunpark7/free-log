@@ -1,6 +1,6 @@
 import 'package:free_log/features/profile/domain/model/profile_stats_model.dart';
 import 'package:free_log/features/profile/domain/model/user_model.dart';
-import 'package:supabase/src/supabase_client.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class ProfileRepository {
   ProfileRepository(SupabaseClient watch);

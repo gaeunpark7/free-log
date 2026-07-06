@@ -1,4 +1,5 @@
 import 'package:free_log/core/error/base_repository.dart';
+import 'package:free_log/core/error/error_code.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
 import 'package:free_log/features/home/domain/repository/income_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,7 +17,7 @@ class IncomeRepositoryImpl extends BaseRepository implements IncomeRepository {
           .eq('project_id', projectId)
           .order('received_at', ascending: false);
       return reponse.map(IncomeModel.fromJson).toList();
-    }, errorMessage: '수입 내역을 불러오지 못했습니다.');
+    }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
@@ -36,7 +37,7 @@ class IncomeRepositoryImpl extends BaseRepository implements IncomeRepository {
             'received_at': receivedAt.toUtc().toIso8601String(),
           })
           .eq('project_id', projectId);
-    }, errorMessage: '추가에 실패하였습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
@@ -50,13 +51,13 @@ class IncomeRepositoryImpl extends BaseRepository implements IncomeRepository {
             'received_at': receivedAt.toUtc().toIso8601String(),
           })
           .eq('id', id);
-    }, errorMessage: '수정에 실패하였습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
   Future<void> deleteIncome(String id) {
     return execute(() async {
       await _supabase.from('income_entries').delete().eq('id', id);
-    }, errorMessage: '삭제에 실패하였습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 }

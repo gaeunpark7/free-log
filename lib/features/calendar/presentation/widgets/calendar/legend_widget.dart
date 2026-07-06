@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class LegendWidget extends StatelessWidget {
   const LegendWidget({super.key});
@@ -10,11 +11,11 @@ class LegendWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildRow(context, AppColors.primaryDark, '작업'),
+        _buildRow(context, AppColors.primaryDark, AppLocalizations.of(context)!.timeEntryTitle),
         SizedBox(width: 10),
-        _buildRow(context, AppColors.success, '입금'),
+        _buildRow(context, AppColors.success, AppLocalizations.of(context)!.revenue),
         SizedBox(width: 10),
-        _buildRow(context, AppColors.error, '재료비'),
+        _buildRow(context, AppColors.error, AppLocalizations.of(context)!.expenses),
       ],
     );
   }

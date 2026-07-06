@@ -1,4 +1,5 @@
 import 'package:free_log/core/error/base_repository.dart';
+import 'package:free_log/core/error/error_code.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/repository/project_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -14,7 +15,7 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
     return execute(() async {
       final user = _supabase.auth.currentUser;
       if (user == null) {
-        throw Exception('로그인이 필요합니다.');
+        throw Exception('You need to log in.');
       }
       final userId = user.id;
 
@@ -29,15 +30,18 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
         marginRate: project.marginRate,
       ).toJson();
       return _supabase.from('project').insert(projectJson);
-    }, errorMessage: '추가에 실패하였습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
   Future<List<ProjectModel>> getProject() async {
     return execute(() async {
-      final response = await _supabase.from('project').select().order('created_at', ascending: false);
+      final response = await _supabase
+          .from('project')
+          .select()
+          .order('created_at', ascending: false);
       return response.map(ProjectModel.fromJson).toList();
-    }, errorMessage: '프로젝트를 불러오지 못했습니다.');
+    }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
@@ -46,8 +50,12 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
       final now = DateTime.now();
       final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String();
 
-      await _supabase.from('project').update({'status': 'completed'}).eq('status', 'in_progress').lt('deadline', todayMidnight);
-    }, errorMessage: '프로젝트 상태를 갱신하지 못했습니다.');
+      await _supabase
+          .from('project')
+          .update({'status': 'completed'})
+          .eq('status', 'in_progress')
+          .lt('deadline', todayMidnight);
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
@@ -56,23 +64,29 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
       final userId = _supabase.auth.currentUser!.id;
       return _supabase
           .from('project')
-          .update({'title': project.title, 'hourly_rate': project.hourlyRate, 'margin_rate': project.marginRate, 'deadline': project.deadline?.toIso8601String(), 'status': project.status.value})
+          .update({
+            'title': project.title,
+            'hourly_rate': project.hourlyRate,
+            'margin_rate': project.marginRate,
+            'deadline': project.deadline?.toIso8601String(),
+            'status': project.status.value,
+          })
           .eq('id', project.id!)
           .eq('user_id', userId);
-    }, errorMessage: '수정에 실패하였습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
   Future<void> deleteProject(String projectId) async {
     return execute(() async {
       return _supabase.from('project').delete().eq('id', projectId);
-    }, errorMessage: '삭제에 실패하였습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 
   @override
   Future<void> completeProject(String projectId) async {
     return execute(() async {
       return _supabase.from('project').update({'status': 'completed'}).eq('id', projectId);
-    }, errorMessage: '에러가 발생하였습니다. 다시 시도해주세요.');
+    }, errorCode: ErrorCode.saveFailed);
   }
 }

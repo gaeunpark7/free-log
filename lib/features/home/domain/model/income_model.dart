@@ -1,5 +1,5 @@
+// ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'income_model.freezed.dart';
 part 'income_model.g.dart';
 

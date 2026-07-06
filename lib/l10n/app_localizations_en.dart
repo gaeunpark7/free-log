@@ -204,6 +204,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editTimeEntry => 'Edit Time Entry';
 
   @override
+  String get enterHoursOrMinutes => 'Please enter hours or minutes.';
+
+  @override
   String get expense => 'Expenses';
 
   @override
@@ -433,4 +436,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get email => 'Email';
+
+  @override
+  String get userFailled => '유저 정보를 불러오지 못했습니다.';
+
+  @override
+  String get fetchFailed => 'ailed to load data';
+
+  @override
+  String get saveFailed => 'Request failed. Please try again';
+
+  @override
+  String get checkInternet => 'Please check your internet connection.';
+
+  @override
+  String get unknownError => 'An unknown error occurred.';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get noRecord => 'No records found.';
+
+  @override
+  String get priceCalculator => 'Price Calculator';
+
+  @override
+  String get quickEstimate => 'Quick Estimate';
 }

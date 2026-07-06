@@ -35,9 +35,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
     return Container(
       decoration: BoxDecoration(color: AppColors.background),
       child: TableCalendar(
+        locale: locale,
         headerVisible: false,
         rowHeight: 100,
         firstDay: DateTime(2026),
@@ -70,7 +72,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           // cellMargin: const EdgeInsets.symmetric(vertical: 2, horizontal: 1),
           //오늘 날짜
           todayDecoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.2),
+            color: AppColors.primary.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
           todayTextStyle: AppTextStyles.bodyBold(context).copyWith(color: AppColors.primaryDark),

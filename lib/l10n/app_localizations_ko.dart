@@ -204,6 +204,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get editTimeEntry => '작업 시간 기록';
 
   @override
+  String get enterHoursOrMinutes => '시간 또는 분을 입력해주세요';
+
+  @override
   String get expense => '지출';
 
   @override
@@ -419,4 +422,31 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get email => '이메일';
+
+  @override
+  String get userFailled => '유저 정보를 불러오지 못했습니다.';
+
+  @override
+  String get fetchFailed => ' 데이터를 불러오지 못했습니다.';
+
+  @override
+  String get saveFailed => '요청에 실패하였습니다. 다시 시도해주세요';
+
+  @override
+  String get checkInternet => '인터넷 연결을 확인해주세요.';
+
+  @override
+  String get unknownError => '알 수 없는 에러가 발생하였습니다.';
+
+  @override
+  String get today => '오늘';
+
+  @override
+  String get noRecord => '기록이 없어요.';
+
+  @override
+  String get priceCalculator => '가격 계산기';
+
+  @override
+  String get quickEstimate => '즉석 금액 산출';
 }

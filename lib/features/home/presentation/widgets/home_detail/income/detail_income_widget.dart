@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
@@ -60,7 +61,7 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
     final asyncIncome = ref.watch(incomeNotifierProvider(widget.projectId));
     ref.listen(incomeNotifierProvider(widget.projectId), (prev, next) {
       if (next is AsyncError && prev is! AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString())));
+        ErrorHandler.showSnackBar(context, next.error);
       }
     });
     return Container(
@@ -155,7 +156,7 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                         constraints: const BoxConstraints(maxHeight: 230),
                         child: IncomeListView(income: value),
                       ),
-                error: (error, _) => ErrorView(message: error.toString()),
+                error: (error, _) => ErrorView(message: ErrorHandler.getMessage(context, error)),
               ),
             ],
           ),

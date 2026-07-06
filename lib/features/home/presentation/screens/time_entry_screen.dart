@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/error/error_view.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
@@ -31,10 +32,7 @@ class TimeEntryScreen extends ConsumerWidget {
         '';
 
     ref.listen(projectNotifierProvider, (prve, next) {
-      next.whenOrNull(
-        error: (error, _) =>
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString()))),
-      );
+      next.whenOrNull(error: (error, _) => ErrorHandler.showSnackBar(context, error));
     });
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -65,7 +63,9 @@ class TimeEntryScreen extends ConsumerWidget {
                           border: Border.all(color: AppColors.borderDefault),
                         ),
                         child: switch (asyncEntries) {
-                          AsyncError(:final error) => ErrorView(message: error.toString()),
+                          AsyncError(:final error) => ErrorView(
+                            message: ErrorHandler.getMessage(context, error),
+                          ),
                           AsyncLoading() => Center(
                             child: CircularProgressIndicator(color: AppColors.primary),
                           ),
@@ -112,7 +112,7 @@ class TimeEntryScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.records,
+                            AppLocalizations.of(context)!.timeEntries,
                             style: AppTextStyles.subTitleBold(context),
                           ),
                         ],
@@ -123,7 +123,9 @@ class TimeEntryScreen extends ConsumerWidget {
                         AsyncLoading() => Center(
                           child: CircularProgressIndicator(color: AppColors.primary),
                         ),
-                        AsyncError(:final error) => ErrorView(message: error.toString()),
+                        AsyncError(:final error) => ErrorView(
+                          message: ErrorHandler.getMessage(context, error),
+                        ),
                         AsyncData(value: final entries) =>
                           entries.isEmpty
                               ? EmptyTimeEntryContainer()
