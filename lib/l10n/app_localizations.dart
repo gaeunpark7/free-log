@@ -979,6 +979,30 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'모든 데이터 영구 삭제'**
   String get settingsDelete;
+
+  /// No description provided for @authError.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그인에 실패했습니다. 다시 시도해주세요'**
+  String get authError;
+
+  /// No description provided for @loginKakao.
+  ///
+  /// In ko, this message translates to:
+  /// **'카카오 계정으로 계속하기'**
+  String get loginKakao;
+
+  /// No description provided for @loginGoogle.
+  ///
+  /// In ko, this message translates to:
+  /// **'구글 계정으로 계속하기'**
+  String get loginGoogle;
+
+  /// No description provided for @loginSubTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'프리랜서의 작업 노트'**
+  String get loginSubTitle;
 }
 
 class _AppLocalizationsDelegate

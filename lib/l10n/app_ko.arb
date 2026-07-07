@@ -194,6 +194,12 @@
   "settingsData": "데이터 수집 및 이용 안내",
   "settingsBug": "버그 신고 및 문의",
   "deleteAccount": "회원탈퇴",
-  "settingsDelete": "모든 데이터 영구 삭제"
+  "settingsDelete": "모든 데이터 영구 삭제",
+
+
+  "authError": "로그인에 실패했습니다. 다시 시도해주세요",
+  "loginKakao":"카카오 계정으로 계속하기",
+  "loginGoogle":"구글 계정으로 계속하기",
+  "loginSubTitle":"프리랜서의 작업 노트"
 
 }

@@ -467,4 +467,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settingsDelete => '모든 데이터 영구 삭제';
+
+  @override
+  String get authError => '로그인에 실패했습니다. 다시 시도해주세요';
+
+  @override
+  String get loginKakao => '카카오 계정으로 계속하기';
+
+  @override
+  String get loginGoogle => '구글 계정으로 계속하기';
+
+  @override
+  String get loginSubTitle => '프리랜서의 작업 노트';
 }

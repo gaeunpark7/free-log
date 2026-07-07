@@ -177,7 +177,13 @@
   "settingsData": "How we collect and use your data",
   "settingsBug": "Report bugs or contact support",
   "deleteAccount": "Delete Account",
-  "settingsDelete": "Permanently delete all data"
+  "settingsDelete": "Permanently delete all data",
+
+  "authError": "Login failed. Please try again",
+  "loginKakao":"Sign in with Kakao",
+  "loginGoogle":"Sign in with Google",
+  "loginSubTitle":"Your freelance work log"
+
 
 
 }

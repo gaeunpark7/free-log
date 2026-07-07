@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/router/login_routes.dart';
 import 'package:free_log/core/router/profile_routes.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
@@ -7,7 +8,6 @@ import 'package:free_log/features/calendar/presentation/screens/calendar_screen.
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/screens/home_detail_screen.dart';
 import 'package:free_log/features/home/presentation/screens/home_screen.dart';
-import 'package:free_log/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:free_log/features/home/presentation/widgets/bottom_nav_bar.dart';
 import 'package:go_router/go_router.dart';
@@ -27,9 +27,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final session = ref.watch(authStateProvider).valueOrNull;
       final isLoggedIn = session != null;
       final isLoginRoute = state.matchedLocation == RoutePaths.login;
+      final isPublicAuthRoute =
+          state.matchedLocation == RoutePaths.login ||
+          state.matchedLocation.startsWith('${RoutePaths.login}/');
 
       // 로그인 안됐으면 login으로
-      if (!isLoggedIn && !isLoginRoute) return RoutePaths.login;
+      if (!isLoggedIn && !isPublicAuthRoute) return RoutePaths.login;
 
       // 로그인 됐는데 login 페이지면 home으로
       if (isLoggedIn && isLoginRoute) return RoutePaths.home;
@@ -37,7 +40,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(path: RoutePaths.login, builder: (context, state) => const LoginScreen()),
+      buildLoginRoutes(),
       ShellRoute(
         builder: (context, state, child) => BottomNavBar(child: child),
         routes: [

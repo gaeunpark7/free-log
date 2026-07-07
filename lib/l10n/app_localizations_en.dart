@@ -481,4 +481,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsDelete => 'Permanently delete all data';
+
+  @override
+  String get authError => 'Login failed. Please try again';
+
+  @override
+  String get loginKakao => 'Sign in with Kakao';
+
+  @override
+  String get loginGoogle => 'Sign in with Google';
+
+  @override
+  String get loginSubTitle => 'Your freelance work log';
 }
