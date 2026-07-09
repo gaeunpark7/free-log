@@ -182,8 +182,10 @@
   "authError": "Login failed. Please try again",
   "loginKakao":"Sign in with Kakao",
   "loginGoogle":"Sign in with Google",
-  "loginSubTitle":"Your freelance work log"
+  "loginSubTitle":"Your freelance work log",
 
-
+  "setNickname": "Set Nickname",
+"nicknameSubtitle": "You can change this anytime",
+"nicknameSpecialCharError": "Special characters are not allowed"
 
 }

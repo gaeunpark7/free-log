@@ -493,4 +493,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginSubTitle => 'Your freelance work log';
+
+  @override
+  String get setNickname => 'Set Nickname';
+
+  @override
+  String get nicknameSubtitle => 'You can change this anytime';
+
+  @override
+  String get nicknameSpecialCharError => 'Special characters are not allowed';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -31,9 +32,13 @@ class AppTextField extends StatelessWidget {
       validator: validate
           ? (value) {
               if (value == null || value.isEmpty) return valieText;
+              if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+                return AppLocalizations.of(context)!.nicknameSpecialCharError;
+              }
               return null;
             }
           : null,
+
       decoration: InputDecoration(
         counterText: '',
         hintText: hintText,

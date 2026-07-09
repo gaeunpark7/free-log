@@ -479,4 +479,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get loginSubTitle => '프리랜서의 작업 노트';
+
+  @override
+  String get setNickname => '닉네임 설정';
+
+  @override
+  String get nicknameSubtitle => '나중에 언제든지 변경할 수 있습니다';
+
+  @override
+  String get nicknameSpecialCharError => '특수문자는 사용할 수 없어요';
 }

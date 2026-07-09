@@ -1003,6 +1003,24 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'프리랜서의 작업 노트'**
   String get loginSubTitle;
+
+  /// No description provided for @setNickname.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임 설정'**
+  String get setNickname;
+
+  /// No description provided for @nicknameSubtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'나중에 언제든지 변경할 수 있습니다'**
+  String get nicknameSubtitle;
+
+  /// No description provided for @nicknameSpecialCharError.
+  ///
+  /// In ko, this message translates to:
+  /// **'특수문자는 사용할 수 없어요'**
+  String get nicknameSpecialCharError;
 }
 
 class _AppLocalizationsDelegate

@@ -75,7 +75,7 @@ class _ProfileEditDialogState extends ConsumerState<ProfileEditDialog> {
                 controller: _emailController,
                 valieText: "",
                 hintText: "",
-                maxLenth: 8,
+                maxLenth: 12,
                 icon: Icon(Icons.lock_outline),
                 read: true,
                 validate: false,
