@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/pricing_calculator.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
@@ -30,11 +31,12 @@ class CalculateAmount extends ConsumerWidget {
     );
     final totalHours = TimeUtils.toDecimalHours(totalMinutes); //분 > 소수점
 
-    final laborCost = project.hourlyRate * totalHours;
-    final totalCost = laborCost + totalExpense;
-    final marginRate = project.marginRate;
-    final sellingPrice = totalCost * (1 + marginRate);
-
+    final pricing = PricingCalculator.calculate(
+      hourlyRate: project.hourlyRate.toDouble(),
+      hours: totalHours,
+      expense: totalExpense,
+      marginRate: project.marginRate,
+    );
     return Container(
       width: double.infinity,
       padding: Responsive.cardPadding(context),
@@ -60,7 +62,7 @@ class CalculateAmount extends ConsumerWidget {
                 style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(
-                NumberFormat('#,###').format(laborCost.floor()),
+                NumberFormat('#,###').format(pricing.laborCost.floor()),
                 style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
               ),
             ],
@@ -84,11 +86,11 @@ class CalculateAmount extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.margin((marginRate * 100).floor()),
+                AppLocalizations.of(context)!.margin((project.marginRate * 100).floor()),
                 style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(
-                '+${NumberFormat('#,###').format((totalCost * marginRate).floor())}',
+                '+${NumberFormat('#,###').format((pricing.marginAmount).floor())}',
                 style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
               ),
             ],
@@ -103,7 +105,7 @@ class CalculateAmount extends ConsumerWidget {
                 style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(
-                NumberFormat('#,###').format(sellingPrice.floor()),
+                NumberFormat('#,###').format(pricing.sellingPrice.floor()),
                 style: AppTextStyles.title(context).copyWith(color: AppColors.textSecondary),
               ),
             ],

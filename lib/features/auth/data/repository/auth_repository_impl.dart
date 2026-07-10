@@ -41,7 +41,7 @@ class AuthRepositoryImpl implements AuthRepository {
         if (e.code.isNotEmpty) e.code,
         if (e.message?.isNotEmpty == true) e.message!,
       ].join(' - ');
-      throw AppException('구글 플랫폼 오류: $e', code: ErrorCode.authError);
+      throw AppException(msg, code: ErrorCode.authError);
     } catch (e) {
       throw AppException('구글 로그인 실패: $e', code: ErrorCode.authError);
     }

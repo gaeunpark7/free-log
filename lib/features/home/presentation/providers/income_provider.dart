@@ -36,11 +36,9 @@ class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
       ref.invalidate(calendarNotifierProvider);
       return await _repo.getIncome(arg);
     });
-
-    return await _repo.updateIncome(id, description, amount, receivedAt);
   }
 
-  Future<void> deleteExpense(String id) async {
+  Future<void> deleteIncome(String id) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.deleteIncome(id);
