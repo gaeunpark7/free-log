@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/error/error_handler.dart';
 import 'package:free_log/core/router/route_paths.dart';
+import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/auth/presentation/providers/auth_provider.dart';
@@ -37,11 +38,21 @@ class LoginScreen extends ConsumerWidget {
                 child: Image.asset('assets/icon/freelog_icon.png', width: 90, height: 90),
               ),
               SizedBox(height: 2),
-              Text('Freelog', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+              Text(
+                'Freelog',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+              ),
               Text(
                 AppLocalizations.of(context)!.loginSubTitle,
-                style: AppTextStyles.subTitleBold(context).copyWith(color: Colors.grey[700]),
+                style: AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: Color(0xFFA89B89), fontStyle: FontStyle.italic),
               ),
+
               SizedBox(height: 50),
               LoginButtonWidget(
                 color: Color(0xfff2f2f2),

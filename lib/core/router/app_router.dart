@@ -3,6 +3,7 @@ import 'package:free_log/core/router/login_routes.dart';
 import 'package:free_log/core/router/profile_routes.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
+import 'package:free_log/features/auth/presentation/screens/loading_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/profile_setting_screen.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
 import 'package:free_log/features/calendar/presentation/screens/calendar_screen.dart';
@@ -22,6 +23,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ref.invalidate(profileProvider);
     refreshNotifier.value++;
   });
+  ref.listen(profileProvider, (prev, next) {
+    refreshNotifier.value++;
+  });
 
   return GoRouter(
     initialLocation: RoutePaths.login,
@@ -29,10 +33,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final session = ref.watch(authStateProvider).valueOrNull;
       final isLoggedIn = session != null;
-      final isLoginRoute = state.matchedLocation == RoutePaths.login;
+      final matchedLocation = state.matchedLocation;
+      final isLoginRoute = matchedLocation == RoutePaths.login;
       final isPublicAuthRoute =
-          state.matchedLocation == RoutePaths.login ||
-          state.matchedLocation.startsWith('${RoutePaths.login}/');
+          matchedLocation == RoutePaths.login || matchedLocation.startsWith('${RoutePaths.login}/');
+      final isLoadingRoute = matchedLocation == RoutePaths.loading;
+      final isProfileSettingRoute = matchedLocation == RoutePaths.profileSetting;
       final asyncProfile = ref.watch(profileProvider);
       final nickname = asyncProfile.valueOrNull?.nickname?.trim();
       final hasNickname = nickname != null && nickname.isNotEmpty;
@@ -40,16 +46,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // 로그인 안됐으면 login으로
       if (!isLoggedIn && !isPublicAuthRoute) return RoutePaths.login;
 
-      // 로그인은 했지만 닉네임이 없으면 profile setting으로
-      if (isLoggedIn && !hasNickname && state.matchedLocation != RoutePaths.profileSetting) {
-        return RoutePaths.profileSetting;
+      if (!isLoggedIn) return null;
+
+      // 로그인 직후 프로필 확인 중이거나, 프로필 저장 중이면 로딩 화면으로
+      if (asyncProfile.isLoading) {
+        return isLoadingRoute ? null : RoutePaths.loading;
       }
 
-      // 로그인 됐는데 login 페이지면 home으로
-      if (isLoggedIn && isLoginRoute) return RoutePaths.home;
+      // 닉네임이 없으면 profile setting으로
+      if (!hasNickname) {
+        return isProfileSettingRoute ? null : RoutePaths.profileSetting;
+      }
 
-      // 닉네임을 이미 입력한 뒤 profile setting 화면에 있으면 home으로
-      if (isLoggedIn && hasNickname && state.matchedLocation == RoutePaths.profileSetting) {
+      // 닉네임이 있는데 login/loading/profile setting 화면에 있으면 home으로
+      if (isLoginRoute || isLoadingRoute || isProfileSettingRoute) {
         return RoutePaths.home;
       }
 
@@ -57,6 +67,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       buildLoginRoutes(),
+      GoRoute(path: RoutePaths.loading, builder: (_, _) => const LoadingScreen()),
       GoRoute(path: RoutePaths.profileSetting, builder: (_, _) => ProfileSettingsScreen()),
       ShellRoute(
         builder: (context, state, child) => BottomNavBar(child: child),
