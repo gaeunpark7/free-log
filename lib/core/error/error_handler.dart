@@ -11,7 +11,7 @@ class ErrorHandler {
     return switch (error.code) {
       ErrorCode.fetchFailed => l10n.fetchFailed,
       ErrorCode.saveFailed => l10n.saveFailed,
-      // ErrorCode.authError => l10n.authError,
+      ErrorCode.authError => l10n.authError,
       ErrorCode.networkError => l10n.checkInternet,
       _ => l10n.unknownError,
     };

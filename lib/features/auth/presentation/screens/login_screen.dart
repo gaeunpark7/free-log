@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:free_log/core/error/error_handler.dart';
+import 'package:free_log/core/router/route_paths.dart';
+import 'package:free_log/core/theme/app_colors.dart';
+import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
 import 'package:free_log/features/auth/presentation/providers/auth_provider.dart';
 import 'package:free_log/features/auth/presentation/widgets/login_button_widget.dart';
+import 'package:free_log/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -11,9 +17,7 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(authNotifierProvider, (prev, next) {
       if (prev != next && next is AsyncError) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('로그인 실패: ${next.error}')));
+        ErrorHandler.showSnackBar(context, next.error);
       }
     });
 
@@ -29,29 +33,51 @@ class LoginScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.book, size: 64, color: Colors.blueGrey),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image.asset('assets/icon/freelog_icon.png', width: 90, height: 90),
+              ),
+              SizedBox(height: 2),
               Text(
-                'Free Log',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                'Freelog',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
               ),
-              SizedBox(height: 16),
+              Text(
+                AppLocalizations.of(context)!.loginSubTitle,
+                style: AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: Color(0xFFA89B89), fontStyle: FontStyle.italic),
+              ),
 
-              LoginButtonWidget(
-                color: Color(0xffFEE500),
-                icon: Icons.login,
-                text: 'Sign in with Kakao',
-                isLoading: kakaoLoading,
-                onPressed: () =>
-                    ref.read(authNotifierProvider.notifier).signInWithKakao(),
-              ),
-              SizedBox(height: 16),
+              SizedBox(height: 50),
               LoginButtonWidget(
                 color: Color(0xfff2f2f2),
-                icon: Icons.login,
-                text: 'Sign in with Google',
+                image: 'assets/icon/google_icon.png',
+                text: AppLocalizations.of(context)!.loginGoogle,
                 isLoading: googleLoading,
-                onPressed: () =>
-                    ref.read(authNotifierProvider.notifier).signInWithGoogle(),
+                onPressed: () => ref.read(authNotifierProvider.notifier).signInWithGoogle(),
+              ),
+              SizedBox(height: 8),
+              LoginButtonWidget(
+                color: Color(0xffFEE500),
+                image: 'assets/icon/kakao_icon.png',
+                text: AppLocalizations.of(context)!.loginKakao,
+                isLoading: kakaoLoading,
+                onPressed: () => ref.read(authNotifierProvider.notifier).signInWithKakao(),
+              ),
+              SizedBox(height: 2),
+              InkWell(
+                onTap: () {
+                  context.push('${RoutePaths.login}/${RoutePaths.privacy}');
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.privacyPolicy,
+                  style: AppTextStyles.caption(context).copyWith(color: Colors.grey[700]),
+                ),
               ),
             ],
           ),

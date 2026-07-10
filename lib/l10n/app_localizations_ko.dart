@@ -230,7 +230,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get sellingPrice => '판매가';
 
   @override
-  String get settings => '기본 설정';
+  String get settings => '설정';
 
   @override
   String get defaultHourlyRate => '기본 시급';
@@ -449,4 +449,43 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get quickEstimate => '즉석 금액 산출';
+
+  @override
+  String get app => '앱 정보';
+
+  @override
+  String get account => '계정 관리';
+
+  @override
+  String get settingsData => '데이터 수집 및 이용 안내';
+
+  @override
+  String get settingsBug => '버그 신고 및 문의';
+
+  @override
+  String get deleteAccount => '회원탈퇴';
+
+  @override
+  String get settingsDelete => '모든 데이터 영구 삭제';
+
+  @override
+  String get authError => '로그인에 실패했습니다. 다시 시도해주세요';
+
+  @override
+  String get loginKakao => '카카오 계정으로 계속하기';
+
+  @override
+  String get loginGoogle => '구글 계정으로 계속하기';
+
+  @override
+  String get loginSubTitle => '프리랜서의 작업 노트';
+
+  @override
+  String get setNickname => '닉네임 설정';
+
+  @override
+  String get nicknameSubtitle => '나중에 언제든지 변경할 수 있습니다';
+
+  @override
+  String get nicknameSpecialCharError => '특수문자는 사용할 수 없어요';
 }

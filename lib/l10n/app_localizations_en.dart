@@ -463,4 +463,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickEstimate => 'Quick Estimate';
+
+  @override
+  String get app => 'App';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get settingsData => 'How we collect and use your data';
+
+  @override
+  String get settingsBug => 'Report bugs or contact support';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get settingsDelete => 'Permanently delete all data';
+
+  @override
+  String get authError => 'Login failed. Please try again';
+
+  @override
+  String get loginKakao => 'Sign in with Kakao';
+
+  @override
+  String get loginGoogle => 'Sign in with Google';
+
+  @override
+  String get loginSubTitle => 'Your freelance work log';
+
+  @override
+  String get setNickname => 'Set Nickname';
+
+  @override
+  String get nicknameSubtitle => 'You can change this anytime';
+
+  @override
+  String get nicknameSpecialCharError => 'Special characters are not allowed';
 }

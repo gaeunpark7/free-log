@@ -24,9 +24,7 @@ dependencies:
   shared_preferences: ^2.2.3
   dio: ^5.9.2
   http: ^1.2.0
-  freezed: ^3.1.0
   freezed_annotation: ^3.1.0
-  json_serializable: ^6.9.5
   flutter_dotenv: ^6.0.1
   google_sign_in: ^6.2.1
   kakao_flutter_sdk_user: ^2.0.0+1
@@ -40,11 +38,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  freezed: ^3.1.0
+  json_serializable: ^6.9.5
   flutter_lints: ^6.0.0
   riverpod_generator: ^2.4.3
   build_runner: ^2.4.9
   intl_utils: ^2.8.5
   mocktail: ^1.0.4
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.7
 
 flutter:
   uses-material-design: true
@@ -52,3 +54,23 @@ flutter:
 
   assets:
     - .env
+    - assets/icon/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  adaptive_icon_background: "#5A7A9C"
+  image_path: "assets/icon/app_icon.png"
+  adaptive_icon_foreground: "assets/icon/app_icon.png"
+  web:
+    generate: true
+    image_path: "assets/icon/app_icon.png"
+    background_color: "#5A7A9C"
+    theme_color: "#5A7A9C"
+
+flutter_native_splash:
+  # color: "#5A7A9C"
+  image: assets/icon/splash_icon2.png
+  android: true
+  ios: true
+  web: true

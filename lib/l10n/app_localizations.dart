@@ -527,7 +527,7 @@ abstract class AppLocalizations {
   /// No description provided for @settings.
   ///
   /// In ko, this message translates to:
-  /// **'기본 설정'**
+  /// **'설정'**
   String get settings;
 
   /// No description provided for @defaultHourlyRate.
@@ -943,6 +943,84 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'즉석 금액 산출'**
   String get quickEstimate;
+
+  /// No description provided for @app.
+  ///
+  /// In ko, this message translates to:
+  /// **'앱 정보'**
+  String get app;
+
+  /// No description provided for @account.
+  ///
+  /// In ko, this message translates to:
+  /// **'계정 관리'**
+  String get account;
+
+  /// No description provided for @settingsData.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터 수집 및 이용 안내'**
+  String get settingsData;
+
+  /// No description provided for @settingsBug.
+  ///
+  /// In ko, this message translates to:
+  /// **'버그 신고 및 문의'**
+  String get settingsBug;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In ko, this message translates to:
+  /// **'회원탈퇴'**
+  String get deleteAccount;
+
+  /// No description provided for @settingsDelete.
+  ///
+  /// In ko, this message translates to:
+  /// **'모든 데이터 영구 삭제'**
+  String get settingsDelete;
+
+  /// No description provided for @authError.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그인에 실패했습니다. 다시 시도해주세요'**
+  String get authError;
+
+  /// No description provided for @loginKakao.
+  ///
+  /// In ko, this message translates to:
+  /// **'카카오 계정으로 계속하기'**
+  String get loginKakao;
+
+  /// No description provided for @loginGoogle.
+  ///
+  /// In ko, this message translates to:
+  /// **'구글 계정으로 계속하기'**
+  String get loginGoogle;
+
+  /// No description provided for @loginSubTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'프리랜서의 작업 노트'**
+  String get loginSubTitle;
+
+  /// No description provided for @setNickname.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임 설정'**
+  String get setNickname;
+
+  /// No description provided for @nicknameSubtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'나중에 언제든지 변경할 수 있습니다'**
+  String get nicknameSubtitle;
+
+  /// No description provided for @nicknameSpecialCharError.
+  ///
+  /// In ko, this message translates to:
+  /// **'특수문자는 사용할 수 없어요'**
+  String get nicknameSpecialCharError;
 }
 
 class _AppLocalizationsDelegate

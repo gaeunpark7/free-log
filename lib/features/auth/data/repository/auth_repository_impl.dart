@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:free_log/core/error/app_exception.dart';
+import 'package:free_log/core/error/error_code.dart';
 import 'package:free_log/features/auth/domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,23 +17,17 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signInWithGoogle() async {
     try {
       if (kIsWeb) {
-        await _supabase.auth.signInWithOAuth(
-          OAuthProvider.google,
-          redirectTo: Uri.base.origin,
-        );
+        await _supabase.auth.signInWithOAuth(OAuthProvider.google, redirectTo: Uri.base.origin);
       } else {
         final googleUser = await _googleSignIn.signIn();
-        if (googleUser == null) throw Exception('로그인 취소');
+        if (googleUser == null) return;
 
         final googleAuth = await googleUser.authentication;
         final idToken = googleAuth.idToken;
         final accessToken = googleAuth.accessToken;
 
-        if (idToken == null) throw Exception('ID 토큰 없음');
-        if (accessToken == null) {
-          throw Exception(
-            'Access 토큰 없음 (플랫폼별 Google OAuth 설정/Client ID 설정을 확인하세요)',
-          );
+        if (idToken == null || accessToken == null) {
+          throw AppException('토큰 없음', code: ErrorCode.authError);
         }
 
         await _supabase.auth.signInWithIdToken(
@@ -45,9 +41,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (e.code.isNotEmpty) e.code,
         if (e.message?.isNotEmpty == true) e.message!,
       ].join(' - ');
-      throw Exception('구글 로그인 실패: $msg');
+      throw AppException('구글 플랫폼 오류: $e', code: ErrorCode.authError);
     } catch (e) {
-      throw Exception('구글 로그인 실패: $e');
+      throw AppException('구글 로그인 실패: $e', code: ErrorCode.authError);
     }
   }
 
@@ -60,7 +56,7 @@ class AuthRepositoryImpl implements AuthRepository {
         redirectTo: kIsWeb ? Uri.base.origin : 'com.freelog://login-callback/',
       );
     } catch (e) {
-      throw Exception('카카오 로그인 실패: $e');
+      throw AppException('카카오 로그인 실패: $e', code: ErrorCode.authError);
     }
   }
 
