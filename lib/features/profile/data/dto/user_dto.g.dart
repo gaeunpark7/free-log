@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of 'user_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
+_UserDto _$UserDtoFromJson(Map<String, dynamic> json) => _UserDto(
   id: json['id'] as String,
   email: json['email'] as String,
   nickname: json['nickname'] as String?,
@@ -18,13 +18,12 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
       : DateTime.parse(json['created_at'] as String),
 );
 
-Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'email': instance.email,
-      'nickname': instance.nickname,
-      'hourly_rate': instance.hourlyRate,
-      'margin_rate': instance.marginRate,
-      'notify_deadline': instance.notifyDeadline,
-      'created_at': instance.createdAt?.toIso8601String(),
-    };
+Map<String, dynamic> _$UserDtoToJson(_UserDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'email': instance.email,
+  'nickname': instance.nickname,
+  'hourly_rate': instance.hourlyRate,
+  'margin_rate': instance.marginRate,
+  'notify_deadline': instance.notifyDeadline,
+  'created_at': instance.createdAt?.toIso8601String(),
+};
