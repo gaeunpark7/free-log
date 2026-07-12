@@ -1,5 +1,7 @@
 import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/core/error/error_code.dart';
+import 'package:free_log/features/home/data/dto/income_dto.dart';
+import 'package:free_log/features/home/data/mapper/income_dto_mapper.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
 import 'package:free_log/features/home/domain/repository/income_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,7 +18,7 @@ class IncomeRepositoryImpl extends BaseRepository implements IncomeRepository {
           .select()
           .eq('project_id', projectId)
           .order('received_at', ascending: false);
-      return reponse.map(IncomeModel.fromJson).toList();
+      return reponse.map(IncomeDto.fromJson).map((dto) => dto.toEntity()).toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

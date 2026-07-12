@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'income_model.dart';
+part of 'income_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_IncomeModel _$IncomeModelFromJson(Map<String, dynamic> json) => _IncomeModel(
+_IncomeDto _$IncomeDtoFromJson(Map<String, dynamic> json) => _IncomeDto(
   id: json['id'] as String?,
   projectId: json['project_id'] as String?,
   amount: (json['amount'] as num).toInt(),
@@ -17,7 +17,7 @@ _IncomeModel _$IncomeModelFromJson(Map<String, dynamic> json) => _IncomeModel(
       : DateTime.parse(json['created_at'] as String),
 );
 
-Map<String, dynamic> _$IncomeModelToJson(_IncomeModel instance) =>
+Map<String, dynamic> _$IncomeDtoToJson(_IncomeDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'project_id': instance.projectId,
