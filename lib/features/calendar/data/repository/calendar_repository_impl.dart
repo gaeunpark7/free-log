@@ -3,8 +3,10 @@ import 'package:free_log/core/error/error_code.dart';
 import 'package:free_log/features/calendar/domain/repository/calendar_repository.dart';
 import 'package:free_log/features/home/data/dto/expense_dto.dart';
 import 'package:free_log/features/home/data/dto/income_dto.dart';
+import 'package:free_log/features/home/data/dto/project_dto.dart';
 import 'package:free_log/features/home/data/mapper/expense_dto_mapper.dart';
 import 'package:free_log/features/home/data/mapper/income_dto_mapper.dart';
+import 'package:free_log/features/home/data/mapper/project_dto_mapper.dart';
 import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
@@ -20,7 +22,7 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
   Future<List<ProjectModel>> getProjects() async {
     return execute(() async {
       final response = await _supabase.from('project').select('id, title');
-      return response.map((e) => ProjectModel.fromJson(e)).toList();
+      return response.map(ProjectDto.fromJson).map((dto) => dto.toEntity()).toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

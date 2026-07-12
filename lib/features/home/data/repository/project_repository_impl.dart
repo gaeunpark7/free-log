@@ -1,5 +1,7 @@
 import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/core/error/error_code.dart';
+import 'package:free_log/features/home/data/dto/project_dto.dart';
+import 'package:free_log/features/home/data/mapper/project_dto_mapper.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/repository/project_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -19,7 +21,7 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
       }
       final userId = user.id;
 
-      final projectJson = ProjectModel(
+      final projectJson = ProjectDto(
         id: Uuid().v4(),
         userId: userId,
         title: project.title,
@@ -40,7 +42,7 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
           .from('project')
           .select()
           .order('created_at', ascending: false);
-      return response.map(ProjectModel.fromJson).toList();
+      return response.map(ProjectDto.fromJson).map((dto) => dto.toEntity()).toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
