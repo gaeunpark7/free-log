@@ -15,7 +15,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TodosModel {
 
- String? get id;@JsonKey(name: 'project_id') String? get projectId; String get content;@JsonKey(name: 'is_done') bool get isDone;@JsonKey(name: 'created_at') DateTime? get createdAt;
+ String? get id;// ignore: invalid_annotation_target
+@JsonKey(name: 'project_id') String? get projectId; String get content;// ignore: invalid_annotation_target
+@JsonKey(name: 'is_done') bool get isDone;// ignore: invalid_annotation_target
+@JsonKey(name: 'created_at') DateTime? get createdAt;
 /// Create a copy of TodosModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -217,9 +220,12 @@ class _TodosModel implements TodosModel {
   factory _TodosModel.fromJson(Map<String, dynamic> json) => _$TodosModelFromJson(json);
 
 @override final  String? id;
+// ignore: invalid_annotation_target
 @override@JsonKey(name: 'project_id') final  String? projectId;
 @override final  String content;
+// ignore: invalid_annotation_target
 @override@JsonKey(name: 'is_done') final  bool isDone;
+// ignore: invalid_annotation_target
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 
 /// Create a copy of TodosModel

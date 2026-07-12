@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'expense_model.dart';
+part of 'expense_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -11,41 +11,44 @@ part of 'expense_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-/// @nodoc
-mixin _$ExpenseModel {
 
- String? get id; String? get projectId; int get amount; String get description; DateTime get spentAt; DateTime? get createdAt;
-/// Create a copy of ExpenseModel
+/// @nodoc
+mixin _$ExpenseDto {
+
+ String? get id;@JsonKey(name: 'project_id') String? get projectId; int get amount; String get description;@JsonKey(name: 'spent_at') DateTime get spentAt;@JsonKey(name: 'created_at') DateTime? get createdAt;
+/// Create a copy of ExpenseDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ExpenseModelCopyWith<ExpenseModel> get copyWith => _$ExpenseModelCopyWithImpl<ExpenseModel>(this as ExpenseModel, _$identity);
+$ExpenseDtoCopyWith<ExpenseDto> get copyWith => _$ExpenseDtoCopyWithImpl<ExpenseDto>(this as ExpenseDto, _$identity);
 
+  /// Serializes this ExpenseDto to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpenseModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.spentAt, spentAt) || other.spentAt == spentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpenseDto&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.spentAt, spentAt) || other.spentAt == spentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,id,projectId,amount,description,spentAt,createdAt);
 
 @override
 String toString() {
-  return 'ExpenseModel(id: $id, projectId: $projectId, amount: $amount, description: $description, spentAt: $spentAt, createdAt: $createdAt)';
+  return 'ExpenseDto(id: $id, projectId: $projectId, amount: $amount, description: $description, spentAt: $spentAt, createdAt: $createdAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ExpenseModelCopyWith<$Res>  {
-  factory $ExpenseModelCopyWith(ExpenseModel value, $Res Function(ExpenseModel) _then) = _$ExpenseModelCopyWithImpl;
+abstract mixin class $ExpenseDtoCopyWith<$Res>  {
+  factory $ExpenseDtoCopyWith(ExpenseDto value, $Res Function(ExpenseDto) _then) = _$ExpenseDtoCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? projectId, int amount, String description, DateTime spentAt, DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId, int amount, String description,@JsonKey(name: 'spent_at') DateTime spentAt,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -53,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$ExpenseModelCopyWithImpl<$Res>
-    implements $ExpenseModelCopyWith<$Res> {
-  _$ExpenseModelCopyWithImpl(this._self, this._then);
+class _$ExpenseDtoCopyWithImpl<$Res>
+    implements $ExpenseDtoCopyWith<$Res> {
+  _$ExpenseDtoCopyWithImpl(this._self, this._then);
 
-  final ExpenseModel _self;
-  final $Res Function(ExpenseModel) _then;
+  final ExpenseDto _self;
+  final $Res Function(ExpenseDto) _then;
 
-/// Create a copy of ExpenseModel
+/// Create a copy of ExpenseDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? projectId = freezed,Object? amount = null,Object? description = null,Object? spentAt = null,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
@@ -77,8 +80,8 @@ as DateTime?,
 }
 
 
-/// Adds pattern-matching-related methods to [ExpenseModel].
-extension ExpenseModelPatterns on ExpenseModel {
+/// Adds pattern-matching-related methods to [ExpenseDto].
+extension ExpenseDtoPatterns on ExpenseDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -91,10 +94,10 @@ extension ExpenseModelPatterns on ExpenseModel {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExpenseModel value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExpenseDto value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ExpenseModel() when $default != null:
+case _ExpenseDto() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -113,10 +116,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExpenseModel value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExpenseDto value)  $default,){
 final _that = this;
 switch (_that) {
-case _ExpenseModel():
+case _ExpenseDto():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -134,10 +137,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExpenseModel value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExpenseDto value)?  $default,){
 final _that = this;
 switch (_that) {
-case _ExpenseModel() when $default != null:
+case _ExpenseDto() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -155,9 +158,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? projectId,  int amount,  String description,  DateTime spentAt,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  int amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ExpenseModel() when $default != null:
+case _ExpenseDto() when $default != null:
 return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.spentAt,_that.createdAt);case _:
   return orElse();
 
@@ -176,9 +179,9 @@ return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.sp
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? projectId,  int amount,  String description,  DateTime spentAt,  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  int amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
-case _ExpenseModel():
+case _ExpenseDto():
 return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.spentAt,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
@@ -196,9 +199,9 @@ return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.sp
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? projectId,  int amount,  String description,  DateTime spentAt,  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'project_id')  String? projectId,  int amount,  String description, @JsonKey(name: 'spent_at')  DateTime spentAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
-case _ExpenseModel() when $default != null:
+case _ExpenseDto() when $default != null:
 return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.spentAt,_that.createdAt);case _:
   return null;
 
@@ -208,50 +211,53 @@ return $default(_that.id,_that.projectId,_that.amount,_that.description,_that.sp
 }
 
 /// @nodoc
+@JsonSerializable()
 
-
-class _ExpenseModel implements ExpenseModel {
-  const _ExpenseModel({this.id, this.projectId, required this.amount, required this.description, required this.spentAt, this.createdAt});
-  
+class _ExpenseDto implements ExpenseDto {
+  const _ExpenseDto({this.id, @JsonKey(name: 'project_id') this.projectId, required this.amount, required this.description, @JsonKey(name: 'spent_at') required this.spentAt, @JsonKey(name: 'created_at') this.createdAt});
+  factory _ExpenseDto.fromJson(Map<String, dynamic> json) => _$ExpenseDtoFromJson(json);
 
 @override final  String? id;
-@override final  String? projectId;
+@override@JsonKey(name: 'project_id') final  String? projectId;
 @override final  int amount;
 @override final  String description;
-@override final  DateTime spentAt;
-@override final  DateTime? createdAt;
+@override@JsonKey(name: 'spent_at') final  DateTime spentAt;
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 
-/// Create a copy of ExpenseModel
+/// Create a copy of ExpenseDto
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ExpenseModelCopyWith<_ExpenseModel> get copyWith => __$ExpenseModelCopyWithImpl<_ExpenseModel>(this, _$identity);
+_$ExpenseDtoCopyWith<_ExpenseDto> get copyWith => __$ExpenseDtoCopyWithImpl<_ExpenseDto>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$ExpenseDtoToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExpenseModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.spentAt, spentAt) || other.spentAt == spentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExpenseDto&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.spentAt, spentAt) || other.spentAt == spentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,id,projectId,amount,description,spentAt,createdAt);
 
 @override
 String toString() {
-  return 'ExpenseModel(id: $id, projectId: $projectId, amount: $amount, description: $description, spentAt: $spentAt, createdAt: $createdAt)';
+  return 'ExpenseDto(id: $id, projectId: $projectId, amount: $amount, description: $description, spentAt: $spentAt, createdAt: $createdAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ExpenseModelCopyWith<$Res> implements $ExpenseModelCopyWith<$Res> {
-  factory _$ExpenseModelCopyWith(_ExpenseModel value, $Res Function(_ExpenseModel) _then) = __$ExpenseModelCopyWithImpl;
+abstract mixin class _$ExpenseDtoCopyWith<$Res> implements $ExpenseDtoCopyWith<$Res> {
+  factory _$ExpenseDtoCopyWith(_ExpenseDto value, $Res Function(_ExpenseDto) _then) = __$ExpenseDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? projectId, int amount, String description, DateTime spentAt, DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId, int amount, String description,@JsonKey(name: 'spent_at') DateTime spentAt,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -259,17 +265,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ExpenseModelCopyWithImpl<$Res>
-    implements _$ExpenseModelCopyWith<$Res> {
-  __$ExpenseModelCopyWithImpl(this._self, this._then);
+class __$ExpenseDtoCopyWithImpl<$Res>
+    implements _$ExpenseDtoCopyWith<$Res> {
+  __$ExpenseDtoCopyWithImpl(this._self, this._then);
 
-  final _ExpenseModel _self;
-  final $Res Function(_ExpenseModel) _then;
+  final _ExpenseDto _self;
+  final $Res Function(_ExpenseDto) _then;
 
-/// Create a copy of ExpenseModel
+/// Create a copy of ExpenseDto
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? projectId = freezed,Object? amount = null,Object? description = null,Object? spentAt = null,Object? createdAt = freezed,}) {
-  return _then(_ExpenseModel(
+  return _then(_ExpenseDto(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
