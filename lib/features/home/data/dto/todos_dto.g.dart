@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todos_model.dart';
+part of 'todos_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_TodosModel _$TodosModelFromJson(Map<String, dynamic> json) => _TodosModel(
+_TodosDto _$TodosDtoFromJson(Map<String, dynamic> json) => _TodosDto(
   id: json['id'] as String?,
   projectId: json['project_id'] as String?,
   content: json['content'] as String,
@@ -16,11 +16,10 @@ _TodosModel _$TodosModelFromJson(Map<String, dynamic> json) => _TodosModel(
       : DateTime.parse(json['created_at'] as String),
 );
 
-Map<String, dynamic> _$TodosModelToJson(_TodosModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'project_id': instance.projectId,
-      'content': instance.content,
-      'is_done': instance.isDone,
-      'created_at': instance.createdAt?.toIso8601String(),
-    };
+Map<String, dynamic> _$TodosDtoToJson(_TodosDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'project_id': instance.projectId,
+  'content': instance.content,
+  'is_done': instance.isDone,
+  'created_at': instance.createdAt?.toIso8601String(),
+};

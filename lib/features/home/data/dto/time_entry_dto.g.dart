@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'time_entry_model.dart';
+part of 'time_entry_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_TimeEntryModel _$TimeEntryModelFromJson(Map<String, dynamic> json) =>
-    _TimeEntryModel(
+_TimeEntryDto _$TimeEntryDtoFromJson(Map<String, dynamic> json) =>
+    _TimeEntryDto(
       id: json['id'] as String?,
       projectId: json['project_id'] as String?,
       workedAt: json['worked_at'] == null
@@ -19,7 +19,7 @@ _TimeEntryModel _$TimeEntryModelFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['created_at'] as String),
     );
 
-Map<String, dynamic> _$TimeEntryModelToJson(_TimeEntryModel instance) =>
+Map<String, dynamic> _$TimeEntryDtoToJson(_TimeEntryDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'project_id': instance.projectId,

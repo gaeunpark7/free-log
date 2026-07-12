@@ -4,9 +4,11 @@ import 'package:free_log/features/calendar/domain/repository/calendar_repository
 import 'package:free_log/features/home/data/dto/expense_dto.dart';
 import 'package:free_log/features/home/data/dto/income_dto.dart';
 import 'package:free_log/features/home/data/dto/project_dto.dart';
+import 'package:free_log/features/home/data/dto/time_entry_dto.dart';
 import 'package:free_log/features/home/data/mapper/expense_dto_mapper.dart';
 import 'package:free_log/features/home/data/mapper/income_dto_mapper.dart';
 import 'package:free_log/features/home/data/mapper/project_dto_mapper.dart';
+import 'package:free_log/features/home/data/mapper/time_entry_dto_mapper.dart';
 import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/domain/model/income_model.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
@@ -37,7 +39,7 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
           .select()
           .gte('worked_at', start)
           .lt('worked_at', end);
-      return response.map(TimeEntryModel.fromJson).toList();
+      return response.map(TimeEntryDto.fromJson).map((dto) => dto.toEntity()).toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
