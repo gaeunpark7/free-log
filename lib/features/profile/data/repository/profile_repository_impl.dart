@@ -21,7 +21,7 @@ class ProfileRepositoryImpl extends BaseRepository implements ProfileRepository 
       final response = await _supabase.from('user').select().eq('id', userId).maybeSingle();
       if (response == null) return null;
 
-      return UserDto.fromJson(response).map((dto) => dto.toEntity());
+      return UserDto.fromJson(response).toEntity();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

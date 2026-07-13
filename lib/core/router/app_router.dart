@@ -3,6 +3,7 @@ import 'package:free_log/core/router/login_routes.dart';
 import 'package:free_log/core/router/profile_routes.dart';
 import 'package:free_log/core/router/route_paths.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
+import 'package:free_log/features/auth/domain/model/auth_status.dart';
 import 'package:free_log/features/auth/presentation/screens/loading_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/profile_setting_screen.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
@@ -31,8 +32,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: RoutePaths.login,
     refreshListenable: refreshNotifier,
     redirect: (context, state) {
-      final session = ref.watch(authStateProvider).valueOrNull;
-      final isLoggedIn = session != null;
+      final authStatus = ref.watch(authStateProvider).valueOrNull;
+      final isLoggedIn = authStatus == AuthStatus.authenticated;
+
       final matchedLocation = state.matchedLocation;
       final isLoginRoute = matchedLocation == RoutePaths.login;
       final isPublicAuthRoute =
