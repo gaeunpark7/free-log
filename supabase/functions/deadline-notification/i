@@ -1,0 +1,13 @@
+const isKo = project.user?.locale === 'ko'
+
+const title = isToday
+    ? (isKo ? '오늘 마감일이에요!' : 'Deadline is today!')
+    : (isKo ? 'D-7 마감일 알림' : 'D-7 Deadline reminder')
+
+const body = isToday
+    ? (isKo 
+        ? `${project.title} 마감일이 오늘입니다`
+        : `${project.title} is due today`)
+    : (isKo
+        ? `${project.title} 마감일이 7일 후입니다`
+        : `${project.title} is due in 7 days`)
