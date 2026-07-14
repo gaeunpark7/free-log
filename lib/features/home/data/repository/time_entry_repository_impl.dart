@@ -1,5 +1,7 @@
 import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/core/error/error_code.dart';
+import 'package:free_log/features/home/data/dto/time_entry_dto.dart';
+import 'package:free_log/features/home/data/mapper/time_entry_dto_mapper.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/domain/repository/time_entry_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,7 +19,7 @@ class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryReposit
           .select()
           .eq('project_id', projectId)
           .order('worked_at', ascending: false);
-      return response.map(TimeEntryModel.fromJson).toList();
+      return response.map(TimeEntryDto.fromJson).map((dto) => dto.toEntity()).toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

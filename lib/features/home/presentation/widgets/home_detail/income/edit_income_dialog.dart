@@ -128,7 +128,7 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                                         widget.income.projectId ?? '',
                                       ).notifier,
                                     )
-                                    .deleteExpense(widget.income.id ?? '');
+                                    .deleteIncome(widget.income.id ?? '');
                                 if (context.mounted) Navigator.pop(context);
                               },
                             ),

@@ -1,5 +1,7 @@
 import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/core/error/error_code.dart';
+import 'package:free_log/features/profile/data/dto/user_dto.dart';
+import 'package:free_log/features/profile/data/mapper/user_mapper.dart';
 import 'package:free_log/features/profile/domain/model/profile_stats_model.dart';
 import 'package:free_log/features/profile/domain/model/user_model.dart';
 import 'package:free_log/features/profile/domain/repository/profile_repository.dart';
@@ -19,7 +21,7 @@ class ProfileRepositoryImpl extends BaseRepository implements ProfileRepository 
       final response = await _supabase.from('user').select().eq('id', userId).maybeSingle();
       if (response == null) return null;
 
-      return UserModel.fromJson(response);
+      return UserDto.fromJson(response).toEntity();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'time_entry_model.dart';
+part of 'time_entry_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -11,41 +11,44 @@ part of 'time_entry_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-/// @nodoc
-mixin _$TimeEntryModel {
 
- String? get id; String? get projectId; DateTime? get workedAt; int get minutes; DateTime? get createdAt;
-/// Create a copy of TimeEntryModel
+/// @nodoc
+mixin _$TimeEntryDto {
+
+ String? get id;@JsonKey(name: 'project_id') String? get projectId;@JsonKey(name: 'worked_at') DateTime? get workedAt; int get minutes;@JsonKey(name: 'created_at') DateTime? get createdAt;
+/// Create a copy of TimeEntryDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$TimeEntryModelCopyWith<TimeEntryModel> get copyWith => _$TimeEntryModelCopyWithImpl<TimeEntryModel>(this as TimeEntryModel, _$identity);
+$TimeEntryDtoCopyWith<TimeEntryDto> get copyWith => _$TimeEntryDtoCopyWithImpl<TimeEntryDto>(this as TimeEntryDto, _$identity);
 
+  /// Serializes this TimeEntryDto to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeEntryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.minutes, minutes) || other.minutes == minutes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeEntryDto&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.minutes, minutes) || other.minutes == minutes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,id,projectId,workedAt,minutes,createdAt);
 
 @override
 String toString() {
-  return 'TimeEntryModel(id: $id, projectId: $projectId, workedAt: $workedAt, minutes: $minutes, createdAt: $createdAt)';
+  return 'TimeEntryDto(id: $id, projectId: $projectId, workedAt: $workedAt, minutes: $minutes, createdAt: $createdAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $TimeEntryModelCopyWith<$Res>  {
-  factory $TimeEntryModelCopyWith(TimeEntryModel value, $Res Function(TimeEntryModel) _then) = _$TimeEntryModelCopyWithImpl;
+abstract mixin class $TimeEntryDtoCopyWith<$Res>  {
+  factory $TimeEntryDtoCopyWith(TimeEntryDto value, $Res Function(TimeEntryDto) _then) = _$TimeEntryDtoCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? projectId, DateTime? workedAt, int minutes, DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId,@JsonKey(name: 'worked_at') DateTime? workedAt, int minutes,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -53,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$TimeEntryModelCopyWithImpl<$Res>
-    implements $TimeEntryModelCopyWith<$Res> {
-  _$TimeEntryModelCopyWithImpl(this._self, this._then);
+class _$TimeEntryDtoCopyWithImpl<$Res>
+    implements $TimeEntryDtoCopyWith<$Res> {
+  _$TimeEntryDtoCopyWithImpl(this._self, this._then);
 
-  final TimeEntryModel _self;
-  final $Res Function(TimeEntryModel) _then;
+  final TimeEntryDto _self;
+  final $Res Function(TimeEntryDto) _then;
 
-/// Create a copy of TimeEntryModel
+/// Create a copy of TimeEntryDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? projectId = freezed,Object? workedAt = freezed,Object? minutes = null,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
@@ -76,8 +79,8 @@ as DateTime?,
 }
 
 
-/// Adds pattern-matching-related methods to [TimeEntryModel].
-extension TimeEntryModelPatterns on TimeEntryModel {
+/// Adds pattern-matching-related methods to [TimeEntryDto].
+extension TimeEntryDtoPatterns on TimeEntryDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -90,10 +93,10 @@ extension TimeEntryModelPatterns on TimeEntryModel {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TimeEntryModel value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TimeEntryDto value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _TimeEntryModel() when $default != null:
+case _TimeEntryDto() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -112,10 +115,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TimeEntryModel value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TimeEntryDto value)  $default,){
 final _that = this;
 switch (_that) {
-case _TimeEntryModel():
+case _TimeEntryDto():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -133,10 +136,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TimeEntryModel value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TimeEntryDto value)?  $default,){
 final _that = this;
 switch (_that) {
-case _TimeEntryModel() when $default != null:
+case _TimeEntryDto() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -154,9 +157,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? projectId,  DateTime? workedAt,  int minutes,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  int minutes, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _TimeEntryModel() when $default != null:
+case _TimeEntryDto() when $default != null:
 return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.createdAt);case _:
   return orElse();
 
@@ -175,9 +178,9 @@ return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.crea
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? projectId,  DateTime? workedAt,  int minutes,  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  int minutes, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
-case _TimeEntryModel():
+case _TimeEntryDto():
 return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
@@ -195,9 +198,9 @@ return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.crea
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? projectId,  DateTime? workedAt,  int minutes,  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @JsonKey(name: 'project_id')  String? projectId, @JsonKey(name: 'worked_at')  DateTime? workedAt,  int minutes, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
-case _TimeEntryModel() when $default != null:
+case _TimeEntryDto() when $default != null:
 return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.createdAt);case _:
   return null;
 
@@ -207,49 +210,52 @@ return $default(_that.id,_that.projectId,_that.workedAt,_that.minutes,_that.crea
 }
 
 /// @nodoc
+@JsonSerializable()
 
-
-class _TimeEntryModel implements TimeEntryModel {
-  const _TimeEntryModel({this.id, this.projectId, this.workedAt, required this.minutes, this.createdAt});
-  
+class _TimeEntryDto implements TimeEntryDto {
+  const _TimeEntryDto({this.id, @JsonKey(name: 'project_id') this.projectId, @JsonKey(name: 'worked_at') this.workedAt, required this.minutes, @JsonKey(name: 'created_at') this.createdAt});
+  factory _TimeEntryDto.fromJson(Map<String, dynamic> json) => _$TimeEntryDtoFromJson(json);
 
 @override final  String? id;
-@override final  String? projectId;
-@override final  DateTime? workedAt;
+@override@JsonKey(name: 'project_id') final  String? projectId;
+@override@JsonKey(name: 'worked_at') final  DateTime? workedAt;
 @override final  int minutes;
-@override final  DateTime? createdAt;
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 
-/// Create a copy of TimeEntryModel
+/// Create a copy of TimeEntryDto
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$TimeEntryModelCopyWith<_TimeEntryModel> get copyWith => __$TimeEntryModelCopyWithImpl<_TimeEntryModel>(this, _$identity);
+_$TimeEntryDtoCopyWith<_TimeEntryDto> get copyWith => __$TimeEntryDtoCopyWithImpl<_TimeEntryDto>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$TimeEntryDtoToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeEntryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.minutes, minutes) || other.minutes == minutes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeEntryDto&&(identical(other.id, id) || other.id == id)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.workedAt, workedAt) || other.workedAt == workedAt)&&(identical(other.minutes, minutes) || other.minutes == minutes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,id,projectId,workedAt,minutes,createdAt);
 
 @override
 String toString() {
-  return 'TimeEntryModel(id: $id, projectId: $projectId, workedAt: $workedAt, minutes: $minutes, createdAt: $createdAt)';
+  return 'TimeEntryDto(id: $id, projectId: $projectId, workedAt: $workedAt, minutes: $minutes, createdAt: $createdAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$TimeEntryModelCopyWith<$Res> implements $TimeEntryModelCopyWith<$Res> {
-  factory _$TimeEntryModelCopyWith(_TimeEntryModel value, $Res Function(_TimeEntryModel) _then) = __$TimeEntryModelCopyWithImpl;
+abstract mixin class _$TimeEntryDtoCopyWith<$Res> implements $TimeEntryDtoCopyWith<$Res> {
+  factory _$TimeEntryDtoCopyWith(_TimeEntryDto value, $Res Function(_TimeEntryDto) _then) = __$TimeEntryDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? projectId, DateTime? workedAt, int minutes, DateTime? createdAt
+ String? id,@JsonKey(name: 'project_id') String? projectId,@JsonKey(name: 'worked_at') DateTime? workedAt, int minutes,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -257,17 +263,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$TimeEntryModelCopyWithImpl<$Res>
-    implements _$TimeEntryModelCopyWith<$Res> {
-  __$TimeEntryModelCopyWithImpl(this._self, this._then);
+class __$TimeEntryDtoCopyWithImpl<$Res>
+    implements _$TimeEntryDtoCopyWith<$Res> {
+  __$TimeEntryDtoCopyWithImpl(this._self, this._then);
 
-  final _TimeEntryModel _self;
-  final $Res Function(_TimeEntryModel) _then;
+  final _TimeEntryDto _self;
+  final $Res Function(_TimeEntryDto) _then;
 
-/// Create a copy of TimeEntryModel
+/// Create a copy of TimeEntryDto
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? projectId = freezed,Object? workedAt = freezed,Object? minutes = null,Object? createdAt = freezed,}) {
-  return _then(_TimeEntryModel(
+  return _then(_TimeEntryDto(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,workedAt: freezed == workedAt ? _self.workedAt : workedAt // ignore: cast_nullable_to_non_nullable

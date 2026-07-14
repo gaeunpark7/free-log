@@ -1,5 +1,7 @@
 import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/core/error/error_code.dart';
+import 'package:free_log/features/home/data/dto/expense_dto.dart';
+import 'package:free_log/features/home/data/mapper/expense_dto_mapper.dart';
 import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/domain/repository/expense_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,7 +19,7 @@ class ExpenseRepositoryImpl extends BaseRepository implements ExpenseRepository 
           .select()
           .eq('project_id', projectId)
           .order('spent_at', ascending: false);
-      return response.map(ExpenseModel.fromJson).toList();
+      return response.map(ExpenseDto.fromJson).map((dto) => dto.toEntity()).toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/features/auth/data/repository/auth_repository_impl.dart';
+import 'package:free_log/features/auth/domain/model/auth_status.dart';
 import 'package:free_log/features/auth/domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -21,13 +22,10 @@ final googleSignInProvider = Provider<GoogleSignIn>((ref) {
 
 // Auth Repository
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepositoryImpl(
-    ref.watch(supabaseClientProvider),
-    ref.watch(googleSignInProvider),
-  );
+  return AuthRepositoryImpl(ref.watch(supabaseClientProvider), ref.watch(googleSignInProvider));
 });
 //인증 상태 관리
-final authStateProvider = StreamProvider<Session?>((ref) {
+final authStateProvider = StreamProvider<AuthStatus>((ref) {
   return ref.watch(authRepositoryProvider).authStateChanges;
 });
 final googleLoadingProvider = StateProvider<bool>((ref) => false);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/pricing_calculator.dart';
 import 'package:free_log/core/widgets/text_field/hour_text_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/core/widgets/text_field/margin_rate_field.dart';
@@ -85,10 +86,12 @@ class CardWidget extends StatelessWidget {
               marginRateController,
             ]),
             builder: (context, _) {
-              final laborCost = _hourlyRate * _hours;
-              final totalCost = laborCost + _expense;
-              final margin = totalCost * _marginRate;
-              final sellingPrice = totalCost + margin;
+              final pricing = PricingCalculator.calculate(
+                hourlyRate: _hourlyRate,
+                hours: _hours,
+                expense: _expense,
+                marginRate: _marginRate,
+              );
               final fmt = NumberFormat('#,###');
 
               return Container(
@@ -107,26 +110,26 @@ class CardWidget extends StatelessWidget {
                       _bottomRowWidget(
                         context,
                         AppLocalizations.of(context)!.hourlyRateXHours,
-                        '₩${fmt.format(laborCost.floor())}',
+                        fmt.format(pricing.laborCost.floor()),
                       ),
                       const SizedBox(height: 6),
                       _bottomRowWidget(
                         context,
                         AppLocalizations.of(context)!.expenses,
-                        '₩${fmt.format(_expense.floor())}',
+                        fmt.format(_expense.floor()),
                       ),
                       const SizedBox(height: 6),
                       _bottomRowWidget(
                         context,
                         '${AppLocalizations.of(context)!.marginRate} (${int.tryParse(marginRateController.text) ?? 0})%',
-                        '+₩${fmt.format(margin.floor())}',
+                        '+${fmt.format(pricing.marginAmount.floor())}',
                       ),
                       const SizedBox(height: 6),
                       const Divider(thickness: 0.5, color: Colors.white),
                       _bottomRowWidget(
                         context,
                         AppLocalizations.of(context)!.sellingPrice,
-                        '₩${fmt.format(sellingPrice.floor())}',
+                        fmt.format(pricing.sellingPrice.floor()),
                         isBold: true,
                       ),
                     ],

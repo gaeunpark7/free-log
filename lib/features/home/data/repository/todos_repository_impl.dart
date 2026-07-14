@@ -1,5 +1,7 @@
 import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/core/error/error_code.dart';
+import 'package:free_log/features/home/data/dto/todos_dto.dart';
+import 'package:free_log/features/home/data/mapper/todos_dto_mapper.dart';
 import 'package:free_log/features/home/domain/model/todos_model.dart';
 import 'package:free_log/features/home/domain/repository/todos_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,7 +18,7 @@ class TodosRepositoryImpl extends BaseRepository implements TodosRepository {
           .select()
           .eq('project_id', projectId)
           .order('created_at', ascending: true);
-      return reponse.map(TodosModel.fromJson).toList();
+      return reponse.map(TodosDto.fromJson).map((dto) => dto.toEntity()).toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

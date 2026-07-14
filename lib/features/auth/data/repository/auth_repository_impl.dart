@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:free_log/core/error/app_exception.dart';
 import 'package:free_log/core/error/error_code.dart';
+import 'package:free_log/features/auth/domain/model/auth_status.dart';
 import 'package:free_log/features/auth/domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -41,7 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
         if (e.code.isNotEmpty) e.code,
         if (e.message?.isNotEmpty == true) e.message!,
       ].join(' - ');
-      throw AppException('구글 플랫폼 오류: $e', code: ErrorCode.authError);
+      throw AppException(msg, code: ErrorCode.authError);
     } catch (e) {
       throw AppException('구글 로그인 실패: $e', code: ErrorCode.authError);
     }
@@ -71,7 +72,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   // 인증 상태 스트림
   @override
-  Stream<Session?> get authStateChanges {
-    return _supabase.auth.onAuthStateChange.map((data) => data.session);
+  Stream<AuthStatus> get authStateChanges {
+    return _supabase.auth.onAuthStateChange.map(
+      (data) => data.session != null ? AuthStatus.authenticated : AuthStatus.unauthenticated,
+    );
   }
 }
