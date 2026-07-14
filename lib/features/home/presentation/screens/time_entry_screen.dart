@@ -36,129 +36,121 @@ class TimeEntryScreen extends ConsumerWidget {
     });
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        title: Text(
+          AppLocalizations.of(context)!.timeEntryTitle,
+          style: AppTextStyles.headline(context).copyWith(color: Colors.white),
+        ),
+      ),
       body: SafeArea(
         child: AppContentlayout(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppBar(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                title: Text(
-                  AppLocalizations.of(context)!.timeEntryTitle,
-                  style: AppTextStyles.headline(context).copyWith(color: Colors.white),
-                ),
-              ),
-              // 총 작업시간 카드
-              Expanded(
-                child: Padding(
-                  padding: Responsive.screenPadding(context),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: Responsive.cardPadding(context),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.borderDefault),
-                        ),
-                        child: switch (asyncEntries) {
-                          AsyncError(:final error) => ErrorView(
-                            message: ErrorHandler.getMessage(context, error),
-                          ),
-                          AsyncLoading() => Center(
-                            child: CircularProgressIndicator(color: AppColors.primary),
-                          ),
-                          AsyncData(value: final entries) => Builder(
-                            builder: (context) {
-                              final totalMinutes = entries.fold(0, (sum, e) => sum + e.minutes);
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context)!.totalTimeEntries,
-                                        style: AppTextStyles.bodyBold(context),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '$projectName ⦁ ${entries.length}',
-                                            style: AppTextStyles.caption(context),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    TimeUtils.format(totalMinutes),
-                                    style: AppTextStyles.headline(context).copyWith(
-                                      color: totalMinutes == 0
-                                          ? Colors.grey
-                                          : AppColors.textPrimary,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                          _ => const SizedBox.shrink(),
-                        },
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.timeEntries,
-                            style: AppTextStyles.subTitleBold(context),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      //시간 listView
-                      switch (asyncEntries) {
-                        AsyncLoading() => Center(
-                          child: CircularProgressIndicator(color: AppColors.primary),
-                        ),
-                        AsyncError(:final error) => ErrorView(
-                          message: ErrorHandler.getMessage(context, error),
-                        ),
-                        AsyncData(value: final entries) =>
-                          entries.isEmpty
-                              ? EmptyTimeEntryContainer()
-                              : Expanded(
-                                  child: ListView.builder(
-                                    itemCount: entries.length,
-                                    itemBuilder: (ctx, index) {
-                                      final entry = entries[index];
-                                      return GestureDetector(
-                                        onTap: () => showDialog(
-                                          context: context,
-                                          builder: (_) =>
-                                              TimeEntryDialog(entry: entry, projectId: projectId),
-                                        ),
-                                        child: TimeEntryListView(
-                                          entry: entry,
-                                          weekdayLabel: (dt) => formatWeekday(
-                                            dt,
-                                            Localizations.localeOf(context).languageCode,
-                                          ),
-                                          formatHours: formatHours,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                        _ => const SizedBox.shrink(),
-                      },
-                    ],
+          child: Padding(
+            padding: Responsive.screenPadding(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 총 작업시간 카드
+                Container(
+                  padding: Responsive.cardPadding(context),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.borderDefault),
                   ),
+                  child: switch (asyncEntries) {
+                    AsyncError(:final error) => ErrorView(
+                      message: ErrorHandler.getMessage(context, error),
+                    ),
+                    AsyncLoading() => Center(
+                      child: CircularProgressIndicator(color: AppColors.primary),
+                    ),
+                    AsyncData(value: final entries) => Builder(
+                      builder: (context) {
+                        final totalMinutes = entries.fold(0, (sum, e) => sum + e.minutes);
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.totalTimeEntries,
+                                  style: AppTextStyles.bodyBold(context),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '$projectName ⦁ ${entries.length}',
+                                      style: AppTextStyles.caption(context),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Text(
+                              TimeUtils.format(totalMinutes),
+                              style: AppTextStyles.headline(context).copyWith(
+                                color: totalMinutes == 0 ? Colors.grey : AppColors.textPrimary,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    _ => const SizedBox.shrink(),
+                  },
                 ),
-              ),
-            ],
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.timeEntries,
+                      style: AppTextStyles.subTitleBold(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                //시간 listView
+                switch (asyncEntries) {
+                  AsyncLoading() => Center(
+                    child: CircularProgressIndicator(color: AppColors.primary),
+                  ),
+                  AsyncError(:final error) => ErrorView(
+                    message: ErrorHandler.getMessage(context, error),
+                  ),
+                  AsyncData(value: final entries) =>
+                    entries.isEmpty
+                        ? EmptyTimeEntryContainer()
+                        : Expanded(
+                            child: ListView.builder(
+                              itemCount: entries.length,
+                              itemBuilder: (ctx, index) {
+                                final entry = entries[index];
+                                return GestureDetector(
+                                  onTap: () => showDialog(
+                                    context: context,
+                                    builder: (_) =>
+                                        TimeEntryDialog(entry: entry, projectId: projectId),
+                                  ),
+                                  child: TimeEntryListView(
+                                    entry: entry,
+                                    weekdayLabel: (dt) => formatWeekday(
+                                      dt,
+                                      Localizations.localeOf(context).languageCode,
+                                    ),
+                                    formatHours: formatHours,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                  _ => const SizedBox.shrink(),
+                },
+              ],
+            ),
           ),
         ),
       ),

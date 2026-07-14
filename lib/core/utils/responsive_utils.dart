@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Responsive {
   static bool isMobile(BuildContext context) => MediaQuery.of(context).size.width < 600;
 
-  static bool isTablet(BuildContext context) => MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width < 1200;
+  static bool isTablet(BuildContext context) =>
+      MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width < 1200;
 
   static bool isWeb(BuildContext context) => MediaQuery.of(context).size.width >= 1200;
 
@@ -73,5 +74,16 @@ class Responsive {
     if (isWeb(context)) return 80;
     if (isTablet(context)) return 32;
     return 16;
+  }
+
+  //캘린더 셀 너비
+  static double calendarCellWidth(BuildContext context) {
+    return (width(context) - 32) / 7 - 4;
+  }
+
+  //캘린더 행 높이
+  static double calendarRowHeight(BuildContext context) {
+    final calculated = calendarCellWidth(context) * 1.4;
+    return calculated.clamp(80, 100);
   }
 }

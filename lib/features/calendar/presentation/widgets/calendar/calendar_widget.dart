@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_data_model.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -41,7 +42,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       child: TableCalendar(
         locale: locale,
         headerVisible: false,
-        rowHeight: 100,
+        rowHeight: Responsive.calendarRowHeight(context), //100
         firstDay: DateTime(2026),
         lastDay: DateTime(2045),
         focusedDay: widget.focusedDay,
@@ -101,10 +102,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Widget _buildDayCell(DateTime day, bool isSelected, bool isToday) {
     final dateOnly = DateTime(day.year, day.month, day.day);
     final data = widget.calendarData[dateOnly];
-
+    final cellWidth = Responsive.calendarCellWidth(context);
     return SizedBox(
-      // height: 110,
-      width: 110,
+      height: 110,
+      width: cellWidth,
       child: Container(
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(

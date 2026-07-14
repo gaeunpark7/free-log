@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
@@ -19,7 +18,7 @@ class SummaryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: Responsive.cardPadding(context),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -56,13 +55,15 @@ class SummaryCardWidget extends StatelessWidget {
   Widget _buildSummaryItem(BuildContext context, String value, String label, Color color) {
     return Column(
       children: [
-        Text(
-          value,
-          style: AppTextStyles.title(
-            context,
-          ).copyWith(color: color, overflow: TextOverflow.ellipsis),
+        FittedBox(
+          child: Text(
+            value,
+            style: AppTextStyles.subTitleBold(
+              context,
+            ).copyWith(color: color, overflow: TextOverflow.ellipsis),
+          ),
         ),
-        SizedBox(height: 4),
+        SizedBox(height: 2),
         Text(label, style: AppTextStyles.caption(context)),
       ],
     );

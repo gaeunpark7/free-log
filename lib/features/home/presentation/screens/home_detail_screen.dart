@@ -30,37 +30,31 @@ class _HomeDetailScreenState extends ConsumerState<HomeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        foregroundColor: Colors.white,
+        backgroundColor: AppColors.primary,
+        title: DetailTitleWidget(project: widget.project),
+      ),
       body: SafeArea(
         child: AppContentlayout(
-          child: Column(
-            children: [
-              AppBar(
-                foregroundColor: Colors.white,
-                backgroundColor: AppColors.primary,
-                title: DetailTitleWidget(project: widget.project),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: Responsive.screenPadding(context),
-                  child: Column(
-                    children: [
-                      DefaultTabController(
-                        length: 2,
-                        child: DetailTodosWidget(projectId: widget.projectId),
-                      ),
-                      const SizedBox(height: 12),
-                      DetailTimeEntries(projectId: widget.projectId),
-                      const SizedBox(height: 12),
-                      DetailExpenseWidget(projectId: widget.projectId),
-                      const SizedBox(height: 12),
-                      DetailIncomeWidget(projectId: widget.projectId),
-                      const SizedBox(height: 12),
-                      CalculateAmount(project: widget.project),
-                    ],
-                  ),
+          child: SingleChildScrollView(
+            padding: Responsive.screenPadding(context),
+            child: Column(
+              children: [
+                DefaultTabController(
+                  length: 2,
+                  child: DetailTodosWidget(projectId: widget.projectId),
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                DetailTimeEntries(projectId: widget.projectId),
+                const SizedBox(height: 12),
+                DetailExpenseWidget(projectId: widget.projectId),
+                const SizedBox(height: 12),
+                DetailIncomeWidget(projectId: widget.projectId),
+                const SizedBox(height: 12),
+                CalculateAmount(project: widget.project),
+              ],
+            ),
           ),
         ),
       ),
