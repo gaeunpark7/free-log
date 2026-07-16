@@ -64,6 +64,8 @@ lib/
 └── main.dart
 ```
 
+<br>
+
 ## 📥 Download
 - 현재 Google Play 비공개 테스트 진행 중
 - 배포 예정: 2026년 7월
