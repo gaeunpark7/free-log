@@ -84,6 +84,6 @@ class Responsive {
   //캘린더 행 높이
   static double calendarRowHeight(BuildContext context) {
     final calculated = calendarCellWidth(context) * 1.4;
-    return calculated.clamp(80, 100);
+    return calculated.clamp(85, 100);
   }
 }

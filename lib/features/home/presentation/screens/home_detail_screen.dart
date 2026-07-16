@@ -29,33 +29,37 @@ class _HomeDetailScreenState extends ConsumerState<HomeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: AppColors.primary,
         title: DetailTitleWidget(project: widget.project),
       ),
+      backgroundColor: AppColors.background,
       body: SafeArea(
-        child: AppContentlayout(
-          child: SingleChildScrollView(
-            padding: Responsive.screenPadding(context),
-            child: Column(
-              children: [
-                DefaultTabController(
-                  length: 2,
-                  child: DetailTodosWidget(projectId: widget.projectId),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: Responsive.screenPadding(context),
+                child: Column(
+                  children: [
+                    DefaultTabController(
+                      length: 2,
+                      child: DetailTodosWidget(projectId: widget.projectId),
+                    ),
+                    const SizedBox(height: 12),
+                    DetailTimeEntries(projectId: widget.projectId),
+                    const SizedBox(height: 12),
+                    DetailExpenseWidget(projectId: widget.projectId),
+                    const SizedBox(height: 12),
+                    DetailIncomeWidget(projectId: widget.projectId),
+                    const SizedBox(height: 12),
+                    CalculateAmount(project: widget.project),
+                  ],
                 ),
-                const SizedBox(height: 12),
-                DetailTimeEntries(projectId: widget.projectId),
-                const SizedBox(height: 12),
-                DetailExpenseWidget(projectId: widget.projectId),
-                const SizedBox(height: 12),
-                DetailIncomeWidget(projectId: widget.projectId),
-                const SizedBox(height: 12),
-                CalculateAmount(project: widget.project),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
