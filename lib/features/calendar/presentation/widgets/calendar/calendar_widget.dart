@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
@@ -42,13 +43,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       child: TableCalendar(
         locale: locale,
         headerVisible: false,
-        rowHeight: Responsive.calendarRowHeight(context), //100
+        rowHeight: 95.h,
         firstDay: DateTime(2026),
         lastDay: DateTime(2045),
         focusedDay: widget.focusedDay,
         selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-        daysOfWeekHeight: 40,
-
+        daysOfWeekHeight: 25,
+        availableGestures: AvailableGestures.horizontalSwipe,
         //월 이동
         onPageChanged: (focusedDay) {
           widget.onPageChanged(focusedDay);
@@ -70,7 +71,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         ),
 
         calendarStyle: CalendarStyle(
-          // cellMargin: const EdgeInsets.symmetric(vertical: 2, horizontal: 1),
+          // cellMargin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
           //오늘 날짜
           todayDecoration: BoxDecoration(
             color: AppColors.primary.withValues(alpha: 0.2),
@@ -102,12 +103,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Widget _buildDayCell(DateTime day, bool isSelected, bool isToday) {
     final dateOnly = DateTime(day.year, day.month, day.day);
     final data = widget.calendarData[dateOnly];
-    final cellWidth = Responsive.calendarCellWidth(context);
+    // final cellWidth = Responsive.calendarCellWidth(context);
     return SizedBox(
-      height: 110,
-      width: cellWidth,
+      height: 90.h,
+      width: 50.w,
       child: Container(
-        margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: isSelected ? AppColors.primarySoft : Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -122,7 +122,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // const SizedBox(height: 2),
+            const SizedBox(height: 2),
             // 날짜 숫자
             Text(
               '${day.day}',
@@ -130,7 +130,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 color: isSelected || isToday ? AppColors.textPrimary : AppColors.textSecondary,
               ),
             ),
-            SizedBox(height: 4),
+            // SizedBox(height: 2),
             if (data != null) ...[
               if (data.minutes > 0)
                 Text(

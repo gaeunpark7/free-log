@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
-import 'package:free_log/core/widgets/app_content_layout_widget.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/amount/calculate_amount.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/expense/detail_expense_widget.dart';

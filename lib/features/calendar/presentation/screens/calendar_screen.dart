@@ -70,6 +70,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           child: Column(
             children: [
               _buildSummaryCard(asyncCalendar),
+              SizedBox(height: 1),
               CalendarWidget(
                 focusedDay: _focusedDay,
                 selectedDay: _selectedDay ?? DateTime.now(),
