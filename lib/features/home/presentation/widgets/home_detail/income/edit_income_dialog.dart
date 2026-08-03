@@ -40,149 +40,157 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
       backgroundColor: Colors.white,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 480),
-        child: Padding(
-          padding: Responsive.cardPadding(context),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 230, 237, 248),
-                        borderRadius: BorderRadius.circular(10),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: Responsive.cardPadding(context),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 230, 237, 248),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(Icons.edit_document, color: AppColors.primary),
                       ),
-                      child: Icon(Icons.edit_document, color: AppColors.primary),
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      AppLocalizations.of(context)!.editIncome,
-                      style: AppTextStyles.title(context),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12),
-                Text(
-                  AppLocalizations.of(context)!.item,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-                ),
-                const SizedBox(height: 4),
-                AppTextField(
-                  controller: _titleController,
-                  valieText: AppLocalizations.of(context)!.valieItem,
-                  hintText: AppLocalizations.of(context)!.itemHint,
-                  maxLenth: 15,
-                  icon: Icon(Icons.edit_note, size: 23),
-                ),
-                const SizedBox(height: 8),
-                //금액
-                Text(
-                  AppLocalizations.of(context)!.amount,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-                ),
-                const SizedBox(height: 4),
-                HourlyRateField(
-                  controller: _amountController,
-                  hintText: AppLocalizations.of(context)!.amountHint,
-                  errorText: AppLocalizations.of(context)!.valieAmount,
-                  maxDigits: 8,
-                  icon: Icon(Icons.attach_money_outlined, size: 23),
-                ),
-                const SizedBox(height: 8),
-                //날짜
-                Text(
-                  AppLocalizations.of(context)!.date,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-                ),
-                const SizedBox(height: 4),
-                DatePickerField(
-                  selectedDate: _selectedDate,
-                  icon: Icons.event,
-                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: AppColors.errorBg,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.borderError),
+                      SizedBox(width: 10),
+                      Text(
+                        AppLocalizations.of(context)!.editIncome,
+                        style: AppTextStyles.title(context),
                       ),
-                      child: IconButton(
-                        onPressed: () async {
-                          showDialog(
-                            context: context,
-                            builder: (ctx) => DeleteDialog(
-                              onDelete: () async {
-                                await ref
-                                    .read(
-                                      incomeNotifierProvider(
-                                        widget.income.projectId ?? '',
-                                      ).notifier,
-                                    )
-                                    .deleteIncome(widget.income.id ?? '');
-                                if (context.mounted) Navigator.pop(context);
-                              },
-                            ),
-                          );
-                        },
-                        icon: Icon(Icons.delete_outline_outlined, color: AppColors.errorSoft),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: SizedBox(
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    AppLocalizations.of(context)!.item,
+                    style: AppTextStyles.captionBold(
+                      context,
+                    ).copyWith(color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 4),
+                  AppTextField(
+                    controller: _titleController,
+                    valieText: AppLocalizations.of(context)!.valieItem,
+                    hintText: AppLocalizations.of(context)!.itemHint,
+                    maxLenth: 15,
+                    icon: Icon(Icons.edit_note, size: 23),
+                  ),
+                  const SizedBox(height: 8),
+                  //금액
+                  Text(
+                    AppLocalizations.of(context)!.amount,
+                    style: AppTextStyles.captionBold(
+                      context,
+                    ).copyWith(color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 4),
+                  HourlyRateField(
+                    controller: _amountController,
+                    hintText: AppLocalizations.of(context)!.amountHint,
+                    errorText: AppLocalizations.of(context)!.valieAmount,
+                    maxDigits: 8,
+                    icon: Icon(Icons.attach_money_outlined, size: 23),
+                  ),
+                  const SizedBox(height: 8),
+                  //날짜
+                  Text(
+                    AppLocalizations.of(context)!.date,
+                    style: AppTextStyles.captionBold(
+                      context,
+                    ).copyWith(color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 4),
+                  DatePickerField(
+                    selectedDate: _selectedDate,
+                    icon: Icons.event,
+                    onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        width: 48,
                         height: 48,
-                        child: FilledButton(
-                          style: FilledButton.styleFrom(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
+                        decoration: BoxDecoration(
+                          color: AppColors.errorBg,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppColors.borderError),
+                        ),
+                        child: IconButton(
                           onPressed: () async {
-                            final amount =
-                                int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
-
-                            if (!_formKey.currentState!.validate()) return;
-                            final noChange =
-                                _titleController.text.trim() == widget.income.description &&
-                                amount == widget.income.amount &&
-                                _selectedDate.year == widget.income.receivedAt.year &&
-                                _selectedDate.month == widget.income.receivedAt.month &&
-                                _selectedDate.day == widget.income.receivedAt.day;
-
-                            if (noChange) {
-                              if (context.mounted) Navigator.pop(context);
-                              return;
-                            }
-                            await ref
-                                .read(
-                                  incomeNotifierProvider(widget.income.projectId ?? '').notifier,
-                                )
-                                .updateIncome(
-                                  widget.income.id ?? '',
-                                  _titleController.text.trim(),
-                                  amount,
-                                  _selectedDate,
-                                );
-                            if (context.mounted) Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => DeleteDialog(
+                                onDelete: () async {
+                                  await ref
+                                      .read(
+                                        incomeNotifierProvider(
+                                          widget.income.projectId ?? '',
+                                        ).notifier,
+                                      )
+                                      .deleteIncome(widget.income.id ?? '');
+                                  if (context.mounted) Navigator.pop(context);
+                                },
+                              ),
+                            );
                           },
-                          child: Text(
-                            AppLocalizations.of(context)!.update,
-                            style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                          icon: Icon(Icons.delete_outline_outlined, color: AppColors.errorSoft),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: SizedBox(
+                          height: 48,
+                          child: FilledButton(
+                            style: FilledButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                            onPressed: () async {
+                              final amount =
+                                  int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+
+                              if (!_formKey.currentState!.validate()) return;
+                              final noChange =
+                                  _titleController.text.trim() == widget.income.description &&
+                                  amount == widget.income.amount &&
+                                  _selectedDate.year == widget.income.receivedAt.year &&
+                                  _selectedDate.month == widget.income.receivedAt.month &&
+                                  _selectedDate.day == widget.income.receivedAt.day;
+
+                              if (noChange) {
+                                if (context.mounted) Navigator.pop(context);
+                                return;
+                              }
+                              await ref
+                                  .read(
+                                    incomeNotifierProvider(widget.income.projectId ?? '').notifier,
+                                  )
+                                  .updateIncome(
+                                    widget.income.id ?? '',
+                                    _titleController.text.trim(),
+                                    amount,
+                                    _selectedDate,
+                                  );
+                              if (context.mounted) Navigator.pop(context);
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!.update,
+                              style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -94,7 +94,7 @@ class TimeEntryScreen extends ConsumerWidget {
                                   ),
                                   Text(
                                     TimeUtils.format(totalMinutes),
-                                    style: AppTextStyles.headline(context).copyWith(
+                                    style: AppTextStyles.title(context).copyWith(
                                       color: totalMinutes == 0
                                           ? Colors.grey
                                           : AppColors.textPrimary,

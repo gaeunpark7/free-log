@@ -72,93 +72,101 @@ class _EditProjectDialogState extends ConsumerState<EditProjectDialog> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 480),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //title
-                Row(
-                  children: [
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 230, 237, 248),
-                        borderRadius: BorderRadius.circular(12),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //title
+                  Row(
+                    children: [
+                      Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 230, 237, 248),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(Icons.edit_document, color: AppColors.primary),
                       ),
-                      child: Icon(Icons.edit_document, color: AppColors.primary),
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      AppLocalizations.of(context)!.editProject,
-                      style: AppTextStyles.title(context),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                //작업명
-                Text(
-                  AppLocalizations.of(context)!.projectName,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-                ),
-                const SizedBox(height: 6),
-                AppTextField(
-                  controller: _titleController,
-                  valieText: AppLocalizations.of(context)!.projectNameError,
-                  hintText: AppLocalizations.of(context)!.projectNameHint,
-                  maxLenth: 12,
-                ),
-                const SizedBox(height: 12),
+                      SizedBox(width: 10),
+                      Text(
+                        AppLocalizations.of(context)!.editProject,
+                        style: AppTextStyles.title(context),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  //작업명
+                  Text(
+                    AppLocalizations.of(context)!.projectName,
+                    style: AppTextStyles.captionBold(
+                      context,
+                    ).copyWith(color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 6),
+                  AppTextField(
+                    controller: _titleController,
+                    valieText: AppLocalizations.of(context)!.projectNameError,
+                    hintText: AppLocalizations.of(context)!.projectNameHint,
+                    maxLenth: 12,
+                  ),
+                  const SizedBox(height: 12),
 
-                //시급
-                Text(
-                  AppLocalizations.of(context)!.hourlyRate,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-                ),
-                const SizedBox(height: 6),
-                HourlyRateField(
-                  controller: _hourlyRateController,
-                  hintText: AppLocalizations.of(context)!.hourlyRateHint,
-                  errorText: AppLocalizations.of(context)!.hourlyRateError,
-                  maxDigits: 7,
-                ),
-                const SizedBox(height: 12),
+                  //시급
+                  Text(
+                    AppLocalizations.of(context)!.hourlyRate,
+                    style: AppTextStyles.captionBold(
+                      context,
+                    ).copyWith(color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 6),
+                  HourlyRateField(
+                    controller: _hourlyRateController,
+                    hintText: AppLocalizations.of(context)!.hourlyRateHint,
+                    errorText: AppLocalizations.of(context)!.hourlyRateError,
+                    maxDigits: 7,
+                  ),
+                  const SizedBox(height: 12),
 
-                //마감일
-                Text(
-                  AppLocalizations.of(context)!.deadline,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-                ),
-                const SizedBox(height: 6),
-                DatePickerField(
-                  selectedDate: _selectedDeadline ?? DateTime.now(),
-                  onDateChanged: (date) => setState(() => _selectedDeadline = date),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AppFilledButton.cancel(
-                        text: AppLocalizations.of(context)!.cancel,
-                        onPressed: () => Navigator.pop(context),
+                  //마감일
+                  Text(
+                    AppLocalizations.of(context)!.deadline,
+                    style: AppTextStyles.captionBold(
+                      context,
+                    ).copyWith(color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 6),
+                  DatePickerField(
+                    selectedDate: _selectedDeadline ?? DateTime.now(),
+                    onDateChanged: (date) => setState(() => _selectedDeadline = date),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppFilledButton.cancel(
+                          text: AppLocalizations.of(context)!.cancel,
+                          onPressed: () => Navigator.pop(context),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: AppFilledButton(
-                        onPressed: _save,
-                        text: AppLocalizations.of(context)!.update,
-                        color: AppColors.primary,
-                        textColor: Colors.white,
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: AppFilledButton(
+                          onPressed: _save,
+                          text: AppLocalizations.of(context)!.update,
+                          color: AppColors.primary,
+                          textColor: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
