@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/services/fcm_service.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
+import 'package:free_log/features/auth/domain/model/auth_status.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -14,11 +15,12 @@ class FrelogApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(authStateProvider, (prev, next) {
-      next.whenData((session) async {
-        // 로그인 됐을 때 FCM 토큰 저장
-        final fcmService = FcmService(Supabase.instance.client);
-        await fcmService.initialize();
-      });
+      final prevStatus = prev?.valueOrNull;
+      final nextStatus = next.valueOrNull;
+      // 로그아웃 상태에서 로그인 상태로 실제로 전환될 때만 FCM 토큰 저장
+      if (nextStatus == AuthStatus.authenticated && prevStatus != AuthStatus.authenticated) {
+        FcmService(Supabase.instance.client).initialize();
+      }
     });
     final router = ref.watch(appRouterProvider);
 
