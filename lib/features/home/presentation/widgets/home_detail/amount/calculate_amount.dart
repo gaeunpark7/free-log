@@ -8,6 +8,7 @@ import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/expense_provider.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
+import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -20,6 +21,7 @@ class CalculateAmount extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncTimeEntries = ref.watch(timeEntryNotifierProvider(project.id!));
     final asyncExpense = ref.watch(expenseNotifierProvider(project.id!));
+    final user = ref.watch(profileProvider).valueOrNull;
 
     final totalMinutes = asyncTimeEntries.maybeWhen(
       data: (entries) => entries.fold<int>(0, (sum, e) => sum + e.minutes),
@@ -30,12 +32,13 @@ class CalculateAmount extends ConsumerWidget {
       orElse: () => 0.0,
     );
     final totalHours = TimeUtils.toDecimalHours(totalMinutes); //분 > 소수점
+    final marginRate = user?.marginRate ?? 0.3;
 
     final pricing = PricingCalculator.calculate(
       hourlyRate: project.hourlyRate.toDouble(),
       hours: totalHours,
       expense: totalExpense,
-      marginRate: project.marginRate,
+      marginRate: marginRate,
     );
     return Container(
       width: double.infinity,
@@ -86,7 +89,7 @@ class CalculateAmount extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.margin((project.marginRate * 100).floor()),
+                AppLocalizations.of(context)!.margin((marginRate * 100).floor()),
                 style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(

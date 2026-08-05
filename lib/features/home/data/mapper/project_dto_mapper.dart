@@ -10,6 +10,5 @@ extension ProjectDtoMapper on ProjectDto {
     deadline: deadline,
     createdAt: createdAt,
     hourlyRate: hourlyRate,
-    marginRate: marginRate,
   );
 }

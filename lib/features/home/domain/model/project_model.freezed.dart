@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProjectModel {
 
- String? get id; String? get userId; String get title; ProjectStatus get status; DateTime? get deadline; DateTime? get createdAt; int get hourlyRate; double get marginRate;
+ String? get id; String? get userId; String get title; ProjectStatus get status; DateTime? get deadline; DateTime? get createdAt; int get hourlyRate;
 /// Create a copy of ProjectModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ProjectModelCopyWith<ProjectModel> get copyWith => _$ProjectModelCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProjectModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.status, status) || other.status == status)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.hourlyRate, hourlyRate) || other.hourlyRate == hourlyRate)&&(identical(other.marginRate, marginRate) || other.marginRate == marginRate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProjectModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.status, status) || other.status == status)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.hourlyRate, hourlyRate) || other.hourlyRate == hourlyRate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,status,deadline,createdAt,hourlyRate,marginRate);
+int get hashCode => Object.hash(runtimeType,id,userId,title,status,deadline,createdAt,hourlyRate);
 
 @override
 String toString() {
-  return 'ProjectModel(id: $id, userId: $userId, title: $title, status: $status, deadline: $deadline, createdAt: $createdAt, hourlyRate: $hourlyRate, marginRate: $marginRate)';
+  return 'ProjectModel(id: $id, userId: $userId, title: $title, status: $status, deadline: $deadline, createdAt: $createdAt, hourlyRate: $hourlyRate)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ProjectModelCopyWith<$Res>  {
   factory $ProjectModelCopyWith(ProjectModel value, $Res Function(ProjectModel) _then) = _$ProjectModelCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? userId, String title, ProjectStatus status, DateTime? deadline, DateTime? createdAt, int hourlyRate, double marginRate
+ String? id, String? userId, String title, ProjectStatus status, DateTime? deadline, DateTime? createdAt, int hourlyRate
 });
 
 
@@ -62,7 +62,7 @@ class _$ProjectModelCopyWithImpl<$Res>
 
 /// Create a copy of ProjectModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? userId = freezed,Object? title = null,Object? status = null,Object? deadline = freezed,Object? createdAt = freezed,Object? hourlyRate = null,Object? marginRate = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? userId = freezed,Object? title = null,Object? status = null,Object? deadline = freezed,Object? createdAt = freezed,Object? hourlyRate = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -71,8 +71,7 @@ as String,status: null == status ? _self.status : status // ignore: cast_nullabl
 as ProjectStatus,deadline: freezed == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
 as DateTime?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,hourlyRate: null == hourlyRate ? _self.hourlyRate : hourlyRate // ignore: cast_nullable_to_non_nullable
-as int,marginRate: null == marginRate ? _self.marginRate : marginRate // ignore: cast_nullable_to_non_nullable
-as double,
+as int,
   ));
 }
 
@@ -157,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? userId,  String title,  ProjectStatus status,  DateTime? deadline,  DateTime? createdAt,  int hourlyRate,  double marginRate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? userId,  String title,  ProjectStatus status,  DateTime? deadline,  DateTime? createdAt,  int hourlyRate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProjectModel() when $default != null:
-return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate,_that.marginRate);case _:
+return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate);case _:
   return orElse();
 
 }
@@ -178,10 +177,10 @@ return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? userId,  String title,  ProjectStatus status,  DateTime? deadline,  DateTime? createdAt,  int hourlyRate,  double marginRate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? userId,  String title,  ProjectStatus status,  DateTime? deadline,  DateTime? createdAt,  int hourlyRate)  $default,) {final _that = this;
 switch (_that) {
 case _ProjectModel():
-return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate,_that.marginRate);case _:
+return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +197,10 @@ return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? userId,  String title,  ProjectStatus status,  DateTime? deadline,  DateTime? createdAt,  int hourlyRate,  double marginRate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? userId,  String title,  ProjectStatus status,  DateTime? deadline,  DateTime? createdAt,  int hourlyRate)?  $default,) {final _that = this;
 switch (_that) {
 case _ProjectModel() when $default != null:
-return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate,_that.marginRate);case _:
+return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_that.createdAt,_that.hourlyRate);case _:
   return null;
 
 }
@@ -213,7 +212,7 @@ return $default(_that.id,_that.userId,_that.title,_that.status,_that.deadline,_t
 
 
 class _ProjectModel implements ProjectModel {
-  const _ProjectModel({this.id, this.userId, required this.title, this.status = ProjectStatus.inProgress, this.deadline, this.createdAt, this.hourlyRate = 0, this.marginRate = 0.3});
+  const _ProjectModel({this.id, this.userId, required this.title, this.status = ProjectStatus.inProgress, this.deadline, this.createdAt, this.hourlyRate = 0});
   
 
 @override final  String? id;
@@ -223,7 +222,6 @@ class _ProjectModel implements ProjectModel {
 @override final  DateTime? deadline;
 @override final  DateTime? createdAt;
 @override@JsonKey() final  int hourlyRate;
-@override@JsonKey() final  double marginRate;
 
 /// Create a copy of ProjectModel
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +233,16 @@ _$ProjectModelCopyWith<_ProjectModel> get copyWith => __$ProjectModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProjectModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.status, status) || other.status == status)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.hourlyRate, hourlyRate) || other.hourlyRate == hourlyRate)&&(identical(other.marginRate, marginRate) || other.marginRate == marginRate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProjectModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.status, status) || other.status == status)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.hourlyRate, hourlyRate) || other.hourlyRate == hourlyRate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,status,deadline,createdAt,hourlyRate,marginRate);
+int get hashCode => Object.hash(runtimeType,id,userId,title,status,deadline,createdAt,hourlyRate);
 
 @override
 String toString() {
-  return 'ProjectModel(id: $id, userId: $userId, title: $title, status: $status, deadline: $deadline, createdAt: $createdAt, hourlyRate: $hourlyRate, marginRate: $marginRate)';
+  return 'ProjectModel(id: $id, userId: $userId, title: $title, status: $status, deadline: $deadline, createdAt: $createdAt, hourlyRate: $hourlyRate)';
 }
 
 
@@ -255,7 +253,7 @@ abstract mixin class _$ProjectModelCopyWith<$Res> implements $ProjectModelCopyWi
   factory _$ProjectModelCopyWith(_ProjectModel value, $Res Function(_ProjectModel) _then) = __$ProjectModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? userId, String title, ProjectStatus status, DateTime? deadline, DateTime? createdAt, int hourlyRate, double marginRate
+ String? id, String? userId, String title, ProjectStatus status, DateTime? deadline, DateTime? createdAt, int hourlyRate
 });
 
 
@@ -272,7 +270,7 @@ class __$ProjectModelCopyWithImpl<$Res>
 
 /// Create a copy of ProjectModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? userId = freezed,Object? title = null,Object? status = null,Object? deadline = freezed,Object? createdAt = freezed,Object? hourlyRate = null,Object? marginRate = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? userId = freezed,Object? title = null,Object? status = null,Object? deadline = freezed,Object? createdAt = freezed,Object? hourlyRate = null,}) {
   return _then(_ProjectModel(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -281,8 +279,7 @@ as String,status: null == status ? _self.status : status // ignore: cast_nullabl
 as ProjectStatus,deadline: freezed == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
 as DateTime?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,hourlyRate: null == hourlyRate ? _self.hourlyRate : hourlyRate // ignore: cast_nullable_to_non_nullable
-as int,marginRate: null == marginRate ? _self.marginRate : marginRate // ignore: cast_nullable_to_non_nullable
-as double,
+as int,
   ));
 }
 
