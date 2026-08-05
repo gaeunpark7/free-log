@@ -74,28 +74,24 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
           padding: Responsive.screenPadding(context),
           child: Column(
             children: [
-              switch (asyncProfile) {
-                AsyncLoading() => Center(child: CircularProgressIndicator()),
-                AsyncError(:final error) => ErrorView(
-                  message: ErrorHandler.getMessage(context, error),
-                ),
-                AsyncData(:final value) => ProfileCard(user: value),
-                _ => SizedBox.shrink(),
-              },
+              if (asyncProfile.hasValue)
+                ProfileCard(user: asyncProfile.value)
+              else if (asyncProfile.hasError)
+                ErrorView(message: ErrorHandler.getMessage(context, asyncProfile.error!))
+              else
+                Center(child: CircularProgressIndicator()),
               SizedBox(height: 12),
-              switch (asyncProfile) {
-                AsyncLoading() => Center(child: CircularProgressIndicator()),
-                AsyncError(:final error) => ErrorView(
-                  message: ErrorHandler.getMessage(context, error),
-                ),
-                AsyncData(:final value) => SettingsCard(
-                  user: value,
+              if (asyncProfile.hasValue)
+                SettingsCard(
+                  user: asyncProfile.value,
                   onChanged: (value) {
                     ref.read(profileProvider.notifier).updateProfile(notifyDeadline: value);
                   },
-                ),
-                _ => SizedBox.shrink(),
-              },
+                )
+              else if (asyncProfile.hasError)
+                ErrorView(message: ErrorHandler.getMessage(context, asyncProfile.error!))
+              else
+                Center(child: CircularProgressIndicator()),
               SizedBox(height: 12),
               StatsCard(),
               SizedBox(height: 12),

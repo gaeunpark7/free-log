@@ -12,8 +12,11 @@ import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/screens/home_detail_screen.dart';
 import 'package:free_log/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/widgets.dart';
+import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
+import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/bottom_nav_bar.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
+import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -22,6 +25,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
   ref.listen(authStateProvider, (prev, next) {
     ref.invalidate(profileProvider);
+    ref.invalidate(projectNotifierProvider);
+    ref.invalidate(calendarNotifierProvider);
+    ref.invalidate(profileStatsProvider);
     refreshNotifier.value++;
   });
   ref.listen(profileProvider, (prev, next) {
@@ -32,7 +38,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: RoutePaths.login,
     refreshListenable: refreshNotifier,
     redirect: (context, state) {
-      final authStatus = ref.watch(authStateProvider).valueOrNull;
+      final authStatus = ref.read(authStateProvider).valueOrNull;
       final isLoggedIn = authStatus == AuthStatus.authenticated;
 
       final matchedLocation = state.matchedLocation;
@@ -41,7 +47,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           matchedLocation == RoutePaths.login || matchedLocation.startsWith('${RoutePaths.login}/');
       final isLoadingRoute = matchedLocation == RoutePaths.loading;
       final isProfileSettingRoute = matchedLocation == RoutePaths.profileSetting;
-      final asyncProfile = ref.watch(profileProvider);
+      final asyncProfile = ref.read(profileProvider);
       final nickname = asyncProfile.valueOrNull?.nickname?.trim();
       final hasNickname = nickname != null && nickname.isNotEmpty;
 
@@ -50,11 +56,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
       if (!isLoggedIn) return null;
 
-      // 로그인 직후 프로필 확인 중이거나, 프로필 저장 중이면 로딩 화면으로
-      if (asyncProfile.isLoading) {
+      // 처음 로그인 시 로딩화면
+      if (asyncProfile.isLoading && asyncProfile.valueOrNull == null) {
         return isLoadingRoute ? null : RoutePaths.loading;
       }
-
+      // 데이터 있는 상태에서 수정 중이면 현재 위치 유지2
+      // if (asyncProfile.isLoading && asyncProfile.valueOrNull != null) {
+      //   return null;
+      // }
       // 닉네임이 없으면 profile setting으로
       if (!hasNickname) {
         return isProfileSettingRoute ? null : RoutePaths.profileSetting;

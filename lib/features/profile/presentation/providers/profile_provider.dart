@@ -24,7 +24,7 @@ class ProfileNotifier extends AsyncNotifier<UserModel?> {
     double? marginRate,
     bool? notifyDeadline,
   }) async {
-    state = const AsyncLoading();
+    state = const AsyncLoading<UserModel?>().copyWithPrevious(state);
     state = await AsyncValue.guard(() async {
       await _repo.updateProfile(
         nickname: nickname,

@@ -35,20 +35,20 @@ class TimeEntryScreen extends ConsumerWidget {
       next.whenOrNull(error: (error, _) => ErrorHandler.showSnackBar(context, error));
     });
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        title: Text(
+          AppLocalizations.of(context)!.timeEntryTitle,
+          style: AppTextStyles.headline(context).copyWith(color: Colors.white),
+        ),
+      ),
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: AppContentlayout(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppBar(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                title: Text(
-                  AppLocalizations.of(context)!.timeEntryTitle,
-                  style: AppTextStyles.headline(context).copyWith(color: Colors.white),
-                ),
-              ),
               // 총 작업시간 카드
               Expanded(
                 child: Padding(
@@ -94,7 +94,7 @@ class TimeEntryScreen extends ConsumerWidget {
                                   ),
                                   Text(
                                     TimeUtils.format(totalMinutes),
-                                    style: AppTextStyles.headline(context).copyWith(
+                                    style: AppTextStyles.title(context).copyWith(
                                       color: totalMinutes == 0
                                           ? Colors.grey
                                           : AppColors.textPrimary,

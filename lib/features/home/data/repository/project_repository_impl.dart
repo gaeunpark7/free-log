@@ -38,6 +38,8 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
   @override
   Future<List<ProjectModel>> getProject() async {
     return execute(() async {
+      if (_supabase.auth.currentUser == null) return [];
+
       final response = await _supabase
           .from('project')
           .select()
@@ -49,6 +51,8 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
   @override
   Future<void> autoCompleteProjects() async {
     return execute(() async {
+      if (_supabase.auth.currentUser == null) return;
+
       final now = DateTime.now();
       final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String();
 

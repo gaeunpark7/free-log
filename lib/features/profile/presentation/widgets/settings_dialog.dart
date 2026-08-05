@@ -48,37 +48,39 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
         padding: Responsive.cardPadding(context),
         child: Form(
           key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTitle(context),
-              SizedBox(height: 12),
-              //기본 시급
-              Text(
-                AppLocalizations.of(context)!.defaultHourlyRate,
-                style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-              ),
-              SizedBox(height: 2),
-              HourlyRateField(
-                controller: _hourlyRateController,
-                hintText: AppLocalizations.of(context)!.hourlyRateHint,
-                errorText: AppLocalizations.of(context)!.hourlyRateError,
-                maxDigits: 8,
-              ),
-              SizedBox(height: 12),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildTitle(context),
+                SizedBox(height: 12),
+                //기본 시급
+                Text(
+                  AppLocalizations.of(context)!.defaultHourlyRate,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
+                SizedBox(height: 2),
+                HourlyRateField(
+                  controller: _hourlyRateController,
+                  hintText: AppLocalizations.of(context)!.hourlyRateHint,
+                  errorText: AppLocalizations.of(context)!.hourlyRateError,
+                  maxDigits: 8,
+                ),
+                SizedBox(height: 12),
 
-              //마진율
-              Text(
-                AppLocalizations.of(context)!.defaultMargin,
-                style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
-              ),
-              SizedBox(height: 2),
-              MarginRateField(controller: _marginController),
-              SizedBox(height: 12),
+                //마진율
+                Text(
+                  AppLocalizations.of(context)!.defaultMargin,
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                ),
+                SizedBox(height: 2),
+                MarginRateField(controller: _marginController),
+                SizedBox(height: 12),
 
-              _buildButton(),
-            ],
+                _buildButton(),
+              ],
+            ),
           ),
         ),
       ),

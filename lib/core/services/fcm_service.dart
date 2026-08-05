@@ -31,6 +31,21 @@ class FcmService {
     final userId = _supabase.auth.currentUser?.id;
     if (userId == null) return;
 
+    final response = await _supabase
+        .from('user')
+        .select('fcm_token, locale')
+        .eq('id', userId)
+        .single();
+
+    final currentToken = response['fcm_token'];
+    final currentLocale = response['locale'];
+
+    // 다를 때만 저장
+    if (currentToken == token && currentLocale == locale) {
+      debugPrint('FCM 토큰 동일: 저장 생략');
+      return;
+    }
+
     await _supabase.from('user').update({'fcm_token': token, 'locale': locale}).eq('id', userId);
 
     debugPrint('FCM 토큰 + locale 저장 완료: $locale');

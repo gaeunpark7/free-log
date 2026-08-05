@@ -65,3 +65,4 @@ build/
 firebase_options.dart
 google-services.json
 GoogleService-Info.plist
+problems-report.html
