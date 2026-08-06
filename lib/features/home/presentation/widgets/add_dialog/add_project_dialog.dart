@@ -10,7 +10,9 @@ import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_title_widget.dart';
+import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
 import 'package:free_log/l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class AddProjectDialog extends ConsumerStatefulWidget {
   const AddProjectDialog({super.key});
@@ -57,6 +59,7 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(profileProvider).valueOrNull;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(16)),
       backgroundColor: Colors.white,
@@ -87,7 +90,9 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                   HourlyRateField(
                     controller: _hourlyRateController,
                     icon: Icon(Icons.attach_money, size: 23),
-                    hintText: AppLocalizations.of(context)!.hourlyRateHint,
+                    hintText: user?.hourlyRate != null && user!.hourlyRate > 0
+                        ? NumberFormat('#,###').format(user.hourlyRate)
+                        : AppLocalizations.of(context)!.hourlyRateHint,
                     errorText: AppLocalizations.of(context)!.hourlyRateError,
                     maxDigits: 7,
                   ),

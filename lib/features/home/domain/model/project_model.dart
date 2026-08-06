@@ -13,6 +13,5 @@ abstract class ProjectModel with _$ProjectModel {
     DateTime? deadline,
     DateTime? createdAt,
     @Default(0) int hourlyRate,
-    @Default(0.3) double marginRate,
   }) = _ProjectModel;
 }

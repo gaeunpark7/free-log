@@ -29,7 +29,6 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
         deadline: project.deadline,
         createdAt: DateTime.now(),
         hourlyRate: project.hourlyRate,
-        marginRate: project.marginRate,
       ).toJson();
       return _supabase.from('project').insert(projectJson);
     }, errorCode: ErrorCode.saveFailed);
@@ -73,7 +72,6 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
           .update({
             'title': project.title,
             'hourly_rate': project.hourlyRate,
-            'margin_rate': project.marginRate,
             'deadline': project.deadline?.toIso8601String(),
             'status': project.status.value,
           })
