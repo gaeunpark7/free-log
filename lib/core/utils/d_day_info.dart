@@ -1,17 +1,13 @@
 enum DDayStatus { overdue, today, near, safe }
 
 class DDayInfo {
-  final int daysLeft;
-  final DDayStatus status;
-  final String label;
-
   DDayInfo._(this.daysLeft, this.status, this.label);
 
   factory DDayInfo.from(DateTime deadline) {
-    final today = DateTime.now();
-    final t = DateTime(today.year, today.month, today.day);
-    final d = DateTime(deadline.year, deadline.month, deadline.day);
-    final days = d.difference(t).inDays;
+    var today = DateTime.now();
+    var t = DateTime(today.year, today.month, today.day);
+    var d = DateTime(deadline.year, deadline.month, deadline.day);
+    var days = d.difference(t).inDays;
 
     if (days < 0) {
       return DDayInfo._(days, DDayStatus.overdue, 'D+${-days}');
@@ -23,4 +19,7 @@ class DDayInfo {
       return DDayInfo._(days, DDayStatus.safe, 'D-$days');
     }
   }
+  final int daysLeft;
+  final DDayStatus status;
+  final String label;
 }

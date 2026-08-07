@@ -34,8 +34,8 @@ class LoginScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.asset('assets/icon/freelog_icon.png', width: 90, height: 90),
+                borderRadius: BorderRadius.circular(18),
+                child: Image.asset('assets/icon/splash_icon2.png', width: 90, height: 90),
               ),
               SizedBox(height: 2),
               Text(
@@ -48,9 +48,7 @@ class LoginScreen extends ConsumerWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.loginSubTitle,
-                style: AppTextStyles.subTitleBold(
-                  context,
-                ).copyWith(color: Color(0xFFA89B89), fontStyle: FontStyle.italic),
+                style: AppTextStyles.subTitleBold(context).copyWith(color: Color(0xFFA89B89)),
               ),
 
               SizedBox(height: 50),

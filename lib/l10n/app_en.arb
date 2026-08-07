@@ -185,7 +185,24 @@
   "loginSubTitle":"Your freelance work log",
 
   "setNickname": "Set Nickname",
-"nicknameSubtitle": "You can change this anytime",
-"nicknameSpecialCharError": "Special characters are not allowed"
+  "nicknameSubtitle": "You can change this anytime",
+  "nicknameSpecialCharError": "Special characters are not allowed",
+
+  "deleteAccountConfirmQuestion": "Are you sure you want to delete your account?",
+  "deleteAccountConfirmSubtext": "Please make sure to read the details below.",
+  
+  "deletedDataSectionTitle": "Personal Information & Service Data to be Deleted",
+  "deletedDataSocialLoginInfo": "- Account identifiers linked with social login information",
+  "deletedDataProjectAndWorkHistory": "- All project and work records",
+  "deletedDataIncomeExpenseHistory": "- All project income and expense records",
+  "deletedDataStatsAndCalendarHistory": "- Statistics and calendar records",
+  
+  "deleteAccountNoticeTitle": "Notice",
+  "deleteAccountNoticeIrreversible": "- Deleted data cannot be recovered.",
+  "deleteAccountNoticeNoCancelAndSupport": "- Account deletion cannot be canceled once processed, and recovery requests through Customer Support are not supported.",
+  
+  "deleteAccountAgreementCheckbox": "I have read all the notice items and agree to delete my account.",
+  
+  "deleteAccountDialogMessage": "Upon deleting your account, all data will be erased and cannot be restored."
 
 }

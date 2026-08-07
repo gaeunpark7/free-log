@@ -502,4 +502,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nicknameSpecialCharError => 'Special characters are not allowed';
+
+  @override
+  String get deleteAccountConfirmQuestion =>
+      'Are you sure you want to delete your account?';
+
+  @override
+  String get deleteAccountConfirmSubtext =>
+      'Please make sure to read the details below.';
+
+  @override
+  String get deletedDataSectionTitle =>
+      'Personal Information & Service Data to be Deleted';
+
+  @override
+  String get deletedDataSocialLoginInfo =>
+      '- Account identifiers linked with social login information';
+
+  @override
+  String get deletedDataProjectAndWorkHistory =>
+      '- All project and work records';
+
+  @override
+  String get deletedDataIncomeExpenseHistory =>
+      '- All project income and expense records';
+
+  @override
+  String get deletedDataStatsAndCalendarHistory =>
+      '- Statistics and calendar records';
+
+  @override
+  String get deleteAccountNoticeTitle => 'Notice';
+
+  @override
+  String get deleteAccountNoticeIrreversible =>
+      '- Deleted data cannot be recovered.';
+
+  @override
+  String get deleteAccountNoticeNoCancelAndSupport =>
+      '- Account deletion cannot be canceled once processed, and recovery requests through Customer Support are not supported.';
+
+  @override
+  String get deleteAccountAgreementCheckbox =>
+      'I have read all the notice items and agree to delete my account.';
+
+  @override
+  String get deleteAccountDialogMessage =>
+      'Upon deleting your account, all data will be erased and cannot be restored.';
 }

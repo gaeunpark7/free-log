@@ -38,11 +38,11 @@ class TitleWidget extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.priceCalculator,
-                    style: AppTextStyles.headline(context).copyWith(color: Colors.white),
+                    style: AppTextStyles.title(context).copyWith(color: Colors.white),
                   ),
                   Text(
                     AppLocalizations.of(context)!.quickEstimate,
-                    style: AppTextStyles.subTitle(context).copyWith(color: Colors.white),
+                    style: AppTextStyles.body(context).copyWith(color: Colors.white),
                   ),
                 ],
               ),

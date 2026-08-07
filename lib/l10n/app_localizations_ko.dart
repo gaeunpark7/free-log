@@ -488,4 +488,41 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get nicknameSpecialCharError => '특수문자는 사용할 수 없어요';
+
+  @override
+  String get deleteAccountConfirmQuestion => '정말 탈퇴하시겠어요?';
+
+  @override
+  String get deleteAccountConfirmSubtext => '아래 내용을 꼭 확인해주세요';
+
+  @override
+  String get deletedDataSectionTitle => '삭제되는 개인정보 및 서비스 데이터';
+
+  @override
+  String get deletedDataSocialLoginInfo => '- 소셜 로그인 정보와 연동된 계정 식별 정보';
+
+  @override
+  String get deletedDataProjectAndWorkHistory => '- 모든 프로젝트 및 작업 기록';
+
+  @override
+  String get deletedDataIncomeExpenseHistory => '- 프로젝트 수입, 지출 기록 전체';
+
+  @override
+  String get deletedDataStatsAndCalendarHistory => '- 통계 및 캘린더 기록';
+
+  @override
+  String get deleteAccountNoticeTitle => '주의사항';
+
+  @override
+  String get deleteAccountNoticeIrreversible => '- 삭제 된 데이터는 복구가 불가능합니다.';
+
+  @override
+  String get deleteAccountNoticeNoCancelAndSupport =>
+      '- 탈퇴 처리 후에는 취소가 불가능하며, 고객센터를 통한 복구 요청도 지원되지 않습니다.';
+
+  @override
+  String get deleteAccountAgreementCheckbox => '유의사항을 모두 확인하였으며, 회원 탈퇴에 동의합니다.';
+
+  @override
+  String get deleteAccountDialogMessage => '탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.';
 }

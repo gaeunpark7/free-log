@@ -25,6 +25,14 @@ class AuthNotifier extends AsyncNotifier<void> {
     ref.read(kakaoLoadingProvider.notifier).state = false;
   }
 
+  Future<void> deleteAccount() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => ref.read(authRepositoryProvider).deleteAccount());
+    try {
+      await signOut();
+    } catch (_) {}
+  }
+
   Future<void> signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {

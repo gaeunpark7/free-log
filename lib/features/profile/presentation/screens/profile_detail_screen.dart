@@ -77,7 +77,11 @@ class ProfileDetailScreen extends StatelessWidget {
               ),
               child: _buildRow(
                 context,
-                () {},
+                () {
+                  context.push(
+                    '${RoutePaths.profile}/${RoutePaths.profileDetail}/${RoutePaths.deleteUser}',
+                  );
+                },
                 AppLocalizations.of(context)!.deleteAccount,
                 AppLocalizations.of(context)!.settingsDelete,
                 Icons.person_off_outlined,

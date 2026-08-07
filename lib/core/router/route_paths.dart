@@ -13,4 +13,5 @@ class RoutePaths {
   static const profile = '/profile';
   static const profileDetail = 'detail';
   static const privacy = 'privacy';
+  static const deleteUser = 'deleteUser';
 }
