@@ -151,7 +151,7 @@ class CardWidget extends StatelessWidget {
           title,
           style: isBold
               ? AppTextStyles.title(context).copyWith(color: Colors.white)
-              : AppTextStyles.subTitle(context).copyWith(color: Colors.white),
+              : AppTextStyles.subTitleBold(context).copyWith(color: Colors.white),
         ),
         Text(
           amount,
@@ -165,14 +165,14 @@ class CardWidget extends StatelessWidget {
 
   Padding _rowWidget(BuildContext context, String text, Widget field) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               const SizedBox(width: 10),
-              Text(text, style: AppTextStyles.title(context)),
+              Text(text, style: AppTextStyles.subTitleBold(context)),
             ],
           ),
           SizedBox(width: 160, child: field),

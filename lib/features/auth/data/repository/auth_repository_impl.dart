@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:free_log/core/error/app_exception.dart';
+import 'package:free_log/core/error/base_repository.dart';
 import 'package:free_log/core/error/error_code.dart';
 import 'package:free_log/features/auth/domain/model/auth_status.dart';
 import 'package:free_log/features/auth/domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
+class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   final SupabaseClient _supabase;
   final GoogleSignIn _googleSignIn;
 
@@ -51,23 +52,21 @@ class AuthRepositoryImpl implements AuthRepository {
   //카카오 로그인
   @override
   Future<void> signInWithKakao() async {
-    try {
+    return execute(() async {
       await _supabase.auth.signInWithOAuth(
         OAuthProvider.kakao,
         redirectTo: kIsWeb ? Uri.base.origin : 'com.freelog://login-callback/',
       );
-    } catch (e) {
-      throw AppException('카카오 로그인 실패: $e', code: ErrorCode.authError);
-    }
+    }, errorCode: ErrorCode.authError);
   }
 
   // 로그아웃
   @override
   Future<void> signOut() async {
-    if (!kIsWeb) {
-      await _googleSignIn.signOut();
-    }
-    await _supabase.auth.signOut();
+    return execute(() async {
+      if (!kIsWeb) await _googleSignIn.signOut();
+      await _supabase.auth.signOut();
+    }, errorCode: ErrorCode.unknownError);
   }
 
   // 인증 상태 스트림
@@ -76,5 +75,21 @@ class AuthRepositoryImpl implements AuthRepository {
     return _supabase.auth.onAuthStateChange.map(
       (data) => data.session != null ? AuthStatus.authenticated : AuthStatus.unauthenticated,
     );
+  }
+
+  //회원탈퇴
+  @override
+  Future<void> deleteAccount() async {
+    return execute(() async {
+      final userId = _supabase.auth.currentUser?.id;
+      if (userId == null) {
+        throw AppException('userId null', code: ErrorCode.authError);
+      }
+      //유저 데이터 삭제
+      await _supabase.rpc('delete_account');
+
+      //계정 삭제
+      // await _supabase.auth.admin.deleteUser(userId);
+    }, errorCode: ErrorCode.saveFailed);
   }
 }

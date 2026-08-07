@@ -4,5 +4,6 @@ abstract class AuthRepository {
   Future<void> signInWithGoogle();
   Future<void> signInWithKakao();
   Future<void> signOut();
+  Future<void> deleteAccount();
   Stream<AuthStatus> get authStateChanges;
 }

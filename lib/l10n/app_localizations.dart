@@ -1021,6 +1021,78 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'특수문자는 사용할 수 없어요'**
   String get nicknameSpecialCharError;
+
+  /// No description provided for @deleteAccountConfirmQuestion.
+  ///
+  /// In ko, this message translates to:
+  /// **'정말 탈퇴하시겠어요?'**
+  String get deleteAccountConfirmQuestion;
+
+  /// No description provided for @deleteAccountConfirmSubtext.
+  ///
+  /// In ko, this message translates to:
+  /// **'아래 내용을 꼭 확인해주세요'**
+  String get deleteAccountConfirmSubtext;
+
+  /// No description provided for @deletedDataSectionTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'삭제되는 개인정보 및 서비스 데이터'**
+  String get deletedDataSectionTitle;
+
+  /// No description provided for @deletedDataSocialLoginInfo.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 소셜 로그인 정보와 연동된 계정 식별 정보'**
+  String get deletedDataSocialLoginInfo;
+
+  /// No description provided for @deletedDataProjectAndWorkHistory.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 모든 프로젝트 및 작업 기록'**
+  String get deletedDataProjectAndWorkHistory;
+
+  /// No description provided for @deletedDataIncomeExpenseHistory.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 프로젝트 수입, 지출 기록 전체'**
+  String get deletedDataIncomeExpenseHistory;
+
+  /// No description provided for @deletedDataStatsAndCalendarHistory.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 통계 및 캘린더 기록'**
+  String get deletedDataStatsAndCalendarHistory;
+
+  /// No description provided for @deleteAccountNoticeTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'주의사항'**
+  String get deleteAccountNoticeTitle;
+
+  /// No description provided for @deleteAccountNoticeIrreversible.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 삭제 된 데이터는 복구가 불가능합니다.'**
+  String get deleteAccountNoticeIrreversible;
+
+  /// No description provided for @deleteAccountNoticeNoCancelAndSupport.
+  ///
+  /// In ko, this message translates to:
+  /// **'- 탈퇴 처리 후에는 취소가 불가능하며, 고객센터를 통한 복구 요청도 지원되지 않습니다.'**
+  String get deleteAccountNoticeNoCancelAndSupport;
+
+  /// No description provided for @deleteAccountAgreementCheckbox.
+  ///
+  /// In ko, this message translates to:
+  /// **'유의사항을 모두 확인하였으며, 회원 탈퇴에 동의합니다.'**
+  String get deleteAccountAgreementCheckbox;
+
+  /// No description provided for @deleteAccountDialogMessage.
+  ///
+  /// In ko, this message translates to:
+  /// **'탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.'**
+  String get deleteAccountDialogMessage;
 }
 
 class _AppLocalizationsDelegate

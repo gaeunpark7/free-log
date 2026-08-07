@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_data_model.dart';
 import 'package:table_calendar/table_calendar.dart';
