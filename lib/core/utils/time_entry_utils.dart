@@ -5,7 +5,15 @@ String formatWeekday(DateTime? dt, String locale) {
     const labels = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
     return labels[idx];
   }
-  const labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const labels = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
   return labels[idx];
 }
 

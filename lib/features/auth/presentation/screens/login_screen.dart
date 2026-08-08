@@ -35,10 +35,14 @@ class LoginScreen extends ConsumerWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(18),
-                child: Image.asset('assets/icon/splash_icon2.png', width: 90, height: 90),
+                child: Image.asset(
+                  'assets/icon/splash_icon2.png',
+                  width: 90,
+                  height: 90,
+                ),
               ),
-              SizedBox(height: 2),
-              Text(
+              const SizedBox(height: 2),
+              const Text(
                 'Freelog',
                 style: TextStyle(
                   fontSize: 32,
@@ -48,33 +52,39 @@ class LoginScreen extends ConsumerWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.loginSubTitle,
-                style: AppTextStyles.subTitleBold(context).copyWith(color: Color(0xFFA89B89)),
+                style: AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: const Color(0xFFA89B89)),
               ),
 
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               LoginButtonWidget(
-                color: Color(0xfff2f2f2),
+                color: const Color(0xfff2f2f2),
                 image: 'assets/icon/google_icon.png',
                 text: AppLocalizations.of(context)!.loginGoogle,
                 isLoading: googleLoading,
-                onPressed: () => ref.read(authNotifierProvider.notifier).signInWithGoogle(),
+                onPressed: () =>
+                    ref.read(authNotifierProvider.notifier).signInWithGoogle(),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               LoginButtonWidget(
-                color: Color(0xffFEE500),
+                color: const Color(0xffFEE500),
                 image: 'assets/icon/kakao_icon.png',
                 text: AppLocalizations.of(context)!.loginKakao,
                 isLoading: kakaoLoading,
-                onPressed: () => ref.read(authNotifierProvider.notifier).signInWithKakao(),
+                onPressed: () =>
+                    ref.read(authNotifierProvider.notifier).signInWithKakao(),
               ),
-              SizedBox(height: 2),
+              const SizedBox(height: 2),
               InkWell(
                 onTap: () {
                   context.push('${RoutePaths.login}/${RoutePaths.privacy}');
                 },
                 child: Text(
                   AppLocalizations.of(context)!.privacyPolicy,
-                  style: AppTextStyles.caption(context).copyWith(color: Colors.grey[700]),
+                  style: AppTextStyles.caption(
+                    context,
+                  ).copyWith(color: Colors.grey[700]),
                 ),
               ),
             ],

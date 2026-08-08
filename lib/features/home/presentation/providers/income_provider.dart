@@ -10,7 +10,9 @@ final incomeRepoProvider = Provider<IncomeRepository>(
   (ref) => IncomeRepositoryImpl(ref.watch(supabaseClientProvider)),
 );
 final incomeNotifierProvider =
-    AsyncNotifierProviderFamily<IncomeProvider, List<IncomeModel>, String>(IncomeProvider.new);
+    AsyncNotifierProviderFamily<IncomeProvider, List<IncomeModel>, String>(
+      IncomeProvider.new,
+    );
 
 class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
   IncomeRepository get _repo => ref.read(incomeRepoProvider);
@@ -20,7 +22,11 @@ class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
     return _repo.getIncome(arg);
   }
 
-  Future<void> addIncome(String description, int amount, DateTime receivedAt) async {
+  Future<void> addIncome(
+    String description,
+    int amount,
+    DateTime receivedAt,
+  ) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.addIncome(arg, description, amount, receivedAt);
@@ -29,7 +35,12 @@ class IncomeProvider extends FamilyAsyncNotifier<List<IncomeModel>, String> {
     });
   }
 
-  Future<void> updateIncome(String id, String description, int amount, DateTime receivedAt) async {
+  Future<void> updateIncome(
+    String id,
+    String description,
+    int amount,
+    DateTime receivedAt,
+  ) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateIncome(id, description, amount, receivedAt);

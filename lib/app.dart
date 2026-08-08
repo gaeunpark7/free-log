@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:free_log/core/router/app_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/services/fcm_service.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/di/auth_provider_setup.dart';
@@ -18,7 +18,8 @@ class FrelogApp extends ConsumerWidget {
       final prevStatus = prev?.valueOrNull;
       final nextStatus = next.valueOrNull;
       // 로그아웃 상태에서 로그인 상태로 실제로 전환될 때만 FCM 토큰 저장
-      if (nextStatus == AuthStatus.authenticated && prevStatus != AuthStatus.authenticated) {
+      if (nextStatus == AuthStatus.authenticated &&
+          prevStatus != AuthStatus.authenticated) {
         FcmService(Supabase.instance.client).initialize();
       }
     });
@@ -40,7 +41,7 @@ class FrelogApp extends ConsumerWidget {
         // 테마
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.light(
+          colorScheme: const ColorScheme.light(
             primary: AppColors.primary,
             onPrimary: Colors.white,
             surface: AppColors.background,

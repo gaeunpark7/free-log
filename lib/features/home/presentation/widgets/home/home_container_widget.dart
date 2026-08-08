@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_spacing.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
-import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/d_day_info.dart';
+import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/core/widgets/badge/d_day_badge.dart';
 import 'package:free_log/core/widgets/badge/status_badge.dart';
@@ -17,9 +17,13 @@ import 'package:free_log/features/home/presentation/widgets/home/edit_project_di
 import 'package:free_log/l10n/app_localizations.dart';
 
 class HomeContainerWidget extends ConsumerWidget {
+  const HomeContainerWidget({
+    super.key,
+    required this.project,
+    required this.status,
+  });
   final ProjectModel project;
   final ProjectStatus status;
-  const HomeContainerWidget({super.key, required this.project, required this.status});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +31,9 @@ class HomeContainerWidget extends ConsumerWidget {
     final totalHours = asyncEntries.whenOrNull(
       data: (entries) => entries.fold(0, (sum, e) => sum + e.minutes),
     );
-    final ddayInfo = project.deadline != null ? DDayInfo.from(project.deadline!) : null;
+    final ddayInfo = project.deadline != null
+        ? DDayInfo.from(project.deadline!)
+        : null;
 
     return Container(
       decoration: BoxDecoration(
@@ -49,7 +55,7 @@ class HomeContainerWidget extends ConsumerWidget {
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(color: AppColors.borderDefault),
+                    side: const BorderSide(color: AppColors.borderDefault),
                   ),
                   position: PopupMenuPosition.under,
                   onSelected: (value) {
@@ -67,11 +73,14 @@ class HomeContainerWidget extends ConsumerWidget {
                         ),
                       );
                     } else if (value == 'complete') {
-                      ref.read(projectNotifierProvider.notifier).completeProject(project.id!);
+                      ref
+                          .read(projectNotifierProvider.notifier)
+                          .completeProject(project.id!);
                     } else if (value == 'delete') {
                       showDialog(
                         context: context,
-                        builder: (ctx) => DeleteProjectDialog(projectId: project.id!),
+                        builder: (ctx) =>
+                            DeleteProjectDialog(projectId: project.id!),
                       );
                     }
                   },
@@ -80,14 +89,20 @@ class HomeContainerWidget extends ConsumerWidget {
                       value: 'edit',
                       child: Text(
                         AppLocalizations.of(context)!.editProject,
-                        style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     PopupMenuItem(
                       value: 'complete',
                       child: Text(
                         AppLocalizations.of(context)!.markAsCompleted,
-                        style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const PopupMenuDivider(color: AppColors.borderDefault),
@@ -95,34 +110,41 @@ class HomeContainerWidget extends ConsumerWidget {
                       value: 'delete',
                       child: Text(
                         AppLocalizations.of(context)!.deleteProject,
-                        style: TextStyle(color: AppColors.errorSoft, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          color: AppColors.errorSoft,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
-                  child: const Icon(Icons.more_vert_outlined, size: 18, color: Colors.grey),
+                  child: const Icon(
+                    Icons.more_vert_outlined,
+                    size: 18,
+                    color: Colors.grey,
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
                     const Icon(Icons.event, size: 13, color: Colors.grey),
-                    SizedBox(width: 2),
+                    const SizedBox(width: 2),
                     Text(
                       project.deadline != null
                           ? '${project.deadline!.month.toString()}/${project.deadline!.day.toString().padLeft(2, '0')}'
                           : 'no deadline',
-                      style: TextStyle(color: AppColors.textSecondary),
+                      style: const TextStyle(color: AppColors.textSecondary),
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     const Icon(Icons.access_time, size: 13, color: Colors.grey),
-                    SizedBox(width: 2),
+                    const SizedBox(width: 2),
                     Text(
                       TimeUtils.format(totalHours ?? 0),
-                      style: TextStyle(color: AppColors.textSecondary),
+                      style: const TextStyle(color: AppColors.textSecondary),
                     ),
                     // SizedBox(width: AppSpacing.sm),
                   ],
@@ -130,8 +152,9 @@ class HomeContainerWidget extends ConsumerWidget {
                 Row(
                   children: [
                     StatusBadge(status: status),
-                    if (status != ProjectStatus.completed && ddayInfo != null) ...[
-                      SizedBox(width: AppSpacing.sm),
+                    if (status != ProjectStatus.completed &&
+                        ddayInfo != null) ...[
+                      const SizedBox(width: AppSpacing.sm),
                       DDayBadge(info: ddayInfo),
                     ],
                   ],

@@ -13,8 +13,8 @@ import 'package:free_log/features/home/presentation/widgets/home_detail/todos/to
 import 'package:free_log/l10n/app_localizations.dart';
 
 class DetailTodosWidget extends ConsumerStatefulWidget {
-  final String projectId;
   const DetailTodosWidget({super.key, required this.projectId});
+  final String projectId;
 
   @override
   ConsumerState<DetailTodosWidget> createState() => _DetailTodosWidgetState();
@@ -82,8 +82,14 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                         labelStyle: AppTextStyles.subTitleBold(context),
                         unselectedLabelStyle: AppTextStyles.subTitle(context),
                         tabs: [
-                          Tab(text: AppLocalizations.of(context)!.todoTab(notDone)),
-                          Tab(text: AppLocalizations.of(context)!.doneTab(done)),
+                          Tab(
+                            text: AppLocalizations.of(
+                              context,
+                            )!.todoTab(notDone),
+                          ),
+                          Tab(
+                            text: AppLocalizations.of(context)!.doneTab(done),
+                          ),
                         ],
                       );
                     },
@@ -93,12 +99,18 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                     onTap: () => setState(() => _isAdding = !_isAdding),
                     child: Text(
                       AppLocalizations.of(context)!.addTodo,
-                      style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
+                      style: AppTextStyles.body(
+                        context,
+                      ).copyWith(color: AppColors.primary),
                     ),
                   ),
                 ],
               ),
-              Divider(height: 1, thickness: 1, color: const Color.fromARGB(255, 221, 221, 221)),
+              const Divider(
+                height: 1,
+                thickness: 1,
+                color: Color.fromARGB(255, 221, 221, 221),
+              ),
               //추가
               if (_isAdding) ...[
                 const SizedBox(height: 12),
@@ -106,7 +118,7 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                   controller: _contentController,
                   valieText: AppLocalizations.of(context)!.valieTodo,
                   hintText: AppLocalizations.of(context)!.todosHint,
-                  icon: Icon(Icons.edit_note, size: 23),
+                  icon: const Icon(Icons.edit_note, size: 23),
                   maxLenth: 15,
                 ),
                 const SizedBox(height: 12),
@@ -118,7 +130,11 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                     await ref
                         .read(todoNotifierProvider(widget.projectId).notifier)
                         .addTodo(_contentController.text);
-                    if (ref.read(todoNotifierProvider(widget.projectId)).hasError) return;
+                    if (ref
+                        .read(todoNotifierProvider(widget.projectId))
+                        .hasError) {
+                      return;
+                    }
                     _contentController.clear();
                     setState(() {
                       _isAdding = false;
@@ -130,14 +146,17 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
               //TodoList
               asyncTodos.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (e, _) => ErrorView(message: ErrorHandler.getMessage(context, e)),
+                error: (e, _) =>
+                    ErrorView(message: ErrorHandler.getMessage(context, e)),
                 data: (todos) {
                   final notDone = todos.where((e) => !e.isDone).toList();
                   final done = todos.where((e) => e.isDone).toList();
                   return AnimatedBuilder(
                     animation: tabController,
                     builder: (context, _) {
-                      final currentTodos = tabController.index == 0 ? notDone : done;
+                      final currentTodos = tabController.index == 0
+                          ? notDone
+                          : done;
 
                       return SizedBox(
                         height: _todoListHeight(currentTodos.length),
@@ -148,7 +167,9 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                               items: notDone,
                               onTap: (item) {
                                 //edit dialog
-                                final controller = TextEditingController(text: item.content);
+                                final controller = TextEditingController(
+                                  text: item.content,
+                                );
                                 showDialog(
                                   context: context,
                                   builder: (_) => EditTodoDialog(
@@ -161,7 +182,11 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                               onChanged: (item, value) async {
                                 if (item.id == null) return;
                                 await ref
-                                    .read(todoNotifierProvider(widget.projectId).notifier)
+                                    .read(
+                                      todoNotifierProvider(
+                                        widget.projectId,
+                                      ).notifier,
+                                    )
                                     .completedTodo(item.id!, value ?? false);
                               },
                             ),
@@ -172,7 +197,11 @@ class _DetailTodosWidgetState extends ConsumerState<DetailTodosWidget> {
                               onChanged: (item, value) async {
                                 if (item.id == null) return;
                                 await ref
-                                    .read(todoNotifierProvider(widget.projectId).notifier)
+                                    .read(
+                                      todoNotifierProvider(
+                                        widget.projectId,
+                                      ).notifier,
+                                    )
                                     .completedTodo(item.id!, value ?? false);
                               },
                             ),

@@ -6,10 +6,10 @@ import 'package:free_log/core/utils/date_utils.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/features/calendar/domain/model/calendar_data_model.dart';
 import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
-import 'package:free_log/features/calendar/presentation/widgets/detail/calendar_detail_widget.dart';
 import 'package:free_log/features/calendar/presentation/widgets/calendar/calendar_widget.dart';
 import 'package:free_log/features/calendar/presentation/widgets/calendar/legend_widget.dart';
 import 'package:free_log/features/calendar/presentation/widgets/calendar/summary_card_widget.dart';
+import 'package:free_log/features/calendar/presentation/widgets/detail/calendar_detail_widget.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
   const CalendarScreen({super.key});
@@ -36,7 +36,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
   void _changeMonth(DateTime day) {
     setState(() => _focusedDay = day);
-    ref.read(calendarNotifierProvider.notifier).changeMonth(day.year, day.month);
+    ref
+        .read(calendarNotifierProvider.notifier)
+        .changeMonth(day.year, day.month);
   }
 
   void _showDayDetail(DateTime day) {
@@ -70,7 +72,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           child: Column(
             children: [
               _buildSummaryCard(asyncCalendar),
-              SizedBox(height: 1),
+              const SizedBox(height: 1),
               CalendarWidget(
                 focusedDay: _focusedDay,
                 selectedDay: _selectedDay ?? DateTime.now(),
@@ -78,8 +80,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 onDaySelected: _showDayDetail,
                 calendarData: asyncCalendar.valueOrNull ?? {},
               ),
-              SizedBox(height: 8),
-              LegendWidget(),
+              const SizedBox(height: 8),
+              const LegendWidget(),
             ],
           ),
         ),
@@ -87,10 +89,16 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Widget _buildSummaryCard(AsyncValue<Map<DateTime, CalendarDataModel>> asyncCalendar) {
+  Widget _buildSummaryCard(
+    AsyncValue<Map<DateTime, CalendarDataModel>> asyncCalendar,
+  ) {
     return switch (asyncCalendar) {
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
-      AsyncError() => const SummaryCardWidget(totalHours: 0, totalIncome: 0, totalExpense: 0),
+      AsyncError() => const SummaryCardWidget(
+        totalHours: 0,
+        totalIncome: 0,
+        totalExpense: 0,
+      ),
       AsyncData(:final value) => SummaryCardWidget(
         totalHours: value.totalMinutes,
         totalIncome: value.totalIncome,
@@ -110,15 +118,18 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             children: [
               IconButton(
                 onPressed: _prevMonth,
-                icon: Icon(Icons.chevron_left, color: Colors.white),
+                icon: const Icon(Icons.chevron_left, color: Colors.white),
               ),
               Text(
                 FrelogDateUtils.formatYearMonth(context, _focusedDay),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               IconButton(
                 onPressed: _nextMonth,
-                icon: Icon(Icons.chevron_right, color: Colors.white),
+                icon: const Icon(Icons.chevron_right, color: Colors.white),
               ),
             ],
           ),

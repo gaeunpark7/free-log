@@ -17,7 +17,11 @@ class LoadingScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/icon/splash_icon2.png', width: 90, height: 90),
+              Image.asset(
+                'assets/icon/splash_icon2.png',
+                width: 90,
+                height: 90,
+              ),
               const SizedBox(height: 2),
               const Text(
                 'Freelog',
@@ -29,7 +33,9 @@ class LoadingScreen extends StatelessWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.loginSubTitle,
-                style: AppTextStyles.subTitleBold(context).copyWith(color: const Color(0xFFA89B89)),
+                style: AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: const Color(0xFFA89B89)),
               ),
 
               const SizedBox(height: 12),
@@ -38,7 +44,9 @@ class LoadingScreen extends StatelessWidget {
                 child: LinearProgressIndicator(
                   minHeight: 12,
                   backgroundColor: AppColors.primary,
-                  valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primarySoft),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppColors.primarySoft,
+                  ),
                   borderRadius: BorderRadius.circular(999),
                 ),
               ),

@@ -5,15 +5,15 @@ import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 
 class TimeEntryListView extends StatelessWidget {
-  final TimeEntryModel entry;
-  final String Function(DateTime?) weekdayLabel;
-  final String Function(double) formatHours;
   const TimeEntryListView({
     super.key,
     required this.entry,
     required this.weekdayLabel,
     required this.formatHours,
   });
+  final TimeEntryModel entry;
+  final String Function(DateTime?) weekdayLabel;
+  final String Function(double) formatHours;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class TimeEntryListView extends StatelessWidget {
                   color: const Color.fromARGB(255, 230, 237, 248),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(Icons.schedule, color: AppColors.primary),
+                child: const Icon(Icons.schedule, color: AppColors.primary),
               ),
               const SizedBox(width: 12),
               Column(
@@ -49,14 +49,20 @@ class TimeEntryListView extends StatelessWidget {
                     '${entry.workedAt?.toLocal().day.toString().padLeft(2, '0')}',
                     style: AppTextStyles.bodyBold(context),
                   ),
-                  Text(weekdayLabel(entry.workedAt), style: AppTextStyles.caption(context)),
+                  Text(
+                    weekdayLabel(entry.workedAt),
+                    style: AppTextStyles.caption(context),
+                  ),
                 ],
               ),
             ],
           ),
           Row(
             children: [
-              Text(TimeUtils.format(entry.minutes), style: AppTextStyles.subTitle(context)),
+              Text(
+                TimeUtils.format(entry.minutes),
+                style: AppTextStyles.subTitle(context),
+              ),
               const SizedBox(width: 5),
               const Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
             ],

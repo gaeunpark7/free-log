@@ -6,9 +6,8 @@ import 'package:free_log/features/home/presentation/widgets/home_detail/expense/
 import 'package:intl/intl.dart';
 
 class ExpenseListView extends StatelessWidget {
-  final List<ExpenseModel> expense;
-
   const ExpenseListView({super.key, required this.expense});
+  final List<ExpenseModel> expense;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,10 @@ class ExpenseListView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(expense[index].description, style: AppTextStyles.subTitle(context)),
+                        Text(
+                          expense[index].description,
+                          style: AppTextStyles.subTitle(context),
+                        ),
                         Text(
                           '${expense[index].spentAt.toLocal().year}.'
                           '${expense[index].spentAt.toLocal().month.toString().padLeft(2, '0')}.'
@@ -54,7 +56,7 @@ class ExpenseListView extends StatelessWidget {
                   ],
                 ),
               ),
-              Divider(thickness: 0.5, color: AppColors.textTertiary),
+              const Divider(thickness: 0.5, color: AppColors.textTertiary),
             ],
           ),
         );

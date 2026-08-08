@@ -17,7 +17,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
         title: Text(
           AppLocalizations.of(context)!.privacyPolicy,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Padding(
@@ -40,143 +43,242 @@ class PrivacyPolicyScreen extends StatelessWidget {
                       //1
                       _buildTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyCollectingInfo,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyCollectingInfo,
                       ),
-                      _buildSubTitle(context, AppLocalizations.of(context)!.privacyPolicyLoginInfo),
-                      _buildBody(
+                      _buildSubTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicySocialLoginInfo,
-                      ),
-                      _buildBody(
-                        context,
-                        AppLocalizations.of(context)!.privacyPolicyGoogleLoginInfo,
+                        AppLocalizations.of(context)!.privacyPolicyLoginInfo,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyKakaoLoginInfo,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicySocialLoginInfo,
                       ),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyNicknameInfo),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyGoogleLoginInfo,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyKakaoLoginInfo,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyNicknameInfo,
+                      ),
                       const SizedBox(height: 10),
                       _buildSubTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyServiceUsageInfo,
-                      ),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyProjectInfo),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyTodoTimeInfo),
-                      _buildBody(
-                        context,
-                        AppLocalizations.of(context)!.privacyPolicyIncomeExpenseInfo,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyServiceUsageInfo,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyCalendarStatsInfo,
+                        AppLocalizations.of(context)!.privacyPolicyProjectInfo,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyDefaultSettingsInfo,
+                        AppLocalizations.of(context)!.privacyPolicyTodoTimeInfo,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyIncomeExpenseInfo,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyCalendarStatsInfo,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyDefaultSettingsInfo,
                       ),
                       const SizedBox(height: 10),
-                      _buildSubTitle(context, AppLocalizations.of(context)!.privacyPolicyAdInfo),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyAdInfoDetail),
+                      _buildSubTitle(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyAdInfo,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyAdInfoDetail,
+                      ),
                       // SizedBox(height: 10),
                       const Divider(color: AppColors.borderDefault),
                       //2
-                      _buildTitle(context, AppLocalizations.of(context)!.privacyPolicyPurposeTitle),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyPurposeIntro),
-                      _buildBody(
+                      _buildTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyPurposeIdentity,
+                        AppLocalizations.of(context)!.privacyPolicyPurposeTitle,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyPurposeManagement,
+                        AppLocalizations.of(context)!.privacyPolicyPurposeIntro,
                       ),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyPurposeSync),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyPurposeAds),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyPurposeIdentity,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyPurposeManagement,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyPurposeSync,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyPurposeAds,
+                      ),
                       const Divider(color: AppColors.borderDefault),
 
                       //3
-                      _buildTitle(context, AppLocalizations.of(context)!.privacyPolicyStorageTitle),
-                      _buildBody(
+                      _buildTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyStorageSupabase,
+                        AppLocalizations.of(context)!.privacyPolicyStorageTitle,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyStoragePurpose,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyStorageSupabase,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyStoragePurpose,
                       ),
                       const Divider(color: AppColors.borderDefault),
 
                       //4
                       _buildTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyRetentionTitle,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyRetentionTitle,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyRetentionDelete,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyRetentionDelete,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyRetentionLegal,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyRetentionLegal,
                       ),
                       const Divider(color: AppColors.borderDefault),
 
                       //5
                       _buildTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyThirdPartyTitle,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyThirdPartyTitle,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyThirdPartyNoShare,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyThirdPartyNoShare,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyThirdPartyAdmob,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyThirdPartyAdmob,
                       ),
                       const Divider(color: AppColors.borderDefault),
 
                       //6
-                      _buildTitle(context, AppLocalizations.of(context)!.privacyPolicyEntrustTitle),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyEntrustIntro),
-                      _buildBody(
+                      _buildTitle(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyEntrustSupabase,
+                        AppLocalizations.of(context)!.privacyPolicyEntrustTitle,
                       ),
                       _buildBody(
                         context,
-                        AppLocalizations.of(context)!.privacyPolicyEntrustGoogleKakao,
+                        AppLocalizations.of(context)!.privacyPolicyEntrustIntro,
                       ),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyEntrustAdmob),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyEntrustSupabase,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(
+                          context,
+                        )!.privacyPolicyEntrustGoogleKakao,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyEntrustAdmob,
+                      ),
                       const Divider(color: AppColors.borderDefault),
 
                       //7
-                      _buildTitle(context, AppLocalizations.of(context)!.privacyPolicyRightsTitle),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyRightsDesc),
+                      _buildTitle(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyRightsTitle,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyRightsDesc,
+                      ),
                       const Divider(color: AppColors.borderDefault),
 
                       //8
-                      _buildTitle(context, AppLocalizations.of(context)!.privacyPolicyInquiryTitle),
-                      _buildBody(context, AppLocalizations.of(context)!.privacyPolicyInquiryDesc),
+                      _buildTitle(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyInquiryTitle,
+                      ),
+                      _buildBody(
+                        context,
+                        AppLocalizations.of(context)!.privacyPolicyInquiryDesc,
+                      ),
                       Row(
                         children: [
                           _buildBody(
                             context,
-                            AppLocalizations.of(context)!.privacyPolicyEmailLabel,
+                            AppLocalizations.of(
+                              context,
+                            )!.privacyPolicyEmailLabel,
                           ),
                           InkWell(
                             onTap: () async {
                               final uri = Uri.parse(
                                 'https://mail.google.com/mail/u/0/?fs=1&to=gaeunpark736@gmail.com&tf=cm',
                               );
-                              await launchUrl(uri, mode: LaunchMode.externalApplication);
+                              await launchUrl(
+                                uri,
+                                mode: LaunchMode.externalApplication,
+                              );
                             },
                             child: Text(
                               'agdeveloper736@gmail.com',
-                              style: AppTextStyles.caption(
-                                context,
-                              ).copyWith(color: Color.fromARGB(255, 59, 6, 92)),
+                              style: AppTextStyles.caption(context).copyWith(
+                                color: const Color.fromARGB(255, 59, 6, 92),
+                              ),
                             ),
                           ),
                         ],
@@ -194,8 +296,16 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
   Text _buildTitle(BuildContext context, String text) =>
       Text(text, style: AppTextStyles.bodyBold(context));
-  Text _buildSubTitle(BuildContext context, String text) =>
-      Text(text, style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary));
-  Text _buildBody(BuildContext context, String text) =>
-      Text(text, style: AppTextStyles.caption(context).copyWith(color: AppColors.textPrimary));
+  Text _buildSubTitle(BuildContext context, String text) => Text(
+    text,
+    style: AppTextStyles.captionBold(
+      context,
+    ).copyWith(color: AppColors.textPrimary),
+  );
+  Text _buildBody(BuildContext context, String text) => Text(
+    text,
+    style: AppTextStyles.caption(
+      context,
+    ).copyWith(color: AppColors.textPrimary),
+  );
 }

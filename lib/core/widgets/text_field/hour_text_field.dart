@@ -4,11 +4,17 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/widgets/hour_input_formatter.dart';
 
 class HourTextField extends StatelessWidget {
+  const HourTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    this.icon,
+  });
+
   final TextEditingController controller;
   final String hintText;
   final Icon? icon;
   // final List<TextInputFormatter>? inputFormatters;
-  const HourTextField({super.key, required this.controller, required this.hintText, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +33,28 @@ class HourTextField extends StatelessWidget {
       decoration: InputDecoration(
         counterText: '',
         hintText: hintText,
-        hintStyle: TextStyle(color: AppColors.textTertiary),
-        suffixStyle: TextStyle(color: AppColors.textTertiary),
+        hintStyle: const TextStyle(color: AppColors.textTertiary),
+        suffixStyle: const TextStyle(color: AppColors.textTertiary),
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 10,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.borderDefault),
+          borderSide: const BorderSide(color: AppColors.borderDefault),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.borderDefault),
+          borderSide: const BorderSide(color: AppColors.borderDefault),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.errorSoft, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.errorSoft, width: 1.5),
         ),
         filled: true,
         fillColor: AppColors.background,

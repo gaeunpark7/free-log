@@ -3,11 +3,6 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 
 class SectionHeader extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String rightText;
-  final Color color;
-
   const SectionHeader({
     super.key,
     required this.icon,
@@ -15,6 +10,10 @@ class SectionHeader extends StatelessWidget {
     required this.rightText,
     required this.color,
   });
+  final IconData icon;
+  final String label;
+  final String rightText;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,9 @@ class SectionHeader extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           label,
-          style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+          style: AppTextStyles.captionBold(
+            context,
+          ).copyWith(color: AppColors.textPrimary),
         ),
         const Spacer(),
         Text(

@@ -18,9 +18,13 @@ class DeleteUserTitle extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             color: AppColors.errorBg,
           ),
-          child: Icon(Icons.warning, color: AppColors.errorSoft, size: 35),
+          child: const Icon(
+            Icons.warning,
+            color: AppColors.errorSoft,
+            size: 35,
+          ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Text(
           AppLocalizations.of(context)!.deleteAccountConfirmQuestion,
           style: AppTextStyles.title(context),
@@ -30,7 +34,9 @@ class DeleteUserTitle extends StatelessWidget {
         ),
         Text(
           AppLocalizations.of(context)!.deleteAccountConfirmSubtext,
-          style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textTertiary),
+          style: AppTextStyles.captionBold(
+            context,
+          ).copyWith(color: AppColors.textTertiary),
         ),
       ],
     );

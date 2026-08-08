@@ -4,15 +4,15 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/core/widgets/button/app_filled_button.dart';
 import 'package:free_log/core/widgets/text_field/app_text_field.dart';
-import 'package:free_log/l10n/app_localizations.dart';
 import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
-import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
+import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
+import 'package:free_log/l10n/app_localizations.dart';
 
 class EditProjectDialog extends ConsumerStatefulWidget {
-  final ProjectModel project;
   const EditProjectDialog({super.key, required this.project});
+  final ProjectModel project;
 
   @override
   ConsumerState<EditProjectDialog> createState() => _EditProjectDialogState();
@@ -29,7 +29,9 @@ class _EditProjectDialogState extends ConsumerState<EditProjectDialog> {
     super.initState();
     _titleController = TextEditingController(text: widget.project.title);
     _hourlyRateController = TextEditingController(
-      text: widget.project.hourlyRate == 0 ? '' : widget.project.hourlyRate.toString(),
+      text: widget.project.hourlyRate == 0
+          ? ''
+          : widget.project.hourlyRate.toString(),
     );
     _selectedDeadline = widget.project.deadline;
   }
@@ -42,7 +44,8 @@ class _EditProjectDialogState extends ConsumerState<EditProjectDialog> {
   }
 
   Future<void> _save() async {
-    final hourlyRate = int.tryParse(_hourlyRateController.text.replaceAll(',', '')) ?? 0;
+    final hourlyRate =
+        int.tryParse(_hourlyRateController.text.replaceAll(',', '')) ?? 0;
     final noChange =
         _titleController.text.trim() == widget.project.title &&
         hourlyRate == widget.project.hourlyRate &&
@@ -91,9 +94,12 @@ class _EditProjectDialogState extends ConsumerState<EditProjectDialog> {
                           color: const Color.fromARGB(255, 230, 237, 248),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Icon(Icons.edit_document, color: AppColors.primary),
+                        child: const Icon(
+                          Icons.edit_document,
+                          color: AppColors.primary,
+                        ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         AppLocalizations.of(context)!.editProject,
                         style: AppTextStyles.title(context),
@@ -143,7 +149,8 @@ class _EditProjectDialogState extends ConsumerState<EditProjectDialog> {
                   const SizedBox(height: 6),
                   DatePickerField(
                     selectedDate: _selectedDeadline ?? DateTime.now(),
-                    onDateChanged: (date) => setState(() => _selectedDeadline = date),
+                    onDateChanged: (date) =>
+                        setState(() => _selectedDeadline = date),
                   ),
                   const SizedBox(height: 20),
                   Row(

@@ -13,9 +13,8 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarDetailWidget extends ConsumerWidget {
-  final DateTime day;
-
   const CalendarDetailWidget({super.key, required this.day});
+  final DateTime day;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,7 +36,7 @@ class CalendarDetailWidget extends ConsumerWidget {
             _buildHandle(),
             const SizedBox(height: 8),
             _buildTitle(context),
-            Divider(color: AppColors.borderDefault),
+            const Divider(color: AppColors.borderDefault),
             if (!hasData)
               Center(
                 child: Padding(
@@ -49,13 +48,16 @@ class CalendarDetailWidget extends ConsumerWidget {
                 ),
               )
             else ...[
-              if (dayData.timeEntries.isNotEmpty) _buildWorkSection(context, dayData.timeEntries),
+              if (dayData.timeEntries.isNotEmpty)
+                _buildWorkSection(context, dayData.timeEntries),
               if (dayData.incomes.isNotEmpty) ...[
-                if (dayData.timeEntries.isNotEmpty) const Divider(color: AppColors.borderDefault),
+                if (dayData.timeEntries.isNotEmpty)
+                  const Divider(color: AppColors.borderDefault),
                 _buildIncomeSection(context, dayData.incomes),
               ],
               if (dayData.expenses.isNotEmpty) ...[
-                if (dayData.timeEntries.isNotEmpty || dayData.incomes.isNotEmpty)
+                if (dayData.timeEntries.isNotEmpty ||
+                    dayData.incomes.isNotEmpty)
                   const Divider(color: AppColors.borderDefault),
                 _buildExpenseSection(context, dayData.expenses),
               ],
@@ -89,13 +91,17 @@ class CalendarDetailWidget extends ConsumerWidget {
         children: [
           Text(
             FrelogDateUtils.formatMonthDay(context, day),
-            style: AppTextStyles.title(context).copyWith(color: AppColors.textPrimary),
+            style: AppTextStyles.title(
+              context,
+            ).copyWith(color: AppColors.textPrimary),
           ),
           const SizedBox(width: 8),
           if (isSameDay(day, DateTime.now()))
             Text(
               AppLocalizations.of(context)!.today,
-              style: AppTextStyles.caption(context).copyWith(color: AppColors.primary),
+              style: AppTextStyles.caption(
+                context,
+              ).copyWith(color: AppColors.primary),
             ),
         ],
       ),
@@ -103,10 +109,13 @@ class CalendarDetailWidget extends ConsumerWidget {
   }
 
   //작업 섹션
-  Widget _buildWorkSection(BuildContext context, List<TimeEntryDetail> entries) {
+  Widget _buildWorkSection(
+    BuildContext context,
+    List<TimeEntryDetail> entries,
+  ) {
     final totalMiniutes = entries.fold(0, (sum, e) => sum + e.totalMinutes);
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -127,7 +136,7 @@ class CalendarDetailWidget extends ConsumerWidget {
   Widget _buildIncomeSection(BuildContext context, List<IncomeDetail> incomes) {
     final total = incomes.fold(0, (sum, i) => sum + i.amount);
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -152,10 +161,13 @@ class CalendarDetailWidget extends ConsumerWidget {
   }
 
   //지출 섹션
-  Widget _buildExpenseSection(BuildContext context, List<ExpenseDetail> expenses) {
+  Widget _buildExpenseSection(
+    BuildContext context,
+    List<ExpenseDetail> expenses,
+  ) {
     final total = expenses.fold(0, (sum, e) => sum + e.amount);
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(vertical: 8, horizontal: 20),
+      padding: const EdgeInsetsGeometry.symmetric(vertical: 8, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -184,8 +196,11 @@ class CalendarDetailWidget extends ConsumerWidget {
     return Row(
       children: [
         Text(entry.projectName, style: AppTextStyles.bodyBold(context)),
-        Spacer(),
-        Text(TimeUtils.format(entry.totalMinutes), style: AppTextStyles.subTitleBold(context)),
+        const Spacer(),
+        Text(
+          TimeUtils.format(entry.totalMinutes),
+          style: AppTextStyles.subTitleBold(context),
+        ),
       ],
     );
   }

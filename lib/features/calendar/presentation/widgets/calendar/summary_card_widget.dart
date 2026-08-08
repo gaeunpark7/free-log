@@ -5,15 +5,15 @@ import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
 class SummaryCardWidget extends StatelessWidget {
-  final int totalHours;
-  final int totalIncome;
-  final int totalExpense;
   const SummaryCardWidget({
     super.key,
     required this.totalHours,
     required this.totalIncome,
     required this.totalExpense,
   });
+  final int totalHours;
+  final int totalIncome;
+  final int totalExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,12 @@ class SummaryCardWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryItem(BuildContext context, String value, String label, Color color) {
+  Widget _buildSummaryItem(
+    BuildContext context,
+    String value,
+    String label,
+    Color color,
+  ) {
     return Column(
       children: [
         FittedBox(
@@ -63,13 +68,14 @@ class SummaryCardWidget extends StatelessWidget {
             ).copyWith(color: color, overflow: TextOverflow.ellipsis),
           ),
         ),
-        SizedBox(height: 2),
+        const SizedBox(height: 2),
         Text(label, style: AppTextStyles.caption(context)),
       ],
     );
   }
 
-  Widget _buildDivider() => Container(height: 40, width: 1, color: AppColors.borderDefault);
+  Widget _buildDivider() =>
+      Container(height: 40, width: 1, color: AppColors.borderDefault);
 }
 
 String _formatShort(int amount) {

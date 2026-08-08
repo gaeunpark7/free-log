@@ -11,8 +11,8 @@ import 'package:free_log/features/profile/presentation/providers/profile_provide
 import 'package:free_log/l10n/app_localizations.dart';
 
 class SettingsDialog extends ConsumerStatefulWidget {
-  final UserModel user;
   const SettingsDialog({super.key, required this.user});
+  final UserModel user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SettingsDialogState();
@@ -26,7 +26,9 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
   @override
   void initState() {
     super.initState();
-    _hourlyRateController = TextEditingController(text: widget.user.hourlyRate.toString());
+    _hourlyRateController = TextEditingController(
+      text: widget.user.hourlyRate.toString(),
+    );
     _marginController = TextEditingController(
       text: (widget.user.marginRate * 100).toInt().toString(),
     );
@@ -54,29 +56,33 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildTitle(context),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 //기본 시급
                 Text(
                   AppLocalizations.of(context)!.defaultHourlyRate,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(
+                    context,
+                  ).copyWith(color: AppColors.textPrimary),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 HourlyRateField(
                   controller: _hourlyRateController,
                   hintText: AppLocalizations.of(context)!.hourlyRateHint,
                   errorText: AppLocalizations.of(context)!.hourlyRateError,
                   maxDigits: 8,
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
 
                 //마진율
                 Text(
                   AppLocalizations.of(context)!.defaultMargin,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(
+                    context,
+                  ).copyWith(color: AppColors.textPrimary),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 MarginRateField(controller: _marginController),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
 
                 _buildButton(),
               ],
@@ -98,12 +104,17 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
             },
           ),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Expanded(
           child: AppFilledButton(
             onPressed: () {
-              final hourlyRate = int.tryParse(_hourlyRateController.text.replaceAll(',', '')) ?? 0;
-              final marginRatePercent = int.tryParse(_marginController.text.trim()) ?? 30;
+              final hourlyRate =
+                  int.tryParse(
+                    _hourlyRateController.text.replaceAll(',', ''),
+                  ) ??
+                  0;
+              final marginRatePercent =
+                  int.tryParse(_marginController.text.trim()) ?? 30;
               final noChange =
                   hourlyRate == widget.user.hourlyRate &&
                   marginRatePercent == (widget.user.marginRate * 100).toInt();
@@ -116,7 +127,10 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
               if (!_formKey.currentState!.validate()) return;
               ref
                   .read(profileProvider.notifier)
-                  .updateProfile(hourlyRate: hourlyRate, marginRate: marginRate);
+                  .updateProfile(
+                    hourlyRate: hourlyRate,
+                    marginRate: marginRate,
+                  );
               Navigator.pop(context);
             },
             text: AppLocalizations.of(context)!.save,
@@ -136,9 +150,9 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
             color: AppColors.primarySoft,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(Icons.settings_outlined, color: AppColors.primary),
+          child: const Icon(Icons.settings_outlined, color: AppColors.primary),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text(
           AppLocalizations.of(context)!.editSettings,
           style: AppTextStyles.subTitleBold(context),

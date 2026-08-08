@@ -11,11 +11,23 @@ class LegendWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildRow(context, AppColors.primaryDark, AppLocalizations.of(context)!.timeEntryTitle),
-        SizedBox(width: 10),
-        _buildRow(context, AppColors.success, AppLocalizations.of(context)!.revenue),
-        SizedBox(width: 10),
-        _buildRow(context, AppColors.error, AppLocalizations.of(context)!.expenses),
+        _buildRow(
+          context,
+          AppColors.primaryDark,
+          AppLocalizations.of(context)!.timeEntryTitle,
+        ),
+        const SizedBox(width: 10),
+        _buildRow(
+          context,
+          AppColors.success,
+          AppLocalizations.of(context)!.revenue,
+        ),
+        const SizedBox(width: 10),
+        _buildRow(
+          context,
+          AppColors.error,
+          AppLocalizations.of(context)!.expenses,
+        ),
       ],
     );
   }
@@ -23,7 +35,7 @@ class LegendWidget extends StatelessWidget {
   Widget _buildRow(BuildContext context, Color color, String text) => Row(
     children: [
       CircleAvatar(backgroundColor: color, radius: 5),
-      SizedBox(width: 5),
+      const SizedBox(width: 5),
       Text(text, style: AppTextStyles.caption(context).copyWith(color: color)),
     ],
   );

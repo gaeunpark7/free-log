@@ -32,7 +32,10 @@ class _DeleteUserScreenState extends State<DeleteUserScreen> {
         foregroundColor: Colors.white,
         title: Text(
           AppLocalizations.of(context)!.deleteAccount,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: AppColors.primary,
       ),
@@ -42,12 +45,12 @@ class _DeleteUserScreenState extends State<DeleteUserScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              DeleteUserTitle(),
-              SizedBox(height: 12),
-              DeleteUserCard(),
-              SizedBox(height: 6),
+              const DeleteUserTitle(),
+              const SizedBox(height: 12),
+              const DeleteUserCard(),
+              const SizedBox(height: 6),
               _buildCheck(toggleAgree, context),
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               _buildButton(agreedToDelete),
             ],
           ),
@@ -56,7 +59,10 @@ class _DeleteUserScreenState extends State<DeleteUserScreen> {
     );
   }
 
-  Row _buildCheck(void Function(bool? value) toggleAgree, BuildContext context) {
+  Row _buildCheck(
+    void Function(bool? value) toggleAgree,
+    BuildContext context,
+  ) {
     return Row(
       children: [
         InkWell(
@@ -74,7 +80,9 @@ class _DeleteUserScreenState extends State<DeleteUserScreen> {
             AppLocalizations.of(context)!.deleteAccountAgreementCheckbox,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
-            style: AppTextStyles.caption(context).copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.caption(
+              context,
+            ).copyWith(color: AppColors.textSecondary),
           ),
         ),
       ],
@@ -92,12 +100,15 @@ class _DeleteUserScreenState extends State<DeleteUserScreen> {
             text: AppLocalizations.of(context)!.cancel,
           ),
         ),
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         Expanded(
           child: agreedToDelete
               ? AppFilledButton.delete(
                   onPressed: () {
-                    showDialog(context: context, builder: (ctx) => DeleteUserDialog());
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => const DeleteUserDialog(),
+                    );
                   },
                   text: AppLocalizations.of(context)!.deleteAccount,
                 )

@@ -5,8 +5,8 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
 class MarginRateField extends StatelessWidget {
-  final TextEditingController controller;
   const MarginRateField({super.key, required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +20,24 @@ class MarginRateField extends StatelessWidget {
         LengthLimitingTextInputFormatter(3),
       ],
       validator: (value) {
-        if (value == null || value.isEmpty) return AppLocalizations.of(context)!.marginRateError;
+        if (value == null || value.isEmpty) {
+          return AppLocalizations.of(context)!.marginRateError;
+        }
         return null;
       },
       decoration: InputDecoration(
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 10,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.borderDefault),
+          borderSide: const BorderSide(color: AppColors.borderDefault),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.borderDefault),
+          borderSide: const BorderSide(color: AppColors.borderDefault),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -40,14 +45,14 @@ class MarginRateField extends StatelessWidget {
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.errorSoft, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.errorSoft, width: 1.5),
         ),
         filled: true,
         fillColor: AppColors.background,
         hintText: '0',
-        hintStyle: TextStyle(color: AppColors.textTertiary),
+        hintStyle: const TextStyle(color: AppColors.textTertiary),
         suffixText: '%',
-        suffixStyle: TextStyle(color: AppColors.textTertiary),
+        suffixStyle: const TextStyle(color: AppColors.textTertiary),
       ),
       maxLines: 1,
     );

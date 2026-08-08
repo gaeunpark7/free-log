@@ -14,11 +14,12 @@ import 'package:free_log/features/home/presentation/screens/time_entry_screen.da
 import 'package:free_log/l10n/app_localizations.dart';
 
 class DetailTimeEntries extends ConsumerStatefulWidget {
-  final String projectId;
   const DetailTimeEntries({super.key, required this.projectId});
+  final String projectId;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _DetailTimeEntriesState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _DetailTimeEntriesState();
 }
 
 class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
@@ -38,14 +39,14 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
   @override
   Widget build(BuildContext context) {
     final asyncEntries = ref.watch(timeEntryNotifierProvider(widget.projectId));
-    ref.listen<AsyncValue<List<TimeEntryModel>>>(timeEntryNotifierProvider(widget.projectId), (
-      previous,
-      next,
-    ) {
-      if (next is AsyncError && previous is! AsyncError) {
-        ErrorHandler.showSnackBar(context, next.error);
-      }
-    });
+    ref.listen<AsyncValue<List<TimeEntryModel>>>(
+      timeEntryNotifierProvider(widget.projectId),
+      (previous, next) {
+        if (next is AsyncError && previous is! AsyncError) {
+          ErrorHandler.showSnackBar(context, next.error);
+        }
+      },
+    );
 
     return Container(
       decoration: BoxDecoration(
@@ -65,7 +66,8 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (ctx) => TimeEntryScreen(projectId: widget.projectId),
+                      builder: (ctx) =>
+                          TimeEntryScreen(projectId: widget.projectId),
                     ),
                   );
                 },
@@ -74,14 +76,17 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
                   children: [
                     asyncEntries.whenOrNull(
                           data: (entries) {
-                            final total = entries.fold<int>(0, (sum, e) => sum + e.minutes);
+                            final total = entries.fold<int>(
+                              0,
+                              (sum, e) => sum + e.minutes,
+                            );
                             return Row(
                               children: [
                                 Text(
                                   AppLocalizations.of(context)!.timeEntryTitle,
                                   style: AppTextStyles.subTitleBold(context),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Text(
                                   TimeUtils.format(total),
                                   style: AppTextStyles.subTitle(
@@ -102,7 +107,9 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
                       },
                       child: Text(
                         AppLocalizations.of(context)!.addTodo,
-                        style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
+                        style: AppTextStyles.body(
+                          context,
+                        ).copyWith(color: AppColors.primary),
                       ),
                     ),
                   ],
@@ -112,17 +119,22 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
                 const SizedBox(height: 12),
                 Text(
                   AppLocalizations.of(context)!.date,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(
+                    context,
+                  ).copyWith(color: AppColors.textPrimary),
                 ),
                 DatePickerField(
                   icon: Icons.today,
                   selectedDate: _selectedDate,
-                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                  onDateChanged: (picked) =>
+                      setState(() => _selectedDate = picked),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   AppLocalizations.of(context)!.hours,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(
+                    context,
+                  ).copyWith(color: AppColors.textPrimary),
                 ),
                 // HourTextField(controller: _hoursController, hintText: 'ex: 10.5 (10시간 30분)'),
                 TimeInputWidget(
@@ -137,13 +149,19 @@ class _DetailTimeEntriesState extends ConsumerState<DetailTimeEntries> {
 
                     if (hours == 0 && minutes == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(AppLocalizations.of(context)!.enterHoursOrMinutes)),
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context)!.enterHoursOrMinutes,
+                          ),
+                        ),
                       );
                       return;
                     }
 
                     await ref
-                        .read(timeEntryNotifierProvider(widget.projectId).notifier)
+                        .read(
+                          timeEntryNotifierProvider(widget.projectId).notifier,
+                        )
                         .addTimeEntry(_selectedDate, hours, minutes);
 
                     _hoursController.clear();

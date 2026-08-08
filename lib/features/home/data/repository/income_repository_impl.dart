@@ -7,8 +7,8 @@ import 'package:free_log/features/home/domain/repository/income_repository.dart'
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class IncomeRepositoryImpl extends BaseRepository implements IncomeRepository {
-  final SupabaseClient _supabase;
   IncomeRepositoryImpl(this._supabase);
+  final SupabaseClient _supabase;
 
   @override
   Future<List<IncomeModel>> getIncome(String projectId) {
@@ -18,7 +18,10 @@ class IncomeRepositoryImpl extends BaseRepository implements IncomeRepository {
           .select()
           .eq('project_id', projectId)
           .order('received_at', ascending: false);
-      return reponse.map(IncomeDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return reponse
+          .map(IncomeDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
@@ -43,7 +46,12 @@ class IncomeRepositoryImpl extends BaseRepository implements IncomeRepository {
   }
 
   @override
-  Future<void> updateIncome(String id, String description, int amount, DateTime receivedAt) {
+  Future<void> updateIncome(
+    String id,
+    String description,
+    int amount,
+    DateTime receivedAt,
+  ) {
     return execute(() async {
       await _supabase
           .from('income_entries')

@@ -6,8 +6,8 @@ import 'package:free_log/features/home/presentation/widgets/home_detail/income/e
 import 'package:intl/intl.dart';
 
 class IncomeListView extends StatelessWidget {
-  final List<IncomeModel> income;
   const IncomeListView({super.key, required this.income});
+  final List<IncomeModel> income;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,10 @@ class IncomeListView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(income[index].description, style: AppTextStyles.subTitle(context)),
+                        Text(
+                          income[index].description,
+                          style: AppTextStyles.subTitle(context),
+                        ),
                         Text(
                           '${income[index].receivedAt.toLocal().year}.'
                           '${income[index].receivedAt.toLocal().month.toString().padLeft(2, '0')}.'
@@ -49,12 +52,14 @@ class IncomeListView extends StatelessWidget {
                     ),
                     Text(
                       '+${NumberFormat('#,##0').format(income[index].amount)}',
-                      style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.success),
+                      style: AppTextStyles.subTitleBold(
+                        context,
+                      ).copyWith(color: AppColors.success),
                     ),
                   ],
                 ),
               ),
-              Divider(thickness: 0.5, color: AppColors.textTertiary),
+              const Divider(thickness: 0.5, color: AppColors.textTertiary),
             ],
           ),
         );

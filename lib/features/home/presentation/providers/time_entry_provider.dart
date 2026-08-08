@@ -11,11 +11,14 @@ final timeEntryRepoProvider = Provider<TimeEntryRepository>(
   (ref) => TimeEntryRepositoryImpl(ref.watch(supabaseClientProvider)),
 );
 final timeEntryNotifierProvider =
-    AsyncNotifierProviderFamily<TimeEntryProvider, List<TimeEntryModel>, String>(
-      TimeEntryProvider.new,
-    );
+    AsyncNotifierProviderFamily<
+      TimeEntryProvider,
+      List<TimeEntryModel>,
+      String
+    >(TimeEntryProvider.new);
 
-class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String> {
+class TimeEntryProvider
+    extends FamilyAsyncNotifier<List<TimeEntryModel>, String> {
   TimeEntryRepository get _repo => ref.read(timeEntryRepoProvider);
 
   @override
@@ -34,7 +37,12 @@ class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String
     });
   }
 
-  Future<void> updateTimeEntry(String id, DateTime workedAt, int hours, int minutes) async {
+  Future<void> updateTimeEntry(
+    String id,
+    DateTime workedAt,
+    int hours,
+    int minutes,
+  ) async {
     final totalMinutes = TimeUtils.toTotalMinutes(hours, minutes);
 
     state = const AsyncLoading();

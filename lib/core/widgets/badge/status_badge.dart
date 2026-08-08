@@ -5,9 +5,9 @@ import 'package:free_log/features/home/domain/model/project_status.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
 class StatusBadge extends StatelessWidget {
-  final ProjectStatus status;
-
   const StatusBadge({super.key, required this.status});
+
+  final ProjectStatus status;
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +45,17 @@ class StatusBadge extends StatelessWidget {
         horizontal: Responsive.isWeb(context) ? 10 : 8,
         vertical: Responsive.isWeb(context) ? 5 : 4,
       ),
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Text(
         label,
-        style: TextStyle(fontSize: fontSize, color: textColor, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          fontSize: fontSize,
+          color: textColor,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

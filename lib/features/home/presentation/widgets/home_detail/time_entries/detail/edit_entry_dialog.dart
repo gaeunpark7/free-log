@@ -11,10 +11,13 @@ import 'package:free_log/features/home/presentation/widgets/home_detail/time_ent
 import 'package:free_log/l10n/app_localizations.dart';
 
 class TimeEntryDialog extends ConsumerStatefulWidget {
+  const TimeEntryDialog({
+    super.key,
+    required this.entry,
+    required this.projectId,
+  });
   final TimeEntryModel entry; // 수정할 항목
   final String projectId;
-
-  const TimeEntryDialog({super.key, required this.entry, required this.projectId});
 
   @override
   ConsumerState<TimeEntryDialog> createState() => _TimeEntryDialogState();
@@ -32,8 +35,12 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
     super.initState();
     final totalMinutes = widget.entry.minutes;
 
-    _hoursController = TextEditingController(text: TimeUtils.toHours(totalMinutes).toString());
-    _minutesController = TextEditingController(text: TimeUtils.toMinutes(totalMinutes).toString());
+    _hoursController = TextEditingController(
+      text: TimeUtils.toHours(totalMinutes).toString(),
+    );
+    _minutesController = TextEditingController(
+      text: TimeUtils.toMinutes(totalMinutes).toString(),
+    );
 
     _selectedDate = widget.entry.workedAt ?? DateTime.now().toLocal();
     _hoursController.addListener(() => setState(() {}));
@@ -86,9 +93,12 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                           color: const Color.fromARGB(255, 230, 237, 248),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Icon(Icons.schedule, color: AppColors.primary),
+                        child: const Icon(
+                          Icons.schedule,
+                          color: AppColors.primary,
+                        ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         AppLocalizations.of(context)!.editTimeEntry,
                         style: AppTextStyles.title(context),
@@ -143,14 +153,23 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                         ),
                         onPressed: () async {
                           if (!_formKey.currentState!.validate()) return;
-                          final hours = int.tryParse(_hoursController.text) ?? 0;
-                          final minutes = int.tryParse(_minutesController.text) ?? 0;
-                          final totalMinutes = TimeUtils.toTotalMinutes(hours, minutes);
+                          final hours =
+                              int.tryParse(_hoursController.text) ?? 0;
+                          final minutes =
+                              int.tryParse(_minutesController.text) ?? 0;
+                          final totalMinutes = TimeUtils.toTotalMinutes(
+                            hours,
+                            minutes,
+                          );
 
                           if (totalMinutes == 0) return;
 
-                          ref
-                              .read(timeEntryNotifierProvider(widget.projectId).notifier)
+                          await ref
+                              .read(
+                                timeEntryNotifierProvider(
+                                  widget.projectId,
+                                ).notifier,
+                              )
                               .updateTimeEntry(
                                 widget.entry.id ?? '',
                                 _selectedDate,
@@ -161,7 +180,9 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                         },
                         child: Text(
                           AppLocalizations.of(context)!.save,
-                          style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                          style: AppTextStyles.bodyBold(
+                            context,
+                          ).copyWith(color: Colors.white),
                         ),
                       ),
                     )
@@ -187,9 +208,14 @@ class _TimeEntryDialogState extends ConsumerState<TimeEntryDialog> {
                                   projectId: widget.projectId,
                                 ),
                               );
-                              if (deleted == true && context.mounted) Navigator.pop(context);
+                              if (deleted == true && context.mounted) {
+                                Navigator.pop(context);
+                              }
                             },
-                            icon: Icon(Icons.delete_outline_outlined, color: AppColors.errorSoft),
+                            icon: const Icon(
+                              Icons.delete_outline_outlined,
+                              color: AppColors.errorSoft,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),

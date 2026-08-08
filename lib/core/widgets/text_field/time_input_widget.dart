@@ -3,14 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 
 class TimeInputWidget extends StatelessWidget {
-  final TextEditingController hoursController;
-  final TextEditingController minutesController;
-
   const TimeInputWidget({
     super.key,
     required this.hoursController,
     required this.minutesController,
   });
+  final TextEditingController hoursController;
+  final TextEditingController minutesController;
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +61,11 @@ class TimeInputWidget extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: AppColors.borderDefault),
+        borderSide: const BorderSide(color: AppColors.borderDefault),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: AppColors.borderDefault),
+        borderSide: const BorderSide(color: AppColors.borderDefault),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
@@ -78,11 +77,14 @@ class TimeInputWidget extends StatelessWidget {
 
 // 최대값 제한
 class _MaxValueFormatter extends TextInputFormatter {
-  final int maxValue;
   _MaxValueFormatter(this.maxValue);
+  final int maxValue;
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (newValue.text.isEmpty) return newValue;
     final value = int.tryParse(newValue.text) ?? 0;
     if (value > maxValue) return oldValue; // 초과하면 이전 값 유지

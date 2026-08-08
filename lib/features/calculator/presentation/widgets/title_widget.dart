@@ -11,7 +11,7 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.primary),
+      decoration: const BoxDecoration(color: AppColors.primary),
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.fromLTRB(
@@ -29,20 +29,28 @@ class TitleWidget extends StatelessWidget {
                   color: AppColors.primarySoft,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.calculate_outlined, color: AppColors.primaryDark, size: 30),
+                child: const Icon(
+                  Icons.calculate_outlined,
+                  color: AppColors.primaryDark,
+                  size: 30,
+                ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     AppLocalizations.of(context)!.priceCalculator,
-                    style: AppTextStyles.title(context).copyWith(color: Colors.white),
+                    style: AppTextStyles.title(
+                      context,
+                    ).copyWith(color: Colors.white),
                   ),
                   Text(
                     AppLocalizations.of(context)!.quickEstimate,
-                    style: AppTextStyles.body(context).copyWith(color: Colors.white),
+                    style: AppTextStyles.body(
+                      context,
+                    ).copyWith(color: Colors.white),
                   ),
                 ],
               ),

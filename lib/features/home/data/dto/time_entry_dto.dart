@@ -14,5 +14,6 @@ abstract class TimeEntryDto with _$TimeEntryDto {
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _TimeEntryDto;
 
-  factory TimeEntryDto.fromJson(Map<String, dynamic> json) => _$TimeEntryDtoFromJson(json);
+  factory TimeEntryDto.fromJson(Map<String, dynamic> json) =>
+      _$TimeEntryDtoFromJson(json);
 }

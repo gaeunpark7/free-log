@@ -55,7 +55,7 @@ class _StatsCardState extends ConsumerState<StatsCard> {
                         isMonthly,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: _buildTabButton(
                         context,
@@ -67,9 +67,11 @@ class _StatsCardState extends ConsumerState<StatsCard> {
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             switch (asyncStats) {
-              AsyncLoading() => Center(child: CircularProgressIndicator()),
+              AsyncLoading() => const Center(
+                child: CircularProgressIndicator(),
+              ),
               AsyncError(:final error) => ErrorView(
                 message: ErrorHandler.getMessage(context, error),
               ),
@@ -78,29 +80,29 @@ class _StatsCardState extends ConsumerState<StatsCard> {
                   _buildStatRow(
                     context,
                     AppLocalizations.of(context)!.activeProjects,
-                    "$inProgressCount",
+                    '$inProgressCount',
                   ),
-                  Divider(color: AppColors.borderDefault),
+                  const Divider(color: AppColors.borderDefault),
                   _buildStatRow(
                     context,
                     AppLocalizations.of(context)!.totalHours,
                     TimeUtils.format(value.totalMinutes),
                   ),
-                  Divider(color: AppColors.borderDefault),
+                  const Divider(color: AppColors.borderDefault),
                   _buildStatRow(
                     context,
                     AppLocalizations.of(context)!.revenue,
                     '+${NumberFormat('#,###').format(value.totalIncome)}',
                     color: AppColors.success,
                   ),
-                  Divider(color: AppColors.borderDefault),
+                  const Divider(color: AppColors.borderDefault),
                   _buildStatRow(
                     context,
                     AppLocalizations.of(context)!.expenses,
                     '-${NumberFormat('#,###').format(value.totalExpense)}',
                     color: AppColors.errorSoft,
                   ),
-                  Divider(color: AppColors.borderDefault),
+                  const Divider(color: AppColors.borderDefault),
                   _buildStatRow(
                     context,
                     AppLocalizations.of(context)!.netProfit,
@@ -109,16 +111,21 @@ class _StatsCardState extends ConsumerState<StatsCard> {
                   ),
                 ],
               ),
-              _ => SizedBox.shrink(),
+              _ => const SizedBox.shrink(),
             },
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           ],
         ),
       ),
     );
   }
 
-  Row _buildStatRow(BuildContext context, String label, String value, {Color? color}) {
+  Row _buildStatRow(
+    BuildContext context,
+    String label,
+    String value, {
+    Color? color,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -130,13 +137,19 @@ class _StatsCardState extends ConsumerState<StatsCard> {
         ),
         Text(
           value,
-          style: AppTextStyles.bodyBold(context).copyWith(color: color ?? AppColors.textPrimary),
+          style: AppTextStyles.bodyBold(
+            context,
+          ).copyWith(color: color ?? AppColors.textPrimary),
         ),
       ],
     );
   }
 
-  GestureDetector _buildTabButton(BuildContext context, String label, bool isSelected) {
+  GestureDetector _buildTabButton(
+    BuildContext context,
+    String label,
+    bool isSelected,
+  ) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -148,7 +161,9 @@ class _StatsCardState extends ConsumerState<StatsCard> {
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: isSelected ? AppColors.borderDefault : Colors.transparent),
+          border: Border.all(
+            color: isSelected ? AppColors.borderDefault : Colors.transparent,
+          ),
         ),
         child: Center(
           child: Text(

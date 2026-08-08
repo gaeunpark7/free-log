@@ -22,7 +22,10 @@ final googleSignInProvider = Provider<GoogleSignIn>((ref) {
 
 // Auth Repository
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepositoryImpl(ref.watch(supabaseClientProvider), ref.watch(googleSignInProvider));
+  return AuthRepositoryImpl(
+    ref.watch(supabaseClientProvider),
+    ref.watch(googleSignInProvider),
+  );
 });
 //인증 상태 관리
 final authStateProvider = StreamProvider<AuthStatus>((ref) {

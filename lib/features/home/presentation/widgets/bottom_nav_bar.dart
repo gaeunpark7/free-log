@@ -6,8 +6,8 @@ import 'package:free_log/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class BottomNavBar extends StatelessWidget {
-  final Widget child;
   const BottomNavBar({super.key, required this.child});
+  final Widget child;
 
   int _selectedIndex(String location) {
     if (location.startsWith(RoutePaths.home)) return 0;
@@ -56,22 +56,25 @@ class BottomNavBar extends StatelessWidget {
         destinations: [
           NavigationDestination(
             icon: const Icon(Icons.home_outlined, color: Colors.grey),
-            selectedIcon: Icon(Icons.home, color: AppColors.primary),
+            selectedIcon: const Icon(Icons.home, color: AppColors.primary),
             label: AppLocalizations.of(context)!.home,
           ),
           NavigationDestination(
-            icon: Icon(Icons.calendar_today_outlined, color: Colors.grey),
-            selectedIcon: Icon(Icons.calendar_today, color: AppColors.primary),
+            icon: const Icon(Icons.calendar_today_outlined, color: Colors.grey),
+            selectedIcon: const Icon(
+              Icons.calendar_today,
+              color: AppColors.primary,
+            ),
             label: AppLocalizations.of(context)!.calendar,
           ),
           NavigationDestination(
-            icon: Icon(Icons.calculate_outlined, color: Colors.grey),
-            selectedIcon: Icon(Icons.calculate, color: AppColors.primary),
+            icon: const Icon(Icons.calculate_outlined, color: Colors.grey),
+            selectedIcon: const Icon(Icons.calculate, color: AppColors.primary),
             label: AppLocalizations.of(context)!.calculator,
           ),
           NavigationDestination(
-            icon: Icon(Icons.person_outline, color: Colors.grey),
-            selectedIcon: Icon(Icons.person, color: AppColors.primary),
+            icon: const Icon(Icons.person_outline, color: Colors.grey),
+            selectedIcon: const Icon(Icons.person, color: AppColors.primary),
             label: AppLocalizations.of(context)!.profile,
           ),
         ],

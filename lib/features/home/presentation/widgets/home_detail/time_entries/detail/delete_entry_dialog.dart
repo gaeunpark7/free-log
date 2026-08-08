@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
+import 'package:free_log/core/utils/time_entry_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
-import 'package:free_log/core/utils/time_entry_utils.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
 class DeleteEntryDialog extends ConsumerWidget {
+  const DeleteEntryDialog({
+    super.key,
+    required this.entry,
+    required this.projectId,
+  });
   final TimeEntryModel entry;
   final String projectId;
-
-  const DeleteEntryDialog({super.key, required this.entry, required this.projectId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,25 +35,34 @@ class DeleteEntryDialog extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: AppColors.errorBg,
                   radius: 30,
-                  child: Icon(Icons.delete, color: AppColors.errorSoft, size: 28),
+                  child: Icon(
+                    Icons.delete,
+                    color: AppColors.errorSoft,
+                    size: 28,
+                  ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   AppLocalizations.of(context)!.deleteRecordTitle,
                   style: AppTextStyles.title(context),
                 ),
-                SizedBox(height: 5),
-                Text(dateStr, style: AppTextStyles.badgeBold(context).copyWith(fontSize: 14)),
+                const SizedBox(height: 5),
+                Text(
+                  dateStr,
+                  style: AppTextStyles.badgeBold(
+                    context,
+                  ).copyWith(fontSize: 14),
+                ),
                 Text(
                   AppLocalizations.of(context)!.deleteRecordMessage,
                   style: AppTextStyles.badge(
                     context,
                   ).copyWith(color: AppColors.textSecondary, fontSize: 14),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -66,7 +78,7 @@ class DeleteEntryDialog extends ConsumerWidget {
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: _buildButton(
                         context,
@@ -76,7 +88,9 @@ class DeleteEntryDialog extends ConsumerWidget {
                         Colors.white,
                         () async {
                           await ref
-                              .read(timeEntryNotifierProvider(projectId).notifier)
+                              .read(
+                                timeEntryNotifierProvider(projectId).notifier,
+                              )
                               .deleteTimeEntry(entry.id ?? '');
                           if (context.mounted) {
                             Navigator.pop(context, true);
@@ -113,7 +127,10 @@ class DeleteEntryDialog extends ConsumerWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text, style: AppTextStyles.bodyBold(context).copyWith(color: textColor)),
+        child: Text(
+          text,
+          style: AppTextStyles.bodyBold(context).copyWith(color: textColor),
+        ),
       ),
     );
   }

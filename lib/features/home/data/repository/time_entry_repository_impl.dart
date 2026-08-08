@@ -6,10 +6,10 @@ import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/domain/repository/time_entry_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryRepository {
-  final SupabaseClient _supabase;
-
+class TimeEntryRepositoryImpl extends BaseRepository
+    implements TimeEntryRepository {
   TimeEntryRepositoryImpl(this._supabase);
+  final SupabaseClient _supabase;
 
   @override
   Future<List<TimeEntryModel>> getTimeEntries(String projectId) async {
@@ -19,12 +19,19 @@ class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryReposit
           .select()
           .eq('project_id', projectId)
           .order('worked_at', ascending: false);
-      return response.map(TimeEntryDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return response
+          .map(TimeEntryDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
-  Future<void> addTimeEntry(String projectId, DateTime workedAt, int totalMinutes) async {
+  Future<void> addTimeEntry(
+    String projectId,
+    DateTime workedAt,
+    int totalMinutes,
+  ) async {
     return execute(() async {
       final dayStart = DateTime(
         workedAt.year,
@@ -62,11 +69,18 @@ class TimeEntryRepositoryImpl extends BaseRepository implements TimeEntryReposit
   }
 
   @override
-  Future<void> updateTimeEntry(String id, DateTime workedAt, int totalMinutes) async {
+  Future<void> updateTimeEntry(
+    String id,
+    DateTime workedAt,
+    int totalMinutes,
+  ) async {
     return execute(() async {
       await _supabase
           .from('time_entries')
-          .update({'worked_at': workedAt.toUtc().toIso8601String(), 'minutes': totalMinutes})
+          .update({
+            'worked_at': workedAt.toUtc().toIso8601String(),
+            'minutes': totalMinutes,
+          })
           .eq('id', id);
     }, errorCode: ErrorCode.saveFailed);
   }

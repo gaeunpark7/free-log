@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/router/login_routes.dart';
 import 'package:free_log/core/router/profile_routes.dart';
@@ -7,13 +8,12 @@ import 'package:free_log/features/auth/domain/model/auth_status.dart';
 import 'package:free_log/features/auth/presentation/screens/loading_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/profile_setting_screen.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
+import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/calendar/presentation/screens/calendar_screen.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
+import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/screens/home_detail_screen.dart';
 import 'package:free_log/features/home/presentation/screens/home_screen.dart';
-import 'package:flutter/widgets.dart';
-import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
-import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/bottom_nav_bar.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
@@ -44,9 +44,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final matchedLocation = state.matchedLocation;
       final isLoginRoute = matchedLocation == RoutePaths.login;
       final isPublicAuthRoute =
-          matchedLocation == RoutePaths.login || matchedLocation.startsWith('${RoutePaths.login}/');
+          matchedLocation == RoutePaths.login ||
+          matchedLocation.startsWith('${RoutePaths.login}/');
       final isLoadingRoute = matchedLocation == RoutePaths.loading;
-      final isProfileSettingRoute = matchedLocation == RoutePaths.profileSetting;
+      final isProfileSettingRoute =
+          matchedLocation == RoutePaths.profileSetting;
       final asyncProfile = ref.read(profileProvider);
       final nickname = asyncProfile.valueOrNull?.nickname?.trim();
       final hasNickname = nickname != null && nickname.isNotEmpty;
@@ -78,14 +80,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       buildLoginRoutes(),
-      GoRoute(path: RoutePaths.loading, builder: (_, _) => const LoadingScreen()),
-      GoRoute(path: RoutePaths.profileSetting, builder: (_, _) => ProfileSettingsScreen()),
+      GoRoute(
+        path: RoutePaths.loading,
+        builder: (_, _) => const LoadingScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.profileSetting,
+        builder: (_, _) => const ProfileSettingsScreen(),
+      ),
       ShellRoute(
         builder: (context, state, child) => BottomNavBar(child: child),
         routes: [
           GoRoute(path: RoutePaths.home, builder: (_, _) => const HomeScreen()),
-          GoRoute(path: RoutePaths.calendar, builder: (_, _) => const CalendarScreen()),
-          GoRoute(path: RoutePaths.calculator, builder: (_, _) => const CalculatorScreen()),
+          GoRoute(
+            path: RoutePaths.calendar,
+            builder: (_, _) => const CalendarScreen(),
+          ),
+          GoRoute(
+            path: RoutePaths.calculator,
+            builder: (_, _) => const CalculatorScreen(),
+          ),
           buildProfileRoutes(),
         ],
       ),

@@ -13,9 +13,8 @@ import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class CalculateAmount extends ConsumerWidget {
-  final ProjectModel project;
-
   const CalculateAmount({super.key, required this.project});
+  final ProjectModel project;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,63 +52,83 @@ class CalculateAmount extends ConsumerWidget {
         children: [
           Text(
             AppLocalizations.of(context)!.calculation,
-            style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.subTitleBold(
+              context,
+            ).copyWith(color: AppColors.textSecondary),
           ),
-          Divider(thickness: 0.5, color: AppColors.textTertiary),
-          SizedBox(height: 6),
+          const Divider(thickness: 0.5, color: AppColors.textTertiary),
+          const SizedBox(height: 6),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 AppLocalizations.of(context)!.hourlyRateXHours,
-                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitle(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
               Text(
                 NumberFormat('#,###').format(pricing.laborCost.floor()),
-                style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 AppLocalizations.of(context)!.expense,
-                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitle(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
               Text(
                 NumberFormat('#,###').format(totalExpense.floor()),
-                style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.margin((marginRate * 100).floor()),
-                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
+                AppLocalizations.of(
+                  context,
+                )!.margin((marginRate * 100).floor()),
+                style: AppTextStyles.subTitle(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
               Text(
-                '+${NumberFormat('#,###').format((pricing.marginAmount).floor())}',
-                style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
+                '+${NumberFormat('#,###').format(pricing.marginAmount.floor())}',
+                style: AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),
-          SizedBox(height: 6),
-          Divider(thickness: 0.5, color: AppColors.textTertiary),
+          const SizedBox(height: 6),
+          const Divider(thickness: 0.5, color: AppColors.textTertiary),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 AppLocalizations.of(context)!.sellingPrice,
-                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitle(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
               Text(
                 NumberFormat('#,###').format(pricing.sellingPrice.floor()),
-                style: AppTextStyles.title(context).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.title(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),

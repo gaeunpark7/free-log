@@ -18,6 +18,8 @@ class ErrorHandler {
   }
 
   static void showSnackBar(BuildContext context, Object? error) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getMessage(context, error))));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(getMessage(context, error))));
   }
 }

@@ -7,7 +7,9 @@ import 'package:free_log/features/profile/presentation/providers/profile_provide
 import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
 
 //로그인 상태 관리
-final authNotifierProvider = AsyncNotifierProvider<AuthNotifier, void>(AuthNotifier.new);
+final authNotifierProvider = AsyncNotifierProvider<AuthNotifier, void>(
+  AuthNotifier.new,
+);
 
 class AuthNotifier extends AsyncNotifier<void> {
   @override
@@ -15,19 +17,25 @@ class AuthNotifier extends AsyncNotifier<void> {
 
   Future<void> signInWithGoogle() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => ref.read(authRepositoryProvider).signInWithGoogle());
+    state = await AsyncValue.guard(
+      () => ref.read(authRepositoryProvider).signInWithGoogle(),
+    );
     ref.read(googleLoadingProvider.notifier).state = false;
   }
 
   Future<void> signInWithKakao() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => ref.read(authRepositoryProvider).signInWithKakao());
+    state = await AsyncValue.guard(
+      () => ref.read(authRepositoryProvider).signInWithKakao(),
+    );
     ref.read(kakaoLoadingProvider.notifier).state = false;
   }
 
   Future<void> deleteAccount() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => ref.read(authRepositoryProvider).deleteAccount());
+    state = await AsyncValue.guard(
+      () => ref.read(authRepositoryProvider).deleteAccount(),
+    );
     try {
       await signOut();
     } catch (_) {}
