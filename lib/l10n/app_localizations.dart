@@ -1111,6 +1111,18 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'새 프로젝트를 만들어 시작해보세요'**
   String get empty_project_description;
+
+  /// No description provided for @feedbackFormOpenFailed.
+  ///
+  /// In ko, this message translates to:
+  /// **'링크를 열 수 없습니다.'**
+  String get feedbackFormOpenFailed;
+
+  /// No description provided for @feedbackFormError.
+  ///
+  /// In ko, this message translates to:
+  /// **'링크를 여는 중 오류가 발생했습니다.'**
+  String get feedbackFormError;
 }
 
 class _AppLocalizationsDelegate

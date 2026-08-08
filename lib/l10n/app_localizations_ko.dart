@@ -534,4 +534,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get empty_project_description => '새 프로젝트를 만들어 시작해보세요';
+
+  @override
+  String get feedbackFormOpenFailed => '링크를 열 수 없습니다.';
+
+  @override
+  String get feedbackFormError => '링크를 여는 중 오류가 발생했습니다.';
 }

@@ -559,4 +559,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get empty_project_description =>
       'Create your first project to get started';
+
+  @override
+  String get feedbackFormOpenFailed => 'Unable to open the link.';
+
+  @override
+  String get feedbackFormError => 'An error occurred while opening the link.';
 }

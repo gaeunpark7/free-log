@@ -208,5 +208,8 @@
   "deleteAccountDialogMessage": "Upon deleting your account, all data will be erased and cannot be restored.",
 
   "empty_project_title": "No projects yet",
-  "empty_project_description": "Create your first project to get started"  
+  "empty_project_description": "Create your first project to get started",
+
+  "feedbackFormOpenFailed": "Unable to open the link.",
+  "feedbackFormError": "An error occurred while opening the link."
 }
