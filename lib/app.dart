@@ -18,8 +18,7 @@ class FrelogApp extends ConsumerWidget {
       final prevStatus = prev?.valueOrNull;
       final nextStatus = next.valueOrNull;
       // 로그아웃 상태에서 로그인 상태로 실제로 전환될 때만 FCM 토큰 저장
-      if (nextStatus == AuthStatus.authenticated &&
-          prevStatus != AuthStatus.authenticated) {
+      if (nextStatus == AuthStatus.authenticated && prevStatus != AuthStatus.authenticated) {
         FcmService(Supabase.instance.client).initialize();
       }
     });
@@ -40,6 +39,12 @@ class FrelogApp extends ConsumerWidget {
 
         // 테마
         theme: ThemeData(
+          //캘린더 style
+          datePickerTheme: const DatePickerThemeData(
+            headerBackgroundColor: AppColors.primary,
+            headerForegroundColor: Colors.white,
+          ),
+
           useMaterial3: true,
           colorScheme: const ColorScheme.light(
             primary: AppColors.primary,

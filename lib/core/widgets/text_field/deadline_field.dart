@@ -72,6 +72,7 @@ class DeadlineField extends StatelessWidget {
           lastDate: DateTime(2100),
           firstDate: DateTime(2020),
         );
+
         if (picked != null) onDateChanged(picked);
       },
     );
