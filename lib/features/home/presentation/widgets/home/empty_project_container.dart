@@ -1,3 +1,4 @@
+import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
@@ -10,19 +11,34 @@ class EmptyProjectContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(
+        bottom: 8,
+        left: Responsive.horizontalPadding(context),
+        right: Responsive.horizontalPadding(context),
+      ),
       child: Container(
-        padding: Responsive.cardPadding(context),
-        // decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.create_new_folder_outlined, size: 40, color: AppColors.textTertiary),
-            const SizedBox(height: 8),
-            _buildText(context, AppLocalizations.of(context)!.empty_project_title),
-            _buildText(context, AppLocalizations.of(context)!.empty_project_description),
-            const SizedBox(height: 8),
-          ],
+        height: Responsive.height(context) * 0.2,
+        width: double.infinity,
+        decoration: DottedDecoration(
+          shape: Shape.box,
+          borderRadius: BorderRadius.circular(12),
+          color: AppColors.textTertiary,
+          dash: const [5, 4],
+          strokeWidth: 2,
+        ),
+        child: Container(
+          padding: Responsive.cardPadding(context),
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.create_new_folder_outlined, size: 40, color: AppColors.textTertiary),
+              const SizedBox(height: 8),
+              _buildText(context, AppLocalizations.of(context)!.empty_project_title),
+              _buildText(context, AppLocalizations.of(context)!.empty_project_description),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );

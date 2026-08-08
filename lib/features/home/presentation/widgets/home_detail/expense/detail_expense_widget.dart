@@ -18,8 +18,7 @@ class DetailExpenseWidget extends ConsumerStatefulWidget {
   final String projectId;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _DetailExpenseWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _DetailExpenseWidgetState();
 }
 
 class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
@@ -42,8 +41,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
     if (_titleController.text.trim().isEmpty) return;
     if (_amountController.text.trim().isEmpty) return;
 
-    final amount =
-        int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+    final amount = int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
     await ref
         .read(expenseNotifierProvider(widget.projectId).notifier)
         .addExpense(_titleController.text.trim(), amount, _selectedDate);
@@ -92,9 +90,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                     },
                     child: Text(
                       AppLocalizations.of(context)!.addTodo,
-                      style: AppTextStyles.body(
-                        context,
-                      ).copyWith(color: AppColors.primary),
+                      style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
                     ),
                   ),
                 ],
@@ -103,9 +99,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                 const SizedBox(height: 12),
                 Text(
                   AppLocalizations.of(context)!.item,
-                  style: AppTextStyles.captionBold(
-                    context,
-                  ).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 AppTextField(
@@ -120,9 +114,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                 //금액
                 Text(
                   AppLocalizations.of(context)!.amount,
-                  style: AppTextStyles.captionBold(
-                    context,
-                  ).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 HourlyRateField(
@@ -136,16 +128,13 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                 //날짜
                 Text(
                   AppLocalizations.of(context)!.date,
-                  style: AppTextStyles.captionBold(
-                    context,
-                  ).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 DatePickerField(
                   selectedDate: _selectedDate,
                   icon: Icons.event,
-                  onDateChanged: (picked) =>
-                      setState(() => _selectedDate = picked),
+                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
                 ),
                 const SizedBox(height: 12),
                 AppFilledButton(
@@ -167,8 +156,7 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                         constraints: const BoxConstraints(maxHeight: 230),
                         child: ExpenseListView(expense: value),
                       ),
-                error: (error, _) =>
-                    ErrorView(message: ErrorHandler.getMessage(context, error)),
+                error: (error, _) => ErrorView(message: ErrorHandler.getMessage(context, error)),
               ),
             ],
           ),

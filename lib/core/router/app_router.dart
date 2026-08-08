@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:free_log/core/router/login_routes.dart';
 import 'package:free_log/core/router/profile_routes.dart';
@@ -7,13 +8,12 @@ import 'package:free_log/features/auth/domain/model/auth_status.dart';
 import 'package:free_log/features/auth/presentation/screens/loading_screen.dart';
 import 'package:free_log/features/auth/presentation/screens/profile_setting_screen.dart';
 import 'package:free_log/features/calculator/presentation/screen/calculator_screen.dart';
+import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
 import 'package:free_log/features/calendar/presentation/screens/calendar_screen.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
+import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/screens/home_detail_screen.dart';
 import 'package:free_log/features/home/presentation/screens/home_screen.dart';
-import 'package:flutter/widgets.dart';
-import 'package:free_log/features/calendar/presentation/providers/calendar_provider.dart';
-import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/bottom_nav_bar.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
@@ -60,10 +60,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (asyncProfile.isLoading && asyncProfile.valueOrNull == null) {
         return isLoadingRoute ? null : RoutePaths.loading;
       }
-      // 데이터 있는 상태에서 수정 중이면 현재 위치 유지2
-      // if (asyncProfile.isLoading && asyncProfile.valueOrNull != null) {
-      //   return null;
-      // }
+
       // 닉네임이 없으면 profile setting으로
       if (!hasNickname) {
         return isProfileSettingRoute ? null : RoutePaths.profileSetting;
