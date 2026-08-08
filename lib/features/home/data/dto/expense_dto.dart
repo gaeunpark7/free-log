@@ -15,5 +15,6 @@ abstract class ExpenseDto with _$ExpenseDto {
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _ExpenseDto;
 
-  factory ExpenseDto.fromJson(Map<String, dynamic> json) => _$ExpenseDtoFromJson(json);
+  factory ExpenseDto.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseDtoFromJson(json);
 }

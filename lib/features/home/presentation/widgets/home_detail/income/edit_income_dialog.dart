@@ -12,11 +12,12 @@ import 'package:free_log/features/home/presentation/providers/income_provider.da
 import 'package:free_log/l10n/app_localizations.dart';
 
 class EditIncomeDialog extends ConsumerStatefulWidget {
-  final IncomeModel income;
   const EditIncomeDialog({super.key, required this.income});
+  final IncomeModel income;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditIncomeDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _EditIncomeDialogState();
 }
 
 class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
@@ -29,14 +30,18 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.income.description);
-    _amountController = TextEditingController(text: widget.income.amount.toString());
+    _amountController = TextEditingController(
+      text: widget.income.amount.toString(),
+    );
     _selectedDate = widget.income.receivedAt;
   }
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(12),
+      ),
       backgroundColor: Colors.white,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 480),
@@ -58,16 +63,19 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                           color: const Color.fromARGB(255, 230, 237, 248),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.edit_document, color: AppColors.primary),
+                        child: const Icon(
+                          Icons.edit_document,
+                          color: AppColors.primary,
+                        ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         AppLocalizations.of(context)!.editIncome,
                         style: AppTextStyles.title(context),
                       ),
                     ],
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Text(
                     AppLocalizations.of(context)!.item,
                     style: AppTextStyles.captionBold(
@@ -80,7 +88,7 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                     valieText: AppLocalizations.of(context)!.valieItem,
                     hintText: AppLocalizations.of(context)!.itemHint,
                     maxLenth: 15,
-                    icon: Icon(Icons.edit_note, size: 23),
+                    icon: const Icon(Icons.edit_note, size: 23),
                   ),
                   const SizedBox(height: 8),
                   //금액
@@ -96,7 +104,7 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                     hintText: AppLocalizations.of(context)!.amountHint,
                     errorText: AppLocalizations.of(context)!.valieAmount,
                     maxDigits: 8,
-                    icon: Icon(Icons.attach_money_outlined, size: 23),
+                    icon: const Icon(Icons.attach_money_outlined, size: 23),
                   ),
                   const SizedBox(height: 8),
                   //날짜
@@ -110,7 +118,8 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                   DatePickerField(
                     selectedDate: _selectedDate,
                     icon: Icons.event,
-                    onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                    onDateChanged: (picked) =>
+                        setState(() => _selectedDate = picked),
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -125,7 +134,7 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                         ),
                         child: IconButton(
                           onPressed: () async {
-                            showDialog(
+                            await showDialog(
                               context: context,
                               builder: (ctx) => DeleteDialog(
                                 onDelete: () async {
@@ -141,7 +150,10 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                               ),
                             );
                           },
-                          icon: Icon(Icons.delete_outline_outlined, color: AppColors.errorSoft),
+                          icon: const Icon(
+                            Icons.delete_outline_outlined,
+                            color: AppColors.errorSoft,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -150,19 +162,28 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                           height: 48,
                           child: FilledButton(
                             style: FilledButton.styleFrom(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                             onPressed: () async {
                               final amount =
-                                  int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+                                  int.tryParse(
+                                    _amountController.text.replaceAll(',', ''),
+                                  ) ??
+                                  0;
 
                               if (!_formKey.currentState!.validate()) return;
                               final noChange =
-                                  _titleController.text.trim() == widget.income.description &&
+                                  _titleController.text.trim() ==
+                                      widget.income.description &&
                                   amount == widget.income.amount &&
-                                  _selectedDate.year == widget.income.receivedAt.year &&
-                                  _selectedDate.month == widget.income.receivedAt.month &&
-                                  _selectedDate.day == widget.income.receivedAt.day;
+                                  _selectedDate.year ==
+                                      widget.income.receivedAt.year &&
+                                  _selectedDate.month ==
+                                      widget.income.receivedAt.month &&
+                                  _selectedDate.day ==
+                                      widget.income.receivedAt.day;
 
                               if (noChange) {
                                 if (context.mounted) Navigator.pop(context);
@@ -170,7 +191,9 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                               }
                               await ref
                                   .read(
-                                    incomeNotifierProvider(widget.income.projectId ?? '').notifier,
+                                    incomeNotifierProvider(
+                                      widget.income.projectId ?? '',
+                                    ).notifier,
                                   )
                                   .updateIncome(
                                     widget.income.id ?? '',
@@ -182,7 +205,9 @@ class _EditIncomeDialogState extends ConsumerState<EditIncomeDialog> {
                             },
                             child: Text(
                               AppLocalizations.of(context)!.update,
-                              style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                              style: AppTextStyles.bodyBold(
+                                context,
+                              ).copyWith(color: Colors.white),
                             ),
                           ),
                         ),

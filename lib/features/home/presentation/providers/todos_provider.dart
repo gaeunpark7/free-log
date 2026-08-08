@@ -9,9 +9,10 @@ final todoRepoProvider = Provider<TodosRepository>((ref) {
   return TodosRepositoryImpl(ref.watch(supabaseClientProvider));
 });
 
-final todoNotifierProvider = AsyncNotifierProviderFamily<TodosProvider, List<TodosModel>, String>(
-  TodosProvider.new,
-);
+final todoNotifierProvider =
+    AsyncNotifierProviderFamily<TodosProvider, List<TodosModel>, String>(
+      TodosProvider.new,
+    );
 
 class TodosProvider extends FamilyAsyncNotifier<List<TodosModel>, String> {
   TodosRepository get _repo => ref.read(todoRepoProvider);
@@ -26,7 +27,7 @@ class TodosProvider extends FamilyAsyncNotifier<List<TodosModel>, String> {
     if (trimmed.isEmpty) {
       return;
     }
-    state = AsyncLoading();
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.addTodo(arg, trimmed);
       return _repo.getTodo(arg);
@@ -38,7 +39,7 @@ class TodosProvider extends FamilyAsyncNotifier<List<TodosModel>, String> {
     if (trimmed.isEmpty) {
       return;
     }
-    state = AsyncLoading();
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateTodo(id, trimmed);
       return _repo.getTodo(arg);

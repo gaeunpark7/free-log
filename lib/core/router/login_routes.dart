@@ -5,6 +5,11 @@ import 'package:go_router/go_router.dart';
 
 GoRoute buildLoginRoutes() => GoRoute(
   path: RoutePaths.login,
-  builder: (_, _) => LoginScreen(),
-  routes: [GoRoute(path: RoutePaths.privacy, builder: (_, _) => PrivacyPolicyScreen())],
+  builder: (_, _) => const LoginScreen(),
+  routes: [
+    GoRoute(
+      path: RoutePaths.privacy,
+      builder: (_, _) => const PrivacyPolicyScreen(),
+    ),
+  ],
 );

@@ -6,10 +6,10 @@ import 'package:free_log/features/home/domain/model/expense_model.dart';
 import 'package:free_log/features/home/domain/repository/expense_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class ExpenseRepositoryImpl extends BaseRepository implements ExpenseRepository {
-  final SupabaseClient _supabase;
-
+class ExpenseRepositoryImpl extends BaseRepository
+    implements ExpenseRepository {
   ExpenseRepositoryImpl(this._supabase);
+  final SupabaseClient _supabase;
 
   @override
   Future<List<ExpenseModel>> getExpense(String projectId) async {
@@ -19,7 +19,10 @@ class ExpenseRepositoryImpl extends BaseRepository implements ExpenseRepository 
           .select()
           .eq('project_id', projectId)
           .order('spent_at', ascending: false);
-      return response.map(ExpenseDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return response
+          .map(ExpenseDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
@@ -41,7 +44,12 @@ class ExpenseRepositoryImpl extends BaseRepository implements ExpenseRepository 
   }
 
   @override
-  Future<void> updateExpense(String id, String description, int amount, DateTime spentAt) async {
+  Future<void> updateExpense(
+    String id,
+    String description,
+    int amount,
+    DateTime spentAt,
+  ) async {
     return execute(() async {
       await _supabase
           .from('expense_entries')

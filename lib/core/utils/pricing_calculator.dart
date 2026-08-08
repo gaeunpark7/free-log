@@ -1,15 +1,14 @@
 class PricingResult {
-  final double laborCost; // 시급 * 시간
-  final double totalCost; // laborCost + 지출
-  final double marginAmount; // 마진
-  final double sellingPrice; // 최종 판매가
-
   const PricingResult({
     required this.laborCost,
     required this.totalCost,
     required this.marginAmount,
     required this.sellingPrice,
   });
+  final double laborCost; // 시급 * 시간
+  final double totalCost; // laborCost + 지출
+  final double marginAmount; // 마진
+  final double sellingPrice; // 최종 판매가
 }
 
 class PricingCalculator {

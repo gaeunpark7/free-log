@@ -7,8 +7,8 @@ import 'package:free_log/features/home/presentation/providers/project_provider.d
 import 'package:free_log/l10n/app_localizations.dart';
 
 class DeleteProjectDialog extends ConsumerWidget {
-  final String projectId;
   const DeleteProjectDialog({super.key, required this.projectId});
+  final String projectId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,24 +24,28 @@ class DeleteProjectDialog extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: AppColors.errorBg,
                   radius: 30,
-                  child: Icon(Icons.delete, color: AppColors.errorSoft, size: 28),
+                  child: Icon(
+                    Icons.delete,
+                    color: AppColors.errorSoft,
+                    size: 28,
+                  ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   AppLocalizations.of(context)!.deleteConfirm,
                   style: AppTextStyles.title(context),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   AppLocalizations.of(context)!.deleteWarning,
                   style: AppTextStyles.badge(
                     context,
                   ).copyWith(color: AppColors.textSecondary, fontSize: 14),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -53,12 +57,14 @@ class DeleteProjectDialog extends ConsumerWidget {
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: AppFilledButton.delete(
                         text: AppLocalizations.of(context)!.delete,
                         onPressed: () async {
-                          await ref.read(projectNotifierProvider.notifier).deleteProject(projectId);
+                          await ref
+                              .read(projectNotifierProvider.notifier)
+                              .deleteProject(projectId);
                           if (context.mounted) Navigator.pop(context, true);
                         },
                       ),

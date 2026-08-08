@@ -15,5 +15,6 @@ abstract class IncomeDto with _$IncomeDto {
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _IncomeDto;
 
-  factory IncomeDto.fromJson(Map<String, dynamic> json) => _$IncomeDtoFromJson(json);
+  factory IncomeDto.fromJson(Map<String, dynamic> json) =>
+      _$IncomeDtoFromJson(json);
 }

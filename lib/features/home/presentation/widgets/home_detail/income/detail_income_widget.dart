@@ -14,11 +14,12 @@ import 'package:free_log/features/home/presentation/widgets/home_detail/income/i
 import 'package:free_log/l10n/app_localizations.dart';
 
 class DetailIncomeWidget extends ConsumerStatefulWidget {
-  final String projectId;
   const DetailIncomeWidget({super.key, required this.projectId});
+  final String projectId;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _DetailIncomeWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _DetailIncomeWidgetState();
 }
 
 class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
@@ -91,7 +92,9 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                     },
                     child: Text(
                       AppLocalizations.of(context)!.addTodo,
-                      style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
+                      style: AppTextStyles.body(
+                        context,
+                      ).copyWith(color: AppColors.primary),
                     ),
                   ),
                 ],
@@ -100,7 +103,9 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                 const SizedBox(height: 12),
                 Text(
                   AppLocalizations.of(context)!.item,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(
+                    context,
+                  ).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 AppTextField(
@@ -108,13 +113,15 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                   valieText: AppLocalizations.of(context)!.valieItem,
                   hintText: AppLocalizations.of(context)!.itemHint,
                   maxLenth: 15,
-                  icon: Icon(Icons.edit_note, size: 23),
+                  icon: const Icon(Icons.edit_note, size: 23),
                 ),
                 const SizedBox(height: 8),
                 //금액
                 Text(
                   AppLocalizations.of(context)!.amount,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(
+                    context,
+                  ).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 HourlyRateField(
@@ -122,19 +129,22 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                   hintText: AppLocalizations.of(context)!.amountHint,
                   errorText: AppLocalizations.of(context)!.valieAmount,
                   maxDigits: 8,
-                  icon: Icon(Icons.attach_money_outlined, size: 23),
+                  icon: const Icon(Icons.attach_money_outlined, size: 23),
                 ),
                 const SizedBox(height: 8),
                 //날짜
                 Text(
                   AppLocalizations.of(context)!.date,
-                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(
+                    context,
+                  ).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 DatePickerField(
                   selectedDate: _selectedDate,
                   icon: Icons.event,
-                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                  onDateChanged: (picked) =>
+                      setState(() => _selectedDate = picked),
                 ),
                 const SizedBox(height: 12),
                 AppFilledButton(
@@ -145,18 +155,19 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                 ),
               ],
               if (!_isAdding) ...[
-                SizedBox(height: 2),
-                Divider(thickness: 0.5, color: AppColors.textTertiary),
+                const SizedBox(height: 2),
+                const Divider(thickness: 0.5, color: AppColors.textTertiary),
               ],
               asyncIncome.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
                 data: (value) => value.isEmpty
-                    ? SizedBox()
+                    ? const SizedBox()
                     : ConstrainedBox(
                         constraints: const BoxConstraints(maxHeight: 230),
                         child: IncomeListView(income: value),
                       ),
-                error: (error, _) => ErrorView(message: ErrorHandler.getMessage(context, error)),
+                error: (error, _) =>
+                    ErrorView(message: ErrorHandler.getMessage(context, error)),
               ),
             ],
           ),

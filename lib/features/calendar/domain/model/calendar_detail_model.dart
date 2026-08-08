@@ -15,8 +15,10 @@ abstract class CalendarDetailModel with _$CalendarDetailModel {
 // 작업시간
 @freezed
 abstract class TimeEntryDetail with _$TimeEntryDetail {
-  const factory TimeEntryDetail({required String projectName, required int totalMinutes}) =
-      _TimeEntryDetail;
+  const factory TimeEntryDetail({
+    required String projectName,
+    required int totalMinutes,
+  }) = _TimeEntryDetail;
 }
 
 // 수익

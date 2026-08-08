@@ -3,10 +3,10 @@ import 'package:free_log/core/theme/app_colors.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 
 class ErrorView extends StatelessWidget {
+  const ErrorView({super.key, required this.message, this.onRetry});
+
   final String message;
   final VoidCallback? onRetry;
-
-  const ErrorView({super.key, required this.message, this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,9 @@ class ErrorView extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             message,
-            style: AppTextStyles.badgeBold(context).copyWith(color: AppColors.textPrimary),
+            style: AppTextStyles.badgeBold(
+              context,
+            ).copyWith(color: AppColors.textPrimary),
           ),
           if (onRetry != null) ...[
             const SizedBox(height: 16),

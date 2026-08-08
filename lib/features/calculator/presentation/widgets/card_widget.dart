@@ -9,12 +9,6 @@ import 'package:free_log/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class CardWidget extends StatelessWidget {
-  final TextEditingController hourlyRateController;
-  final TextEditingController hourController;
-
-  final TextEditingController expenseController;
-  final TextEditingController marginRateController;
-
   const CardWidget({
     super.key,
     required this.hourlyRateController,
@@ -22,11 +16,20 @@ class CardWidget extends StatelessWidget {
     required this.expenseController,
     required this.marginRateController,
   });
+  final TextEditingController hourlyRateController;
+  final TextEditingController hourController;
 
-  double get _hourlyRate => double.tryParse(hourlyRateController.text.replaceAll(',', '')) ?? 0;
-  double get _hours => double.tryParse(hourController.text.replaceAll('h', '')) ?? 0;
-  double get _expense => double.tryParse(expenseController.text.replaceAll(',', '')) ?? 0;
-  double get _marginRate => (double.tryParse(marginRateController.text) ?? 0) / 100;
+  final TextEditingController expenseController;
+  final TextEditingController marginRateController;
+
+  double get _hourlyRate =>
+      double.tryParse(hourlyRateController.text.replaceAll(',', '')) ?? 0;
+  double get _hours =>
+      double.tryParse(hourController.text.replaceAll('h', '')) ?? 0;
+  double get _expense =>
+      double.tryParse(expenseController.text.replaceAll(',', '')) ?? 0;
+  double get _marginRate =>
+      (double.tryParse(marginRateController.text) ?? 0) / 100;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +55,13 @@ class CardWidget extends StatelessWidget {
                     maxDigits: 8,
                   ),
                 ),
-                Divider(color: AppColors.borderDefault),
+                const Divider(color: AppColors.borderDefault),
                 _rowWidget(
                   context,
                   AppLocalizations.of(context)!.timeEntryTitle,
                   HourTextField(controller: hourController, hintText: '0'),
                 ),
-                Divider(color: AppColors.borderDefault),
+                const Divider(color: AppColors.borderDefault),
                 _rowWidget(
                   context,
                   AppLocalizations.of(context)!.expenses,
@@ -69,7 +72,7 @@ class CardWidget extends StatelessWidget {
                     maxDigits: 8,
                   ),
                 ),
-                Divider(color: AppColors.borderDefault),
+                const Divider(color: AppColors.borderDefault),
                 _rowWidget(
                   context,
                   AppLocalizations.of(context)!.marginRate,
@@ -143,7 +146,12 @@ class CardWidget extends StatelessWidget {
     );
   }
 
-  Row _bottomRowWidget(BuildContext context, String title, String amount, {bool isBold = false}) {
+  Row _bottomRowWidget(
+    BuildContext context,
+    String title,
+    String amount, {
+    bool isBold = false,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -151,13 +159,17 @@ class CardWidget extends StatelessWidget {
           title,
           style: isBold
               ? AppTextStyles.title(context).copyWith(color: Colors.white)
-              : AppTextStyles.subTitleBold(context).copyWith(color: Colors.white),
+              : AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: Colors.white),
         ),
         Text(
           amount,
           style: isBold
               ? AppTextStyles.headline(context).copyWith(color: Colors.white)
-              : AppTextStyles.subTitleBold(context).copyWith(color: Colors.white),
+              : AppTextStyles.subTitleBold(
+                  context,
+                ).copyWith(color: Colors.white),
         ),
       ],
     );

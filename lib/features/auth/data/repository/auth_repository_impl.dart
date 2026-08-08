@@ -9,17 +9,19 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
+  AuthRepositoryImpl(this._supabase, this._googleSignIn);
   final SupabaseClient _supabase;
   final GoogleSignIn _googleSignIn;
-
-  AuthRepositoryImpl(this._supabase, this._googleSignIn);
 
   // 구글 로그인
   @override
   Future<void> signInWithGoogle() async {
     try {
       if (kIsWeb) {
-        await _supabase.auth.signInWithOAuth(OAuthProvider.google, redirectTo: Uri.base.origin);
+        await _supabase.auth.signInWithOAuth(
+          OAuthProvider.google,
+          redirectTo: Uri.base.origin,
+        );
       } else {
         final googleUser = await _googleSignIn.signIn();
         if (googleUser == null) return;
@@ -73,7 +75,9 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   @override
   Stream<AuthStatus> get authStateChanges {
     return _supabase.auth.onAuthStateChange.map(
-      (data) => data.session != null ? AuthStatus.authenticated : AuthStatus.unauthenticated,
+      (data) => data.session != null
+          ? AuthStatus.authenticated
+          : AuthStatus.unauthenticated,
     );
   }
 

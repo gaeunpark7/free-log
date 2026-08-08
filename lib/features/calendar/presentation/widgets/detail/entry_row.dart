@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:free_log/core/theme/app_text_style.dart';
 
 class EntryRow extends StatelessWidget {
-  final String description;
-  final String projectName;
-  final String amount;
-  final Color amountColor;
-
   const EntryRow({
     super.key,
     required this.description,
@@ -14,6 +9,10 @@ class EntryRow extends StatelessWidget {
     required this.amount,
     required this.amountColor,
   });
+  final String description;
+  final String projectName;
+  final String amount;
+  final Color amountColor;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,9 @@ class EntryRow extends StatelessWidget {
                 if (projectName.isNotEmpty)
                   Text(
                     projectName,
-                    style: AppTextStyles.caption(context).copyWith(color: Colors.grey),
+                    style: AppTextStyles.caption(
+                      context,
+                    ).copyWith(color: Colors.grey),
                   ),
               ],
             ),

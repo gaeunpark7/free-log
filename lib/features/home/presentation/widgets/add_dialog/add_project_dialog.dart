@@ -6,9 +6,9 @@ import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/widgets/button/app_filled_button.dart';
 import 'package:free_log/core/widgets/text_field/app_text_field.dart';
 import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
+import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
-import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_title_widget.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
 import 'package:free_log/l10n/app_localizations.dart';
@@ -18,7 +18,8 @@ class AddProjectDialog extends ConsumerStatefulWidget {
   const AddProjectDialog({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AddProjectDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AddProjectDialogState();
 }
 
 class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
@@ -45,7 +46,9 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
 
     if (!isFormValid || _deadlineError != null) return;
 
-    final hourlyRate = int.parse(_hourlyRateController.text.replaceAll(',', ''));
+    final hourlyRate = int.parse(
+      _hourlyRateController.text.replaceAll(',', ''),
+    );
     final project = ProjectModel(
       title: _titleController.text.trim(),
       hourlyRate: hourlyRate,
@@ -61,7 +64,9 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   Widget build(BuildContext context) {
     final user = ref.watch(profileProvider).valueOrNull;
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(16)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(16),
+      ),
       backgroundColor: Colors.white,
       child: SingleChildScrollView(
         child: ConstrainedBox(
@@ -74,7 +79,7 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  AddTitle(),
+                  const AddTitle(),
                   _buildText(AppLocalizations.of(context)!.projectName),
                   const SizedBox(height: 2),
                   AppTextField(
@@ -82,14 +87,14 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                     valieText: AppLocalizations.of(context)!.projectNameError,
                     hintText: AppLocalizations.of(context)!.projectNameHint,
                     maxLenth: 12,
-                    icon: Icon(Icons.edit_note, size: 23),
+                    icon: const Icon(Icons.edit_note, size: 23),
                   ),
                   _buildSizedBox(context),
                   _buildText(AppLocalizations.of(context)!.hourlyRate),
                   const SizedBox(height: 2),
                   HourlyRateField(
                     controller: _hourlyRateController,
-                    icon: Icon(Icons.attach_money, size: 23),
+                    icon: const Icon(Icons.attach_money, size: 23),
                     hintText: user?.hourlyRate != null && user!.hourlyRate > 0
                         ? NumberFormat('#,###').format(user.hourlyRate)
                         : AppLocalizations.of(context)!.hourlyRateHint,
@@ -111,11 +116,17 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                     const SizedBox(height: 4),
                     Text(
                       _deadlineError!,
-                      style: const TextStyle(color: AppColors.error, fontSize: 12),
+                      style: const TextStyle(
+                        color: AppColors.error,
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                   _buildSizedBox(context),
-                  AppFilledButton(onPressed: _save, text: AppLocalizations.of(context)!.save),
+                  AppFilledButton(
+                    onPressed: _save,
+                    text: AppLocalizations.of(context)!.save,
+                  ),
                 ],
               ),
             ),
@@ -128,11 +139,16 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   Text _buildText(String text) {
     return Text(
       text,
-      style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+      style: const TextStyle(
+        color: AppColors.textPrimary,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
   SizedBox _buildSizedBox(BuildContext context) {
-    return SizedBox(height: Responsive.sizedBoxHeight(context, AppSpacing.itemSpacing));
+    return SizedBox(
+      height: Responsive.sizedBoxHeight(context, AppSpacing.itemSpacing),
+    );
   }
 }

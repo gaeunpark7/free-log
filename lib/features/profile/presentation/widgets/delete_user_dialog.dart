@@ -33,18 +33,22 @@ class _DeleteUserDialogState extends ConsumerState<DeleteUserDialog> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 //title
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: AppColors.errorBg,
                   radius: 30,
-                  child: Icon(Icons.delete, color: AppColors.errorSoft, size: 28),
+                  child: Icon(
+                    Icons.delete,
+                    color: AppColors.errorSoft,
+                    size: 28,
+                  ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   AppLocalizations.of(context)!.deleteAccountConfirmQuestion,
                   style: AppTextStyles.title(context),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 //body
                 Text(
                   AppLocalizations.of(context)!.deleteAccountDialogMessage,
@@ -52,7 +56,7 @@ class _DeleteUserDialogState extends ConsumerState<DeleteUserDialog> {
                     context,
                   ).copyWith(color: AppColors.textSecondary, fontSize: 14),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 _buildButton(context),
               ],
             ),
@@ -74,12 +78,12 @@ class _DeleteUserDialogState extends ConsumerState<DeleteUserDialog> {
             },
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: AppFilledButton.delete(
             text: AppLocalizations.of(context)!.deleteAccount,
             onPressed: () async {
-              ref.read(authNotifierProvider.notifier).deleteAccount();
+              await ref.read(authNotifierProvider.notifier).deleteAccount();
             },
           ),
         ),

@@ -33,8 +33,10 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
-  static TextStyle subTitle(BuildContext context) =>
-      TextStyle(fontSize: Responsive.fontSize(context, subTitleSize), color: AppColors.textPrimary);
+  static TextStyle subTitle(BuildContext context) => TextStyle(
+    fontSize: Responsive.fontSize(context, subTitleSize),
+    color: AppColors.textPrimary,
+  );
 
   static TextStyle subTitleBold(BuildContext context) => TextStyle(
     fontSize: Responsive.fontSize(context, subTitleSize),
@@ -42,8 +44,10 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
-  static TextStyle body(BuildContext context) =>
-      TextStyle(fontSize: Responsive.fontSize(context, bodySize), color: AppColors.textPrimary);
+  static TextStyle body(BuildContext context) => TextStyle(
+    fontSize: Responsive.fontSize(context, bodySize),
+    color: AppColors.textPrimary,
+  );
 
   static TextStyle bodyBold(BuildContext context) => TextStyle(
     fontSize: Responsive.fontSize(context, bodySize),
@@ -51,18 +55,24 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
   );
 
-  static TextStyle caption(BuildContext context) =>
-      TextStyle(fontSize: Responsive.fontSize(context, captionSize), color: Colors.grey);
+  static TextStyle caption(BuildContext context) => TextStyle(
+    fontSize: Responsive.fontSize(context, captionSize),
+    color: Colors.grey,
+  );
   static TextStyle captionBold(BuildContext context) => TextStyle(
     fontSize: Responsive.fontSize(context, captionSize),
     color: Colors.grey,
     fontWeight: FontWeight.bold,
   );
 
-  static TextStyle badge(BuildContext context) =>
-      TextStyle(fontSize: Responsive.fontSize(context, badgeSize), fontWeight: FontWeight.w500);
-  static TextStyle badgeBold(BuildContext context) =>
-      TextStyle(fontSize: Responsive.fontSize(context, badgeSize), fontWeight: FontWeight.bold);
+  static TextStyle badge(BuildContext context) => TextStyle(
+    fontSize: Responsive.fontSize(context, badgeSize),
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle badgeBold(BuildContext context) => TextStyle(
+    fontSize: Responsive.fontSize(context, badgeSize),
+    fontWeight: FontWeight.bold,
+  );
 
   static TextStyle calendarBody(BuildContext context) => TextStyle(
     fontSize: Responsive.fontSize(context, calendarTextSize),

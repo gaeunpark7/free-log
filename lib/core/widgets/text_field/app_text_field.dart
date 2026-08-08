@@ -4,13 +4,6 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
 class AppTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String valieText;
-  final String hintText;
-  final Icon? icon;
-  final int maxLenth;
-  final bool? read;
-  final bool validate;
   const AppTextField({
     super.key,
     required this.controller,
@@ -21,12 +14,21 @@ class AppTextField extends StatelessWidget {
     this.read,
     this.validate = true,
   });
+  final TextEditingController controller;
+  final String valieText;
+  final String hintText;
+  final Icon? icon;
+  final int maxLenth;
+  final bool? read;
+  final bool validate;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       style: read == true
-          ? AppTextStyles.bodyBold(context).copyWith(color: AppColors.textTertiary)
+          ? AppTextStyles.bodyBold(
+              context,
+            ).copyWith(color: AppColors.textTertiary)
           : AppTextStyles.body(context),
       controller: controller,
       validator: validate
@@ -42,17 +44,20 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         counterText: '',
         hintText: hintText,
-        hintStyle: TextStyle(color: AppColors.textTertiary),
-        suffixStyle: TextStyle(color: AppColors.textTertiary),
+        hintStyle: const TextStyle(color: AppColors.textTertiary),
+        suffixStyle: const TextStyle(color: AppColors.textTertiary),
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 10,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.borderDefault),
+          borderSide: const BorderSide(color: AppColors.borderDefault),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.borderDefault),
+          borderSide: const BorderSide(color: AppColors.borderDefault),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -63,7 +68,7 @@ class AppTextField extends StatelessWidget {
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.errorSoft, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.errorSoft, width: 1.5),
         ),
         filled: true,
         fillColor: read == true ? AppColors.surfaceTint : AppColors.background,

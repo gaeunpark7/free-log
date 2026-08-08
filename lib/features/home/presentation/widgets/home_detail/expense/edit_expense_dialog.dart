@@ -12,12 +12,12 @@ import 'package:free_log/features/home/presentation/providers/expense_provider.d
 import 'package:free_log/l10n/app_localizations.dart';
 
 class EditExpenseDialog extends ConsumerStatefulWidget {
+  const EditExpenseDialog({super.key, required this.expense});
   final ExpenseModel expense;
 
-  const EditExpenseDialog({super.key, required this.expense});
-
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditExpenseDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _EditExpenseDialogState();
 }
 
 class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
@@ -30,7 +30,9 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.expense.description);
-    _amountController = TextEditingController(text: widget.expense.amount.toStringAsFixed(0));
+    _amountController = TextEditingController(
+      text: widget.expense.amount.toStringAsFixed(0),
+    );
     _selectedDate = widget.expense.spentAt;
   }
 
@@ -44,7 +46,9 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(12),
+      ),
       backgroundColor: Colors.white,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 480),
@@ -66,16 +70,19 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                           color: const Color.fromARGB(255, 230, 237, 248),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.edit_document, color: AppColors.primary),
+                        child: const Icon(
+                          Icons.edit_document,
+                          color: AppColors.primary,
+                        ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         AppLocalizations.of(context)!.editExpense,
                         style: AppTextStyles.title(context),
                       ),
                     ],
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Text(
                     AppLocalizations.of(context)!.item,
                     style: AppTextStyles.captionBold(
@@ -88,7 +95,7 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                     valieText: AppLocalizations.of(context)!.valieItem,
                     hintText: AppLocalizations.of(context)!.itemHint,
                     maxLenth: 15,
-                    icon: Icon(Icons.edit_note, size: 23),
+                    icon: const Icon(Icons.edit_note, size: 23),
                   ),
                   const SizedBox(height: 8),
                   //금액
@@ -104,7 +111,7 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                     hintText: AppLocalizations.of(context)!.amountHint,
                     errorText: AppLocalizations.of(context)!.valieAmount,
                     maxDigits: 8,
-                    icon: Icon(Icons.attach_money_outlined, size: 23),
+                    icon: const Icon(Icons.attach_money_outlined, size: 23),
                   ),
                   const SizedBox(height: 8),
                   //날짜
@@ -118,7 +125,8 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                   DatePickerField(
                     selectedDate: _selectedDate,
                     icon: Icons.event,
-                    onDateChanged: (picked) => setState(() => _selectedDate = picked),
+                    onDateChanged: (picked) =>
+                        setState(() => _selectedDate = picked),
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -133,7 +141,7 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                         ),
                         child: IconButton(
                           onPressed: () async {
-                            showDialog(
+                            await showDialog(
                               context: context,
                               builder: (ctx) => DeleteDialog(
                                 onDelete: () async {
@@ -149,7 +157,10 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                               ),
                             );
                           },
-                          icon: Icon(Icons.delete_outline_outlined, color: AppColors.errorSoft),
+                          icon: const Icon(
+                            Icons.delete_outline_outlined,
+                            color: AppColors.errorSoft,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -158,17 +169,26 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                           height: 48,
                           child: FilledButton(
                             style: FilledButton.styleFrom(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                             onPressed: () async {
                               final amount =
-                                  int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+                                  int.tryParse(
+                                    _amountController.text.replaceAll(',', ''),
+                                  ) ??
+                                  0;
                               final noChange =
-                                  _titleController.text.trim() == widget.expense.description &&
+                                  _titleController.text.trim() ==
+                                      widget.expense.description &&
                                   amount == widget.expense.amount &&
-                                  _selectedDate.year == widget.expense.spentAt.year &&
-                                  _selectedDate.month == widget.expense.spentAt.month &&
-                                  _selectedDate.day == widget.expense.spentAt.day;
+                                  _selectedDate.year ==
+                                      widget.expense.spentAt.year &&
+                                  _selectedDate.month ==
+                                      widget.expense.spentAt.month &&
+                                  _selectedDate.day ==
+                                      widget.expense.spentAt.day;
                               if (noChange) {
                                 if (context.mounted) Navigator.pop(context);
                                 return;
@@ -190,7 +210,9 @@ class _EditExpenseDialogState extends ConsumerState<EditExpenseDialog> {
                             },
                             child: Text(
                               AppLocalizations.of(context)!.update,
-                              style: AppTextStyles.bodyBold(context).copyWith(color: Colors.white),
+                              style: AppTextStyles.bodyBold(
+                                context,
+                              ).copyWith(color: Colors.white),
                             ),
                           ),
                         ),

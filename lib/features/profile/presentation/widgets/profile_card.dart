@@ -6,8 +6,8 @@ import 'package:free_log/features/profile/domain/model/user_model.dart';
 import 'package:free_log/features/profile/presentation/widgets/profile_edit_dialog.dart';
 
 class ProfileCard extends StatelessWidget {
-  final UserModel? user;
   const ProfileCard({super.key, required this.user});
+  final UserModel? user;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,11 @@ class ProfileCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-              children: [_buildProfileCircle(), const SizedBox(width: 16), _buildUserInfo(context)],
+              children: [
+                _buildProfileCircle(),
+                const SizedBox(width: 16),
+                _buildUserInfo(context),
+              ],
             ),
             _buildEditButton(context),
           ],
@@ -36,7 +40,10 @@ class ProfileCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(user?.nickname ?? 'no nickname', style: AppTextStyles.subTitleBold(context)),
+        Text(
+          user?.nickname ?? 'no nickname',
+          style: AppTextStyles.subTitleBold(context),
+        ),
         Text(user?.email ?? '', style: AppTextStyles.caption(context)),
       ],
     );
@@ -50,7 +57,7 @@ class ProfileCard extends StatelessWidget {
           builder: (ctx) => ProfileEditDialog(user: user!),
         );
       },
-      child: CircleAvatar(
+      child: const CircleAvatar(
         radius: 20,
         backgroundColor: AppColors.background,
         child: Icon(Icons.edit_outlined, color: AppColors.textTertiary),
@@ -59,7 +66,7 @@ class ProfileCard extends StatelessWidget {
   }
 
   CircleAvatar _buildProfileCircle() {
-    return CircleAvatar(
+    return const CircleAvatar(
       radius: 28,
       backgroundColor: AppColors.primarySoft,
       child: Icon(Icons.person, color: AppColors.primary, size: 32),

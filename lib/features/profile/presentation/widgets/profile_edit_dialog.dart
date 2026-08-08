@@ -10,11 +10,12 @@ import 'package:free_log/features/profile/presentation/providers/profile_provide
 import 'package:free_log/l10n/app_localizations.dart';
 
 class ProfileEditDialog extends ConsumerStatefulWidget {
-  final UserModel user;
   const ProfileEditDialog({super.key, required this.user});
+  final UserModel user;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileEditDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ProfileEditDialogState();
 }
 
 class _ProfileEditDialogState extends ConsumerState<ProfileEditDialog> {
@@ -40,7 +41,9 @@ class _ProfileEditDialogState extends ConsumerState<ProfileEditDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(14)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(14),
+      ),
       child: Padding(
         padding: Responsive.cardPadding(context),
         child: Form(
@@ -50,37 +53,41 @@ class _ProfileEditDialogState extends ConsumerState<ProfileEditDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildTitle(context),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               //이름
               Text(
                 AppLocalizations.of(context)!.nickName,
-                style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.captionBold(
+                  context,
+                ).copyWith(color: AppColors.textPrimary),
               ),
-              SizedBox(height: 2),
+              const SizedBox(height: 2),
               AppTextField(
                 controller: _nickNameController,
                 valieText: AppLocalizations.of(context)!.nicknameError,
                 hintText: AppLocalizations.of(context)!.nicknameHint,
                 maxLenth: 8,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               //이메일
               Text(
                 AppLocalizations.of(context)!.email,
-                style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.captionBold(
+                  context,
+                ).copyWith(color: AppColors.textPrimary),
               ),
-              SizedBox(height: 2),
+              const SizedBox(height: 2),
               AppTextField(
                 controller: _emailController,
-                valieText: "",
-                hintText: "",
+                valieText: '',
+                hintText: '',
                 maxLenth: 12,
-                icon: Icon(Icons.lock_outline),
+                icon: const Icon(Icons.lock_outline),
                 read: true,
                 validate: false,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               _buildButton(),
             ],
@@ -100,9 +107,9 @@ class _ProfileEditDialogState extends ConsumerState<ProfileEditDialog> {
             color: AppColors.primarySoft,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(Icons.person, color: AppColors.primary),
+          child: const Icon(Icons.person, color: AppColors.primary),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text(
           AppLocalizations.of(context)!.editNickname,
           style: AppTextStyles.subTitleBold(context),
@@ -122,12 +129,13 @@ class _ProfileEditDialogState extends ConsumerState<ProfileEditDialog> {
             },
           ),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         //저장
         Expanded(
           child: AppFilledButton(
             onPressed: () {
-              final noChange = widget.user.nickname == _nickNameController.text.trim();
+              final noChange =
+                  widget.user.nickname == _nickNameController.text.trim();
               if (noChange) {
                 Navigator.pop(context);
                 return;

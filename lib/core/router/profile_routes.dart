@@ -7,14 +7,20 @@ import 'package:go_router/go_router.dart';
 
 GoRoute buildProfileRoutes() => GoRoute(
   path: RoutePaths.profile,
-  builder: (_, _) => ProfileScreen(),
+  builder: (_, _) => const ProfileScreen(),
   routes: [
     GoRoute(
       path: RoutePaths.profileDetail,
-      builder: (_, _) => ProfileDetailScreen(),
+      builder: (_, _) => const ProfileDetailScreen(),
       routes: [
-        GoRoute(path: RoutePaths.privacy, builder: (_, _) => PrivacyPolicyScreen()),
-        GoRoute(path: RoutePaths.deleteUser, builder: (_, _) => DeleteUserScreen()),
+        GoRoute(
+          path: RoutePaths.privacy,
+          builder: (_, _) => const PrivacyPolicyScreen(),
+        ),
+        GoRoute(
+          path: RoutePaths.deleteUser,
+          builder: (_, _) => const DeleteUserScreen(),
+        ),
       ],
     ),
   ],

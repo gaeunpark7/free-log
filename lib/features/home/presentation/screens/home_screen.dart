@@ -34,7 +34,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -54,14 +56,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             HomeTitleWidget(
               inProgressCount:
                   asyncProject.whenOrNull(
-                    data: (projects) =>
-                        projects.where((p) => p.status == ProjectStatus.inProgress).length,
+                    data: (projects) => projects
+                        .where((p) => p.status == ProjectStatus.inProgress)
+                        .length,
                   ) ??
                   0,
               completedCount:
                   asyncProject.whenOrNull(
-                    data: (projects) =>
-                        projects.where((p) => p.status == ProjectStatus.completed).length,
+                    data: (projects) => projects
+                        .where((p) => p.status == ProjectStatus.completed)
+                        .length,
                   ) ??
                   0,
             ),
@@ -81,7 +85,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       });
                     },
                   ),
-                  SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: AppSpacing.sm),
                   HomeButtonWidget(
                     text: AppLocalizations.of(context)!.inProgress,
                     isSelected: _selectedStatus == ProjectStatus.inProgress,
@@ -91,7 +95,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       });
                     },
                   ),
-                  SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: AppSpacing.sm),
                   HomeButtonWidget(
                     text: AppLocalizations.of(context)!.completed,
                     isSelected: _selectedStatus == ProjectStatus.completed,
@@ -109,7 +113,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 data: (value) {
                   final filterProjects = _selectedStatus == null
                       ? value
-                      : value.where((project) => project.status == _selectedStatus).toList();
+                      : value
+                            .where(
+                              (project) => project.status == _selectedStatus,
+                            )
+                            .toList();
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     itemCount: filterProjects.length,
@@ -123,16 +131,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            context.push('/detail/${project.id}', extra: project);
+                            context.push(
+                              '/detail/${project.id}',
+                              extra: project,
+                            );
                           },
-                          child: HomeContainerWidget(project: project, status: project.status),
+                          child: HomeContainerWidget(
+                            project: project,
+                            status: project.status,
+                          ),
                         ),
                       );
                     },
                   );
                 },
-                error: (e, _) => ErrorView(message: ErrorHandler.getMessage(context, e)),
-                loading: () => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                error: (e, _) =>
+                    ErrorView(message: ErrorHandler.getMessage(context, e)),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                ),
               ),
             ),
           ],

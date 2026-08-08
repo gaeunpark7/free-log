@@ -10,7 +10,9 @@ final expenseRepoProvider = Provider<ExpenseRepository>(
   (ref) => ExpenseRepositoryImpl(ref.watch(supabaseClientProvider)),
 );
 final expenseNotifierProvider =
-    AsyncNotifierProviderFamily<ExpenseProvider, List<ExpenseModel>, String>(ExpenseProvider.new);
+    AsyncNotifierProviderFamily<ExpenseProvider, List<ExpenseModel>, String>(
+      ExpenseProvider.new,
+    );
 
 class ExpenseProvider extends FamilyAsyncNotifier<List<ExpenseModel>, String> {
   ExpenseRepository get _repo => ref.read(expenseRepoProvider);
@@ -20,8 +22,12 @@ class ExpenseProvider extends FamilyAsyncNotifier<List<ExpenseModel>, String> {
     return _repo.getExpense(arg);
   }
 
-  Future<void> addExpense(String description, int amount, DateTime spentAt) async {
-    state = AsyncLoading();
+  Future<void> addExpense(
+    String description,
+    int amount,
+    DateTime spentAt,
+  ) async {
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.addExpense(arg, description, amount, spentAt);
       ref.invalidate(calendarNotifierProvider);
@@ -29,8 +35,13 @@ class ExpenseProvider extends FamilyAsyncNotifier<List<ExpenseModel>, String> {
     });
   }
 
-  Future<void> updateExpense(String id, String description, int amount, DateTime spentAt) async {
-    state = AsyncLoading();
+  Future<void> updateExpense(
+    String id,
+    String description,
+    int amount,
+    DateTime spentAt,
+  ) async {
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateExpense(id, description, amount, spentAt);
       ref.invalidate(calendarNotifierProvider);
@@ -39,7 +50,7 @@ class ExpenseProvider extends FamilyAsyncNotifier<List<ExpenseModel>, String> {
   }
 
   Future<void> deleteExpense(String id) async {
-    state = AsyncLoading();
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.deleteExpense(id);
       ref.invalidate(calendarNotifierProvider);

@@ -16,7 +16,9 @@ final calendarRepoProvider = Provider<CalendarRepository>(
 );
 
 final calendarNotifierProvider =
-    AsyncNotifierProvider<CalendarProvider, Map<DateTime, CalendarDataModel>>(CalendarProvider.new);
+    AsyncNotifierProvider<CalendarProvider, Map<DateTime, CalendarDataModel>>(
+      CalendarProvider.new,
+    );
 
 class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
   CalendarRepository get _repo => ref.read(calendarRepoProvider);
@@ -25,7 +27,8 @@ class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
   int _month = DateTime.now().month;
 
   @override
-  FutureOr<Map<DateTime, CalendarDataModel>> build() => _loadMonth(_year, _month);
+  FutureOr<Map<DateTime, CalendarDataModel>> build() =>
+      _loadMonth(_year, _month);
 
   Future<void> changeMonth(int year, int month) async {
     _year = year;
@@ -34,8 +37,14 @@ class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
     state = await AsyncValue.guard(() => _loadMonth(year, month));
   }
 
-  Future<Map<DateTime, CalendarDataModel>> _loadMonth(int year, int month) async {
-    final (timeEntries, incomes, expenses, projects) = await _fetchAll(year, month);
+  Future<Map<DateTime, CalendarDataModel>> _loadMonth(
+    int year,
+    int month,
+  ) async {
+    final (timeEntries, incomes, expenses, projects) = await _fetchAll(
+      year,
+      month,
+    );
 
     final projectMap = <String, String>{
       for (final p in projects)
@@ -45,7 +54,14 @@ class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
     return _groupByDate(timeEntries, incomes, expenses, projectMap);
   }
 
-  Future<(List<TimeEntryModel>, List<IncomeModel>, List<ExpenseModel>, List<ProjectModel>)>
+  Future<
+    (
+      List<TimeEntryModel>,
+      List<IncomeModel>,
+      List<ExpenseModel>,
+      List<ProjectModel>,
+    )
+  >
   _fetchAll(int year, int month) async {
     try {
       return await (
@@ -85,7 +101,12 @@ class CalendarProvider extends AsyncNotifier<Map<DateTime, CalendarDataModel>> {
           totalMinutes: entries[idx].totalMinutes + entry.minutes,
         );
       } else {
-        entries.add(TimeEntryDetail(projectName: projectName, totalMinutes: entry.minutes));
+        entries.add(
+          TimeEntryDetail(
+            projectName: projectName,
+            totalMinutes: entry.minutes,
+          ),
+        );
       }
 
       result[key] = existing.copyWith(

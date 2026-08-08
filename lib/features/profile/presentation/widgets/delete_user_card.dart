@@ -25,20 +25,36 @@ class DeleteUserCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTitle(context, AppLocalizations.of(context)!.deletedDataSectionTitle),
-                SizedBox(height: 5),
-                _buildBody(context, AppLocalizations.of(context)!.deletedDataSocialLoginInfo),
-                _buildBody(context, AppLocalizations.of(context)!.deletedDataProjectAndWorkHistory),
-                _buildBody(context, AppLocalizations.of(context)!.deletedDataIncomeExpenseHistory),
+                _buildTitle(
+                  context,
+                  AppLocalizations.of(context)!.deletedDataSectionTitle,
+                ),
+                const SizedBox(height: 5),
                 _buildBody(
                   context,
-                  AppLocalizations.of(context)!.deletedDataStatsAndCalendarHistory,
+                  AppLocalizations.of(context)!.deletedDataSocialLoginInfo,
+                ),
+                _buildBody(
+                  context,
+                  AppLocalizations.of(
+                    context,
+                  )!.deletedDataProjectAndWorkHistory,
+                ),
+                _buildBody(
+                  context,
+                  AppLocalizations.of(context)!.deletedDataIncomeExpenseHistory,
+                ),
+                _buildBody(
+                  context,
+                  AppLocalizations.of(
+                    context,
+                  )!.deletedDataStatsAndCalendarHistory,
                 ),
               ],
             ),
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -52,12 +68,20 @@ class DeleteUserCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                _buildTitle(context, AppLocalizations.of(context)!.deleteAccountNoticeTitle),
-                SizedBox(height: 5),
-                _buildBody(context, AppLocalizations.of(context)!.deleteAccountNoticeIrreversible),
+                _buildTitle(
+                  context,
+                  AppLocalizations.of(context)!.deleteAccountNoticeTitle,
+                ),
+                const SizedBox(height: 5),
                 _buildBody(
                   context,
-                  AppLocalizations.of(context)!.deleteAccountNoticeNoCancelAndSupport,
+                  AppLocalizations.of(context)!.deleteAccountNoticeIrreversible,
+                ),
+                _buildBody(
+                  context,
+                  AppLocalizations.of(
+                    context,
+                  )!.deleteAccountNoticeNoCancelAndSupport,
                 ),
               ],
             ),
@@ -68,7 +92,11 @@ class DeleteUserCard extends StatelessWidget {
   }
 }
 
-Text _buildTitle(BuildContext context, String text) =>
-    Text(text, style: AppTextStyles.bodyBold(context).copyWith(color: AppColors.textPrimary));
-Text _buildBody(BuildContext context, String text) =>
-    Text(text, style: AppTextStyles.body(context).copyWith(color: AppColors.textPrimary));
+Text _buildTitle(BuildContext context, String text) => Text(
+  text,
+  style: AppTextStyles.bodyBold(context).copyWith(color: AppColors.textPrimary),
+);
+Text _buildBody(BuildContext context, String text) => Text(
+  text,
+  style: AppTextStyles.body(context).copyWith(color: AppColors.textPrimary),
+);

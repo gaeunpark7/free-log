@@ -22,18 +22,22 @@ class EmptyTimeEntryContainer extends StatelessWidget {
       ),
       child: Container(
         padding: Responsive.cardPadding(context),
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.schedule, size: 40, color: AppColors.textTertiary),
+            const Icon(Icons.schedule, size: 40, color: AppColors.textTertiary),
             const SizedBox(height: 8),
             Text(
               AppLocalizations.of(context)!.noTimeEntries,
 
-              style: AppTextStyles.caption(
-                context,
-              ).copyWith(color: AppColors.textTertiary, fontWeight: FontWeight.bold),
+              style: AppTextStyles.caption(context).copyWith(
+                color: AppColors.textTertiary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
           ],

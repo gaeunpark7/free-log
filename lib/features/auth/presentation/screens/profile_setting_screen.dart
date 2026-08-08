@@ -12,7 +12,8 @@ class ProfileSettingsScreen extends ConsumerStatefulWidget {
   const ProfileSettingsScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileSettingsScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ProfileSettingsScreenState();
 }
 
 class _ProfileSettingsScreenState extends ConsumerState<ProfileSettingsScreen> {
@@ -42,23 +43,30 @@ class _ProfileSettingsScreenState extends ConsumerState<ProfileSettingsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
                 AppLocalizations.of(context)!.setNickname,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(AppLocalizations.of(context)!.nicknameSubtitle),
-              SizedBox(height: 12),
-              Icon(Icons.account_circle, size: 120, color: AppColors.primary),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
+              const Icon(
+                Icons.account_circle,
+                size: 120,
+                color: AppColors.primary,
+              ),
+              const SizedBox(height: 12),
               AppTextField(
                 controller: _nameController,
                 valieText: AppLocalizations.of(context)!.nicknameError,
                 hintText: AppLocalizations.of(context)!.nicknameHint,
                 maxLenth: 12,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               AppFilledButton(
                 onPressed: () {
                   if (!_formkey.currentState!.validate()) return;
@@ -68,7 +76,7 @@ class _ProfileSettingsScreenState extends ConsumerState<ProfileSettingsScreen> {
                 },
                 text: AppLocalizations.of(context)!.save,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
             ],
           ),
         ),

@@ -31,7 +31,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TitleWidget(),
+            const TitleWidget(),
             Padding(
               padding: Responsive.screenPadding(context),
               child: CardWidget(

@@ -8,7 +8,9 @@ import 'package:free_log/features/profile/domain/repository/profile_repository.d
 final profileRepoProvider = Provider<ProfileRepository>(
   (ref) => ProfileRepositoryImpl(ref.watch(supabaseClientProvider)),
 );
-final profileProvider = AsyncNotifierProvider<ProfileNotifier, UserModel?>(ProfileNotifier.new);
+final profileProvider = AsyncNotifierProvider<ProfileNotifier, UserModel?>(
+  ProfileNotifier.new,
+);
 
 class ProfileNotifier extends AsyncNotifier<UserModel?> {
   ProfileRepository get _repo => ref.read(profileRepoProvider);

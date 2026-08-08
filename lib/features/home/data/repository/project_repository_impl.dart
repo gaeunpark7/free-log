@@ -7,10 +7,10 @@ import 'package:free_log/features/home/domain/repository/project_repository.dart
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository {
-  final SupabaseClient _supabase;
-
+class ProjectRepositoryImpl extends BaseRepository
+    implements ProjectRepository {
   ProjectRepositoryImpl(this._supabase);
+  final SupabaseClient _supabase;
 
   @override
   Future<void> createProject(ProjectModel project) async {
@@ -22,7 +22,7 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
       final userId = user.id;
 
       final projectJson = ProjectDto(
-        id: Uuid().v4(),
+        id: const Uuid().v4(),
         userId: userId,
         title: project.title,
         status: project.status,
@@ -43,7 +43,10 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
           .from('project')
           .select()
           .order('created_at', ascending: false);
-      return response.map(ProjectDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return response
+          .map(ProjectDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
@@ -53,7 +56,11 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
       if (_supabase.auth.currentUser == null) return;
 
       final now = DateTime.now();
-      final todayMidnight = DateTime(now.year, now.month, now.day).toUtc().toIso8601String();
+      final todayMidnight = DateTime(
+        now.year,
+        now.month,
+        now.day,
+      ).toUtc().toIso8601String();
 
       await _supabase
           .from('project')
@@ -90,7 +97,10 @@ class ProjectRepositoryImpl extends BaseRepository implements ProjectRepository 
   @override
   Future<void> completeProject(String projectId) async {
     return execute(() async {
-      return _supabase.from('project').update({'status': 'completed'}).eq('id', projectId);
+      return _supabase
+          .from('project')
+          .update({'status': 'completed'})
+          .eq('id', projectId);
     }, errorCode: ErrorCode.saveFailed);
   }
 }

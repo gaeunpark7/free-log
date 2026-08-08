@@ -18,7 +18,10 @@ class TodosRepositoryImpl extends BaseRepository implements TodosRepository {
           .select()
           .eq('project_id', projectId)
           .order('created_at', ascending: true);
-      return reponse.map(TodosDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return reponse
+          .map(TodosDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 

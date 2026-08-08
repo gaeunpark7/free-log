@@ -5,9 +5,13 @@ import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
 class HomeTitleWidget extends StatelessWidget {
+  const HomeTitleWidget({
+    super.key,
+    required this.inProgressCount,
+    required this.completedCount,
+  });
   final int inProgressCount;
   final int completedCount;
-  const HomeTitleWidget({super.key, required this.inProgressCount, required this.completedCount});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +24,11 @@ class HomeTitleWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           // SizedBox(height: Responsive.sizedBoxHeight(context, AppSpacing.lg)),
           Text(
             AppLocalizations.of(context)!.myProject,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: AppTextStyles.headlineSize,
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -35,9 +39,11 @@ class HomeTitleWidget extends StatelessWidget {
             children: [
               _buildSubTitle(
                 context,
-                AppLocalizations.of(context)!.projectStatus(inProgressCount, completedCount),
+                AppLocalizations.of(
+                  context,
+                )!.projectStatus(inProgressCount, completedCount),
               ),
-              SizedBox(width: 2),
+              const SizedBox(width: 2),
               // _buildSubTitle(context, inProgressCount.toString()),
               // SizedBox(width: AppSpacing.sm),
               // Text(

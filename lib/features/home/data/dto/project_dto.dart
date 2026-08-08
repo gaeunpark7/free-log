@@ -18,5 +18,6 @@ abstract class ProjectDto with _$ProjectDto {
     @JsonKey(name: 'margin_rate') @Default(0.3) double marginRate,
   }) = _ProjectDto;
 
-  factory ProjectDto.fromJson(Map<String, dynamic> json) => _$ProjectDtoFromJson(json);
+  factory ProjectDto.fromJson(Map<String, dynamic> json) =>
+      _$ProjectDtoFromJson(json);
 }

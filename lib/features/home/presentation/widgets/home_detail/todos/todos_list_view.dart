@@ -4,17 +4,24 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/features/home/domain/model/todos_model.dart';
 
 class TodosListView extends StatelessWidget {
+  const TodosListView({
+    super.key,
+    required this.items,
+    required this.onChanged,
+    required this.onTap,
+  });
   final List<TodosModel> items;
   final void Function(TodosModel item, bool? value) onChanged;
   final void Function(TodosModel item) onTap;
-  const TodosListView({super.key, required this.items, required this.onChanged, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       shrinkWrap: true,
-      physics: items.length > 4 ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
+      physics: items.length > 4
+          ? const AlwaysScrollableScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
       itemCount: items.length,
       itemBuilder: (ctx, index) {
         final todo = items[index];
@@ -27,16 +34,20 @@ class TodosListView extends StatelessWidget {
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 value: todo.isDone,
                 onChanged: (v) => onChanged(todo, v),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
                 side: const BorderSide(color: Colors.grey),
                 activeColor: AppColors.primary,
               ),
               Expanded(
                 child: Text(
                   todo.content,
-                  style: AppTextStyles.body(
-                    context,
-                  ).copyWith(decoration: todo.isDone ? TextDecoration.lineThrough : null, decorationColor: todo.isDone ? Colors.grey : null, color: todo.isDone ? Colors.grey : AppColors.textPrimary),
+                  style: AppTextStyles.body(context).copyWith(
+                    decoration: todo.isDone ? TextDecoration.lineThrough : null,
+                    decorationColor: todo.isDone ? Colors.grey : null,
+                    color: todo.isDone ? Colors.grey : AppColors.textPrimary,
+                  ),
                 ),
               ),
             ],

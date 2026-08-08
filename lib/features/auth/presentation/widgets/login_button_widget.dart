@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 
 class LoginButtonWidget extends StatelessWidget {
-  final Color color;
-  final String image;
-  final String text;
-  final VoidCallback? onPressed;
-  final bool isLoading;
   const LoginButtonWidget({
     super.key,
     required this.color,
@@ -15,6 +10,11 @@ class LoginButtonWidget extends StatelessWidget {
     this.onPressed,
     this.isLoading = false,
   });
+  final Color color;
+  final String image;
+  final String text;
+  final VoidCallback? onPressed;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +28,20 @@ class LoginButtonWidget extends StatelessWidget {
         ),
         onPressed: isLoading ? null : onPressed,
         child: isLoading
-            ? SizedBox(
+            ? const SizedBox(
                 width: 24,
                 height: 24,
-                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(image, width: 20, height: 20),
-                  SizedBox(width: 10),
-                  Text(text, style: TextStyle(color: Colors.black)),
+                  const SizedBox(width: 10),
+                  Text(text, style: const TextStyle(color: Colors.black)),
                 ],
               ),
       ),

@@ -4,16 +4,15 @@ import 'package:free_log/core/theme/app_text_style.dart';
 import 'package:free_log/l10n/app_localizations.dart';
 
 class DatePickerField extends StatelessWidget {
-  final DateTime? selectedDate;
-  final ValueChanged<DateTime> onDateChanged;
-  final IconData? icon;
-
   const DatePickerField({
     super.key,
     required this.selectedDate,
     required this.onDateChanged,
     this.icon,
   });
+  final DateTime? selectedDate;
+  final ValueChanged<DateTime> onDateChanged;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {

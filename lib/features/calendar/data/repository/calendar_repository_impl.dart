@@ -15,21 +15,27 @@ import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class CalendarRepositoryImpl extends BaseRepository implements CalendarRepository {
-  final SupabaseClient _supabase;
-
+class CalendarRepositoryImpl extends BaseRepository
+    implements CalendarRepository {
   CalendarRepositoryImpl(this._supabase);
+  final SupabaseClient _supabase;
 
   @override
   Future<List<ProjectModel>> getProjects() async {
     return execute(() async {
       final response = await _supabase.from('project').select('id, title');
-      return response.map(ProjectDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return response
+          .map(ProjectDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
   @override
-  Future<List<TimeEntryModel>> getMonthlyTimeEntries(int year, int month) async {
+  Future<List<TimeEntryModel>> getMonthlyTimeEntries(
+    int year,
+    int month,
+  ) async {
     return execute(() async {
       final start = DateTime(year, month, 1).toUtc().toIso8601String();
       final end = DateTime(year, month + 1, 1).toUtc().toIso8601String();
@@ -39,7 +45,10 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
           .select()
           .gte('worked_at', start)
           .lt('worked_at', end);
-      return response.map(TimeEntryDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return response
+          .map(TimeEntryDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
@@ -54,7 +63,10 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
           .gte('received_at', start)
           .lt('received_at', end);
 
-      return response.map(IncomeDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return response
+          .map(IncomeDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 
@@ -69,7 +81,10 @@ class CalendarRepositoryImpl extends BaseRepository implements CalendarRepositor
           .select()
           .gte('spent_at', start)
           .lt('spent_at', end);
-      return response.map(ExpenseDto.fromJson).map((dto) => dto.toEntity()).toList();
+      return response
+          .map(ExpenseDto.fromJson)
+          .map((dto) => dto.toEntity())
+          .toList();
     }, errorCode: ErrorCode.fetchFailed);
   }
 }

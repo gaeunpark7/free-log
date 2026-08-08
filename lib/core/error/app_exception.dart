@@ -1,8 +1,7 @@
 class AppException implements Exception {
+  AppException(this.message, {this.code});
   final String message;
   final String? code;
-
-  AppException(this.message, {this.code});
 
   @override
   String toString() => message;

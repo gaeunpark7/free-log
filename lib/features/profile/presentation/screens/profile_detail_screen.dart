@@ -17,7 +17,7 @@ class ProfileDetailScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
         title: Text(
           AppLocalizations.of(context)!.settings,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         foregroundColor: Colors.white,
       ),
@@ -28,9 +28,11 @@ class ProfileDetailScreen extends StatelessWidget {
           children: [
             Text(
               AppLocalizations.of(context)!.app,
-              style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+              style: AppTextStyles.captionBold(
+                context,
+              ).copyWith(color: AppColors.textPrimary),
             ),
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -51,7 +53,7 @@ class ProfileDetailScreen extends StatelessWidget {
                     Icons.privacy_tip_outlined,
                     false,
                   ),
-                  Divider(color: AppColors.borderDefault, height: 1.0),
+                  const Divider(color: AppColors.borderDefault, height: 1.0),
                   _buildRow(
                     context,
                     () {},
@@ -63,12 +65,14 @@ class ProfileDetailScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               AppLocalizations.of(context)!.account,
-              style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
+              style: AppTextStyles.captionBold(
+                context,
+              ).copyWith(color: AppColors.textPrimary),
             ),
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -117,30 +121,33 @@ class ProfileDetailScreen extends StatelessWidget {
                   color: isDelete ? AppColors.errorBg : AppColors.primarySoft,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(icon, color: isDelete ? AppColors.errorSoft : AppColors.primary),
+                child: Icon(
+                  icon,
+                  color: isDelete ? AppColors.errorSoft : AppColors.primary,
+                ),
               ),
-              SizedBox(width: 14),
+              const SizedBox(width: 14),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: AppTextStyles.bodyBold(
-                      context,
-                    ).copyWith(color: isDelete ? AppColors.error : AppColors.textPrimary),
+                    style: AppTextStyles.bodyBold(context).copyWith(
+                      color: isDelete ? AppColors.error : AppColors.textPrimary,
+                    ),
                   ),
                   Text(
                     subTitle,
-                    style: AppTextStyles.caption(
-                      context,
-                    ).copyWith(color: isDelete ? AppColors.errorSoft : Colors.grey),
+                    style: AppTextStyles.caption(context).copyWith(
+                      color: isDelete ? AppColors.errorSoft : Colors.grey,
+                    ),
                   ),
                 ],
               ),
             ],
           ),
 
-          Icon(Icons.chevron_right, color: Colors.grey),
+          const Icon(Icons.chevron_right, color: Colors.grey),
         ],
       ),
     ),
