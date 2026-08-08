@@ -524,11 +524,11 @@ abstract class AppLocalizations {
   /// **'판매가'**
   String get sellingPrice;
 
-  /// No description provided for @settings.
+  /// No description provided for @settingsBasic.
   ///
   /// In ko, this message translates to:
-  /// **'설정'**
-  String get settings;
+  /// **'기본 설정'**
+  String get settingsBasic;
 
   /// No description provided for @defaultHourlyRate.
   ///
@@ -956,6 +956,12 @@ abstract class AppLocalizations {
   /// **'계정 관리'**
   String get account;
 
+  /// No description provided for @settings.
+  ///
+  /// In ko, this message translates to:
+  /// **'설정'**
+  String get settings;
+
   /// No description provided for @settingsData.
   ///
   /// In ko, this message translates to:
@@ -1093,6 +1099,18 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.'**
   String get deleteAccountDialogMessage;
+
+  /// No description provided for @empty_project_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'아직 프로젝트가 없어요'**
+  String get empty_project_title;
+
+  /// No description provided for @empty_project_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'새 프로젝트를 만들어 시작해보세요'**
+  String get empty_project_description;
 }
 
 class _AppLocalizationsDelegate

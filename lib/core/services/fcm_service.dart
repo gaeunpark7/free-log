@@ -11,11 +11,7 @@ class FcmService {
     final locale = Platform.localeName.split('_')[0];
     debugPrint('기기 언어: $locale');
 
-    final settings = await _messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+    final settings = await _messaging.requestPermission(alert: true, badge: true, sound: true);
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       final token = await _messaging.getToken();
@@ -49,10 +45,7 @@ class FcmService {
       return;
     }
 
-    await _supabase
-        .from('user')
-        .update({'fcm_token': token, 'locale': locale})
-        .eq('id', userId);
+    await _supabase.from('user').update({'fcm_token': token, 'locale': locale}).eq('id', userId);
 
     debugPrint('FCM 토큰 + locale 저장 완료: $locale');
   }

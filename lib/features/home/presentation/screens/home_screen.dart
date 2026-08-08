@@ -9,6 +9,7 @@ import 'package:free_log/core/widgets/app_content_layout_widget.dart';
 import 'package:free_log/features/home/domain/model/project_status.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/add_dialog/add_project_dialog.dart';
+import 'package:free_log/features/home/presentation/widgets/home/empty_project_container.dart';
 import 'package:free_log/features/home/presentation/widgets/home/home_button_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/home/home_container_widget.dart';
 import 'package:free_log/features/home/presentation/widgets/home/home_title_widget.dart';
@@ -34,9 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       return;
     }
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -56,19 +55,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             HomeTitleWidget(
               inProgressCount:
                   asyncProject.whenOrNull(
-                    data: (projects) => projects
-                        .where((p) => p.status == ProjectStatus.inProgress)
-                        .length,
+                    data: (projects) =>
+                        projects.where((p) => p.status == ProjectStatus.inProgress).length,
                   ) ??
                   0,
               completedCount:
                   asyncProject.whenOrNull(
-                    data: (projects) => projects
-                        .where((p) => p.status == ProjectStatus.completed)
-                        .length,
+                    data: (projects) =>
+                        projects.where((p) => p.status == ProjectStatus.completed).length,
                   ) ??
                   0,
             ),
+
+            //button
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: Responsive.horizontalPadding(context),
@@ -111,13 +110,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Expanded(
               child: asyncProject.when(
                 data: (value) {
+                  if (value.isEmpty) {
+                    return const EmptyProjectContainer();
+                  }
                   final filterProjects = _selectedStatus == null
                       ? value
-                      : value
-                            .where(
-                              (project) => project.status == _selectedStatus,
-                            )
-                            .toList();
+                      : value.where((project) => project.status == _selectedStatus).toList();
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     itemCount: filterProjects.length,
@@ -131,25 +129,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            context.push(
-                              '/detail/${project.id}',
-                              extra: project,
-                            );
+                            context.push('/detail/${project.id}', extra: project);
                           },
-                          child: HomeContainerWidget(
-                            project: project,
-                            status: project.status,
-                          ),
+                          child: HomeContainerWidget(project: project, status: project.status),
                         ),
                       );
                     },
                   );
                 },
-                error: (e, _) =>
-                    ErrorView(message: ErrorHandler.getMessage(context, e)),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(color: AppColors.primary),
-                ),
+                error: (e, _) => ErrorView(message: ErrorHandler.getMessage(context, e)),
+                loading: () =>
+                    const Center(child: CircularProgressIndicator(color: AppColors.primary)),
               ),
             ),
           ],
