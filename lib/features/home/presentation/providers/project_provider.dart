@@ -6,6 +6,7 @@ import 'package:free_log/features/home/data/repository/project_repository_impl.d
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/repository/project_repository.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
+import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
 
 final repoProvider = Provider<ProjectRepository>(
   (ref) => ProjectRepositoryImpl(ref.watch(supabaseClientProvider)),
@@ -41,6 +42,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
       if (project.hourlyRate > 0 && project.hourlyRate != currentHourlyRate) {
         await ref.read(profileProvider.notifier).updateProfile(hourlyRate: project.hourlyRate);
       }
+      ref.invalidate(profileStatsProvider);
       return _repo.getProject();
     });
   }
@@ -64,6 +66,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.completeProject(projectId);
+      ref.invalidate(profileStatsProvider);
       return _repo.getProject();
     });
   }
@@ -73,6 +76,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = await AsyncValue.guard(() async {
       await _repo.deleteProject(projectId);
       ref.invalidate(calendarNotifierProvider);
+      ref.invalidate(profileStatsProvider);
       return _repo.getProject();
     });
   }

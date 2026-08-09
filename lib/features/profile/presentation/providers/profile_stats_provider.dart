@@ -9,14 +9,11 @@ import 'package:free_log/features/profile/presentation/providers/profile_provide
 enum StatsType { monthly, allTime }
 
 final profileStatsProvider =
-    AsyncNotifierProvider.family<
-      ProfileStatsNotifier,
-      ProfileStatsModel,
-      StatsType
-    >(ProfileStatsNotifier.new);
+    AsyncNotifierProvider.family<ProfileStatsNotifier, ProfileStatsModel, StatsType>(
+      ProfileStatsNotifier.new,
+    );
 
-class ProfileStatsNotifier
-    extends FamilyAsyncNotifier<ProfileStatsModel, StatsType> {
+class ProfileStatsNotifier extends FamilyAsyncNotifier<ProfileStatsModel, StatsType> {
   ProfileRepository get _repo => ref.read(profileRepoProvider);
 
   @override
@@ -29,7 +26,7 @@ class ProfileStatsNotifier
   }
 }
 
-final inProgressCountProvider = Provider<int>((ref) {
-  final projects = ref.watch(projectNotifierProvider).valueOrNull ?? [];
-  return projects.where((p) => p.status == ProjectStatus.inProgress).length;
-});
+// final inProgressCountProvider = Provider<int>((ref) {
+//   final projects = ref.watch(projectNotifierProvider).valueOrNull ?? [];
+//   return projects.where((p) => p.status == ProjectStatus.inProgress).length;
+// });

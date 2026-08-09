@@ -226,8 +226,6 @@
   "empty_project_description": "새 프로젝트를 만들어 시작해보세요",
 
   "feedbackFormOpenFailed": "링크를 열 수 없습니다.",
-  "feedbackFormError": "링크를 여는 중 오류가 발생했습니다."
-
-
-
+  "feedbackFormError": "링크를 여는 중 오류가 발생했습니다.",
+  "completedTasks": "완료한 작업"
 }

@@ -540,4 +540,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get feedbackFormError => '링크를 여는 중 오류가 발생했습니다.';
+
+  @override
+  String get completedTasks => '완료한 작업';
 }

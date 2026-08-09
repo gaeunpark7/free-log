@@ -7,8 +7,7 @@ import 'package:free_log/features/profile/domain/model/user_model.dart';
 import 'package:free_log/features/profile/domain/repository/profile_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class ProfileRepositoryImpl extends BaseRepository
-    implements ProfileRepository {
+class ProfileRepositoryImpl extends BaseRepository implements ProfileRepository {
   ProfileRepositoryImpl(this._supabase);
   final SupabaseClient _supabase;
 
@@ -18,11 +17,7 @@ class ProfileRepositoryImpl extends BaseRepository
       final userId = _supabase.auth.currentUser?.id;
       if (userId == null) return null;
 
-      final response = await _supabase
-          .from('user')
-          .select()
-          .eq('id', userId)
-          .maybeSingle();
+      final response = await _supabase.from('user').select().eq('id', userId).maybeSingle();
       if (response == null) return null;
 
       return UserDto.fromJson(response).toEntity();
@@ -58,11 +53,13 @@ class ProfileRepositoryImpl extends BaseRepository
         _supabase.from('time_entries').select('minutes'),
         _supabase.from('income_entries').select('amount'),
         _supabase.from('expense_entries').select('amount'),
+        _supabase.from('project').select('id').eq('status', 'completed'),
       ]);
       return _calculateStats(
         results[0] as List,
         results[1] as List,
         results[2] as List,
+        results[3] as List,
       );
     });
   }
@@ -90,39 +87,30 @@ class ProfileRepositoryImpl extends BaseRepository
             .select('amount')
             .gte('spent_at', start)
             .lt('spent_at', end),
+
+        _supabase.from('project').select('id').eq('status', 'in_progress'),
       ]);
 
       return _calculateStats(
         results[0] as List,
         results[1] as List,
         results[2] as List,
+        results[3] as List,
       );
     }, errorCode: ErrorCode.fetchFailed);
   }
 
   //통계 계산
-  ProfileStatsModel _calculateStats(
-    List timeEntries,
-    List incomes,
-    List expenses,
-  ) {
-    final totalMinutes = timeEntries.fold(
-      0,
-      (sum, e) => sum + (e['minutes'] as num).toInt(),
-    );
-    final totalIncome = incomes.fold(
-      0,
-      (sum, e) => sum + (e['amount'] as num).toInt(),
-    );
-    final totalExpense = expenses.fold(
-      0,
-      (sum, e) => sum + (e['amount'] as num).toInt(),
-    );
+  ProfileStatsModel _calculateStats(List timeEntries, List incomes, List expenses, List projects) {
+    final totalMinutes = timeEntries.fold(0, (sum, e) => sum + (e['minutes'] as num).toInt());
+    final totalIncome = incomes.fold(0, (sum, e) => sum + (e['amount'] as num).toInt());
+    final totalExpense = expenses.fold(0, (sum, e) => sum + (e['amount'] as num).toInt());
 
     return ProfileStatsModel(
       totalMinutes: totalMinutes,
       totalIncome: totalIncome,
       totalExpense: totalExpense,
+      taskCount: projects.length,
     );
   }
 }

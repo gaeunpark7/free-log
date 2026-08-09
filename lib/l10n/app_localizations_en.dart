@@ -565,4 +565,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedbackFormError => 'An error occurred while opening the link.';
+
+  @override
+  String get completedTasks => 'Completed Tasks';
 }

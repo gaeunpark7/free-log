@@ -1123,6 +1123,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'링크를 여는 중 오류가 발생했습니다.'**
   String get feedbackFormError;
+
+  /// No description provided for @completedTasks.
+  ///
+  /// In ko, this message translates to:
+  /// **'완료한 작업'**
+  String get completedTasks;
 }
 
 class _AppLocalizationsDelegate

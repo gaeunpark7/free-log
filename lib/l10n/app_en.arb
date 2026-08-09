@@ -211,5 +211,8 @@
   "empty_project_description": "Create your first project to get started",
 
   "feedbackFormOpenFailed": "Unable to open the link.",
-  "feedbackFormError": "An error occurred while opening the link."
+  "feedbackFormError": "An error occurred while opening the link.",
+
+  "completedTasks": "Completed Tasks"
+
 }

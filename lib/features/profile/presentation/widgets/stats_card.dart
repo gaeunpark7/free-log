@@ -22,7 +22,6 @@ class _StatsCardState extends ConsumerState<StatsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final inProgressCount = ref.watch(inProgressCountProvider);
     final asyncStats = ref.watch(
       profileStatsProvider(isMonthly ? StatsType.monthly : StatsType.allTime),
     );
@@ -37,41 +36,12 @@ class _StatsCardState extends ConsumerState<StatsCard> {
         padding: Responsive.cardPadding(context),
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.background,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.borderDefault),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: _buildTabButton(
-                        context,
-                        AppLocalizations.of(context)!.thisMonth,
-                        isMonthly,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: _buildTabButton(
-                        context,
-                        AppLocalizations.of(context)!.allTime,
-                        !isMonthly,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            //tab button
+            _buildTapRow(context),
             const SizedBox(height: 12),
+
             switch (asyncStats) {
-              AsyncLoading() => const Center(
-                child: CircularProgressIndicator(),
-              ),
+              AsyncLoading() => const Center(child: CircularProgressIndicator()),
               AsyncError(:final error) => ErrorView(
                 message: ErrorHandler.getMessage(context, error),
               ),
@@ -79,8 +49,10 @@ class _StatsCardState extends ConsumerState<StatsCard> {
                 children: [
                   _buildStatRow(
                     context,
-                    AppLocalizations.of(context)!.activeProjects,
-                    '$inProgressCount',
+                    isMonthly
+                        ? AppLocalizations.of(context)!.activeProjects
+                        : AppLocalizations.of(context)!.completedTasks,
+                    '${value.taskCount}',
                   ),
                   const Divider(color: AppColors.borderDefault),
                   _buildStatRow(
@@ -120,12 +92,32 @@ class _StatsCardState extends ConsumerState<StatsCard> {
     );
   }
 
-  Row _buildStatRow(
-    BuildContext context,
-    String label,
-    String value, {
-    Color? color,
-  }) {
+  Container _buildTapRow(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.borderDefault),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: _buildTabButton(context, AppLocalizations.of(context)!.thisMonth, isMonthly),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: _buildTabButton(context, AppLocalizations.of(context)!.allTime, !isMonthly),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Row _buildStatRow(BuildContext context, String label, String value, {Color? color}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -137,19 +129,13 @@ class _StatsCardState extends ConsumerState<StatsCard> {
         ),
         Text(
           value,
-          style: AppTextStyles.bodyBold(
-            context,
-          ).copyWith(color: color ?? AppColors.textPrimary),
+          style: AppTextStyles.bodyBold(context).copyWith(color: color ?? AppColors.textPrimary),
         ),
       ],
     );
   }
 
-  GestureDetector _buildTabButton(
-    BuildContext context,
-    String label,
-    bool isSelected,
-  ) {
+  GestureDetector _buildTabButton(BuildContext context, String label, bool isSelected) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -161,9 +147,7 @@ class _StatsCardState extends ConsumerState<StatsCard> {
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: isSelected ? AppColors.borderDefault : Colors.transparent,
-          ),
+          border: Border.all(color: isSelected ? AppColors.borderDefault : Colors.transparent),
         ),
         child: Center(
           child: Text(
