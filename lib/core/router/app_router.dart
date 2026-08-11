@@ -44,11 +44,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final matchedLocation = state.matchedLocation;
       final isLoginRoute = matchedLocation == RoutePaths.login;
       final isPublicAuthRoute =
-          matchedLocation == RoutePaths.login ||
-          matchedLocation.startsWith('${RoutePaths.login}/');
+          matchedLocation == RoutePaths.login || matchedLocation.startsWith('${RoutePaths.login}/');
       final isLoadingRoute = matchedLocation == RoutePaths.loading;
-      final isProfileSettingRoute =
-          matchedLocation == RoutePaths.profileSetting;
+      final isProfileSettingRoute = matchedLocation == RoutePaths.profileSetting;
       final asyncProfile = ref.read(profileProvider);
       final nickname = asyncProfile.valueOrNull?.nickname?.trim();
       final hasNickname = nickname != null && nickname.isNotEmpty;
@@ -62,10 +60,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (asyncProfile.isLoading && asyncProfile.valueOrNull == null) {
         return isLoadingRoute ? null : RoutePaths.loading;
       }
-      // 데이터 있는 상태에서 수정 중이면 현재 위치 유지2
-      // if (asyncProfile.isLoading && asyncProfile.valueOrNull != null) {
-      //   return null;
-      // }
+
       // 닉네임이 없으면 profile setting으로
       if (!hasNickname) {
         return isProfileSettingRoute ? null : RoutePaths.profileSetting;
@@ -80,26 +75,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       buildLoginRoutes(),
-      GoRoute(
-        path: RoutePaths.loading,
-        builder: (_, _) => const LoadingScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.profileSetting,
-        builder: (_, _) => const ProfileSettingsScreen(),
-      ),
+      GoRoute(path: RoutePaths.loading, builder: (_, _) => const LoadingScreen()),
+      GoRoute(path: RoutePaths.profileSetting, builder: (_, _) => const ProfileSettingsScreen()),
       ShellRoute(
         builder: (context, state, child) => BottomNavBar(child: child),
         routes: [
           GoRoute(path: RoutePaths.home, builder: (_, _) => const HomeScreen()),
-          GoRoute(
-            path: RoutePaths.calendar,
-            builder: (_, _) => const CalendarScreen(),
-          ),
-          GoRoute(
-            path: RoutePaths.calculator,
-            builder: (_, _) => const CalculatorScreen(),
-          ),
+          GoRoute(path: RoutePaths.calendar, builder: (_, _) => const CalendarScreen()),
+          GoRoute(path: RoutePaths.calculator, builder: (_, _) => const CalculatorScreen()),
           buildProfileRoutes(),
         ],
       ),

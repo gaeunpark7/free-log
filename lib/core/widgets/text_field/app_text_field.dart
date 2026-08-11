@@ -26,9 +26,7 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       style: read == true
-          ? AppTextStyles.bodyBold(
-              context,
-            ).copyWith(color: AppColors.textTertiary)
+          ? AppTextStyles.bodyBold(context).copyWith(color: AppColors.textTertiary)
           : AppTextStyles.body(context),
       controller: controller,
       validator: validate
@@ -47,10 +45,7 @@ class AppTextField extends StatelessWidget {
         hintStyle: const TextStyle(color: AppColors.textTertiary),
         suffixStyle: const TextStyle(color: AppColors.textTertiary),
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 10,
-        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: AppColors.borderDefault),

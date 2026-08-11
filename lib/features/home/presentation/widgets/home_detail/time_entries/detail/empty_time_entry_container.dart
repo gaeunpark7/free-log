@@ -11,6 +11,7 @@ class EmptyTimeEntryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //container style
       height: Responsive.height(context) * 0.2,
       width: double.infinity,
       decoration: DottedDecoration(
@@ -20,12 +21,10 @@ class EmptyTimeEntryContainer extends StatelessWidget {
         dash: const [5, 4],
         strokeWidth: 2,
       ),
+      //
       child: Container(
         padding: Responsive.cardPadding(context),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,10 +33,9 @@ class EmptyTimeEntryContainer extends StatelessWidget {
             Text(
               AppLocalizations.of(context)!.noTimeEntries,
 
-              style: AppTextStyles.caption(context).copyWith(
-                color: AppColors.textTertiary,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.caption(
+                context,
+              ).copyWith(color: AppColors.textTertiary, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
           ],

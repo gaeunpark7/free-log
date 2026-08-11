@@ -5,6 +5,7 @@ class PricingResult {
     required this.marginAmount,
     required this.sellingPrice,
   });
+
   final double laborCost; // 시급 * 시간
   final double totalCost; // laborCost + 지출
   final double marginAmount; // 마진

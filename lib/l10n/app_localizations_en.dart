@@ -74,7 +74,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deadlineHint => 'YYYY-MM-DD';
 
   @override
-  String get deadlineError => '    Please select a deadline';
+  String get deadlineError => 'Please select a deadline';
 
   @override
   String get save => 'Save';
@@ -230,7 +230,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sellingPrice => 'Selling Price';
 
   @override
-  String get settings => 'Settings';
+  String get settingsBasic => 'Settings';
 
   @override
   String get defaultHourlyRate => 'Default Hourly Rate';
@@ -438,7 +438,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email => 'Email';
 
   @override
-  String get userFailled => '유저 정보를 불러오지 못했습니다.';
+  String get userFailled => 'Failed to load user information.';
 
   @override
   String get fetchFailed => 'ailed to load data';
@@ -469,6 +469,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get account => 'Account';
+
+  @override
+  String get settings => 'Settings';
 
   @override
   String get settingsData => 'How we collect and use your data';
@@ -549,4 +552,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteAccountDialogMessage =>
       'Upon deleting your account, all data will be erased and cannot be restored.';
+
+  @override
+  String get empty_project_title => 'No projects yet';
+
+  @override
+  String get empty_project_description =>
+      'Create your first project to get started';
+
+  @override
+  String get feedbackFormOpenFailed => 'Unable to open the link.';
+
+  @override
+  String get feedbackFormError => 'An error occurred while opening the link.';
+
+  @override
+  String get completedTasks => 'Completed Tasks';
+
+  @override
+  String get retry => 'Retry';
 }

@@ -36,7 +36,7 @@ class _SettingsCardState extends State<SettingsCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.settings,
+                  AppLocalizations.of(context)!.settingsBasic,
                   style: AppTextStyles.subTitleBold(context),
                 ),
                 GestureDetector(
@@ -49,10 +49,7 @@ class _SettingsCardState extends State<SettingsCard> {
                   child: const CircleAvatar(
                     radius: 20,
                     backgroundColor: AppColors.background,
-                    child: Icon(
-                      Icons.settings_outlined,
-                      color: AppColors.textTertiary,
-                    ),
+                    child: Icon(Icons.settings_outlined, color: AppColors.textTertiary),
                   ),
                 ),
               ],
@@ -81,10 +78,7 @@ class _SettingsCardState extends State<SettingsCard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          AppLocalizations.of(context)!.deadlineReminders,
-          style: AppTextStyles.body(context),
-        ),
+        Text(AppLocalizations.of(context)!.deadlineReminders, style: AppTextStyles.body(context)),
         Transform.scale(
           scaleY: 0.9,
           child: Switch(

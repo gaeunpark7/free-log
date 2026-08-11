@@ -230,7 +230,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get sellingPrice => '판매가';
 
   @override
-  String get settings => '설정';
+  String get settingsBasic => '기본 설정';
 
   @override
   String get defaultHourlyRate => '기본 시급';
@@ -457,6 +457,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get account => '계정 관리';
 
   @override
+  String get settings => '설정';
+
+  @override
   String get settingsData => '데이터 수집 및 이용 안내';
 
   @override
@@ -525,4 +528,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get deleteAccountDialogMessage => '탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.';
+
+  @override
+  String get empty_project_title => '아직 프로젝트가 없어요';
+
+  @override
+  String get empty_project_description => '새 프로젝트를 만들어 시작해보세요';
+
+  @override
+  String get feedbackFormOpenFailed => '링크를 열 수 없습니다.';
+
+  @override
+  String get feedbackFormError => '링크를 여는 중 오류가 발생했습니다.';
+
+  @override
+  String get completedTasks => '완료한 작업';
+
+  @override
+  String get retry => '다시 시도';
 }

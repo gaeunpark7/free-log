@@ -65,16 +65,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           titleCentered: true,
           formatButtonVisible: false, //2주 월 버튼 제거
           titleTextStyle: AppTextStyles.subTitleBold(context),
-          leftChevronIcon: const Icon(
-            Icons.chevron_left,
-            color: AppColors.textPrimary,
-          ),
-          rightChevronIcon: const Icon(
-            Icons.chevron_right,
-            color: AppColors.textPrimary,
-          ),
+          leftChevronIcon: const Icon(Icons.chevron_left, color: AppColors.textPrimary),
+          rightChevronIcon: const Icon(Icons.chevron_right, color: AppColors.textPrimary),
         ),
 
+        //calendar style
         calendarStyle: CalendarStyle(
           // cellMargin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
           //오늘 날짜
@@ -82,32 +77,23 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             color: AppColors.primary.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
-          todayTextStyle: AppTextStyles.bodyBold(
-            context,
-          ).copyWith(color: AppColors.primaryDark),
+          todayTextStyle: AppTextStyles.bodyBold(context).copyWith(color: AppColors.primaryDark),
           //선택 된 날짜
           selectedDecoration: BoxDecoration(
             color: AppColors.primary,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(8),
           ),
-          selectedTextStyle: AppTextStyles.body(
-            context,
-          ).copyWith(color: Colors.white),
+          selectedTextStyle: AppTextStyles.body(context).copyWith(color: Colors.white),
           //주말 색상
-          weekendTextStyle: AppTextStyles.body(
-            context,
-          ).copyWith(color: AppColors.errorSoft),
+          weekendTextStyle: AppTextStyles.body(context).copyWith(color: AppColors.errorSoft),
           outsideDaysVisible: false, // 다른 달 날짜 숨기기
         ),
 
         calendarBuilders: CalendarBuilders(
-          defaultBuilder: (context, day, focusedDay) =>
-              _buildDayCell(day, false, false),
-          todayBuilder: (context, day, focusedDay) =>
-              _buildDayCell(day, false, true),
-          selectedBuilder: (context, day, focusedDay) =>
-              _buildDayCell(day, true, false),
+          defaultBuilder: (context, day, focusedDay) => _buildDayCell(day, false, false),
+          todayBuilder: (context, day, focusedDay) => _buildDayCell(day, false, true),
+          selectedBuilder: (context, day, focusedDay) => _buildDayCell(day, true, false),
           // outsideBuilder: (context, day, focusedDay) => const SizedBox(),
         ),
       ),
@@ -141,9 +127,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             Text(
               '${day.day}',
               style: AppTextStyles.captionBold(context).copyWith(
-                color: isSelected || isToday
-                    ? AppColors.textPrimary
-                    : AppColors.textSecondary,
+                color: isSelected || isToday ? AppColors.textPrimary : AppColors.textSecondary,
               ),
             ),
             // SizedBox(height: 2),
@@ -156,16 +140,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               if (data.income > 0)
                 Text(
                   '+${_formatShort(data.income)}',
-                  style: AppTextStyles.calendarBody(
-                    context,
-                  ).copyWith(color: AppColors.success),
+                  style: AppTextStyles.calendarBody(context).copyWith(color: AppColors.success),
                 ),
               if (data.expense > 0)
                 Text(
                   '-${_formatShort(data.expense)}',
-                  style: AppTextStyles.calendarBody(
-                    context,
-                  ).copyWith(color: AppColors.error),
+                  style: AppTextStyles.calendarBody(context).copyWith(color: AppColors.error),
                 ),
             ],
           ],

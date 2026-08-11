@@ -112,7 +112,7 @@
   "marginRate": "마진율",
   "sellingPrice": "판매가",
 
-  "settings": "기본 설정",
+  "settingsBasic": "기본 설정",
   "defaultHourlyRate": "기본 시급",
   "defaultMargin": "기본 마진율",
   "deadlineReminders":"마감일 알림",
@@ -220,5 +220,14 @@
   
   "deleteAccountAgreementCheckbox": "유의사항을 모두 확인하였으며, 회원 탈퇴에 동의합니다.",
   
-  "deleteAccountDialogMessage": "탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
+  "deleteAccountDialogMessage": "탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.",
+
+  "empty_project_title": "아직 프로젝트가 없어요",
+  "empty_project_description": "새 프로젝트를 만들어 시작해보세요",
+
+  "feedbackFormOpenFailed": "링크를 열 수 없습니다.",
+  "feedbackFormError": "링크를 여는 중 오류가 발생했습니다.",
+  "completedTasks": "완료한 작업",
+
+  "retry": "다시 시도"
 }

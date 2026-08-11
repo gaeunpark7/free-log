@@ -31,87 +31,46 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
         backgroundColor: AppColors.primary,
         title: Text(
           AppLocalizations.of(context)!.profile,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         //팝업 메뉴 버튼
-        actions: [
-          PopupMenuButton<String>(
-            padding: EdgeInsets.zero,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            icon: const Icon(Icons.more_vert, color: Colors.white),
-            onSelected: (value) {
-              if (value == 'settings') {
-                context.push(
-                  '${RoutePaths.profile}/${RoutePaths.profileDetail}',
-                );
-              } else if (value == 'logout') {
-                ref.read(authNotifierProvider.notifier).signOut();
-              }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem<String>(
-                value: 'settings',
-                child: _buildPopupItem(
-                  AppLocalizations.of(context)!.settings,
-                  Icons.settings_outlined,
-                ),
-              ),
-
-              const PopupMenuDivider(color: AppColors.borderDefault),
-              PopupMenuItem<String>(
-                value: 'logout',
-                child: _buildPopupItem(
-                  AppLocalizations.of(context)!.signOut,
-                  Icons.logout,
-                  color: AppColors.errorSoft,
-                ),
-              ),
-            ],
-          ),
-        ],
+        actions: [_buildPopupMenuBtn(context)],
       ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: Responsive.screenPadding(context),
           child: Column(
             children: [
+              // 프로필
               if (asyncProfile.hasValue)
                 ProfileCard(user: asyncProfile.value)
               else if (asyncProfile.hasError)
                 ErrorView(
-                  message: ErrorHandler.getMessage(
-                    context,
-                    asyncProfile.error!,
-                  ),
+                  message: ErrorHandler.getMessage(context, asyncProfile.error!),
+                  onRetry: () {
+                    ref.invalidate(profileProvider);
+                  },
                 )
               else
                 const Center(child: CircularProgressIndicator()),
               const SizedBox(height: 12),
+
+              // 설정 card
               if (asyncProfile.hasValue)
                 SettingsCard(
                   user: asyncProfile.value,
                   onChanged: (value) {
-                    ref
-                        .read(profileProvider.notifier)
-                        .updateProfile(notifyDeadline: value);
+                    ref.read(profileProvider.notifier).updateProfile(notifyDeadline: value);
                   },
                 )
               else if (asyncProfile.hasError)
-                ErrorView(
-                  message: ErrorHandler.getMessage(
-                    context,
-                    asyncProfile.error!,
-                  ),
-                )
+                ErrorView(message: ErrorHandler.getMessage(context, asyncProfile.error!))
               else
                 const Center(child: CircularProgressIndicator()),
               const SizedBox(height: 12),
+
+              //통계 card
               const StatsCard(),
               const SizedBox(height: 12),
             ],
@@ -121,11 +80,39 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Row _buildPopupItem(
-    final String title,
-    final IconData icon, {
-    final Color? color,
-  }) {
+  PopupMenuButton<String> _buildPopupMenuBtn(BuildContext context) {
+    return PopupMenuButton<String>(
+      padding: EdgeInsets.zero,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      icon: const Icon(Icons.more_vert, color: Colors.white),
+      onSelected: (value) {
+        if (value == 'settings') {
+          context.push('${RoutePaths.profile}/${RoutePaths.profileDetail}');
+        } else if (value == 'logout') {
+          ref.read(authNotifierProvider.notifier).signOut();
+        }
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem<String>(
+          value: 'settings',
+          child: _buildPopupItem(AppLocalizations.of(context)!.settings, Icons.settings_outlined),
+        ),
+
+        const PopupMenuDivider(color: AppColors.borderDefault),
+        PopupMenuItem<String>(
+          value: 'logout',
+          child: _buildPopupItem(
+            AppLocalizations.of(context)!.signOut,
+            Icons.logout,
+            color: AppColors.errorSoft,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _buildPopupItem(final String title, final IconData icon, {final Color? color}) {
     return Row(
       children: [
         Icon(icon, color: color ?? AppColors.textPrimary, size: 18),

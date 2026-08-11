@@ -6,19 +6,17 @@ import 'package:free_log/features/calendar/presentation/providers/calendar_provi
 import 'package:free_log/features/home/data/repository/time_entry_repository_impl.dart';
 import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/domain/repository/time_entry_repository.dart';
+import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
 
 final timeEntryRepoProvider = Provider<TimeEntryRepository>(
   (ref) => TimeEntryRepositoryImpl(ref.watch(supabaseClientProvider)),
 );
 final timeEntryNotifierProvider =
-    AsyncNotifierProviderFamily<
-      TimeEntryProvider,
-      List<TimeEntryModel>,
-      String
-    >(TimeEntryProvider.new);
+    AsyncNotifierProviderFamily<TimeEntryProvider, List<TimeEntryModel>, String>(
+      TimeEntryProvider.new,
+    );
 
-class TimeEntryProvider
-    extends FamilyAsyncNotifier<List<TimeEntryModel>, String> {
+class TimeEntryProvider extends FamilyAsyncNotifier<List<TimeEntryModel>, String> {
   TimeEntryRepository get _repo => ref.read(timeEntryRepoProvider);
 
   @override
@@ -33,22 +31,19 @@ class TimeEntryProvider
     state = await AsyncValue.guard(() async {
       await _repo.addTimeEntry(arg, workedAt, totalMinutes);
       ref.invalidate(calendarNotifierProvider);
+      ref.invalidate(profileStatsProvider);
       return _repo.getTimeEntries(arg);
     });
   }
 
-  Future<void> updateTimeEntry(
-    String id,
-    DateTime workedAt,
-    int hours,
-    int minutes,
-  ) async {
+  Future<void> updateTimeEntry(String id, DateTime workedAt, int hours, int minutes) async {
     final totalMinutes = TimeUtils.toTotalMinutes(hours, minutes);
 
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.updateTimeEntry(id, workedAt, totalMinutes);
       ref.invalidate(calendarNotifierProvider);
+      ref.invalidate(profileStatsProvider);
       return _repo.getTimeEntries(arg);
     });
   }
@@ -57,6 +52,7 @@ class TimeEntryProvider
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.deleteTimeEntry(id);
+      ref.invalidate(profileStatsProvider);
       return _repo.getTimeEntries(arg);
     });
   }

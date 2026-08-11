@@ -6,14 +6,14 @@ import 'package:free_log/features/home/data/repository/project_repository_impl.d
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/domain/repository/project_repository.dart';
 import 'package:free_log/features/profile/presentation/providers/profile_provider.dart';
+import 'package:free_log/features/profile/presentation/providers/profile_stats_provider.dart';
 
 final repoProvider = Provider<ProjectRepository>(
   (ref) => ProjectRepositoryImpl(ref.watch(supabaseClientProvider)),
 );
-final projectNotifierProvider =
-    AsyncNotifierProvider<ProjectProvider, List<ProjectModel>>(
-      ProjectProvider.new,
-    );
+final projectNotifierProvider = AsyncNotifierProvider<ProjectProvider, List<ProjectModel>>(
+  ProjectProvider.new,
+);
 
 class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
   ProjectRepository get _repo => ref.read(repoProvider);
@@ -38,15 +38,11 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
       await _repo.createProject(project);
 
       //user 시급이 동일하지 않을 경우 user 시급 업데이트
-      final currentHourlyRate = ref
-          .read(profileProvider)
-          .valueOrNull
-          ?.hourlyRate;
+      final currentHourlyRate = ref.read(profileProvider).valueOrNull?.hourlyRate;
       if (project.hourlyRate > 0 && project.hourlyRate != currentHourlyRate) {
-        await ref
-            .read(profileProvider.notifier)
-            .updateProfile(hourlyRate: project.hourlyRate);
+        await ref.read(profileProvider.notifier).updateProfile(hourlyRate: project.hourlyRate);
       }
+      ref.invalidate(profileStatsProvider);
       return _repo.getProject();
     });
   }
@@ -56,14 +52,9 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = await AsyncValue.guard(() async {
       await _repo.updateProject(project);
 
-      final currentHourlyRate = ref
-          .read(profileProvider)
-          .valueOrNull
-          ?.hourlyRate;
+      final currentHourlyRate = ref.read(profileProvider).valueOrNull?.hourlyRate;
       if (project.hourlyRate > 0 && project.hourlyRate != currentHourlyRate) {
-        await ref
-            .read(profileProvider.notifier)
-            .updateProfile(hourlyRate: project.hourlyRate);
+        await ref.read(profileProvider.notifier).updateProfile(hourlyRate: project.hourlyRate);
       }
 
       ref.invalidate(calendarNotifierProvider);
@@ -75,6 +66,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _repo.completeProject(projectId);
+      ref.invalidate(profileStatsProvider);
       return _repo.getProject();
     });
   }
@@ -84,6 +76,7 @@ class ProjectProvider extends AsyncNotifier<List<ProjectModel>> {
     state = await AsyncValue.guard(() async {
       await _repo.deleteProject(projectId);
       ref.invalidate(calendarNotifierProvider);
+      ref.invalidate(profileStatsProvider);
       return _repo.getProject();
     });
   }

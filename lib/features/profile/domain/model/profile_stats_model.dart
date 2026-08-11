@@ -6,10 +6,10 @@ abstract class ProfileStatsModel with _$ProfileStatsModel {
   const ProfileStatsModel._();
 
   const factory ProfileStatsModel({
-    @Default(0) int inProgressCount,
     @Default(0) int totalMinutes,
     @Default(0) int totalIncome,
     @Default(0) int totalExpense,
+    @Default(0) int taskCount,
   }) = _ProfileStatsModel;
 
   int get netIncome => totalIncome - totalExpense;

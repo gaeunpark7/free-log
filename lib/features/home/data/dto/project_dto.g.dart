@@ -20,7 +20,6 @@ _ProjectDto _$ProjectDtoFromJson(Map<String, dynamic> json) => _ProjectDto(
       ? null
       : DateTime.parse(json['created_at'] as String),
   hourlyRate: (json['hourly_rate'] as num?)?.toInt() ?? 0,
-  marginRate: (json['margin_rate'] as num?)?.toDouble() ?? 0.3,
 );
 
 Map<String, dynamic> _$ProjectDtoToJson(_ProjectDto instance) =>
@@ -32,7 +31,6 @@ Map<String, dynamic> _$ProjectDtoToJson(_ProjectDto instance) =>
       'deadline': instance.deadline?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),
       'hourly_rate': instance.hourlyRate,
-      'margin_rate': instance.marginRate,
     };
 
 const _$ProjectStatusEnumMap = {

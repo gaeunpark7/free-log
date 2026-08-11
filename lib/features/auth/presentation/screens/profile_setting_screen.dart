@@ -12,8 +12,7 @@ class ProfileSettingsScreen extends ConsumerStatefulWidget {
   const ProfileSettingsScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ProfileSettingsScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileSettingsScreenState();
 }
 
 class _ProfileSettingsScreenState extends ConsumerState<ProfileSettingsScreen> {
@@ -46,19 +45,12 @@ class _ProfileSettingsScreenState extends ConsumerState<ProfileSettingsScreen> {
               const SizedBox(height: 24),
               Text(
                 AppLocalizations.of(context)!.setNickname,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
               Text(AppLocalizations.of(context)!.nicknameSubtitle),
               const SizedBox(height: 12),
-              const Icon(
-                Icons.account_circle,
-                size: 120,
-                color: AppColors.primary,
-              ),
+              const Icon(Icons.account_circle, size: 120, color: AppColors.primary),
               const SizedBox(height: 12),
               AppTextField(
                 controller: _nameController,

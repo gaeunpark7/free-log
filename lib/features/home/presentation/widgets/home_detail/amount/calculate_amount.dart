@@ -52,9 +52,7 @@ class CalculateAmount extends ConsumerWidget {
         children: [
           Text(
             AppLocalizations.of(context)!.calculation,
-            style: AppTextStyles.subTitleBold(
-              context,
-            ).copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
           ),
           const Divider(thickness: 0.5, color: AppColors.textTertiary),
           const SizedBox(height: 6),
@@ -63,15 +61,11 @@ class CalculateAmount extends ConsumerWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.hourlyRateXHours,
-                style: AppTextStyles.subTitle(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(
                 NumberFormat('#,###').format(pricing.laborCost.floor()),
-                style: AppTextStyles.subTitleBold(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),
@@ -81,15 +75,11 @@ class CalculateAmount extends ConsumerWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.expense,
-                style: AppTextStyles.subTitle(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(
                 NumberFormat('#,###').format(totalExpense.floor()),
-                style: AppTextStyles.subTitleBold(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),
@@ -98,18 +88,12 @@ class CalculateAmount extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(
-                  context,
-                )!.margin((marginRate * 100).floor()),
-                style: AppTextStyles.subTitle(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                AppLocalizations.of(context)!.margin((marginRate * 100).floor()),
+                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(
                 '+${NumberFormat('#,###').format(pricing.marginAmount.floor())}',
-                style: AppTextStyles.subTitleBold(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitleBold(context).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),
@@ -120,15 +104,11 @@ class CalculateAmount extends ConsumerWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.sellingPrice,
-                style: AppTextStyles.subTitle(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.subTitle(context).copyWith(color: AppColors.textSecondary),
               ),
               Text(
                 NumberFormat('#,###').format(pricing.sellingPrice.floor()),
-                style: AppTextStyles.title(
-                  context,
-                ).copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.title(context).copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),

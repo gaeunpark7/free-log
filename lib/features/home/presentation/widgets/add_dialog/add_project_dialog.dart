@@ -5,7 +5,7 @@ import 'package:free_log/core/theme/app_spacing.dart';
 import 'package:free_log/core/utils/responsive_utils.dart';
 import 'package:free_log/core/widgets/button/app_filled_button.dart';
 import 'package:free_log/core/widgets/text_field/app_text_field.dart';
-import 'package:free_log/core/widgets/text_field/date_picker_field.dart';
+import 'package:free_log/core/widgets/text_field/deadline_field.dart';
 import 'package:free_log/core/widgets/text_field/hourly_rate_field_widget.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
@@ -18,37 +18,29 @@ class AddProjectDialog extends ConsumerStatefulWidget {
   const AddProjectDialog({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddProjectDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddProjectDialogState();
 }
 
 class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _hourlyRateController = TextEditingController();
+  final _deadlineController = TextEditingController();
   DateTime? _selectedDeadline;
-  String? _deadlineError;
 
   @override
   void dispose() {
     _titleController.dispose();
     _hourlyRateController.dispose();
+    _deadlineController.dispose();
     super.dispose();
   }
 
   Future<void> _save() async {
     final isFormValid = _formKey.currentState!.validate();
-    setState(
-      () => _deadlineError = _selectedDeadline == null
-          ? AppLocalizations.of(context)!.deadlineError
-          : null,
-    );
+    if (!isFormValid) return;
 
-    if (!isFormValid || _deadlineError != null) return;
-
-    final hourlyRate = int.parse(
-      _hourlyRateController.text.replaceAll(',', ''),
-    );
+    final hourlyRate = int.parse(_hourlyRateController.text.replaceAll(',', ''));
     final project = ProjectModel(
       title: _titleController.text.trim(),
       hourlyRate: hourlyRate,
@@ -64,9 +56,7 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   Widget build(BuildContext context) {
     final user = ref.watch(profileProvider).valueOrNull;
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(16)),
       backgroundColor: Colors.white,
       child: SingleChildScrollView(
         child: ConstrainedBox(
@@ -79,9 +69,12 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  //title
                   const AddTitle(),
                   _buildText(AppLocalizations.of(context)!.projectName),
                   const SizedBox(height: 2),
+
+                  //project name
                   AppTextField(
                     controller: _titleController,
                     valieText: AppLocalizations.of(context)!.projectNameError,
@@ -90,6 +83,8 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                     icon: const Icon(Icons.edit_note, size: 23),
                   ),
                   _buildSizedBox(context),
+
+                  //hourly rate
                   _buildText(AppLocalizations.of(context)!.hourlyRate),
                   const SizedBox(height: 2),
                   HourlyRateField(
@@ -102,31 +97,23 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
                     maxDigits: 7,
                   ),
                   _buildSizedBox(context),
+
+                  //deadline
                   _buildText(AppLocalizations.of(context)!.deadline),
                   const SizedBox(height: 2),
-                  DatePickerField(
-                    icon: Icons.today,
+                  DeadlineField(
+                    controller: _deadlineController,
                     selectedDate: _selectedDeadline,
                     onDateChanged: (picked) => setState(() {
                       _selectedDeadline = picked;
-                      _deadlineError = null;
+                      _deadlineController.text =
+                          '${picked.year}.${picked.month.toString().padLeft(2, '0')}.${picked.day.toString().padLeft(2, '0')}';
                     }),
                   ),
-                  if (_deadlineError != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      _deadlineError!,
-                      style: const TextStyle(
-                        color: AppColors.error,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
                   _buildSizedBox(context),
-                  AppFilledButton(
-                    onPressed: _save,
-                    text: AppLocalizations.of(context)!.save,
-                  ),
+
+                  //save
+                  AppFilledButton(onPressed: _save, text: AppLocalizations.of(context)!.save),
                 ],
               ),
             ),
@@ -139,16 +126,11 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   Text _buildText(String text) {
     return Text(
       text,
-      style: const TextStyle(
-        color: AppColors.textPrimary,
-        fontWeight: FontWeight.bold,
-      ),
+      style: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
     );
   }
 
   SizedBox _buildSizedBox(BuildContext context) {
-    return SizedBox(
-      height: Responsive.sizedBoxHeight(context, AppSpacing.itemSpacing),
-    );
+    return SizedBox(height: Responsive.sizedBoxHeight(context, AppSpacing.itemSpacing));
   }
 }

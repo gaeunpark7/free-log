@@ -13,14 +13,8 @@ GoRoute buildProfileRoutes() => GoRoute(
       path: RoutePaths.profileDetail,
       builder: (_, _) => const ProfileDetailScreen(),
       routes: [
-        GoRoute(
-          path: RoutePaths.privacy,
-          builder: (_, _) => const PrivacyPolicyScreen(),
-        ),
-        GoRoute(
-          path: RoutePaths.deleteUser,
-          builder: (_, _) => const DeleteUserScreen(),
-        ),
+        GoRoute(path: RoutePaths.privacy, builder: (_, _) => const PrivacyPolicyScreen()),
+        GoRoute(path: RoutePaths.deleteUser, builder: (_, _) => const DeleteUserScreen()),
       ],
     ),
   ],

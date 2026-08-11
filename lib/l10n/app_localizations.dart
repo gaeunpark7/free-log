@@ -524,11 +524,11 @@ abstract class AppLocalizations {
   /// **'판매가'**
   String get sellingPrice;
 
-  /// No description provided for @settings.
+  /// No description provided for @settingsBasic.
   ///
   /// In ko, this message translates to:
-  /// **'설정'**
-  String get settings;
+  /// **'기본 설정'**
+  String get settingsBasic;
 
   /// No description provided for @defaultHourlyRate.
   ///
@@ -956,6 +956,12 @@ abstract class AppLocalizations {
   /// **'계정 관리'**
   String get account;
 
+  /// No description provided for @settings.
+  ///
+  /// In ko, this message translates to:
+  /// **'설정'**
+  String get settings;
+
   /// No description provided for @settingsData.
   ///
   /// In ko, this message translates to:
@@ -1093,6 +1099,42 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.'**
   String get deleteAccountDialogMessage;
+
+  /// No description provided for @empty_project_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'아직 프로젝트가 없어요'**
+  String get empty_project_title;
+
+  /// No description provided for @empty_project_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'새 프로젝트를 만들어 시작해보세요'**
+  String get empty_project_description;
+
+  /// No description provided for @feedbackFormOpenFailed.
+  ///
+  /// In ko, this message translates to:
+  /// **'링크를 열 수 없습니다.'**
+  String get feedbackFormOpenFailed;
+
+  /// No description provided for @feedbackFormError.
+  ///
+  /// In ko, this message translates to:
+  /// **'링크를 여는 중 오류가 발생했습니다.'**
+  String get feedbackFormError;
+
+  /// No description provided for @completedTasks.
+  ///
+  /// In ko, this message translates to:
+  /// **'완료한 작업'**
+  String get completedTasks;
+
+  /// No description provided for @retry.
+  ///
+  /// In ko, this message translates to:
+  /// **'다시 시도'**
+  String get retry;
 }
 
 class _AppLocalizationsDelegate

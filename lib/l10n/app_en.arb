@@ -27,7 +27,7 @@
 
   "deadline": "Deadline",
   "deadlineHint": "YYYY-MM-DD",
-  "deadlineError":"    Please select a deadline",
+  "deadlineError":"Please select a deadline",
 
   "save": "Save",
   "cancel": "Cancel",
@@ -95,6 +95,8 @@
   "sellingPrice": "Selling Price",
 
   "settings": "Settings",
+  "settingsBasic": "Settings",
+
   "defaultHourlyRate": "Default Hourly Rate",
   "defaultMargin": "Default Margin Rate",
   "deadlineReminders":"Deadline Reminders",
@@ -159,7 +161,7 @@
   "nicknameError":"Please enter a nickname",
   "email":"Email",
 
-  "failUser": "Failed to load user information.",
+  "userFailled": "Failed to load user information.",
   "fetchFailed":"ailed to load data",
   "saveFailed": "Request failed. Please try again",
   "checkInternet":"Please check your internet connection.",
@@ -203,6 +205,16 @@
   
   "deleteAccountAgreementCheckbox": "I have read all the notice items and agree to delete my account.",
   
-  "deleteAccountDialogMessage": "Upon deleting your account, all data will be erased and cannot be restored."
+  "deleteAccountDialogMessage": "Upon deleting your account, all data will be erased and cannot be restored.",
+
+  "empty_project_title": "No projects yet",
+  "empty_project_description": "Create your first project to get started",
+
+  "feedbackFormOpenFailed": "Unable to open the link.",
+  "feedbackFormError": "An error occurred while opening the link.",
+
+  "completedTasks": "Completed Tasks",
+
+  "retry": "Retry"
 
 }
