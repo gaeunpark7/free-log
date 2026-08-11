@@ -9,6 +9,7 @@ import 'package:free_log/core/utils/time_entry_utils.dart';
 import 'package:free_log/core/utils/time_utils.dart';
 import 'package:free_log/core/widgets/app_content_layout_widget.dart';
 import 'package:free_log/features/home/domain/model/project_model.dart';
+import 'package:free_log/features/home/domain/model/time_entry_model.dart';
 import 'package:free_log/features/home/presentation/providers/project_provider.dart';
 import 'package:free_log/features/home/presentation/providers/time_entry_provider.dart';
 import 'package:free_log/features/home/presentation/widgets/home_detail/time_entries/detail/edit_entry_dialog.dart';
@@ -27,17 +28,12 @@ class TimeEntryScreen extends ConsumerWidget {
         ref
             .watch(projectNotifierProvider)
             .valueOrNull
-            ?.firstWhere(
-              (p) => p.id == projectId,
-              orElse: () => const ProjectModel(title: ''),
-            )
+            ?.firstWhere((p) => p.id == projectId, orElse: () => const ProjectModel(title: ''))
             .title ??
         '';
 
     ref.listen(projectNotifierProvider, (prve, next) {
-      next.whenOrNull(
-        error: (error, _) => ErrorHandler.showSnackBar(context, error),
-      );
+      next.whenOrNull(error: (error, _) => ErrorHandler.showSnackBar(context, error));
     });
     return Scaffold(
       appBar: AppBar(
@@ -54,96 +50,29 @@ class TimeEntryScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 총 작업시간 카드
               Expanded(
                 child: Padding(
                   padding: Responsive.screenPadding(context),
                   child: Column(
                     children: [
-                      Container(
-                        padding: Responsive.cardPadding(context),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.borderDefault),
-                        ),
-                        child: switch (asyncEntries) {
-                          AsyncError(:final error) => ErrorView(
-                            message: ErrorHandler.getMessage(context, error),
-                          ),
-                          AsyncLoading() => const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          AsyncData(value: final entries) => Builder(
-                            builder: (context) {
-                              final totalMinutes = entries.fold(
-                                0,
-                                (sum, e) => sum + e.minutes,
-                              );
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        )!.totalTimeEntries,
-                                        style: AppTextStyles.bodyBold(context),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '$projectName ⦁ ${entries.length}',
-                                            style: AppTextStyles.caption(
-                                              context,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    TimeUtils.format(totalMinutes),
-                                    style: AppTextStyles.title(context)
-                                        .copyWith(
-                                          color: totalMinutes == 0
-                                              ? Colors.grey
-                                              : AppColors.textPrimary,
-                                        ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                          _ => const SizedBox.shrink(),
-                        },
-                      ),
+                      //총 작업 시간 card
+                      _buildTotalCard(context, ref, asyncEntries, projectName),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.timeEntries,
-                            style: AppTextStyles.subTitleBold(context),
-                          ),
-                        ],
-                      ),
+
+                      //작업 시간
+                      _buildWorkText(context),
                       const SizedBox(height: 8),
+
                       //시간 listView
                       switch (asyncEntries) {
                         AsyncLoading() => const Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.primary,
-                          ),
+                          child: CircularProgressIndicator(color: AppColors.primary),
                         ),
                         AsyncError(:final error) => ErrorView(
                           message: ErrorHandler.getMessage(context, error),
+                          onRetry: () {
+                            ref.invalidate(timeEntryNotifierProvider);
+                          },
                         ),
                         AsyncData(value: final entries) =>
                           entries.isEmpty
@@ -156,18 +85,14 @@ class TimeEntryScreen extends ConsumerWidget {
                                       return GestureDetector(
                                         onTap: () => showDialog(
                                           context: context,
-                                          builder: (_) => TimeEntryDialog(
-                                            entry: entry,
-                                            projectId: projectId,
-                                          ),
+                                          builder: (_) =>
+                                              TimeEntryDialog(entry: entry, projectId: projectId),
                                         ),
                                         child: TimeEntryListView(
                                           entry: entry,
                                           weekdayLabel: (dt) => formatWeekday(
                                             dt,
-                                            Localizations.localeOf(
-                                              context,
-                                            ).languageCode,
+                                            Localizations.localeOf(context).languageCode,
                                           ),
                                           formatHours: formatHours,
                                         ),
@@ -185,6 +110,69 @@ class TimeEntryScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Row _buildWorkText(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(AppLocalizations.of(context)!.timeEntries, style: AppTextStyles.subTitleBold(context)),
+      ],
+    );
+  }
+
+  Container _buildTotalCard(
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<List<TimeEntryModel>> asyncEntries,
+    String projectName,
+  ) {
+    return Container(
+      padding: Responsive.cardPadding(context),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.borderDefault),
+      ),
+      child: switch (asyncEntries) {
+        AsyncError(:final error) => ErrorView(message: ErrorHandler.getMessage(context, error)),
+        AsyncLoading() => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
+        AsyncData(value: final entries) => Builder(
+          builder: (context) {
+            final totalMinutes = entries.fold(0, (sum, e) => sum + e.minutes);
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.totalTimeEntries,
+                      style: AppTextStyles.bodyBold(context),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '$projectName ⦁ ${entries.length}',
+                          style: AppTextStyles.caption(context),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Text(
+                  TimeUtils.format(totalMinutes),
+                  style: AppTextStyles.title(
+                    context,
+                  ).copyWith(color: totalMinutes == 0 ? Colors.grey : AppColors.textPrimary),
+                ),
+              ],
+            );
+          },
+        ),
+        _ => const SizedBox.shrink(),
+      },
     );
   }
 }

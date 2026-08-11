@@ -227,5 +227,7 @@
 
   "feedbackFormOpenFailed": "링크를 열 수 없습니다.",
   "feedbackFormError": "링크를 여는 중 오류가 발생했습니다.",
-  "completedTasks": "완료한 작업"
+  "completedTasks": "완료한 작업",
+
+  "retry": "다시 시도"
 }

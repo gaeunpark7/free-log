@@ -46,7 +46,12 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               if (asyncProfile.hasValue)
                 ProfileCard(user: asyncProfile.value)
               else if (asyncProfile.hasError)
-                ErrorView(message: ErrorHandler.getMessage(context, asyncProfile.error!))
+                ErrorView(
+                  message: ErrorHandler.getMessage(context, asyncProfile.error!),
+                  onRetry: () {
+                    ref.invalidate(profileProvider);
+                  },
+                )
               else
                 const Center(child: CircularProgressIndicator()),
               const SizedBox(height: 12),

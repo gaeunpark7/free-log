@@ -568,4 +568,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get completedTasks => 'Completed Tasks';
+
+  @override
+  String get retry => 'Retry';
 }

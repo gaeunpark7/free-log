@@ -18,8 +18,7 @@ class DetailIncomeWidget extends ConsumerStatefulWidget {
   final String projectId;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _DetailIncomeWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _DetailIncomeWidgetState();
 }
 
 class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
@@ -92,9 +91,7 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                     },
                     child: Text(
                       AppLocalizations.of(context)!.addTodo,
-                      style: AppTextStyles.body(
-                        context,
-                      ).copyWith(color: AppColors.primary),
+                      style: AppTextStyles.body(context).copyWith(color: AppColors.primary),
                     ),
                   ),
                 ],
@@ -103,9 +100,7 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                 const SizedBox(height: 12),
                 Text(
                   AppLocalizations.of(context)!.item,
-                  style: AppTextStyles.captionBold(
-                    context,
-                  ).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 AppTextField(
@@ -119,9 +114,7 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                 //금액
                 Text(
                   AppLocalizations.of(context)!.amount,
-                  style: AppTextStyles.captionBold(
-                    context,
-                  ).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 HourlyRateField(
@@ -135,16 +128,13 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                 //날짜
                 Text(
                   AppLocalizations.of(context)!.date,
-                  style: AppTextStyles.captionBold(
-                    context,
-                  ).copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.captionBold(context).copyWith(color: AppColors.textPrimary),
                 ),
                 const SizedBox(height: 4),
                 DatePickerField(
                   selectedDate: _selectedDate,
                   icon: Icons.event,
-                  onDateChanged: (picked) =>
-                      setState(() => _selectedDate = picked),
+                  onDateChanged: (picked) => setState(() => _selectedDate = picked),
                 ),
                 const SizedBox(height: 12),
                 AppFilledButton(
@@ -166,8 +156,12 @@ class _DetailIncomeWidgetState extends ConsumerState<DetailIncomeWidget> {
                         constraints: const BoxConstraints(maxHeight: 230),
                         child: IncomeListView(income: value),
                       ),
-                error: (error, _) =>
-                    ErrorView(message: ErrorHandler.getMessage(context, error)),
+                error: (error, _) => ErrorView(
+                  message: ErrorHandler.getMessage(context, error),
+                  onRetry: () {
+                    ref.invalidate(incomeNotifierProvider);
+                  },
+                ),
               ),
             ],
           ),

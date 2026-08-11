@@ -117,7 +117,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             },
           );
         },
-        error: (e, _) => ErrorView(message: ErrorHandler.getMessage(context, e)),
+        error: (e, _) => ErrorView(
+          message: ErrorHandler.getMessage(context, e),
+          onRetry: () {
+            ref.invalidate(projectNotifierProvider);
+          },
+        ),
         loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
       ),
     );

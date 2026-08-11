@@ -1129,6 +1129,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'완료한 작업'**
   String get completedTasks;
+
+  /// No description provided for @retry.
+  ///
+  /// In ko, this message translates to:
+  /// **'다시 시도'**
+  String get retry;
 }
 
 class _AppLocalizationsDelegate

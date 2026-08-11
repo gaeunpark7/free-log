@@ -36,9 +36,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
   void _changeMonth(DateTime day) {
     setState(() => _focusedDay = day);
-    ref
-        .read(calendarNotifierProvider.notifier)
-        .changeMonth(day.year, day.month);
+    ref.read(calendarNotifierProvider.notifier).changeMonth(day.year, day.month);
   }
 
   void _showDayDetail(DateTime day) {
@@ -89,16 +87,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Widget _buildSummaryCard(
-    AsyncValue<Map<DateTime, CalendarDataModel>> asyncCalendar,
-  ) {
+  Widget _buildSummaryCard(AsyncValue<Map<DateTime, CalendarDataModel>> asyncCalendar) {
     return switch (asyncCalendar) {
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
-      AsyncError() => const SummaryCardWidget(
-        totalHours: 0,
-        totalIncome: 0,
-        totalExpense: 0,
-      ),
+      AsyncError() => const SummaryCardWidget(totalHours: 0, totalIncome: 0, totalExpense: 0),
       AsyncData(:final value) => SummaryCardWidget(
         totalHours: value.totalMinutes,
         totalIncome: value.totalIncome,
@@ -122,10 +114,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               ),
               Text(
                 FrelogDateUtils.formatYearMonth(context, _focusedDay),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               IconButton(
                 onPressed: _nextMonth,

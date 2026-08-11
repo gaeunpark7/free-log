@@ -543,4 +543,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get completedTasks => '완료한 작업';
+
+  @override
+  String get retry => '다시 시도';
 }

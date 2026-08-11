@@ -213,6 +213,8 @@
   "feedbackFormOpenFailed": "Unable to open the link.",
   "feedbackFormError": "An error occurred while opening the link.",
 
-  "completedTasks": "Completed Tasks"
+  "completedTasks": "Completed Tasks",
+
+  "retry": "Retry"
 
 }

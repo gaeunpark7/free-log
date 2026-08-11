@@ -156,7 +156,12 @@ class _DetailExpenseWidgetState extends ConsumerState<DetailExpenseWidget> {
                         constraints: const BoxConstraints(maxHeight: 230),
                         child: ExpenseListView(expense: value),
                       ),
-                error: (error, _) => ErrorView(message: ErrorHandler.getMessage(context, error)),
+                error: (error, _) => ErrorView(
+                  message: ErrorHandler.getMessage(context, error),
+                  onRetry: () {
+                    ref.invalidate(expenseNotifierProvider);
+                  },
+                ),
               ),
             ],
           ),

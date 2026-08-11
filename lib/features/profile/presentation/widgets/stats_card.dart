@@ -44,6 +44,9 @@ class _StatsCardState extends ConsumerState<StatsCard> {
               AsyncLoading() => const Center(child: CircularProgressIndicator()),
               AsyncError(:final error) => ErrorView(
                 message: ErrorHandler.getMessage(context, error),
+                onRetry: () {
+                  ref.invalidate(profileStatsProvider);
+                },
               ),
               AsyncData(:final value) => Column(
                 children: [
