@@ -5,7 +5,7 @@
 </p>
 
 > **"프로젝트 관리부터 작업시간 기록, 수익 계산까지 한 번에 관리하는 프리랜서 작업 관리 앱"**<br>
-> 프로젝트 관리, 작업시간 기록, 수익·지출 관리, 캘린더 및 통계를 하나의 앱에서 제공하여 프리랜서의 업무 관리를 지원합니다.
+> 프로젝트 관리, 작업시간 기록, 수익 및 지출 관리, 캘린더, 통계를 하나의 앱에서 제공하여 프리랜서의 업무 관리를 지원합니다.
 
 <br>
 <br>
@@ -67,8 +67,12 @@ lib/
 <br>
 
 ## 📥 Download
-- 현재 Google Play 비공개 테스트 진행 중
-- 배포 예정: 2026년 8월
+<p align="left">
+  <a href="https://play.google.com/store/apps/details?id=com.ag.freelog">
+    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="120">
+  </a>
+  
+</p>
 
 <br>
 
